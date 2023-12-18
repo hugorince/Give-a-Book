@@ -25,6 +25,9 @@
     "typescript": "^5"
   },
   "lint-staged": {
-    "*.{js,jsx}": "eslint --fix"
-}
+    "**/*.{js,jsx,ts,tsx}": [
+      "npx prettier --write",
+      "npx eslint --fix"
+    ]
+  }
 }
