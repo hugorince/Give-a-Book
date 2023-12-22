@@ -36,6 +36,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^15.2.0",
     "prisma": "^5.7.1",
+    "supabase": "^1.123.4",
     "typescript": "^5"
   },
   "lint-staged": {
