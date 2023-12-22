@@ -5,33 +5,33 @@ import { supabase } from "../../../../supabase";
 export const POST = async (req: Request) => {
   try {
     const body = await req.json();
-    const { email, username } = body;
+    const { email, username, password } = body;
 
-    // const existingUserByEmail = await db.user.findUnique({
-    //   where: { email: email },
-    // });
-    // if (existingUserByEmail) {
-    //   return NextResponse.json(
-    //     {
-    //       user: null,
-    //       message: "user already registered",
-    //     },
-    //     { status: 409 }
-    //   );
-    // }
+    const existingUserByEmail = await db.user.findUnique({
+      where: { email: email },
+    });
+    if (existingUserByEmail) {
+      return NextResponse.json(
+        {
+          user: null,
+          message: "user already registered",
+        },
+        { status: 409 },
+      );
+    }
 
-    // const existingUserByUsername = await db.user.findUnique({
-    //   where: { username: username },
-    // });
-    // if (existingUserByUsername) {
-    //   return NextResponse.json(
-    //     {
-    //       user: null,
-    //       message: "user already registered",
-    //     },
-    //     { status: 409 }
-    //   );
-    // }
+    const existingUserByUsername = await db.user.findUnique({
+      where: { username: username },
+    });
+    if (existingUserByUsername) {
+      return NextResponse.json(
+        {
+          user: null,
+          message: "user already registered",
+        },
+        { status: 409 },
+      );
+    }
 
     // const newUser = await db.user.create({
     //   data: {
@@ -40,8 +40,8 @@ export const POST = async (req: Request) => {
     //   },
     // });
     const { data, error } = await supabase.auth.signUp({
-      email: "example@email.com",
-      password: "example-password",
+      email: email,
+      password: password,
     });
 
     return NextResponse.json({ user: data, error: error });
