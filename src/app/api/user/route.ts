@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { db } from "@/libs/database/db";
-import { supabase } from "../../../../supabase";
 
 export const POST = async (req: Request) => {
   try {
@@ -33,17 +32,18 @@ export const POST = async (req: Request) => {
       );
     }
 
-    // const newUser = await db.user.create({
-    //   data: {
-    //     email: email,
-    //     username: username,
-    //   },
-    // });
-    const { data, error } = await supabase.auth.signUp({
-      email: email,
-      password: password,
+    const encryptedPassword = password;
+
+    const newUser = await db.user.create({
+      data: {
+        email: email,
+        username: username,
+        password: encryptedPassword,
+      },
     });
 
-    return NextResponse.json({ user: data, error: error });
-  } catch (error) {}
+    return NextResponse.json({ email: email, username: username });
+  } catch (error) {
+    return NextResponse.json(error);
+  }
 };

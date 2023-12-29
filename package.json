@@ -13,7 +13,6 @@
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
     "@prisma/client": "^5.7.1",
-    "@supabase/supabase-js": "^2.39.1",
     "next": "14.0.4",
     "postcss": "^8.4.32",
     "postcss-custom-media": "^10.0.2",
@@ -36,7 +35,6 @@
     "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^15.2.0",
     "prisma": "^5.7.1",
-    "supabase": "^1.123.4",
     "typescript": "^5"
   },
   "lint-staged": {
