@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const FormSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email"),
@@ -14,6 +15,8 @@ const FormSchema = z.object({
 });
 
 export const LoginForm = () => {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -31,7 +34,7 @@ export const LoginForm = () => {
     if (signInData?.error) {
       console.log(signInData.error, "error");
     } else {
-      console.log("logged in!");
+      router.push("/");
     }
   };
 
