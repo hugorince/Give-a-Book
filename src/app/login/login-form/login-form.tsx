@@ -5,6 +5,7 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import classes from "./login-form.module.css";
 
 const FormSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email"),
@@ -39,10 +40,21 @@ export const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)}>
-      <input type="email" {...form.register("email")} />
-      <input type="password" {...form.register("password")} />
-      <button type="submit">submit</button>
+    <form
+      onSubmit={form.handleSubmit(onSubmit)}
+      className={classes.formWrapper}
+    >
+      <input
+        type="email"
+        {...form.register("email")}
+        placeholder="mail@mail.com"
+      />
+      <input
+        type="password"
+        {...form.register("password")}
+        placeholder="password"
+      />
+      <button type="submit">log in</button>
     </form>
   );
 };
