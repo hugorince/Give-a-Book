@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import classes from "./signup-form.module.css";
 
 const FormSchema = z
   .object({
@@ -51,11 +52,30 @@ export const SignUpForm = () => {
     }
   };
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)}>
-      <input type="text" {...form.register("username")} />
-      <input type="email" {...form.register("email")} />
-      <input type="password" {...form.register("password")} />
-      <input type="password" {...form.register("confirmPassword")} />
+    <form
+      onSubmit={form.handleSubmit(onSubmit)}
+      className={classes.formWrapper}
+    >
+      <input
+        type="text"
+        {...form.register("username")}
+        placeholder="username"
+      />
+      <input
+        type="email"
+        {...form.register("email")}
+        placeholder="mail@mail.com"
+      />
+      <input
+        type="password"
+        {...form.register("password")}
+        placeholder="password"
+      />
+      <input
+        type="password"
+        {...form.register("confirmPassword")}
+        placeholder="confirm password"
+      />
       <button type="submit">submit</button>
     </form>
   );
