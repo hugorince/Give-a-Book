@@ -1,30 +1,16 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { SignUpFormSchema } from "@/libs/types";
+import * as z from "zod";
 import { useRouter } from "next/navigation";
 import classes from "./signup-form.module.css";
 
-const FormSchema = z
-  .object({
-    username: z.string().min(1, "Username is required").max(100),
-    email: z.string().min(1, "Email is required").email("Invalid email"),
-    password: z
-      .string()
-      .min(1, "Password is required")
-      .min(8, "Password must have than 8 characters"),
-    confirmPassword: z.string().min(1, "Password confirmation is required"),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    path: ["confirmPassword"],
-    message: "Password do not match",
-  });
-
 export const SignUpForm = () => {
   const router = useRouter();
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
+  const form = useForm<z.infer<typeof SignUpFormSchema>>({
+    resolver: zodResolver(SignUpFormSchema),
     defaultValues: {
       username: "",
       email: "",
@@ -33,7 +19,7 @@ export const SignUpForm = () => {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof FormSchema>) => {
+  const onSubmit = async (values: z.infer<typeof SignUpFormSchema>) => {
     const response = await fetch("/api/user", {
       method: "POST",
       headers: {
