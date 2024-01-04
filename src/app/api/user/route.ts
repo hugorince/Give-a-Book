@@ -74,8 +74,10 @@ export const POST = async (req: Request) => {
 
 export const PATCH = async (req: Request) => {
   try {
+    //retrieve user data logic in update-profile component with db.findUnique etc...
     const body = await req.json();
     const { email, username, password } = userSchema.parse(body);
+
     return NextResponse.json(
       {
         user: email,
