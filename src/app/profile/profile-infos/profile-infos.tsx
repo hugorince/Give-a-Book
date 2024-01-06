@@ -2,8 +2,19 @@
 
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
 import { UpdateProfileInput } from "../update-profile/update-profile-form/update-profile-input/update-profile-input";
+
+const userSchemaWithId = z.object({
+  username: z.string().min(1, "Username is required").max(100).optional(),
+  email: z
+    .string()
+    .min(1, "Email is required")
+    .email("Invalid email")
+    .optional(),
+});
 
 export const ProfileInfos = () => {
   const [updateInput, setUpdateInput] = useState({
@@ -13,7 +24,7 @@ export const ProfileInfos = () => {
 
   const { data: session, update } = useSession();
 
-  const form = useForm({
+  const form = useForm<z.infer<typeof userSchemaWithId>>({
     defaultValues: {
       username: "",
       email: "",
@@ -41,14 +52,14 @@ export const ProfileInfos = () => {
     });
   };
 
-  const onSubmit = async (values: any) => {
+  const onSubmit = async (values: z.infer<typeof userSchemaWithId>) => {
     const response = await fetch("/api/user", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: session?.user.email,
+        sessionEmail: session?.user.email,
         [updateInput.label]: values[`${updateInput.label}`],
       }),
     });
