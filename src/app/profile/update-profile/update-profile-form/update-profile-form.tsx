@@ -3,7 +3,7 @@
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { authOptions } from "@/libs/auth/auth";
 
 const userSchemaWithId = z.object({
@@ -12,6 +12,7 @@ const userSchemaWithId = z.object({
 });
 
 export const UpdateProfileForm = () => {
+  const { data: session, update } = useSession();
   const form = useForm<z.infer<typeof userSchemaWithId>>({
     resolver: zodResolver(userSchemaWithId),
     defaultValues: {
@@ -32,6 +33,13 @@ export const UpdateProfileForm = () => {
       }),
     });
     if (response.ok) {
+      await update({
+        ...session,
+        user: {
+          ...session?.user,
+          username: values.username,
+        },
+      });
       console.log("user updated, please re-login to see the effect");
     } else {
       console.error("Registration failed");
