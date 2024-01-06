@@ -5,7 +5,8 @@ import { FormProvider, useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
-import { UpdateProfileInput } from "../update-profile/update-profile-form/update-profile-input/update-profile-input";
+import { UpdateProfileInput } from "../update-profile-input/update-profile-input";
+import classes from "./profile.infos.module.css";
 
 const userSchemaWithId = z.object({
   username: z.string().min(1, "Username is required").max(100).optional(),
@@ -25,6 +26,7 @@ export const ProfileInfos = () => {
   const { data: session, update } = useSession();
 
   const form = useForm<z.infer<typeof userSchemaWithId>>({
+    resolver: zodResolver(userSchemaWithId),
     defaultValues: {
       username: "",
       email: "",
@@ -80,6 +82,7 @@ export const ProfileInfos = () => {
   return (
     <FormProvider {...form}>
       <h1>Welcome {session?.user.username}</h1>
+      <h2>your information</h2>
       {updateInput.label === "username" ? (
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <UpdateProfileInput type={updateInput} />
@@ -89,7 +92,9 @@ export const ProfileInfos = () => {
       ) : (
         <div>
           <p>username: {session?.user.username}</p>
-          <button onClick={handleOnClick}>update</button>
+          <button onClick={handleOnClick} className={classes.updateButton}>
+            update
+          </button>
         </div>
       )}
       {updateInput.label === "email" ? (
@@ -101,7 +106,9 @@ export const ProfileInfos = () => {
       ) : (
         <div>
           <p>email: {session?.user.email}</p>
-          <button onClick={handleOnClickEmail}>update</button>
+          <button onClick={handleOnClickEmail} className={classes.updateButton}>
+            update
+          </button>
         </div>
       )}
     </FormProvider>
