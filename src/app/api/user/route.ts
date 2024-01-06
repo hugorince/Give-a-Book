@@ -13,8 +13,13 @@ const userSchema = z.object({
 });
 
 const userSchemaWithId = z.object({
-  username: z.string().min(1, "Username is required").max(100),
-  email: z.string().min(1, "Email is required").email("Invalid email"),
+  username: z.string().min(1, "Username is required").max(100).optional(),
+  email: z
+    .string()
+    .min(1, "Email is required")
+    .email("Invalid email")
+    .optional(),
+  sessionEmail: z.string().min(1, "Email is required").email("Invalid email"),
 });
 
 export const POST = async (req: Request) => {
@@ -77,13 +82,11 @@ export const POST = async (req: Request) => {
 
 export const PATCH = async (req: Request) => {
   try {
-    //retrieve user data logic in update-profile component with db.findUnique etc...
     const body = await req.json();
-
-    const { email, username } = userSchemaWithId.parse(body);
+    const { sessionEmail, username, email } = userSchemaWithId.parse(body);
 
     const existingUser = await db.user.findUnique({
-      where: { email: email },
+      where: { email: sessionEmail },
     });
 
     if (!existingUser) {
@@ -96,18 +99,30 @@ export const PATCH = async (req: Request) => {
       );
     }
 
-    const modifiedUser = await db.user.update({
-      where: {
-        email: email,
-      },
-      data: {
-        username: username,
-      },
-    });
+    if (username) {
+      const modifiedUser = await db.user.update({
+        where: {
+          email: sessionEmail,
+        },
+        data: {
+          username: username,
+        },
+      });
+    }
+
+    if (email) {
+      const modifiedUser = await db.user.update({
+        where: {
+          email: sessionEmail,
+        },
+        data: {
+          email: email,
+        },
+      });
+    }
 
     return NextResponse.json(
       {
-        username: modifiedUser.username,
         email: email,
         message: "user modified successfully",
       },
