@@ -2,8 +2,6 @@ import { NextResponse } from "next/server";
 import { db } from "@/libs/database";
 import { hash } from "bcrypt";
 import * as z from "zod";
-import { authOptions } from "@/libs/auth/auth";
-import { getServerSession } from "next-auth";
 
 const userSchema = z.object({
   username: z.string().min(1, "Username is required").max(100),
@@ -12,6 +10,11 @@ const userSchema = z.object({
     .string()
     .min(1, "Password is required")
     .min(8, "Password must have than 8 characters"),
+});
+
+const userSchemaWithId = z.object({
+  username: z.string().min(1, "Username is required").max(100),
+  email: z.string().min(1, "Email is required").email("Invalid email"),
 });
 
 export const POST = async (req: Request) => {
@@ -76,16 +79,42 @@ export const PATCH = async (req: Request) => {
   try {
     //retrieve user data logic in update-profile component with db.findUnique etc...
     const body = await req.json();
-    const { email, username, password } = userSchema.parse(body);
+
+    const { email, username } = userSchemaWithId.parse(body);
+
+    const existingUser = await db.user.findUnique({
+      where: { email: email },
+    });
+
+    if (!existingUser) {
+      return NextResponse.json(
+        {
+          user: null,
+          message: "user not found",
+        },
+        { status: 409 },
+      );
+    }
+
+    const modifiedUser = await db.user.update({
+      where: {
+        email: email,
+      },
+      data: {
+        username: username,
+      },
+    });
 
     return NextResponse.json(
       {
-        user: email,
-        message: "user got successfully",
+        username: modifiedUser.username,
+        email: email,
+        message: "user modified successfully",
       },
       { status: 201 },
     );
   } catch (err) {
+    console.log(err);
     return NextResponse.json(
       { message: "Something wen wrong" },
       { status: 500 },
