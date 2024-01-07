@@ -33,7 +33,7 @@ export const ProfileInfos = () => {
     },
   });
 
-  const handleOnClick = () => {
+  const handleOnClickUsername = () => {
     setUpdateInput({
       label: "username",
       placeholder: "username",
@@ -62,7 +62,8 @@ export const ProfileInfos = () => {
       },
       body: JSON.stringify({
         sessionEmail: session?.user.email,
-        [updateInput.label]: values[`${updateInput.label}`],
+        [updateInput.label]:
+          values[`${updateInput.label}` as keyof typeof values],
       }),
     });
     if (response.ok) {
@@ -70,7 +71,7 @@ export const ProfileInfos = () => {
         ...session,
         user: {
           ...session?.user,
-          [updateInput.label]: values[`${updateInput.label}`],
+          [updateInput.label]: values[updateInput.label as keyof typeof values],
         },
       });
       console.log("user updated, please re-login to see the effect");
@@ -92,7 +93,10 @@ export const ProfileInfos = () => {
       ) : (
         <div>
           <p>username: {session?.user.username}</p>
-          <button onClick={handleOnClick} className={classes.updateButton}>
+          <button
+            onClick={handleOnClickUsername}
+            className={classes.updateButton}
+          >
             update
           </button>
         </div>
