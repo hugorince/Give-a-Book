@@ -9,6 +9,47 @@ const bookSchema = z.object({
   userId: z.number(),
 });
 
+export const GET = async (req: Request) => {
+  try {
+    // if (req) {
+    //   const body = await req.json();
+    //   const { id } = body;
+
+    //   const book = await db.book.findUnique({
+    //     where: {
+    //       id: id,
+    //     },
+    //   });
+
+    //   if (book) {
+    //     return NextResponse.json(
+    //       {
+    //         book: book,
+    //         message: "book retrieved",
+    //       },
+    //       { status: 201 }
+    //     );
+    //   }
+    // }
+
+    const books = await db.book.findMany();
+
+    return NextResponse.json(
+      {
+        books: books,
+        message: "all books",
+      },
+      { status: 201 },
+    );
+  } catch (err) {
+    console.log(err);
+    return NextResponse.json(
+      { message: "Something wen wrong" },
+      { status: 500 },
+    );
+  }
+};
+
 export const POST = async (req: Request) => {
   try {
     const body = await req.json();
