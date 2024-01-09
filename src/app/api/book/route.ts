@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/libs/database";
 import * as z from "zod";
 
@@ -9,28 +9,26 @@ const bookSchema = z.object({
   userId: z.number(),
 });
 
-export const GET = async (req: Request) => {
+export const GET = async (req: NextRequest) => {
   try {
-    // if (req) {
-    //   const body = await req.json();
-    //   const { id } = body;
+    const searchParams = req.nextUrl.searchParams;
+    const id = searchParams.get("id");
 
-    //   const book = await db.book.findUnique({
-    //     where: {
-    //       id: id,
-    //     },
-    //   });
+    if (id) {
+      const book = await db.book.findUnique({
+        where: {
+          id: parseInt(id),
+        },
+      });
 
-    //   if (book) {
-    //     return NextResponse.json(
-    //       {
-    //         book: book,
-    //         message: "book retrieved",
-    //       },
-    //       { status: 201 }
-    //     );
-    //   }
-    // }
+      return NextResponse.json(
+        {
+          book: book,
+          message: "all books",
+        },
+        { status: 201 },
+      );
+    }
 
     const books = await db.book.findMany();
 
