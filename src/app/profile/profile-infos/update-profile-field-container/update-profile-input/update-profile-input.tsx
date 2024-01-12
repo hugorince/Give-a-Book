@@ -3,19 +3,16 @@
 import { useFormContext } from "react-hook-form";
 
 export interface UpdateProfileProps {
-  type: {
-    label: string;
-    placeholder: string;
-  };
+  type: "email" | "username";
 }
 
 export const UpdateProfileInput = ({ type }: UpdateProfileProps) => {
   const form = useFormContext();
   return (
     <input
-      type={type.label}
-      {...form.register(type.label)}
-      placeholder={type.placeholder}
+      type={type}
+      {...form.register(type)}
+      placeholder={type === "email" ? "mail@mail.com" : type}
     />
   );
 };
