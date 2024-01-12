@@ -2,7 +2,7 @@
 
 import { useFormContext } from "react-hook-form";
 
-interface UpdateProfileProps {
+export interface UpdateProfileProps {
   type: {
     label: string;
     placeholder: string;

@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
-import { UpdateProfileInput } from "../update-profile-input/update-profile-input";
+import { UpdateProfileInput } from "../update-profile-field-container/update-profile-input/update-profile-input";
 import classes from "./profile.infos.module.css";
+import { UpdateProfileFieldContainer } from "../update-profile-field-container";
 
 const userSchemaWithId = z.object({
   username: z.string().min(1, "Username is required").max(100).optional(),
@@ -26,7 +26,6 @@ export const ProfileInfos = () => {
   const { data: session, update } = useSession();
 
   const form = useForm<z.infer<typeof userSchemaWithId>>({
-    resolver: zodResolver(userSchemaWithId),
     defaultValues: {
       username: "",
       email: "",
@@ -62,10 +61,10 @@ export const ProfileInfos = () => {
       },
       body: JSON.stringify({
         sessionEmail: session?.user.email,
-        [updateInput.label]:
-          values[`${updateInput.label}` as keyof typeof values],
+        [updateInput.label]: values[updateInput.label as keyof typeof values],
       }),
     });
+
     if (response.ok) {
       await update({
         ...session,
@@ -74,7 +73,7 @@ export const ProfileInfos = () => {
           [updateInput.label]: values[updateInput.label as keyof typeof values],
         },
       });
-      console.log("user updated, please re-login to see the effect");
+      console.log("user's", updateInput.label, " updated");
     } else {
       console.error("Registration failed");
     }
@@ -85,11 +84,11 @@ export const ProfileInfos = () => {
       <h1>Welcome {session?.user.username}</h1>
       <h2>your information</h2>
       {updateInput.label === "username" ? (
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <UpdateProfileInput type={updateInput} />
-          <button type="submit">update</button>
-          <button onClick={handleInputClose}>cancel</button>
-        </form>
+        <UpdateProfileFieldContainer
+          submitForm={form.handleSubmit(onSubmit)}
+          handleInputClose={handleInputClose}
+          updateInput={updateInput}
+        />
       ) : (
         <div>
           <p>username: {session?.user.username}</p>
@@ -102,11 +101,11 @@ export const ProfileInfos = () => {
         </div>
       )}
       {updateInput.label === "email" ? (
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <UpdateProfileInput type={updateInput} />
-          <button>update</button>
-          <button onClick={handleInputClose}>cancel</button>
-        </form>
+        <UpdateProfileFieldContainer
+          submitForm={form.handleSubmit(onSubmit)}
+          handleInputClose={handleInputClose}
+          updateInput={updateInput}
+        />
       ) : (
         <div>
           <p>email: {session?.user.email}</p>
