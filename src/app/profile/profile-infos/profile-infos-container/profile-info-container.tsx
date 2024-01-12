@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { UpdateProfileFieldContainer } from "../update-profile-field-container";
-import { ProfileFieldContainer } from "../profile-field-container";
+import { UpdateProfileFieldContainer } from "./update-profile-field-container";
+import { ProfileFieldContainer } from "./profile-field-container";
+import classes from "./profile-info-container.module.css";
 
 interface ProfileInfoContainerProps {
   type: "email" | "username";
@@ -16,7 +17,8 @@ export const ProfileInfoContainer = ({ type }: ProfileInfoContainerProps) => {
   };
 
   return (
-    <>
+    <div className={classes.container}>
+      <p className={classes.fieldName}>{type}</p>
       {updateInput === type ? (
         <UpdateProfileFieldContainer
           handleInputClose={handleInputClose}
@@ -28,6 +30,6 @@ export const ProfileInfoContainer = ({ type }: ProfileInfoContainerProps) => {
           handleOnClick={() => setUpdateInput(type)}
         />
       )}
-    </>
+    </div>
   );
 };

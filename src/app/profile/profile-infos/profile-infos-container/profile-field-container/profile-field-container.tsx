@@ -12,10 +12,8 @@ export const ProfileFieldContainer = ({
 }: ProfileFieldContainerProps) => {
   const { data: session } = useSession();
   return (
-    <div>
-      <p>
-        {type}: {session?.user[type]}
-      </p>
+    <div className={classes.container}>
+      <p>{session?.user[type]}</p>
       <button onClick={handleOnClick} className={classes.updateButton}>
         update
       </button>

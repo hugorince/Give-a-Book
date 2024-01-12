@@ -8,3 +8,13 @@
   outline: inherit;
   text-decoration: underline;
 }
+
+.container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.fieldName {
+  font-weight: bold;
+  width: 8rem;
+}
