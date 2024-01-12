@@ -1,6 +1,6 @@
 import { ProfileInfos } from "./profile-infos/profile-infos";
 
-export const Profile = () => {
+export const Profile = async () => {
   return (
     <>
       <ProfileInfos />
