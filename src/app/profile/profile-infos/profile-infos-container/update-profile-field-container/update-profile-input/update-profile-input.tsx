@@ -7,11 +7,11 @@ export interface UpdateProfileProps {
 }
 
 export const UpdateProfileInput = ({ type }: UpdateProfileProps) => {
-  const form = useFormContext();
+  const { register } = useFormContext();
   return (
     <input
       type={type}
-      {...form.register(type)}
+      {...register(type)}
       placeholder={type === "email" ? "mail@mail.com" : type}
     />
   );

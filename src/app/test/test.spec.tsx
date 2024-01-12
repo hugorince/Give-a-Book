@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import TestPage from "./page";
 
 describe("test page", () => {
-  it("should render the button", async () => {
+  it("should render the button", () => {
     render(<TestPage />);
     expect(
       screen.getByRole("button", { name: "Test Button" }),

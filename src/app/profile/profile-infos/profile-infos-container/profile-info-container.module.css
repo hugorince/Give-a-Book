@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  gap: 0.5rem;
+  height: 2rem;
+  align-items: center;
+}
+
+.fieldName {
+  font-weight: bold;
+  width: 6rem;
+}
