@@ -108,6 +108,14 @@ export const PATCH = async (req: Request) => {
           username: username,
         },
       });
+
+      return NextResponse.json(
+        {
+          username: modifiedUser.username,
+          message: "user modified successfully",
+        },
+        { status: 201 },
+      );
     }
 
     if (email) {
@@ -119,15 +127,15 @@ export const PATCH = async (req: Request) => {
           email: email,
         },
       });
-    }
 
-    return NextResponse.json(
-      {
-        email: email,
-        message: "user modified successfully",
-      },
-      { status: 201 },
-    );
+      return NextResponse.json(
+        {
+          email: modifiedUser.email,
+          message: "user modified successfully",
+        },
+        { status: 201 },
+      );
+    }
   } catch (err) {
     console.log(err);
     return NextResponse.json(
