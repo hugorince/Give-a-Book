@@ -1,23 +1,29 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import { ProfileInfos } from "./profile-infos";
-import { getServerSession } from "next-auth";
+import { useSession } from "next-auth/react";
 
-jest.mock("next-auth");
+jest.mock("next-auth/react");
 
 const mockSession = {
-  user: {
-    email: "test@example.com",
-    username: "username",
+  update: jest.fn(),
+  data: {
+    user: {
+      email: "test@example.com",
+      username: "hugo",
+    },
   },
+  status: "authenticated",
 };
 
-getServerSession.mockResolvedValue(mockSession);
+const mockUseSession = useSession as jest.MockedFunction<typeof useSession>;
+mockUseSession.mockReturnValue(mockSession);
 
 describe("ProfileInfos", () => {
   it("should render the component", () => {
     render(<ProfileInfos />);
 
     expect(screen.getByText("test@example.com"));
+    expect(screen.getByText("hugo"));
   });
 });

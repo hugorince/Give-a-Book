@@ -1,9 +1,10 @@
-import { getServerSession } from "next-auth";
-import { ProfileInfoContainer } from "./profile-infos-container";
-import { authOptions } from "@/libs/auth/auth";
+"use client";
 
-export const ProfileInfos = async () => {
-  const session = await getServerSession(authOptions);
+import { useSession } from "next-auth/react";
+import { ProfileInfoContainer } from "./profile-infos-container";
+
+export const ProfileInfos = () => {
+  const { data: session, update } = useSession();
   return (
     <div>
       <h1>Welcome {session?.user.username}</h1>
