@@ -1,8 +1,7 @@
 import "@testing-library/jest-dom";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { UpdateProfileFieldContainer } from "./update-profile-field-container";
 import { useSession } from "next-auth/react";
-import { useForm } from "react-hook-form";
 
 jest.mock("next-auth/react");
 const mockSession = {
