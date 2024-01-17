@@ -2,6 +2,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { UpdateProfileInput, UpdateProfileProps } from "./update-profile-input";
 import * as z from "zod";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 interface UpdateProfileFieldContainerProps {
   handleInputClose: () => void;
@@ -30,6 +31,8 @@ export const UpdateProfileFieldContainer = ({
 
   const { data: session, update } = useSession();
 
+  const router = useRouter();
+
   const onSubmit = async (values: z.infer<typeof userSchemaWithId>) => {
     const response = await fetch("/api/user", {
       method: "PATCH",
@@ -51,6 +54,8 @@ export const UpdateProfileFieldContainer = ({
         },
       });
       console.log("user's", updateInput, " updated");
+      handleInputClose();
+      router.refresh();
     } else {
       console.error("Registration failed");
     }
