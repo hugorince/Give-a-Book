@@ -3,13 +3,15 @@
 import { useState } from "react";
 import { UpdateProfileFieldContainer } from "./update-profile-field-container";
 import { ProfileFieldContainer } from "./profile-field-container";
-import classes from "./profile-info-container.module.css";
+import classes from "./update-profile-info-container.module.css";
 
 interface ProfileInfoContainerProps {
   type: "email" | "username";
 }
 
-export const ProfileInfoContainer = ({ type }: ProfileInfoContainerProps) => {
+export const UpdateProfileInfoContainer = ({
+  type,
+}: ProfileInfoContainerProps) => {
   const [updateInput, setUpdateInput] = useState("");
 
   const handleInputClose = () => {
