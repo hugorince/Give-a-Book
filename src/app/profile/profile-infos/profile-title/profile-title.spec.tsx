@@ -1,7 +1,6 @@
 import { render, screen, act } from "@testing-library/react";
 import { ProfileTitle } from "./profile-title";
 
-// Mocking next-auth module
 jest.mock("next-auth", () => ({
   getServerSession: jest.fn(),
 }));

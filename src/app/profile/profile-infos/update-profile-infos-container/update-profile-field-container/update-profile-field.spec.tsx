@@ -1,9 +1,11 @@
+import { UpdateProfileFieldContainer } from "./update-profile-field-container";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import { UpdateProfileFieldContainer } from "./update-profile-field-container";
 import { useSession } from "next-auth/react";
 
 jest.mock("next-auth/react");
+jest.mock("next/navigation");
+
 const mockSession = {
   data: {
     user: {

@@ -1,9 +1,12 @@
-import { ProfileFieldContainer } from "./profile-field-container";
+import {
+  ProfileFieldContainer,
+  ProfileFieldContainerProps,
+} from "./profile-field-container";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import { useSession } from "next-auth/react";
 
-const props = {
+const props: ProfileFieldContainerProps = {
   type: "email",
   handleOnClick: jest.fn(),
 };
