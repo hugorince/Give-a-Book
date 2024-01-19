@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 
 interface Book {
   title: string;
+  image: string;
 }
 
 export const PostBook: React.FC = () => {
@@ -21,8 +22,12 @@ export const PostBook: React.FC = () => {
       .then((data) => {
         const firstThreeBooks: Book[] = (data.items || [])
           .slice(0, 3)
-          .map((item: any) => ({ title: item.volumeInfo.title }));
+          .map((item: any) => ({
+            title: item.volumeInfo.title,
+            image: item.volumeInfo.imageLinks.thumbnail,
+          }));
         setSuggestions(firstThreeBooks);
+        console.log(firstThreeBooks);
         setShowDropdown(true);
       })
       .catch((error) => {
@@ -65,8 +70,11 @@ export const PostBook: React.FC = () => {
       {showDropdown && (
         <div>
           {suggestions.map((suggestion, index) => (
-            <div key={index} onClick={() => handleSuggestionClick(suggestion)}>
-              {suggestion.title}
+            <div key={index}>
+              <div onClick={() => handleSuggestionClick(suggestion)}>
+                {suggestion.title}
+              </div>
+              <img src={suggestion.image} />
             </div>
           ))}
         </div>
