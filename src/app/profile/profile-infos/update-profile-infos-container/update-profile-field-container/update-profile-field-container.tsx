@@ -1,3 +1,5 @@
+"use client";
+
 import { FormProvider, useForm } from "react-hook-form";
 import { UpdateProfileInput, UpdateProfileProps } from "./update-profile-input";
 import * as z from "zod";

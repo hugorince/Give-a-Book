@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import classes from "./profile-field-container.module.css";
 
-interface ProfileFieldContainerProps {
+export interface ProfileFieldContainerProps {
   handleOnClick: () => void;
   type: "email" | "username";
 }
