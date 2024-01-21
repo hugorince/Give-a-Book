@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 interface Book {
   title: string;
@@ -8,15 +8,15 @@ interface Book {
 }
 
 export const PostBook: React.FC = () => {
-  const [query, setQuery] = useState<string>("");
+  const [searchInput, setSearchInput] = useState<string>("");
   const [suggestions, setSuggestions] = useState<Book[]>([]);
-  const [showDropdown, setShowDropdown] = useState<boolean>(false);
+  // const [selectedBook, setSelectedBook] = useState<Book | null>(null);
 
   const apiKey = process.env.GOOGLE_API_KEY;
 
   const handleSearch = () => {
     fetch(
-      `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${apiKey}`,
+      `https://www.googleapis.com/books/v1/volumes?q=${searchInput}&key=${apiKey}`,
     )
       .then((response) => response.json())
       .then((data) => {
@@ -24,11 +24,9 @@ export const PostBook: React.FC = () => {
           .slice(0, 3)
           .map((item: any) => ({
             title: item.volumeInfo.title,
-            image: item.volumeInfo.imageLinks.thumbnail,
           }));
         setSuggestions(firstThreeBooks);
         console.log(firstThreeBooks);
-        setShowDropdown(true);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -36,46 +34,33 @@ export const PostBook: React.FC = () => {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
-    setShowDropdown(false);
-  };
+    const newQuery = e.target.value;
+    setSearchInput(newQuery);
 
-  const handleSuggestionClick = (suggestion: Book) => {
-    setQuery(suggestion.title);
-    setShowDropdown(false);
-  };
-
-  useEffect(() => {
-    if (query.length >= 3 && suggestions.length > 0) {
-      setShowDropdown(true);
+    if (newQuery.length >= 3) {
+      handleSearch();
     } else {
-      setShowDropdown(false);
+      setSuggestions([]);
     }
-  }, [query, suggestions]);
+  };
+
+  // const handleSuggestionClick = (suggestion: Book) => {
+  //   setSelectedBook(suggestion);
+  // };
 
   return (
     <div>
       <h1>Search Books</h1>
-      {/* Search bar */}
       <input
         type="text"
         placeholder="Enter book title"
-        value={query}
+        value={searchInput}
         onChange={handleInputChange}
       />
-      {/* Search button */}
-      <button onClick={handleSearch}>Search</button>
-
-      {/* Dropdown */}
-      {showDropdown && (
+      {suggestions && (
         <div>
           {suggestions.map((suggestion, index) => (
-            <div key={index}>
-              <div onClick={() => handleSuggestionClick(suggestion)}>
-                {suggestion.title}
-              </div>
-              <img src={suggestion.image} />
-            </div>
+            <div key={index}>{suggestion.title}</div>
           ))}
         </div>
       )}
