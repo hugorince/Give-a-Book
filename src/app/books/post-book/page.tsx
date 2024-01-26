@@ -3,7 +3,7 @@ import { SearchTextInput } from "./search-text-input";
 export const PostBook = () => {
   return (
     <div>
-      <h1>Search Books</h1>
+      <h1>Books Info</h1>
       <SearchTextInput type="title" />
       <SearchTextInput type="authors" />
     </div>
