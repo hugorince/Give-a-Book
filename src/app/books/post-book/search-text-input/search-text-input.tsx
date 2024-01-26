@@ -1,6 +1,6 @@
 "use client";
 
-import { type ChangeEvent, useState } from "react";
+import { type ChangeEvent, type MouseEvent, useState } from "react";
 
 interface Book {
   title: string;
@@ -48,6 +48,11 @@ export const SearchTextInput = ({ type }: SearchTextInputProps) => {
     }
   };
 
+  const handleOnClick = (e: MouseEvent<HTMLButtonElement>) => {
+    const target = e.target as HTMLButtonElement;
+    setSearchInput(target.value);
+  };
+
   return (
     <div>
       <input
@@ -60,14 +65,26 @@ export const SearchTextInput = ({ type }: SearchTextInputProps) => {
         <div>
           {type === "title"
             ? suggestions.map((suggestion, index) => (
-                <div key={index}>{suggestion[type]}</div>
+                <button
+                  key={index}
+                  onClick={handleOnClick}
+                  value={suggestion[type]}
+                >
+                  {suggestion[type]}
+                </button>
               ))
             : suggestions.map(
                 (suggestion, index) =>
                   suggestion.authors && (
                     <div key={index}>
                       {suggestion.authors.map((author, index) => (
-                        <p key={index}>{author}</p>
+                        <button
+                          key={index}
+                          value={author}
+                          onClick={handleOnClick}
+                        >
+                          {author}
+                        </button>
                       ))}
                     </div>
                   ),
