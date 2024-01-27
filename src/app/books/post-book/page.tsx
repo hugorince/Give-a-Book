@@ -1,11 +1,10 @@
-import { SearchTextInput } from "./search-text-input";
+import { PostBookForm } from "./post-book-form/post-book-form";
 
 export const PostBook = () => {
   return (
     <div>
       <h1>Books Info</h1>
-      <SearchTextInput type="title" />
-      <SearchTextInput type="authors" />
+      <PostBookForm />
     </div>
   );
 };
