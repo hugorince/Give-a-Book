@@ -22,3 +22,9 @@ export const LoginFormSchema = z.object({
     .min(1, "Password is required")
     .min(8, "Password must have than 8 characters"),
 });
+
+export const PostBookFormSchema = z.object({
+  title: z.string().min(1, "title is required"),
+  author: z.string(),
+  description: z.string().min(1, "description is required"),
+});

@@ -10,7 +10,7 @@ interface Book {
 }
 
 interface SearchTextInputProps {
-  type: "title" | "authors";
+  type: "title" | "author";
 }
 
 export const SearchTextInput = ({ type }: SearchTextInputProps) => {
