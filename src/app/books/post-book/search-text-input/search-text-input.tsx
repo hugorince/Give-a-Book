@@ -1,6 +1,7 @@
 "use client";
 
 import { type ChangeEvent, type MouseEvent, useState } from "react";
+import { useForm, useFormContext } from "react-hook-form";
 
 interface Book {
   title: string;
@@ -15,6 +16,7 @@ interface SearchTextInputProps {
 export const SearchTextInput = ({ type }: SearchTextInputProps) => {
   const [searchInput, setSearchInput] = useState<string>("");
   const [suggestions, setSuggestions] = useState<Book[]>([]);
+  const { setValue } = useFormContext();
 
   const handleSearch = () => {
     const apiKey = process.env.GOOGLE_API_KEY;
@@ -30,7 +32,6 @@ export const SearchTextInput = ({ type }: SearchTextInputProps) => {
             authors: item.volumeInfo.authors,
           }));
         setSuggestions(firstThreeBooks);
-        //console.log(firstThreeBooks);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -43,6 +44,7 @@ export const SearchTextInput = ({ type }: SearchTextInputProps) => {
 
     if (newQuery.length >= 3) {
       handleSearch();
+      setValue(type, newQuery);
     } else {
       setSuggestions([]);
     }
@@ -51,6 +53,7 @@ export const SearchTextInput = ({ type }: SearchTextInputProps) => {
   const handleOnClick = (e: MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
     setSearchInput(target.value);
+    setValue(type, target.value);
   };
 
   return (
@@ -69,6 +72,7 @@ export const SearchTextInput = ({ type }: SearchTextInputProps) => {
                   key={index}
                   onClick={handleOnClick}
                   value={suggestion[type]}
+                  type="button"
                 >
                   {suggestion[type]}
                 </button>
@@ -82,6 +86,7 @@ export const SearchTextInput = ({ type }: SearchTextInputProps) => {
                           key={index}
                           value={author}
                           onClick={handleOnClick}
+                          type="button"
                         >
                           {author}
                         </button>
