@@ -1,7 +1,7 @@
 "use client";
 
 import { FormProvider, useForm } from "react-hook-form";
-import { DescriptionInput } from "../description-input/description-input";
+import { DescriptionInput } from "../description-input";
 import { SearchTextInput } from "../search-text-input";
 import { PostBookFormSchema } from "@/libs/types";
 import * as z from "zod";
@@ -20,7 +20,7 @@ export const PostBookForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof PostBookFormSchema>) => {
-    const userId = session && session.user.id;
+    const userId = session && parseInt(session.user.id);
 
     const response = await fetch("/api/book", {
       method: "POST",
