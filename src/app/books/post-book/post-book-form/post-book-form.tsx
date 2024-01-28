@@ -20,8 +20,7 @@ export const PostBookForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof PostBookFormSchema>) => {
-    console.log("onsubmit", values);
-    console.log(session.user);
+    const userId = session && session.user.id;
 
     const response = await fetch("/api/book", {
       method: "POST",
@@ -32,7 +31,7 @@ export const PostBookForm = () => {
         title: values.title,
         author: values.author,
         description: values.description,
-        userId: parseInt(session?.user.id),
+        userId: userId,
       }),
     });
     if (response.ok) {
