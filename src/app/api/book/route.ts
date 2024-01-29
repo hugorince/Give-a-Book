@@ -11,24 +11,24 @@ const bookSchema = z.object({
 
 export const GET = async (req: NextRequest) => {
   try {
-    const searchParams = req.nextUrl.searchParams;
-    const id = searchParams.get("id");
+    // const searchParams = req.nextUrl.searchParams;
+    // const id = searchParams.get("id");
 
-    if (id) {
-      const book = await db.book.findUnique({
-        where: {
-          id: parseInt(id),
-        },
-      });
+    // if (id) {
+    //   const book = await db.book.findUnique({
+    //     where: {
+    //       id: parseInt(id),
+    //     },
+    //   });
 
-      return NextResponse.json(
-        {
-          book: book,
-          message: "all books",
-        },
-        { status: 201 },
-      );
-    }
+    //   return NextResponse.json(
+    //     {
+    //       book: book,
+    //       message: "all books",
+    //     },
+    //     { status: 201 },
+    //   );
+    // }
 
     const books = await db.book.findMany();
 
