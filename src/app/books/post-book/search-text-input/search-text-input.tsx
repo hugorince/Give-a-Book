@@ -1,7 +1,7 @@
 "use client";
 
 import { type ChangeEvent, type MouseEvent, useState } from "react";
-import { useForm, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 interface Book {
   title: string;
@@ -16,21 +16,32 @@ interface SearchTextInputProps {
 export const SearchTextInput = ({ type }: SearchTextInputProps) => {
   const [searchInput, setSearchInput] = useState<string>("");
   const [suggestions, setSuggestions] = useState<Book[]>([]);
-  const { setValue } = useFormContext();
+  const { setValue, getValues } = useFormContext();
 
   const handleSearch = () => {
     const apiKey = process.env.GOOGLE_API_KEY;
-    fetch(
-      `https://www.googleapis.com/books/v1/volumes?q=${searchInput}&key=${apiKey}`,
-    )
+    const { title, author } = getValues();
+    console.log("title", title, "author", author);
+
+    let queryUrl = "https://www.googleapis.com/books/v1/volumes?q=";
+
+    if (author) {
+      queryUrl += `inauthor:${author}+intitle:${searchInput}`;
+    } else if (title) {
+      queryUrl += `inauthor:${searchInput}+intitle:${title}`;
+    } else {
+      queryUrl += `in${type}:${searchInput}`;
+    }
+
+    queryUrl += "&printType=books&key=" + apiKey;
+
+    fetch(queryUrl)
       .then((response) => response.json())
       .then((data) => {
-        const firstThreeBooks: Book[] = (data.items || [])
-          .slice(0, 3)
-          .map((item: any) => ({
-            title: item.volumeInfo.title,
-            authors: item.volumeInfo.authors,
-          }));
+        const firstThreeBooks = (data.items || []).slice(0, 3).map((item) => ({
+          title: item.volumeInfo.title,
+          authors: item.volumeInfo.authors,
+        }));
         setSuggestions(firstThreeBooks);
       })
       .catch((error) => {
@@ -44,7 +55,6 @@ export const SearchTextInput = ({ type }: SearchTextInputProps) => {
 
     if (newQuery.length >= 3) {
       handleSearch();
-      setValue(type, newQuery);
     } else {
       setSuggestions([]);
     }
@@ -54,6 +64,7 @@ export const SearchTextInput = ({ type }: SearchTextInputProps) => {
     const target = e.target as HTMLButtonElement;
     setSearchInput(target.value);
     setValue(type, target.value);
+    setSuggestions([]);
   };
 
   return (
