@@ -2,6 +2,7 @@
 
 import { type ChangeEvent, type MouseEvent, useState } from "react";
 import { useFormContext } from "react-hook-form";
+import classes from "./search-text-input.module.css";
 
 interface Book {
   title: string;
@@ -18,7 +19,7 @@ export const SearchTextInput = ({ type }: SearchTextInputProps) => {
   const [suggestions, setSuggestions] = useState<Book[]>([]);
   const { setValue, getValues } = useFormContext();
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     const apiKey = process.env.GOOGLE_API_KEY;
     const { title, author } = getValues();
     console.log("title", title, "author", author);
@@ -35,18 +36,18 @@ export const SearchTextInput = ({ type }: SearchTextInputProps) => {
 
     queryUrl += "&printType=books&key=" + apiKey;
 
-    fetch(queryUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        const firstThreeBooks = (data.items || []).slice(0, 3).map((item) => ({
-          title: item.volumeInfo.title,
-          authors: item.volumeInfo.authors,
+    const response = await fetch(queryUrl);
+    const books = await response.json();
+
+    if (response.ok) {
+      const firstThreeBooks = (books.items || [])
+        .slice(0, 3)
+        .map((book: any) => ({
+          title: book.volumeInfo.title,
+          authors: book.volumeInfo.authors,
         }));
-        setSuggestions(firstThreeBooks);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+      setSuggestions(firstThreeBooks);
+    }
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -74,9 +75,10 @@ export const SearchTextInput = ({ type }: SearchTextInputProps) => {
         placeholder={`Enter book ${type}`}
         value={searchInput}
         onChange={handleInputChange}
+        className={classes.input}
       />
       {suggestions && (
-        <div>
+        <div className={classes.suggestionsWrapper}>
           {type === "title"
             ? suggestions.map((suggestion, index) => (
                 <button
