@@ -18,10 +18,10 @@ export const SearchTextInput = ({ type }: SearchTextInputProps) => {
   const [searchInput, setSearchInput] = useState<string>("");
   const [suggestions, setSuggestions] = useState<Book[]>([]);
   const { setValue, getValues } = useFormContext();
+  const { title, author } = getValues();
 
   const handleSearch = async () => {
     const apiKey = process.env.GOOGLE_API_KEY;
-    const { title, author } = getValues();
     console.log("title", title, "author", author);
 
     let queryUrl = "https://www.googleapis.com/books/v1/volumes?q=";
@@ -54,7 +54,7 @@ export const SearchTextInput = ({ type }: SearchTextInputProps) => {
     const newQuery = e.target.value;
     setSearchInput(newQuery);
 
-    if (newQuery.length >= 3) {
+    if (newQuery.length >= 3 || author) {
       handleSearch();
     } else {
       setSuggestions([]);
@@ -84,6 +84,7 @@ export const SearchTextInput = ({ type }: SearchTextInputProps) => {
                 <button
                   key={index}
                   onClick={handleOnClick}
+                  onBlur={() => setSuggestions([])}
                   value={suggestion[type]}
                   type="button"
                 >
