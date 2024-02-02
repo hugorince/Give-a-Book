@@ -36,6 +36,7 @@ export const LoginForm = () => {
     <form
       onSubmit={form.handleSubmit(onSubmit)}
       className={classes.formWrapper}
+      name="login form"
     >
       <input
         type="email"
@@ -47,7 +48,9 @@ export const LoginForm = () => {
         {...form.register("password")}
         placeholder="password"
       />
-      <button type="submit">log in</button>
+      <button type="submit" disabled={!form.formState.isValid}>
+        log in
+      </button>
     </form>
   );
 };
