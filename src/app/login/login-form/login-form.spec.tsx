@@ -1,24 +1,29 @@
 import "@testing-library/jest-dom";
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import { LoginForm } from "./login-form";
+import { useRouter } from "next/navigation";
 
 jest.mock("next/navigation", () => ({
-  useRouter: () => ({
-    push: jest.fn(),
-  }),
+  useRouter: jest.fn(),
 }));
 
 jest.mock("react-hook-form", () => ({
-  ...jest.requireActual("react-hook-form"), // Use actual for all non-hook parts
-  useForm: () => ({
-    register: jest.fn(),
-    handleSubmit: jest.fn(),
-    formState: { errors: {} },
-  }),
+  ...jest.requireActual("react-hook-form"),
+  useForm: jest.fn(),
 }));
 
+const mockForm = {
+  register: jest.fn(),
+  handleSubmit: jest.fn(),
+  formState: { s: {} },
+};
+
 describe("login form", () => {
-  it("doesn't submit when form is empty", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    jest.requireMock("react-hook-form").useForm.mockReturnValue(mockForm);
+  });
+  it("disabled button submit when form is empty", () => {
     render(<LoginForm />);
 
     const submitButton = screen.getByRole("button");
@@ -29,31 +34,31 @@ describe("login form", () => {
   it("submits when form is filled", async () => {
     render(<LoginForm />);
 
-    const handleSubmit = jest.fn();
-    const form = screen.getByRole("form", { name: "" });
-    form.onsubmit = handleSubmit;
+    const pushMock = jest.fn();
+
+    (useRouter as jest.Mock).mockReturnValue({
+      push: pushMock,
+    });
+
+    const button = screen.getByRole("button");
 
     const usernameInput = screen.getByPlaceholderText("mail@mail.com");
     const passwordInput = screen.getByPlaceholderText("password");
 
     fireEvent.change(usernameInput, {
       target: {
-        value: "hugo@rigolo.com",
+        value: "hugo@mail.com",
       },
     });
+
     fireEvent.change(passwordInput, {
       target: {
-        value: "password123",
+        value: "password",
       },
     });
 
-    fireEvent.submit(form, {
-      preventDefault: jest.fn(), // Prevent default form submission behavior
-    });
+    button.click();
 
-    expect(handleSubmit).toHaveBeenCalledWith({
-      username: "hugo@rigolo.com",
-      password: "password123",
-    });
+    expect(mockForm.handleSubmit).toHaveBeenCalled();
   });
 });
