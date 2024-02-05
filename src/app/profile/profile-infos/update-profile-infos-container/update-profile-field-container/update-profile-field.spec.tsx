@@ -1,5 +1,4 @@
 import { UpdateProfileFieldContainer } from "./update-profile-field-container";
-import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import { useSession } from "next-auth/react";
 
@@ -15,7 +14,7 @@ const mockSession = {
   update: jest.fn(),
 };
 
-useSession.mockReturnValue(mockSession);
+(useSession as jest.Mock).mockReturnValue(mockSession);
 
 describe("UpdateProfileFieldContainer", () => {
   it("should render UpdateProfileFieldContainer", () => {
@@ -27,5 +26,19 @@ describe("UpdateProfileFieldContainer", () => {
     );
 
     expect(screen.getByRole("textbox")).toBeInTheDocument();
+  });
+  it("should submit the form onSubmit", () => {
+    render(
+      <UpdateProfileFieldContainer
+        handleInputClose={() => {}}
+        updateInput="email"
+      />,
+    );
+
+    const button = screen.getByRole("button", { name: "update" });
+
+    button.click();
+
+    expect(mockSession.update).toHaveBeenCalled();
   });
 });

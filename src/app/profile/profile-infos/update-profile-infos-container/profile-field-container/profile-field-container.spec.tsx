@@ -22,7 +22,7 @@ const mockSession = {
   update: jest.fn(),
 };
 
-useSession.mockReturnValue(mockSession);
+(useSession as jest.Mock).mockReturnValue(mockSession);
 
 describe("ProfileFieldContainer", () => {
   it("should render the component", () => {
