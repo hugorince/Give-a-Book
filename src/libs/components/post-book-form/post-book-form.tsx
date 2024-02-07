@@ -1,8 +1,8 @@
 "use client";
 
 import { FormProvider, useForm } from "react-hook-form";
-import { DescriptionInput } from "../description-input";
-import { SearchTextInput } from "../search-text-input";
+import { DescriptionInput } from "./description-input";
+import { SearchTextInput } from "./search-text-input";
 import { PostBookFormSchema } from "@/libs/types";
 import * as z from "zod";
 import { useRouter } from "next/navigation";

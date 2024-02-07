@@ -1,4 +1,4 @@
-import { PostBookForm } from "./post-book-form/post-book-form";
+import { PostBookForm } from "@/libs/components";
 
 export const PostBook = () => {
   return (
