@@ -8,3 +8,8 @@
   outline: inherit;
   text-decoration: underline;
 }
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
