@@ -1,4 +1,4 @@
-import { ProfileInfos } from "./profile-infos/profile-infos";
+import { ProfileInfos } from "@/libs/components";
 
 export const Profile = async () => {
   return (
