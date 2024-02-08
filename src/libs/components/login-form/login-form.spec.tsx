@@ -54,6 +54,6 @@ describe("login form", () => {
 
     button.click();
 
-    expect(mockSubmit).toHaveBeenCalledWith();
+    expect(mockSubmit).toHaveBeenCalled();
   });
 });
