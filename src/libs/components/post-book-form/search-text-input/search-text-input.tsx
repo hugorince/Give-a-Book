@@ -2,6 +2,7 @@
 
 import { type ChangeEvent, type MouseEvent, useState } from "react";
 import { useFormContext } from "react-hook-form";
+import { fetchSuggestions } from "@/libs/utils";
 import classes from "./search-text-input.module.css";
 
 interface Book {
@@ -21,33 +22,13 @@ export const SearchTextInput = ({ type }: SearchTextInputProps) => {
   const { title, author } = getValues();
 
   const handleSearch = async () => {
-    const apiKey = process.env.GOOGLE_API_KEY;
-    console.log("title", title, "author", author);
-
-    let queryUrl = "https://www.googleapis.com/books/v1/volumes?q=";
-
-    if (author) {
-      queryUrl += `inauthor:${author}+intitle:${searchInput}`;
-    } else if (title) {
-      queryUrl += `inauthor:${searchInput}+intitle:${title}`;
-    } else {
-      queryUrl += `in${type}:${searchInput}`;
-    }
-
-    queryUrl += "&printType=books&key=" + apiKey;
-
-    const response = await fetch(queryUrl);
-    const books = await response.json();
-
-    if (response.ok) {
-      const firstThreeBooks = (books.items || [])
-        .slice(0, 3)
-        .map((book: any) => ({
-          title: book.volumeInfo.title,
-          authors: book.volumeInfo.authors,
-        }));
-      setSuggestions(firstThreeBooks);
-    }
+    const suggestions: Book[] = await fetchSuggestions({
+      title,
+      author,
+      searchInput,
+      type,
+    });
+    setSuggestions(suggestions);
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
