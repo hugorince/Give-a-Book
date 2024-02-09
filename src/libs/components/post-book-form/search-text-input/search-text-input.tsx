@@ -4,6 +4,7 @@ import { type ChangeEvent, type MouseEvent, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { fetchSuggestions } from "@/libs/utils";
 import classes from "./search-text-input.module.css";
+import { useQuery } from "@tanstack/react-query";
 
 interface Book {
   title: string;
@@ -16,27 +17,21 @@ interface SearchTextInputProps {
 }
 
 export const SearchTextInput = ({ type }: SearchTextInputProps) => {
-  const [searchInput, setSearchInput] = useState<string>("");
+  const [searchInput, setSearchInput] = useState("");
   const [suggestions, setSuggestions] = useState<Book[]>([]);
   const { setValue, getValues } = useFormContext();
   const { title, author } = getValues();
-
-  const handleSearch = async () => {
-    const suggestions: Book[] = await fetchSuggestions({
-      title,
-      author,
-      searchInput,
-      type,
-    });
-    setSuggestions(suggestions);
-  };
+  const { data } = useQuery({
+    queryKey: ["suggestions", title, author, searchInput, type],
+    queryFn: () => fetchSuggestions({ title, author, searchInput, type }),
+  });
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newQuery = e.target.value;
     setSearchInput(newQuery);
 
     if (newQuery.length >= 3 || author) {
-      handleSearch();
+      setSuggestions(data);
     } else {
       setSuggestions([]);
     }
