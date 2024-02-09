@@ -19,8 +19,10 @@ interface SearchTextInputProps {
 export const SearchTextInput = ({ type }: SearchTextInputProps) => {
   const [searchInput, setSearchInput] = useState("");
   const [suggestions, setSuggestions] = useState<Book[]>([]);
+
   const { setValue, getValues } = useFormContext();
   const { title, author } = getValues();
+
   const { data } = useQuery({
     queryKey: ["suggestions", title, author, searchInput, type],
     queryFn: () => fetchSuggestions({ title, author, searchInput, type }),
@@ -30,7 +32,7 @@ export const SearchTextInput = ({ type }: SearchTextInputProps) => {
     const newQuery = e.target.value;
     setSearchInput(newQuery);
 
-    if (newQuery.length >= 3 || author) {
+    if (newQuery.length >= 3 || author || title) {
       setSuggestions(data);
     } else {
       setSuggestions([]);
