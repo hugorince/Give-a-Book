@@ -1,10 +1,7 @@
-import * as z from "zod";
-import { PostBookFormSchema } from "@/libs/types";
+import { db } from "@/libs/database";
 
 export const Books = async () => {
-  const books = await fetch("http://localhost:3000/api/book")
-    .then((res) => res.json())
-    .then((data) => data.books as z.infer<typeof PostBookFormSchema>[]);
+  const books = await db.book.findMany();
 
   return (
     <div>

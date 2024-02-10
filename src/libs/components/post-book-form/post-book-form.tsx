@@ -7,6 +7,7 @@ import { PostBookFormSchema } from "@/libs/types";
 import * as z from "zod";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { postBook } from "@/libs/utils";
 
 export const PostBookForm = () => {
   const { data: session } = useSession();
@@ -21,23 +22,9 @@ export const PostBookForm = () => {
 
   const onSubmit = async (values: z.infer<typeof PostBookFormSchema>) => {
     const userId = session && parseInt(session.user.id);
-
-    const response = await fetch("/api/book", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/book",
-      },
-      body: JSON.stringify({
-        title: values.title,
-        author: values.author,
-        description: values.description,
-        userId: userId,
-      }),
-    });
-    if (response.ok) {
+    if (userId) {
+      await postBook(values, userId);
       router.push("/books");
-    } else {
-      console.error("Registration failed");
     }
   };
 
