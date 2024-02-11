@@ -4,12 +4,11 @@ import { type ChangeEvent, type MouseEvent, useState, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { fetchSuggestions } from "@/libs/utils";
 import classes from "./search-text-input.module.css";
-import { useQuery } from "@tanstack/react-query";
 
 interface Book {
   title: string;
   authors: string[];
-  image: string;
+  description: string;
 }
 
 interface SearchTextInputProps {
@@ -43,6 +42,7 @@ export const SearchTextInput = ({ type }: SearchTextInputProps) => {
       );
       if (selectedSuggestion) {
         setValue("author", selectedSuggestion.authors[0]);
+        setValue("description", selectedSuggestion.description);
       }
     }
     setSuggestions([]);
