@@ -1,25 +1,25 @@
 type fetchSuggestionsProps = {
   title: string;
   author: string;
-  searchInput: string;
+  newQuery: string;
   type: "author" | "title";
 };
 
 const constructQueryUrl = ({
   title,
   author,
-  searchInput,
+  newQuery,
   type,
 }: fetchSuggestionsProps) => {
   const apiKey = process.env.GOOGLE_API_KEY;
   let constructedUrl = "https://www.googleapis.com/books/v1/volumes?q=";
 
   if (author) {
-    constructedUrl += `inauthor:${author}+intitle:${searchInput}`;
+    constructedUrl += `inauthor:${author}+intitle:${newQuery}`;
   } else if (title) {
-    constructedUrl += `inauthor:${searchInput}+intitle:${title}`;
+    constructedUrl += `inauthor:${newQuery}+intitle:${title}`;
   } else {
-    constructedUrl += `in${type}:${searchInput}`;
+    constructedUrl += `in${type}:${newQuery}`;
   }
   return constructedUrl + "&printType=books&key=" + apiKey;
 };
@@ -27,13 +27,13 @@ const constructQueryUrl = ({
 export const fetchSuggestions = async ({
   title,
   author,
-  searchInput,
+  newQuery,
   type,
 }: fetchSuggestionsProps) => {
   const queryUrl = constructQueryUrl({
     title,
     author,
-    searchInput,
+    newQuery,
     type,
   });
 

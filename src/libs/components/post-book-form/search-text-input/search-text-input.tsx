@@ -17,24 +17,16 @@ interface SearchTextInputProps {
 }
 
 export const SearchTextInput = ({ type }: SearchTextInputProps) => {
-  const { setValue, getValues } = useFormContext();
+  const { setValue, getValues, register } = useFormContext();
   const { title, author } = getValues();
 
-  const [searchInput, setSearchInput] = useState(
-    author && type === "author" ? author : "",
-  );
   const [suggestions, setSuggestions] = useState<Book[]>([]);
 
-  const { data } = useQuery({
-    queryKey: ["suggestions", title, author, searchInput, type],
-    queryFn: () => fetchSuggestions({ title, author, searchInput, type }),
-  });
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const newQuery = e.target.value;
-    setSearchInput(newQuery);
 
     if (newQuery.length >= 3 || author || title) {
+      const data = await fetchSuggestions({ title, author, newQuery, type });
       setSuggestions(data);
     } else {
       setSuggestions([]);
@@ -43,7 +35,6 @@ export const SearchTextInput = ({ type }: SearchTextInputProps) => {
 
   const handleOnClick = (e: MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLButtonElement;
-    setSearchInput(target.value);
     setValue(type, target.value);
 
     if (type === "title") {
@@ -57,20 +48,12 @@ export const SearchTextInput = ({ type }: SearchTextInputProps) => {
     setSuggestions([]);
   };
 
-  useEffect(() => {
-    console.log(author);
-    if (type === "author" && author) {
-      console.log("if entered");
-      setSearchInput(author);
-    }
-  }, [author, type]);
-
   return (
     <div>
       <input
         type="text"
         placeholder={`Enter book ${type}`}
-        value={searchInput}
+        {...register(type)}
         onChange={handleInputChange}
         className={classes.input}
       />
