@@ -1,6 +1,6 @@
 "use client";
 
-import { type ChangeEvent, type MouseEvent, useState } from "react";
+import { type ChangeEvent, type MouseEvent, useState, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { fetchSuggestions } from "@/libs/utils";
 import classes from "./search-text-input.module.css";
@@ -17,11 +17,13 @@ interface SearchTextInputProps {
 }
 
 export const SearchTextInput = ({ type }: SearchTextInputProps) => {
-  const [searchInput, setSearchInput] = useState("");
-  const [suggestions, setSuggestions] = useState<Book[]>([]);
-
   const { setValue, getValues } = useFormContext();
   const { title, author } = getValues();
+
+  const [searchInput, setSearchInput] = useState(
+    author && type === "author" ? author : "",
+  );
+  const [suggestions, setSuggestions] = useState<Book[]>([]);
 
   const { data } = useQuery({
     queryKey: ["suggestions", title, author, searchInput, type],
@@ -43,8 +45,25 @@ export const SearchTextInput = ({ type }: SearchTextInputProps) => {
     const target = e.target as HTMLButtonElement;
     setSearchInput(target.value);
     setValue(type, target.value);
+
+    if (type === "title") {
+      const selectedSuggestion = suggestions.find(
+        (suggestion) => suggestion.title === target.value,
+      );
+      if (selectedSuggestion) {
+        setValue("author", selectedSuggestion.authors[0]);
+      }
+    }
     setSuggestions([]);
   };
+
+  useEffect(() => {
+    console.log(author);
+    if (type === "author" && author) {
+      console.log("if entered");
+      setSearchInput(author);
+    }
+  }, [author, type]);
 
   return (
     <div>
