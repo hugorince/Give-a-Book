@@ -24,7 +24,6 @@ export const PostBookForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof PostBookFormSchema>) => {
-    console.log(values);
     const userId = session && parseInt(session.user.id);
     if (userId) {
       await postBook(values, userId);

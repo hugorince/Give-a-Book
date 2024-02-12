@@ -41,7 +41,6 @@ export const fetchSuggestions = async ({
   const books = await response.json();
 
   if (response.ok) {
-    console.log(books.items);
     const firstThreeBooks = books.items.slice(0, 3).map((book: any) => ({
       title: book.volumeInfo.title,
       authors: book.volumeInfo.authors,
