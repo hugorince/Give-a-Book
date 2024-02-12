@@ -9,6 +9,7 @@ interface Book {
   title: string;
   authors: string[];
   description: string;
+  image: string;
 }
 
 interface SearchTextInputProps {
@@ -43,6 +44,7 @@ export const SearchTextInput = ({ type }: SearchTextInputProps) => {
       if (selectedSuggestion) {
         setValue("author", selectedSuggestion.authors[0]);
         setValue("description", selectedSuggestion.description);
+        setValue("image", selectedSuggestion.image);
       }
     }
     setSuggestions([]);

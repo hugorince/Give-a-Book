@@ -13,6 +13,7 @@ export const postBook = async (
       title: values.title,
       author: values.author,
       description: values.description,
+      image: values.image,
       userId: userId as number,
     },
   });

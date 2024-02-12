@@ -8,7 +8,6 @@ import * as z from "zod";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { postBook } from "@/libs/utils";
-import { useEffect } from "react";
 
 export const PostBookForm = () => {
   const { data: session } = useSession();
@@ -20,22 +19,18 @@ export const PostBookForm = () => {
       title: "",
       author: "",
       description: "",
+      image: "",
     },
   });
-  const { author } = form.getValues();
 
   const onSubmit = async (values: z.infer<typeof PostBookFormSchema>) => {
+    console.log(values);
     const userId = session && parseInt(session.user.id);
     if (userId) {
       await postBook(values, userId);
       router.push("/books");
     }
   };
-
-  useEffect(() => {
-    console.log(author);
-    form.setValue("author", author);
-  }, [author, form]);
 
   return (
     <FormProvider {...form}>

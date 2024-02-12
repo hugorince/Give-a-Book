@@ -46,6 +46,7 @@ export const fetchSuggestions = async ({
       title: book.volumeInfo.title,
       authors: book.volumeInfo.authors,
       description: book.volumeInfo.description,
+      image: book.volumeInfo.imageLinks.thumbnail,
     }));
     return firstThreeBooks;
   } else {
