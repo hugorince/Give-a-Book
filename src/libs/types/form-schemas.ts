@@ -27,4 +27,5 @@ export const PostBookFormSchema = z.object({
   title: z.string().min(1, "title is required"),
   author: z.string(),
   description: z.string().min(1, "description is required"),
+  image: z.string(),
 });
