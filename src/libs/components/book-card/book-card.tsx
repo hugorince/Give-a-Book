@@ -1,12 +1,16 @@
+import Link from "next/link";
 import classes from "./book-card.module.css";
 import { BooksData } from "@/libs/utils";
 
 export const BookCard = ({ data }: { data: BooksData }) => {
   return (
     <div className={classes.wrapper}>
-      <p>{data.title}</p>
+      <h3>{data.title}</h3>
       <img src={data.img || ""} alt="" />
-      <p>user : {data.user}</p>
+      <div className={classes.userLink}>
+        <p>offered by </p>
+        <Link href="#">{data.user}</Link>
+      </div>
     </div>
   );
 };
