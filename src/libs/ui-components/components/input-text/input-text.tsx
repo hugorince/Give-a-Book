@@ -20,7 +20,6 @@ export const InputText = forwardRef<HTMLInputElement, InputTextProps>(
           {label}
         </label>
         <input
-          name={label}
           id={label}
           type={type}
           ref={ref}
