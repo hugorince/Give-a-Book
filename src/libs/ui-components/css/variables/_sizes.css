@@ -1,0 +1,11 @@
+:root,
+::backdrop {
+  --sizing-075: 0.75rem;
+  --sizing-100: 1rem;
+  --sizing-150: 1.5rem;
+  --sizing-200: 2rem;
+  --sizing-250: 2.5rem;
+  --sizing-300: 3rem;
+  --sizing-350: 3.5rem;
+  --sizing-400: 4rem;
+}

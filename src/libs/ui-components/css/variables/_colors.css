@@ -1,0 +1,11 @@
+:root,
+::backdrop {
+  --brand-color: rgb(252, 163, 30);
+  --brand-color-light: rgb(255, 217, 102);
+  --menu-font-color: rgb(62, 62, 62);
+  --menu-font-color-hover: rgb(132, 132, 132);
+
+  --border-input: rgb(152, 152, 152);
+
+  --color-focus-border: rgb(62, 62, 62);
+}
