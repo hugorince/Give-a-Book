@@ -6,11 +6,13 @@ import { SignUpFormSchema } from "@/libs/types";
 import * as z from "zod";
 import { useRouter } from "next/navigation";
 import classes from "./signup-form.module.css";
-import { InputText } from "@/libs/ui-components";
+import { Button, InputText } from "@/libs/ui-components";
 
 export const SignUpForm = () => {
   const router = useRouter();
-  const form = useForm<z.infer<typeof SignUpFormSchema>>({
+  const { handleSubmit, register, formState } = useForm<
+    z.infer<typeof SignUpFormSchema>
+  >({
     resolver: zodResolver(SignUpFormSchema),
     defaultValues: {
       username: "",
@@ -39,36 +41,35 @@ export const SignUpForm = () => {
     }
   };
   return (
-    <form
-      onSubmit={form.handleSubmit(onSubmit)}
-      className={classes.formWrapper}
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className={classes.formWrapper}>
       <InputText
         type="text"
         label="username"
-        {...form.register("username")}
+        {...register("username")}
         name="username"
         placeholder="username"
       />
       <InputText
         type="email"
         label="email"
-        {...form.register("email")}
+        {...register("email")}
         placeholder="mail@mail.com"
       />
       <InputText
         type="password"
         label="password"
-        {...form.register("password")}
+        {...register("password")}
         placeholder="password"
       />
       <InputText
         type="password"
         label="password"
-        {...form.register("confirmPassword")}
+        {...register("confirmPassword")}
         placeholder="confirm password"
       />
-      <button type="submit">submit</button>
+      <Button type="submit" loading={formState.isSubmitting}>
+        submit
+      </Button>
     </form>
   );
 };

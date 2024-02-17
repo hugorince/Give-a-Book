@@ -4,6 +4,7 @@ import { type ChangeEvent, type MouseEvent, useState, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { fetchSuggestions } from "@/libs/utils";
 import classes from "./search-text-input.module.css";
+import { InputText } from "@/libs/ui-components";
 
 interface Book {
   title: string;
@@ -52,12 +53,12 @@ export const SearchTextInput = ({ type }: SearchTextInputProps) => {
 
   return (
     <div>
-      <input
+      <InputText
         type="text"
+        label={type}
         placeholder={`Enter book ${type}`}
         {...register(type)}
         onChange={handleInputChange}
-        className={classes.input}
       />
       {suggestions && (
         <div className={classes.suggestionsWrapper}>
