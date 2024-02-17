@@ -1,0 +1,25 @@
+.input-text {
+  width: 100%;
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-s);
+  border: var(--border-width-s) solid var(--border-input);
+  border-radius: var(--border-radius-m);
+  padding: var(--spacing-050);
+
+  &:focus-visible {
+    outline: var(--border-width-m) solid var(--color-focus-border);
+    outline-offset: var(--spacing-012);
+  }
+
+  &--s {
+    height: var(--sizing-200);
+  }
+
+  &--m {
+    height: var(--sizing-250);
+  }
+
+  &--l {
+    height: var(--sizing-300);
+  }
+}

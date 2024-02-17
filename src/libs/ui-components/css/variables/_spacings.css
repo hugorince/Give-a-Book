@@ -1,0 +1,21 @@
+:root,
+::backdrop {
+  --spacing-012: 0.12rem;
+  --spacing-025: 0.25rem;
+  --spacing-035: 0.35rem;
+  --spacing-050: 0.5rem;
+  --spacing-075: 0.75rem;
+  --spacing-100: 1rem;
+  --spacing-125: 1.25rem;
+  --spacing-150: 1.5rem;
+  --spacing-175: 1.75rem;
+  --spacing-200: 2rem;
+  --spacing-250: 2.25rem;
+  --spacing-300: 3rem;
+  --spacing-350: 3.5rem;
+  --spacing-400: 4rem;
+  --spacing-450: 4.5rem;
+  --spacing-500: 5rem;
+  --spacing-550: 5.5rem;
+  --spacing-600: 6rem;
+}
