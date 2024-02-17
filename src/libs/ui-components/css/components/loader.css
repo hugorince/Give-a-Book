@@ -1,0 +1,35 @@
+.loader {
+  animation: 1.5s spin infinite linear;
+
+  &--s {
+    width: var(--sizing-100);
+    height: var(--sizing-100);
+    margin: var(--sizing-100);
+    border-radius: 50%;
+    border: 0.2rem solid grey;
+    border-top-color: black;
+  }
+
+  &--m {
+    width: var(--sizing-200);
+    height: var(--sizing-200);
+    margin: var(--sizing-200);
+    border-radius: 50%;
+    border: 0.4rem solid grey;
+    border-top-color: black;
+  }
+
+  &--l {
+    width: var(--sizing-400);
+    height: var(--sizing-400);
+    margin: var(--sizing-400);
+    border: 1.8rem solid grey;
+    border-top-color: black;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

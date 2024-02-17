@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import classes from "./login-form.module.css";
+import { Button, InputText } from "@/libs/ui-components";
 
 export const LoginForm = () => {
   const router = useRouter();
@@ -38,19 +39,25 @@ export const LoginForm = () => {
       className={classes.formWrapper}
       name="login form"
     >
-      <input
+      <InputText
         type="email"
+        label="email"
         {...form.register("email")}
         placeholder="mail@mail.com"
       />
-      <input
+      <InputText
         type="password"
+        label="password"
         {...form.register("password")}
         placeholder="password"
       />
-      <button type="submit" disabled={!form.formState.isValid}>
+      <Button
+        type="submit"
+        disabled={!form.formState.isValid}
+        loading={form.formState.isSubmitting}
+      >
         log in
-      </button>
+      </Button>
     </form>
   );
 };

@@ -8,6 +8,7 @@ import * as z from "zod";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { postBook } from "@/libs/utils";
+import { Button } from "@/libs/ui-components";
 
 export const PostBookForm = () => {
   const { data: session } = useSession();
@@ -37,7 +38,9 @@ export const PostBookForm = () => {
         <SearchTextInput type="title" />
         <SearchTextInput type="author" />
         <DescriptionInput />
-        <button type="submit">submit book</button>
+        <Button type="submit" disabled={!form.formState.isValid}>
+          submit book
+        </Button>
       </form>
     </FormProvider>
   );
