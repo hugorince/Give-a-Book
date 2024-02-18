@@ -40,12 +40,14 @@ export const fetchSuggestions = async ({
   const response = await fetch(queryUrl);
   const books = await response.json();
 
-  if (response.ok) {
+  if (response.ok && books.items) {
     const firstThreeBooks = books.items.slice(0, 3).map((book: any) => ({
       title: book.volumeInfo.title,
       authors: book.volumeInfo.authors,
       description: book.volumeInfo.description,
-      image: book.volumeInfo.imageLinks.thumbnail,
+      image: book.volumeInfo.imageLinks?.thumbnail
+        ? book.volumeInfo.imageLinks.thumbnail
+        : "",
     }));
     return firstThreeBooks;
   } else {
