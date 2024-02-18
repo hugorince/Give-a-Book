@@ -1,6 +1,6 @@
-import "@testing-library/jest-dom";
-import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { LoginForm } from "./login-form";
+import userEvent from "@testing-library/user-event";
 
 jest.mock("next/navigation", () => ({
   useRouter: jest.fn(),
@@ -18,6 +18,8 @@ const mockForm = {
   handleSubmit: mockSubmit,
   formState: { s: {} },
 };
+
+const user = userEvent.setup();
 
 describe("login form", () => {
   beforeEach(() => {
@@ -40,17 +42,8 @@ describe("login form", () => {
     const usernameInput = screen.getByPlaceholderText("mail@mail.com");
     const passwordInput = screen.getByPlaceholderText("password");
 
-    fireEvent.change(usernameInput, {
-      target: {
-        value: "hugo@mail.com",
-      },
-    });
-
-    fireEvent.change(passwordInput, {
-      target: {
-        value: "password",
-      },
-    });
+    await user.type(usernameInput, "hugo@mail.com");
+    await user.type(passwordInput, "password");
 
     button.click();
 
