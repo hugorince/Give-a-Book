@@ -3,7 +3,7 @@ import { PostBookForm } from "@/libs/components";
 export const PostBook = () => {
   return (
     <div>
-      <h1>Books Info</h1>
+      <h1>Propose a book</h1>
       <PostBookForm />
     </div>
   );

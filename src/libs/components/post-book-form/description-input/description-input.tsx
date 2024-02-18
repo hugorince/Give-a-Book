@@ -1,6 +1,7 @@
 import { useFormContext } from "react-hook-form";
+import { Textarea } from "@/libs/ui-components";
 
 export const DescriptionInput = () => {
   const { register } = useFormContext();
-  return <textarea rows={4} cols={40} {...register("description")} />;
+  return <Textarea label="description" rows={4} {...register("description")} />;
 };
