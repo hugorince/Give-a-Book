@@ -1,11 +1,11 @@
 import { BooksCardWrapper } from "@/libs/components";
+import { MainLayout } from "@/libs/layout";
 
 export const Books = () => {
   return (
-    <div>
-      <h1>All Books</h1>
+    <MainLayout>
       <BooksCardWrapper />
-    </div>
+    </MainLayout>
   );
 };
 

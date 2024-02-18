@@ -6,8 +6,10 @@ export const ProfileInfos = () => {
   return (
     <div className={classes.wrapper}>
       <ProfileTitle />
-      <UpdateProfileInfoContainer type="username" />
-      <UpdateProfileInfoContainer type="email" />
+      <div className={classes.updateFields}>
+        <UpdateProfileInfoContainer type="username" />
+        <UpdateProfileInfoContainer type="email" />
+      </div>
     </div>
   );
 };

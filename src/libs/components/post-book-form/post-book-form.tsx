@@ -10,6 +10,7 @@ import { useSession } from "next-auth/react";
 import { postBook } from "@/libs/utils";
 import { Button } from "@/libs/ui-components";
 import classes from "./post-book-form.module.css";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export const PostBookForm = () => {
   const { data: session } = useSession();
@@ -17,6 +18,7 @@ export const PostBookForm = () => {
   const router = useRouter();
 
   const form = useForm<z.infer<typeof PostBookFormSchema>>({
+    resolver: zodResolver(PostBookFormSchema),
     defaultValues: {
       title: "",
       author: "",

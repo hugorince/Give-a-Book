@@ -1,0 +1,4 @@
+.updateProfileFieldWrapper {
+  display: flex;
+  gap: var(--spacing-050);
+}
