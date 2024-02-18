@@ -64,6 +64,13 @@ h6 {
   isolation: isolate;
 }
 
+ol,
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 .sr-only {
   border: 0 !important;
   clip: rect(1px, 1px, 1px, 1px) !important;
