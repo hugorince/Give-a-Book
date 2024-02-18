@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { postBook } from "@/libs/utils";
 import { Button } from "@/libs/ui-components";
+import classes from "./post-book-form.module.css";
 
 export const PostBookForm = () => {
   const { data: session } = useSession();
@@ -34,11 +35,18 @@ export const PostBookForm = () => {
 
   return (
     <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className={classes.formWrapper}
+      >
         <SearchTextInput type="title" />
         <SearchTextInput type="author" />
         <DescriptionInput />
-        <Button type="submit" disabled={!form.formState.isValid}>
+        <Button
+          type="submit"
+          disabled={!form.formState.isValid}
+          loading={form.formState.isSubmitting}
+        >
           submit book
         </Button>
       </form>
