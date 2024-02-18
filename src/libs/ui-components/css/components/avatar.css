@@ -1,0 +1,15 @@
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(112, 150, 255);
+  border-radius: 100%;
+  height: var(--sizing-200);
+  width: var(--sizing-200);
+
+  figcaption {
+    color: white;
+    font-size: var(--font-size-s);
+    font-weight: var(--font-weight-bold);
+  }
+}

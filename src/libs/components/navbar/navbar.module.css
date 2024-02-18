@@ -1,0 +1,25 @@
+.header {
+  position: sticky;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  height: var(--sizing-400);
+  padding: 0 var(--spacing-200);
+  background-color: var(--brand-color-light);
+  opacity: 90%;
+
+  nav ul {
+    opacity: 1000%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: var(--spacing-100);
+  }
+
+  nav ul li:first-child {
+    margin-right: auto;
+  }
+}

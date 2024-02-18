@@ -67,7 +67,11 @@ export const SignUpForm = () => {
         {...register("confirmPassword")}
         placeholder="confirm password"
       />
-      <Button type="submit" loading={formState.isSubmitting}>
+      <Button
+        type="submit"
+        loading={formState.isSubmitting}
+        disabled={!formState.isValid}
+      >
         submit
       </Button>
     </form>

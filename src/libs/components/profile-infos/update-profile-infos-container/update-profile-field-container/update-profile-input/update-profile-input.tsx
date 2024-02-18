@@ -1,5 +1,6 @@
 "use client";
 
+import { InputText } from "@/libs/ui-components";
 import { useFormContext } from "react-hook-form";
 
 export interface UpdateProfileProps {
@@ -9,7 +10,8 @@ export interface UpdateProfileProps {
 export const UpdateProfileInput = ({ type }: UpdateProfileProps) => {
   const { register } = useFormContext();
   return (
-    <input
+    <InputText
+      label="email"
       type={type}
       {...register(type)}
       placeholder={type === "email" ? "mail@mail.com" : type}

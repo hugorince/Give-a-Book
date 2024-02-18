@@ -5,26 +5,23 @@ import { UpdateProfileInput, UpdateProfileProps } from "./update-profile-input";
 import * as z from "zod";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { Button } from "@/libs/ui-components";
+import classes from "./update-profile-field.module.css";
+import { updateUserSchemaWithId } from "@/libs/types";
+import { updateUser } from "@/libs/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 interface UpdateProfileFieldContainerProps {
   handleInputClose: () => void;
   updateInput: UpdateProfileProps["type"];
 }
 
-const userSchemaWithId = z.object({
-  username: z.string().min(1, "Username is required").max(100).optional(),
-  email: z
-    .string()
-    .min(1, "Email is required")
-    .email("Invalid email")
-    .optional(),
-});
-
 export const UpdateProfileFieldContainer = ({
   handleInputClose,
   updateInput,
 }: UpdateProfileFieldContainerProps) => {
-  const form = useForm<z.infer<typeof userSchemaWithId>>({
+  const form = useForm<z.infer<typeof updateUserSchemaWithId>>({
+    resolver: zodResolver(updateUserSchemaWithId),
     defaultValues: {
       username: "",
       email: "",
@@ -35,19 +32,11 @@ export const UpdateProfileFieldContainer = ({
 
   const router = useRouter();
 
-  const onSubmit = async (values: z.infer<typeof userSchemaWithId>) => {
-    const response = await fetch("/api/user", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        sessionEmail: session?.user.email,
-        [updateInput]: values[updateInput as keyof typeof values],
-      }),
-    });
-
-    if (response.ok) {
+  const onSubmit = async (values: z.infer<typeof updateUserSchemaWithId>) => {
+    console.log("update clicked");
+    const email = session?.user.email;
+    if (email) {
+      await updateUser(values, email);
       await update({
         ...session,
         user: {
@@ -55,20 +44,26 @@ export const UpdateProfileFieldContainer = ({
           [updateInput]: values[updateInput as keyof typeof values],
         },
       });
-      console.log("user's", updateInput, " updated");
       handleInputClose();
       router.refresh();
-    } else {
-      console.error("Registration failed");
     }
   };
 
   return (
     <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className={classes.updateProfileFieldWrapper}
+      >
         <UpdateProfileInput type={updateInput} />
-        <button type="submit">update</button>
-        <button onClick={handleInputClose}>cancel</button>
+        <Button
+          type="submit"
+          loading={form.formState.isSubmitting}
+          disabled={!form.formState.isValid}
+        >
+          update
+        </Button>
+        <Button onClick={handleInputClose}>cancel</Button>
       </form>
     </FormProvider>
   );

@@ -26,6 +26,11 @@ export const LoginFormSchema = z.object({
 export const PostBookFormSchema = z.object({
   title: z.string().min(1, "title is required"),
   author: z.string(),
-  description: z.string().min(1, "description is required"),
-  image: z.string(),
+  description: z.string(),
+  image: z.string().optional(),
+});
+
+export const updateUserSchemaWithId = z.object({
+  username: z.string().max(100).optional(),
+  email: z.string().optional(),
 });

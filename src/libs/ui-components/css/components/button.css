@@ -52,6 +52,14 @@
       color: white;
     }
 
+    &:disabled:hover {
+      color: black;
+    }
+
+    &:disabled:hover:active {
+      border: 1px solid rgb(255, 124, 124);
+    }
+
     &:active {
       background-color: var(--brand-color-light);
       border: 1px solid black;
