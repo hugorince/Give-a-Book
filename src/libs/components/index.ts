@@ -5,3 +5,4 @@ export * from "./signup-form";
 export * from "./book-card";
 export * from "./books-cards-wrapper";
 export * from "./navbar";
+export * from "./user-infos";
