@@ -1,0 +1,6 @@
+.userInfosWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-025);
+  padding-bottom: var(--spacing-100);
+}
