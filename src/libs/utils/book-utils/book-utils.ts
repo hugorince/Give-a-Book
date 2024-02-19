@@ -31,6 +31,7 @@ export const getBooksData = async () => {
         title: book.title,
         img: book.image,
         user: userName?.username,
+        userId: userName?.id,
       };
     }),
   );

@@ -9,7 +9,7 @@ export const BookCard = ({ data }: { data: BooksData }) => {
       <img src={data.img || ""} alt="" />
       <div className={classes.userLink}>
         <p>offered by </p>
-        <Link href="#">{data.user}</Link>
+        <Link href={`/user/${data.userId}`}>{data.user}</Link>
       </div>
     </div>
   );
