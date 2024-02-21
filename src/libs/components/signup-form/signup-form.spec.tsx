@@ -47,5 +47,16 @@ describe("SignUpForm component", () => {
 
     user.type(confirmPassword, "password");
     await waitFor(() => expect(confirmPassword).toHaveValue("password"));
+
+    const submitButton = screen.getByRole("button", { name: "submit" });
+    submitButton.click();
+
+    expect(mockSubmit).toHaveBeenCalled();
+  });
+  it("should not call the onSubmit when form not valid", () => {
+    render(<SignUpForm />);
+
+    const submitButton = screen.getByRole("button", { name: "submit" });
+    expect(submitButton).toBeDisabled();
   });
 });
