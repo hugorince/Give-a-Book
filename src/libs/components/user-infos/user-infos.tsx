@@ -13,6 +13,7 @@ export const UserInfos = async ({ userId }: UserInfosProps) => {
   if (user && user.username) {
     const name = capitalize(user.username);
     const since = memberSince(user.createdAt);
+
     return (
       <div className={classes.userInfosWrapper}>
         <h1>{name}</h1>

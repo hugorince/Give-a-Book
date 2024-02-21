@@ -63,7 +63,7 @@ export const SignUpForm = () => {
       />
       <InputText
         type="password"
-        label="password"
+        label="confirm password"
         {...register("confirmPassword")}
         placeholder="confirm password"
       />
