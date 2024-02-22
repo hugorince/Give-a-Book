@@ -24,7 +24,9 @@ describe("DescriptionInput", () => {
     render(<SearchTextInput type="author" />, { wrapper: Wrapper });
 
     expect(screen.getByRole("textbox")).toBeInTheDocument();
-    expect(screen.getByPlaceholderText("mail@mail.com")).toBeInTheDocument();
+    expect(
+      screen.getByPlaceholderText("Enter book author"),
+    ).toBeInTheDocument();
   });
 
   it("should set the value on submit", async () => {

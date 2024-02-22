@@ -1,6 +1,6 @@
 "use client";
 
-import { type ChangeEvent, type MouseEvent, useState, useEffect } from "react";
+import { type ChangeEvent, type MouseEvent, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { fetchSuggestions } from "@/libs/utils";
 import { InputText } from "@/libs/ui-components";
