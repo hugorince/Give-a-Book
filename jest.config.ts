@@ -1,4 +1,4 @@
-import type { Config } from "jest";
+import { Config } from "jest";
 import nextJest from "next/jest.js";
 
 const createJestConfig = nextJest({
@@ -11,9 +11,14 @@ const config: Config = {
   coverageProvider: "v8",
   testEnvironment: "jsdom",
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
-  transformIgnorePatterns: ["/node_modules/(?!(node-fetch)/)"],
+  transformIgnorePatterns: [
+    "/node_modules/(?!(node-fetch)/)",
+    "/node_modules/(?!(jose)/)",
+    "/node_modules/(?!(openid-client)/)",
+  ],
+  globals: { fetch },
+
   // Add more setup options before each test is run
-  // setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
