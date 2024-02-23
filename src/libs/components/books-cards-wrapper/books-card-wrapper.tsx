@@ -10,6 +10,7 @@ interface BooksCardWrapperProps {
 
 export const BooksCardWrapper = async ({ userId }: BooksCardWrapperProps) => {
   const displayBooks = await getBooksData();
+
   if (!userId) {
     return (
       <div className={classes.booksWrapper}>
