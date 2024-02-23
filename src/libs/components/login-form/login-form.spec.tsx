@@ -11,11 +11,9 @@ jest.mock("react-hook-form", () => ({
   useForm: jest.fn(),
 }));
 
-const mockSubmit = jest.fn();
-
 const mockForm = {
   register: jest.fn(),
-  handleSubmit: mockSubmit,
+  handleSubmit: jest.fn(),
   formState: { s: {} },
 };
 
@@ -47,6 +45,6 @@ describe("login form", () => {
 
     button.click();
 
-    expect(mockSubmit).toHaveBeenCalled();
+    expect(mockForm.handleSubmit).toHaveBeenCalled();
   });
 });

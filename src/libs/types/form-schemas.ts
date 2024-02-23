@@ -28,6 +28,7 @@ export const PostBookFormSchema = z.object({
   author: z.string(),
   description: z.string(),
   image: z.string().optional(),
+  exchangegive: z.string(),
 });
 
 export const updateUserSchemaWithId = z.object({
