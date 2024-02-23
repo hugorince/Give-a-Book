@@ -15,6 +15,7 @@ export const postBook = async (
       description: values.description,
       image: values.image,
       userId: userId as number,
+      exchangegive: values.exchangegive,
     },
   });
 };

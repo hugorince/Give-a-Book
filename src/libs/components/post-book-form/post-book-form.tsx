@@ -11,6 +11,7 @@ import { postBook } from "@/libs/utils";
 import { Button } from "@/libs/ui-components";
 import classes from "./post-book-form.module.css";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { SelectInput } from "./select-input";
 
 export const PostBookForm = () => {
   const { data: session } = useSession();
@@ -24,6 +25,7 @@ export const PostBookForm = () => {
       author: "",
       description: "",
       image: "",
+      exchangegive: "give",
     },
   });
 
@@ -44,6 +46,7 @@ export const PostBookForm = () => {
         <SearchTextInput type="title" />
         <SearchTextInput type="author" />
         <DescriptionInput />
+        <SelectInput />
         <Button
           type="submit"
           disabled={!form.formState.isValid}
