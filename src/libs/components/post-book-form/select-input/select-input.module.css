@@ -1,0 +1,6 @@
+.select {
+  margin-right: auto;
+  height: var(--spacing-300);
+  border-radius: var(--spacing-050);
+  padding: var(--spacing-050);
+}
