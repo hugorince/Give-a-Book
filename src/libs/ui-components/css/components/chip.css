@@ -1,0 +1,18 @@
+.chip {
+  border-radius: var(--spacing-100);
+  padding: 0.35rem;
+  font-weight: bold;
+
+  &--m {
+    height: fit-content;
+    font-size: small;
+  }
+
+  &--exchange {
+    background-color: var(--color-chip-exchange);
+  }
+
+  &--give {
+    background-color: var(--color-chip-give);
+  }
+}

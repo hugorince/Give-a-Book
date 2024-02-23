@@ -1,10 +1,16 @@
 import Link from "next/link";
 import classes from "./book-card.module.css";
 import { BooksData } from "@/libs/utils";
+import { Chip } from "@/libs/ui-components";
 
 export const BookCard = ({ data }: { data: BooksData }) => {
+  const exchangeOrGive = data.exchange ? "exchange" : "give";
+
   return (
     <div className={classes.wrapper}>
+      <div className={classes.chip}>
+        <Chip label={exchangeOrGive} exchange={data.exchange} />
+      </div>
       <h3>{data.title}</h3>
       <img src={data.img || ""} alt="" />
       <div className={classes.userLink}>

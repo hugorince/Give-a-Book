@@ -1,8 +1,9 @@
 .wrapper {
+  position: relative;
   border: solid 1px black;
   border-radius: 0.3rem;
-  width: 15rem;
-  height: 20rem;
+  width: 20rem;
+  height: 25rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,6 +15,7 @@
   h3 {
     text-align: center;
     font-style: italic;
+    max-width: 10rem;
   }
 
   img {
@@ -24,4 +26,11 @@
     display: flex;
     gap: 0.25rem;
   }
+}
+
+.chip {
+  position: absolute;
+  gap: var(--spacing-050);
+  top: var(--spacing-050);
+  right: var(--spacing-050);
 }
