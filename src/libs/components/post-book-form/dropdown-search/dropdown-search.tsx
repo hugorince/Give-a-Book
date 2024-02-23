@@ -4,10 +4,10 @@ import {
   type SetStateAction,
   useRef,
   useEffect,
-  useCallback,
 } from "react";
 import type { SearchTextInputProps, Book } from "../search-text-input";
 import classes from "./dropdown-search.module.css";
+import { useOutsideClick } from "@/libs/utils";
 
 interface DropdownSearchProps {
   type: SearchTextInputProps["type"];
@@ -23,25 +23,11 @@ export const DropdownSearch = ({
   handleOnClick,
 }: DropdownSearchProps) => {
   const wrapperRef = useRef<HTMLUListElement>(null);
-
-  const handleOutsideClick: EventListener = useCallback(
-    (e: Event) => {
-      if (
-        wrapperRef.current &&
-        !wrapperRef.current.contains(e.target as Node)
-      ) {
-        setSuggestions(null);
-      }
-    },
-    [setSuggestions],
-  );
+  const { outsideClick } = useOutsideClick({ ref: wrapperRef });
 
   useEffect(() => {
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, [handleOutsideClick]);
+    if (outsideClick) setSuggestions(null);
+  }, [outsideClick, setSuggestions]);
 
   if (suggestions)
     return (

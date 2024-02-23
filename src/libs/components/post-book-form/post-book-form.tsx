@@ -43,10 +43,10 @@ export const PostBookForm = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className={classes.formWrapper}
       >
+        <SelectInput />
         <SearchTextInput type="title" />
         <SearchTextInput type="author" />
         <DescriptionInput />
-        <SelectInput />
         <Button
           type="submit"
           disabled={!form.formState.isValid}

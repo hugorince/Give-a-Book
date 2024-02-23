@@ -4,3 +4,4 @@ export * from "./update-user";
 export * from "./get-initials";
 export * from "./get-user-info";
 export * from "./string-utils";
+export * from "./use-outside-click";
