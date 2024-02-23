@@ -1,8 +1,8 @@
-import React, { forwardRef } from "react";
+import React, { type ButtonHTMLAttributes, forwardRef } from "react";
 import { clsx } from "clsx";
 import { Loader } from "../loader";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: "s" | "m" | "l";
   variant?: "primary" | "unstyled";
   type?: "button" | "submit";

@@ -25,7 +25,7 @@ export const PostBookForm = () => {
       author: "",
       description: "",
       image: "",
-      exchangegive: "give",
+      exchangeGive: "give",
     },
   });
 
