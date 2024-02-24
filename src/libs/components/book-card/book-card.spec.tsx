@@ -5,8 +5,11 @@ import { render, screen } from "@testing-library/react";
 const mockData: BooksData = {
   user: "user",
   title: "title",
+  description: "description",
   img: "src",
   userId: 3,
+  exchange: true,
+  give: false,
 };
 
 describe("BookCard", () => {
@@ -19,5 +22,6 @@ describe("BookCard", () => {
 
     expect(screen.getByText("title")).toBeInTheDocument();
     expect(screen.getByRole("img")).toHaveAttribute("src", "src");
+    expect(screen.getByText("exchange")).toBeInTheDocument();
   });
 });
