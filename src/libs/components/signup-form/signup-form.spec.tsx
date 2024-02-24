@@ -2,12 +2,6 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { SignUpForm } from ".";
 import userEvent from "@testing-library/user-event";
 
-jest.mock("next/navigation", () => ({
-  useRouter: () => ({
-    push: jest.fn(),
-  }),
-}));
-
 jest.mock("react-hook-form", () => ({
   ...jest.requireActual("react-hook-form"),
   useForm: jest.fn(),
