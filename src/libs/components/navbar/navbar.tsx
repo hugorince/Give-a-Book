@@ -17,10 +17,10 @@ export const Navbar = async () => {
             </Link>
           </li>
           <li>
-            <Link href="/books">books</Link>
+            <Link href="/books">Books</Link>
           </li>
           <li>
-            <Link href="/books/post-book">Add a book</Link>
+            <Link href="/books/post-book">Add book</Link>
           </li>
           <li>
             <SignOutButton />
