@@ -2,6 +2,7 @@
   border-radius: var(--spacing-100);
   padding: 0.35rem;
   font-weight: bold;
+  max-width: fit-content;
 
   &--m {
     height: fit-content;

@@ -6,3 +6,4 @@ export * from "./book-card";
 export * from "./books-cards-wrapper";
 export * from "./navbar";
 export * from "./user-infos";
+export * from "./book-page-infos";
