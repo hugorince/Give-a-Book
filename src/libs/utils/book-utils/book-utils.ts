@@ -32,16 +32,36 @@ export const getBooksData = async () => {
         where: { id: book.userId },
       });
       return {
+        id: book.id,
         title: book.title,
-        img: book.image,
+        image: book.image,
         description: book.description,
         user: userName?.username,
         userId: userName?.id,
         exchange: book.exchange,
         give: book.give,
+        createdAt: book.createdAt,
+        updatedAt: book.updatedAt,
       };
     }),
   );
+};
+
+export const getBookById = async (bookId: string) => {
+  const book = await db.book.findUnique({
+    where: { id: parseInt(bookId) },
+  });
+
+  const userName = await db.user.findUnique({
+    where: { id: book?.userId },
+  });
+
+  if (book && userName) {
+    return {
+      ...book,
+      user: userName?.username,
+    };
+  }
 };
 
 export type BooksData = Awaited<ReturnType<typeof getBooksData>>[number];

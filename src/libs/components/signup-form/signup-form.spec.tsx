@@ -7,11 +7,9 @@ jest.mock("react-hook-form", () => ({
   useForm: jest.fn(),
 }));
 
-const mockSubmit = jest.fn();
-
 const mockForm = {
   register: jest.fn(),
-  handleSubmit: mockSubmit,
+  handleSubmit: jest.fn(),
   formState: { s: {} },
 };
 
@@ -45,7 +43,7 @@ describe("SignUpForm component", () => {
     const submitButton = screen.getByRole("button", { name: "submit" });
     submitButton.click();
 
-    expect(mockSubmit).toHaveBeenCalled();
+    expect(mockForm.handleSubmit).toHaveBeenCalled();
   });
   it("should not call the onSubmit when form not valid", () => {
     render(<SignUpForm />);
