@@ -4,7 +4,7 @@ import { BooksData } from "@/libs/utils";
 import { Chip } from "@/libs/ui-components";
 
 export const BookCard = ({ data }: { data: BooksData }) => {
-  const exchangeOrGive = data.exchange ? "exchange" : "give";
+  const exchangeOrGive = data.exchange ? "Exchange" : "Give";
 
   return (
     <div className={classes.wrapper}>

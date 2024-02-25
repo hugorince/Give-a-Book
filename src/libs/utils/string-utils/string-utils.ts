@@ -11,3 +11,16 @@ export const memberSince = (date: Date) => {
     date.getFullYear()
   );
 };
+
+export const postedOn = (date: Date) => {
+  return (
+    "posted on " +
+    date.toLocaleString("default", {
+      month: "long",
+    }) +
+    " " +
+    date.getDay() +
+    " " +
+    date.getFullYear()
+  );
+};

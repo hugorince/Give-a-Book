@@ -34,6 +34,7 @@ export const getBooksData = async () => {
       return {
         id: book.id,
         title: book.title,
+        author: book.author,
         image: book.image,
         description: book.description,
         user: userName?.username,

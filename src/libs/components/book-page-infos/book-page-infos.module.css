@@ -1,0 +1,40 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-200);
+
+  .imageContainer {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: 12rem;
+    }
+  }
+
+  .bookInfos {
+    display: flex;
+    flex-direction: column;
+
+    .chipDate {
+      display: flex;
+      gap: var(--spacing-100);
+    }
+
+    @media (min-width: 720px) {
+      & :first-child {
+        align-self: flex-end;
+      }
+    }
+  }
+
+  @media (min-width: 720px) {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    align-items: start;
+  }
+}
