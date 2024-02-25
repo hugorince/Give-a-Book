@@ -11,8 +11,10 @@ export const BookCard = ({ data }: { data: BooksData }) => {
       <div className={classes.chip}>
         <Chip label={exchangeOrGive} exchange={data.exchange} />
       </div>
-      <h3>{data.title}</h3>
-      <img src={data.img || ""} alt="" />
+      <h3>
+        <Link href={`/book/${data.id}`}>{data.title}</Link>
+      </h3>
+      <img src={data.image || ""} alt="" />
       <div className={classes.userLink}>
         <p>offered by </p>
         <Link href={`/user/${data.userId}`}>{data.user}</Link>
