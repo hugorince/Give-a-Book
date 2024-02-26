@@ -2,27 +2,44 @@
 
 import classes from "./books-cards-wrapper.module.css";
 import { getBooksData } from "@/libs/utils";
-import { BookCard } from "..";
-import { Checkbox } from "@/libs/ui-components";
+import { BookCard, FilterBooks } from "..";
 
-export const BooksCardWrapper = async () => {
+interface ParamsProps {
+  [key: string]: string;
+}
+
+export const BooksCardWrapper = async ({ searchParams }: ParamsProps) => {
+  console.log(searchParams);
   const displayBooks = await getBooksData();
-
-  const formAction = () => {
-    console.log("clicked");
-  };
 
   return (
     <>
-      <form action={formAction}>
-        <Checkbox label="Exchange" value="exchange" />
-        <Checkbox label="Give" value="give" />
-      </form>
-      <div className={classes.booksWrapper}>
-        {displayBooks.map((book, index) => {
-          return <BookCard data={book} key={index} />;
-        })}
-      </div>
+      <FilterBooks />
+      {searchParams["filter"] === "exchange,give" ? (
+        <div className={classes.booksWrapper}>
+          {displayBooks.map((book, index) => {
+            return <BookCard data={book} key={index} />;
+          })}
+        </div>
+      ) : searchParams["filter"] === "exchange" ? (
+        <div className={classes.booksWrapper}>
+          {displayBooks.map((book, index) => {
+            if (book.exchange) return <BookCard data={book} key={index} />;
+          })}
+        </div>
+      ) : searchParams["filter"] === "give" ? (
+        <div className={classes.booksWrapper}>
+          {displayBooks.map((book, index) => {
+            if (book.give) return <BookCard data={book} key={index} />;
+          })}
+        </div>
+      ) : (
+        <div className={classes.booksWrapper}>
+          {displayBooks.map((book, index) => {
+            return <BookCard data={book} key={index} />;
+          })}
+        </div>
+      )}
     </>
   );
 };

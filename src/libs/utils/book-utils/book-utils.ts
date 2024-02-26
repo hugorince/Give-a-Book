@@ -2,6 +2,7 @@
 
 import { db } from "@/libs/database";
 import { PostBookFormSchema } from "@/libs/types";
+import { redirect } from "next/navigation";
 import { z } from "zod";
 
 export const postBook = async (
@@ -62,6 +63,28 @@ export const getBookById = async (bookId: string) => {
       ...book,
       user: userName?.username,
     };
+  }
+};
+
+export const filterBooks = async (formData: FormData) => {
+  const exchange = formData.get("exchange");
+  const give = formData.get("give");
+
+  if (exchange && give) {
+    const param = new URLSearchParams([["filter", "exchange,give"]]);
+    redirect(`/books?${param}`);
+  }
+  if (exchange) {
+    const param = new URLSearchParams([["filter", "exchange"]]);
+    redirect(`/books?${param}`);
+  }
+  if (give) {
+    const param = new URLSearchParams([["filter", "give"]]);
+    redirect(`/books?${param}`);
+  }
+
+  if (!exchange && !give) {
+    redirect("/books");
   }
 };
 
