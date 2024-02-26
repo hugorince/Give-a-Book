@@ -1,10 +1,14 @@
 import { BooksCardWrapper } from "@/libs/components";
 import { MainLayout } from "@/libs/layout";
 
-export const Books = () => {
+interface ParamsProps {
+  [key: string]: string;
+}
+
+export const Books = async ({ searchParams }: ParamsProps) => {
   return (
     <MainLayout>
-      <BooksCardWrapper />
+      <BooksCardWrapper searchParams={searchParams} />
     </MainLayout>
   );
 };

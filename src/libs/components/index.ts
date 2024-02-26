@@ -7,3 +7,4 @@ export * from "./books-cards-wrapper";
 export * from "./navbar";
 export * from "./user-infos";
 export * from "./book-page-infos";
+export * from "./filter-books";
