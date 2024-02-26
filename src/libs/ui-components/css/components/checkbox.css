@@ -1,0 +1,7 @@
+.checkbox-container {
+  label {
+    display: inline-flex;
+    gap: var(--spacing-050);
+    font-weight: bold;
+  }
+}

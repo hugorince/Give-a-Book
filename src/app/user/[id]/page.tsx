@@ -1,4 +1,4 @@
-import { BooksCardWrapper } from "@/libs/components";
+import { UserBooksCardsWrapper } from "@/libs/components";
 import { UserInfos } from "@/libs/components/user-infos/user-infos";
 import { MainLayout } from "@/libs/layout";
 
@@ -8,7 +8,7 @@ export const UserPage = async ({ params }: { params: { id: string } }) => {
   return (
     <MainLayout>
       <UserInfos userId={userId} />
-      <BooksCardWrapper userId={userId} />
+      <UserBooksCardsWrapper userId={userId} />
     </MainLayout>
   );
 };
