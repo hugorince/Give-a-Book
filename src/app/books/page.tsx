@@ -5,7 +5,11 @@ interface ParamsProps {
   [key: string]: string;
 }
 
-export const Books = async ({ searchParams }: ParamsProps) => {
+export const Books = async ({
+  searchParams,
+}: {
+  searchParams: ParamsProps;
+}) => {
   return (
     <MainLayout>
       <BooksCardWrapper searchParams={searchParams} />
