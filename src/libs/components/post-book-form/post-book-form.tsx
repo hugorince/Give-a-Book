@@ -33,6 +33,7 @@ export const PostBookForm = () => {
     const userId = session && parseInt(session.user.id);
     if (userId) {
       await postBook(values, userId);
+      router.refresh();
       router.push("/books");
     }
   };
