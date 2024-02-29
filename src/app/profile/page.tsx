@@ -1,4 +1,4 @@
-import { BooksCardWrapper, ProfileInfos } from "@/libs/components";
+import { ProfileInfos, UserBooksCardsWrapper } from "@/libs/components";
 import { MainLayout } from "@/libs/layout";
 import { getUserId } from "@/libs/utils";
 
@@ -8,7 +8,7 @@ export const Profile = async () => {
   return (
     <MainLayout>
       <ProfileInfos />
-      <BooksCardWrapper userId={userId} />
+      {userId && <UserBooksCardsWrapper userId={userId} />}
     </MainLayout>
   );
 };
