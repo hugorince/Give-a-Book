@@ -20,7 +20,7 @@ export const BooksCardWrapper = async ({
     const singleParam = params && (params[0] as "exchange" | "give");
 
     return (
-      <>
+      <div>
         <FilterBooks />
         {params.length > 1 ? (
           <div className={classes.booksWrapper}>
@@ -36,18 +36,18 @@ export const BooksCardWrapper = async ({
             })}
           </div>
         )}
-      </>
+      </div>
     );
   }
 
   return (
-    <>
+    <div>
       <FilterBooks />
       <div className={classes.booksWrapper}>
         {displayBooks.map((book, index) => {
           return <BookCard data={book} key={index} />;
         })}
       </div>
-    </>
+    </div>
   );
 };
