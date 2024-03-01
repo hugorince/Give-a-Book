@@ -2,11 +2,7 @@
 
 import { type RefObject, useCallback, useEffect, useState } from "react";
 
-export const useOutsideClick = ({
-  ref,
-}: {
-  ref: RefObject<HTMLUListElement>;
-}) => {
+export const useOutsideClick = ({ ref }: { ref: RefObject<HTMLElement> }) => {
   const [outsideClick, setOutsideClick] = useState(false);
 
   const handleOutsideClick: EventListener = useCallback(

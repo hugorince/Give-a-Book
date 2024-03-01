@@ -1,4 +1,5 @@
-import Link from "next/link";
+import NextLink from "next/link";
+import { Link } from "@/libs/ui-components";
 import classes from "./book-card.module.css";
 import { BooksData } from "@/libs/utils";
 import { Chip } from "@/libs/ui-components";
@@ -7,18 +8,22 @@ export const BookCard = ({ data }: { data: BooksData }) => {
   const exchangeOrGive = data.exchange ? "Exchange" : "Give";
 
   return (
-    <div className={classes.wrapper}>
+    <NextLink href={`/book/${data.id}`} className={classes.wrapper}>
       <div className={classes.chip}>
         <Chip label={exchangeOrGive} exchange={data.exchange} />
       </div>
-      <h3>
-        <Link href={`/book/${data.id}`}>{data.title}</Link>
-      </h3>
+
+      <Link variant="unstyled" href={`/book/${data.id}`}>
+        <h3>{data.title}</h3>
+      </Link>
+
       <img src={data.image || ""} alt="" />
       <div className={classes.userLink}>
         <p>offered by </p>
-        <Link href={`/user/${data.userId}`}>{data.user}</Link>
+        <Link href={`/user/${data.userId}`} variant="unstyled">
+          {data.user}
+        </Link>
       </div>
-    </div>
+    </NextLink>
   );
 };

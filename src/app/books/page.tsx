@@ -1,5 +1,6 @@
 import { BooksCardWrapper, FilterBooks } from "@/libs/components";
 import { MainLayout } from "@/libs/layout";
+import classes from "./books.module.css";
 
 interface ParamsProps {
   [key: string]: string;
@@ -12,8 +13,10 @@ export const Books = async ({
 }) => {
   return (
     <MainLayout>
-      <FilterBooks />
-      <BooksCardWrapper searchParams={searchParams} />
+      <div className={classes.pageWrapper}>
+        <FilterBooks />
+        <BooksCardWrapper searchParams={searchParams} />
+      </div>
     </MainLayout>
   );
 };

@@ -1,16 +1,17 @@
-import { ReactNode } from "react";
+"use client";
+
 import classes from "./filter-books-drawer.module.css";
 import clsx from "clsx";
 import { Button } from "@/libs/ui-components";
+import { FilterBooksForm } from "./filter-books-form";
+import { RiCloseFill } from "react-icons/ri";
 
 export const FilterBooksDrawer = ({
   isOpen,
   close,
-  children,
 }: {
   isOpen: boolean;
   close: () => void;
-  children: ReactNode;
 }) => {
   const className = clsx(
     `${classes.drawerContainer}`,
@@ -20,9 +21,9 @@ export const FilterBooksDrawer = ({
   return (
     <div className={className}>
       <Button variant="unstyled" onClick={() => close()}>
-        close
+        <RiCloseFill size={32} />
       </Button>
-      {children}
+      <FilterBooksForm close={() => close()} />
     </div>
   );
 };
