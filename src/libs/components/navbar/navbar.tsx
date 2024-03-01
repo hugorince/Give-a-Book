@@ -1,6 +1,6 @@
-import { Avatar } from "@/libs/ui-components";
+import { Avatar, Link } from "@/libs/ui-components";
 import classes from "./navbar.module.css";
-import Link from "next/link";
+import NextLink from "next/link";
 import { getInitials } from "@/libs/utils";
 import { SignOutButton } from "./sign-out-button";
 import { getServerSession } from "next-auth";
@@ -17,18 +17,22 @@ export const Navbar = async () => {
         <ul>
           {session && (
             <li>
-              <Link href="/profile">
+              <NextLink href="/profile">
                 <Avatar initials={initials} />
-              </Link>
+              </NextLink>
             </li>
           )}
           <li>
-            <Link href="/books">Books</Link>
+            <Link href="/books" variant="unstyled">
+              Books
+            </Link>
           </li>
           {session ? (
             <>
               <li>
-                <Link href="/books/post-book">Add book</Link>
+                <Link href="/books/post-book" variant="unstyled">
+                  Add book
+                </Link>
               </li>
               <li>
                 <SignOutButton />

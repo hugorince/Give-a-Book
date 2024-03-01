@@ -10,5 +10,13 @@ describe("Navbar", () => {
     logOutButton.click();
 
     expect(mockSignOut).toHaveBeenCalled();
+    expect(screen.getByRole("link", { name: "Books" })).toHaveAttribute(
+      "href",
+      "/books",
+    );
+    expect(screen.getByRole("link", { name: "Add book" })).toHaveAttribute(
+      "href",
+      "/books/post-book",
+    );
   });
 });
