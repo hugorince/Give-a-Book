@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/libs/ui-components";
 
 interface LoginSignUpButtonProps {
   loginOrSignUp: "login" | "signup";
@@ -7,5 +7,9 @@ interface LoginSignUpButtonProps {
 export const LoginSignUpButton = ({
   loginOrSignUp,
 }: LoginSignUpButtonProps) => {
-  return <Link href={`/${loginOrSignUp}`}>{loginOrSignUp}</Link>;
+  return (
+    <Link href={`/${loginOrSignUp}`} size="s">
+      {loginOrSignUp}
+    </Link>
+  );
 };

@@ -9,5 +9,9 @@ export const SignOutButton = () => {
     await signOut();
     redirect("/login");
   };
-  return <Button onClick={handleOnClick}>sign out</Button>;
+  return (
+    <Button onClick={handleOnClick} size="s">
+      sign out
+    </Button>
+  );
 };

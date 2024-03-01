@@ -44,4 +44,5 @@ jest.mock("next/navigation", () => ({
   useRouter: () => ({
     push: jest.fn(),
   }),
+  redirect: jest.fn(),
 }));
