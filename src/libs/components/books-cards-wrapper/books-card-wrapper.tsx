@@ -2,7 +2,7 @@
 
 import classes from "./books-cards-wrapper.module.css";
 import { getBooksData } from "@/libs/utils";
-import { BookCard, FilterBooks } from "..";
+import { BookCard } from "..";
 
 interface ParamsProps {
   [key: string]: string;
@@ -21,7 +21,6 @@ export const BooksCardWrapper = async ({
 
     return (
       <div>
-        <FilterBooks />
         {params.length > 1 ? (
           <div className={classes.booksWrapper}>
             {displayBooks.map((book, index) => {
@@ -42,7 +41,6 @@ export const BooksCardWrapper = async ({
 
   return (
     <div>
-      <FilterBooks />
       <div className={classes.booksWrapper}>
         {displayBooks.map((book, index) => {
           return <BookCard data={book} key={index} />;

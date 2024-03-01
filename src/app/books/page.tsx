@@ -1,4 +1,4 @@
-import { BooksCardWrapper } from "@/libs/components";
+import { BooksCardWrapper, FilterBooks } from "@/libs/components";
 import { MainLayout } from "@/libs/layout";
 
 interface ParamsProps {
@@ -12,6 +12,7 @@ export const Books = async ({
 }) => {
   return (
     <MainLayout>
+      <FilterBooks />
       <BooksCardWrapper searchParams={searchParams} />
     </MainLayout>
   );
