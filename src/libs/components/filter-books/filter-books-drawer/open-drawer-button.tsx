@@ -2,13 +2,9 @@
 
 import { Button } from "@/libs/ui-components";
 
-export const OpenDrawerButton = ({
-  toggleDrawer,
-}: {
-  toggleDrawer: () => void;
-}) => {
+export const OpenDrawerButton = ({ open }: { open: () => void }) => {
   const handleOnClick = () => {
-    toggleDrawer();
+    open();
   };
 
   return <Button onClick={handleOnClick}>filter</Button>;

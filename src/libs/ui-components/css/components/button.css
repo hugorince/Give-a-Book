@@ -77,7 +77,7 @@
     font-weight: bold;
 
     &:hover {
-      color: white;
+      color: grey;
     }
 
     &:active {

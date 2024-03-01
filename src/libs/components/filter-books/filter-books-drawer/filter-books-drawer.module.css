@@ -1,15 +1,26 @@
 .drawerContainer {
-  z-index: 7500;
   position: fixed;
+  overflow: hidden;
+  z-index: 7500;
   top: 0;
-  height: 100vh;
   width: 20rem;
-  background-color: orange;
-  transition: all 0.3s ease-in-out;
+  height: 100%;
+  background-color: white;
   transform: translateX(-25rem);
-  padding: var(--spacing-300);
-  //position: absolute;
+  transition: all 0.3s ease-in-out;
+  padding: var(--spacing-200);
+  position: absolute;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-200);
+
+  button {
+    align-self: flex-end;
+  }
 }
+
 .drawerContainerOpen {
-  transform: translateX(-3rem);
+  height: 100%;
+  transform: translateX(-2rem);
 }
