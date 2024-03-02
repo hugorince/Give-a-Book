@@ -6,7 +6,7 @@
   height: 25rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  //align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
   overflow: hidden;
@@ -15,13 +15,12 @@
   color: black;
 
   h3 {
-    text-align: center;
-    font-style: italic;
-    max-width: 10rem;
+    align-self: flex-start;
   }
 
   img {
     width: 8rem;
+    align-self: center;
   }
 
   &:hover {
