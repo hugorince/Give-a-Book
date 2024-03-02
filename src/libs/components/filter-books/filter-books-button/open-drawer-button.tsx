@@ -2,7 +2,7 @@
 
 import { Button } from "@/libs/ui-components";
 
-export const OpenDrawerButton = ({ open }: { open: () => void }) => {
+export const OpenFilterBooksDrawerButton = ({ open }: { open: () => void }) => {
   const handleOnClick = () => {
     open();
   };
