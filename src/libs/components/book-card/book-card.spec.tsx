@@ -3,13 +3,17 @@ import { BookCard } from ".";
 import { render, screen } from "@testing-library/react";
 
 const mockData: BooksData = {
+  id: 1,
   user: "user",
   title: "title",
+  author: "author",
   description: "description",
-  img: "src",
+  image: "src",
   userId: 3,
   exchange: true,
   give: false,
+  createdAt: new Date(),
+  updatedAt: new Date(),
 };
 
 describe("BookCard", () => {
@@ -22,6 +26,6 @@ describe("BookCard", () => {
 
     expect(screen.getByText("title")).toBeInTheDocument();
     expect(screen.getByRole("img")).toHaveAttribute("src", "src");
-    expect(screen.getByText("exchange")).toBeInTheDocument();
+    expect(screen.getByText("Exchange")).toBeInTheDocument();
   });
 });
