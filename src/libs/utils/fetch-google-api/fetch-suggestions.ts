@@ -41,7 +41,7 @@ export const fetchSuggestions = async ({
   const books = await response.json();
 
   if (response.ok && books.items) {
-    const firstThreeBooks = books.items.slice(0, 3).map((book: any) => ({
+    const allBooks = books.items.map((book: any) => ({
       title: book.volumeInfo.title,
       authors: book.volumeInfo.authors,
       description: book.volumeInfo.description,
@@ -49,7 +49,7 @@ export const fetchSuggestions = async ({
         ? book.volumeInfo.imageLinks.thumbnail
         : "",
     }));
-    return firstThreeBooks;
+    return allBooks;
   } else {
     return [];
   }
