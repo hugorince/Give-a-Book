@@ -4,7 +4,6 @@ import { db } from "@/libs/database";
 import { PostBookFormSchema } from "@/libs/types";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { revalidateTag } from "next/cache";
 
 export const postBook = async (
   values: z.infer<typeof PostBookFormSchema>,
@@ -45,6 +44,7 @@ export const getBooksData = async () => {
         give: book.give,
         createdAt: book.createdAt,
         updatedAt: book.updatedAt,
+        likes: book.likes,
       };
     }),
   );
