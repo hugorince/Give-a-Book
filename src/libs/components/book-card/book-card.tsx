@@ -18,15 +18,17 @@ export const BookCard = async ({ data }: { data: BooksData }) => {
     const isLiked = data.likes.includes(parseInt(userId));
     return (
       <div className={classes.wrapper}>
-        <LikeButton isLiked={isLiked} bookId={data.id} />
-        <div className={classes.chip}>
-          <Chip label={exchangeOrGive} exchange={data.exchange} />
-        </div>
-        <div className={classes.userLink}>
-          <p>offered by </p>
-          <Link href={`/user/${data.userId}`} variant="unstyled">
-            {data.user}
-          </Link>
+        <div className={classes.header}>
+          <div className={classes.chipLike}>
+            <Chip label={exchangeOrGive} exchange={data.exchange} />
+            <LikeButton isLiked={isLiked} bookId={data.id} />
+          </div>
+          <div className={classes.userLink}>
+            <p>offered by </p>
+            <Link href={`/user/${data.userId}`} variant="unstyled">
+              {data.user}
+            </Link>
+          </div>
         </div>
         <img src={data.image || ""} alt="" />
         <Link variant="unstyled" href={`/book/${data.id}`}>

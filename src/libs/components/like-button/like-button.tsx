@@ -22,11 +22,11 @@ export const LikeButton = ({ bookId, isLiked }: LikeButtonProps) => {
     <>
       {isLiked ? (
         <Button variant="unstyled" onClick={handleHeartClicked}>
-          <IoHeart />
+          <IoHeart size={24} />
         </Button>
       ) : (
         <Button variant="unstyled" onClick={handleHeartClicked}>
-          <IoMdHeartEmpty />
+          <IoMdHeartEmpty size={24} />
         </Button>
       )}
     </>
