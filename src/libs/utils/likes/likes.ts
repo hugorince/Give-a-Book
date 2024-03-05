@@ -16,7 +16,7 @@ export const updateBookLikes = async (bookId: number) => {
     console.log("alreadyLiked", alreadyLiked);
 
     if (!alreadyLiked || !book.likes) {
-      db.book.update({
+      await db.book.update({
         where: {
           id: bookId,
         },
@@ -30,7 +30,7 @@ export const updateBookLikes = async (bookId: number) => {
       const index = book.likes.indexOf(parseInt(userId));
       book.likes.splice(index, 1);
 
-      db.book.update({
+      await db.book.update({
         where: {
           id: bookId,
         },
