@@ -4,6 +4,7 @@ import { Button } from "@/libs/ui-components";
 import { updateBookLikes } from "@/libs/utils";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoHeart } from "react-icons/io5";
+import { useRouter } from "next/navigation";
 
 interface LikeButtonProps {
   bookId: number;
@@ -11,8 +12,10 @@ interface LikeButtonProps {
 }
 
 export const LikeButton = ({ bookId, isLiked }: LikeButtonProps) => {
+  const router = useRouter();
   const handleHeartClicked = async () => {
     await updateBookLikes(bookId);
+    router.refresh();
   };
 
   return (
