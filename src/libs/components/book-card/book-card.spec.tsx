@@ -1,6 +1,6 @@
 import { BooksData } from "@/libs/utils";
 import { BookCard } from ".";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 
 const mockData: BooksData = {
   id: 1,
@@ -14,11 +14,14 @@ const mockData: BooksData = {
   give: false,
   createdAt: new Date(),
   updatedAt: new Date(),
+  likes: [4],
 };
 
 describe("BookCard", () => {
-  it("should map the data to display the book infos", () => {
-    render(<BookCard data={mockData} />);
+  it("should map the data to display the book infos", async () => {
+    await act(async () => {
+      render(<BookCard data={mockData} userId={"4"} />);
+    });
 
     expect(
       screen.getByRole("link", { name: mockData.user as string }),

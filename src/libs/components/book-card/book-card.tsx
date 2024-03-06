@@ -1,18 +1,19 @@
 "use server";
 
-import NextLink from "next/link";
-import { Button, Link } from "@/libs/ui-components";
+import { Link } from "@/libs/ui-components";
 import classes from "./book-card.module.css";
 import { BooksData } from "@/libs/utils";
 import { Chip } from "@/libs/ui-components";
 import { LikeButton } from "..";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/libs/auth/auth";
 
-export const BookCard = async ({ data }: { data: BooksData }) => {
+export const BookCard = async ({
+  data,
+  userId,
+}: {
+  data: BooksData;
+  userId: string | null;
+}) => {
   const exchangeOrGive = data.exchange ? "Exchange" : "Give";
-  const user = await getServerSession(authOptions);
-  const userId = user?.user.id;
 
   if (userId) {
     const isLiked = data.likes.includes(parseInt(userId));

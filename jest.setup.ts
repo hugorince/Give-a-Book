@@ -6,7 +6,7 @@ import "@testing-library/jest-dom";
 
 export const mockSession = {
   expires: new Date(Date.now() + 2 * 86400).toISOString(),
-  user: { username: "admin" },
+  user: { username: "admin", id: 4 },
 };
 
 export const mockSignOut = jest.fn();
