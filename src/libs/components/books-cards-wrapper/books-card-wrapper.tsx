@@ -15,41 +15,82 @@ export const BooksCardWrapper = async ({
 }: {
   searchParams: ParamsProps;
 }) => {
-  const displayBooks = await getBooksData();
+  const books = await getBooksData();
   const user = await getServerSession(authOptions);
   const userId = user?.user.id || null;
 
   if (searchParams.filter) {
     const params = searchParams.filter.split(",");
-    const singleParam = params && (params[0] as "exchange" | "give");
+    const give = (params.includes("give") && "give") || null;
+    const exchange = (params.includes("exchange") && "exchange") || null;
+    const likedOnly = (params.includes("liked") && "liked") || null;
+    console.log("params", exchange, give, likedOnly);
 
     return (
-      <div>
-        {params.length > 1 ? (
+      <>
+        {exchange && give && !likedOnly ? (
           <div className={classes.booksWrapper}>
-            {displayBooks.map((book, index) => {
+            {books.map((book, index) => {
               return <BookCard data={book} key={index} userId={userId} />;
             })}
           </div>
-        ) : (
+        ) : exchange && !give && !likedOnly ? (
           <div className={classes.booksWrapper}>
-            {displayBooks.map((book, index) => {
-              if (book[singleParam])
+            {books.map((book, index) => {
+              if (book[exchange])
                 return <BookCard data={book} key={index} userId={userId} />;
             })}
           </div>
+        ) : give && !exchange && !likedOnly ? (
+          <div className={classes.booksWrapper}>
+            {books.map((book, index) => {
+              if (book[give])
+                return <BookCard data={book} key={index} userId={userId} />;
+            })}
+          </div>
+        ) : likedOnly && !exchange && !give ? (
+          <div className={classes.booksWrapper}>
+            {books.map((book, index) => {
+              if (userId && book.likes.includes(parseInt(userId)))
+                return <BookCard data={book} key={index} userId={userId} />;
+            })}
+          </div>
+        ) : likedOnly && exchange && !give ? (
+          <div className={classes.booksWrapper}>
+            {books.map((book, index) => {
+              if (
+                userId &&
+                book.likes.includes(parseInt(userId)) &&
+                book[exchange]
+              )
+                return <BookCard data={book} key={index} userId={userId} />;
+            })}
+          </div>
+        ) : (
+          likedOnly &&
+          give &&
+          !exchange && (
+            <div className={classes.booksWrapper}>
+              {books.map((book, index) => {
+                if (
+                  userId &&
+                  book.likes.includes(parseInt(userId)) &&
+                  book[give]
+                )
+                  return <BookCard data={book} key={index} userId={userId} />;
+              })}
+            </div>
+          )
         )}
-      </div>
+      </>
     );
   }
 
   return (
-    <div>
-      <div className={classes.booksWrapper}>
-        {displayBooks.map((book, index) => {
-          return <BookCard data={book} key={index} userId={userId} />;
-        })}
-      </div>
+    <div className={classes.booksWrapper}>
+      {books.map((book, index) => {
+        return <BookCard data={book} key={index} userId={userId} />;
+      })}
     </div>
   );
 };

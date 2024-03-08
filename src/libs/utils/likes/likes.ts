@@ -13,7 +13,6 @@ export const updateBookLikes = async (bookId: number) => {
 
   if (userId && book) {
     const alreadyLiked = book?.likes.includes(parseInt(userId));
-    console.log("alreadyLiked", alreadyLiked);
 
     if (!alreadyLiked || !book.likes) {
       await db.book.update({
