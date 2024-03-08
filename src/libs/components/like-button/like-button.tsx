@@ -9,13 +9,23 @@ import { useRouter } from "next/navigation";
 interface LikeButtonProps {
   bookId: number;
   isLiked: boolean;
+  isLoggedIn: boolean;
 }
 
-export const LikeButton = ({ bookId, isLiked }: LikeButtonProps) => {
+export const LikeButton = ({
+  bookId,
+  isLiked,
+  isLoggedIn,
+}: LikeButtonProps) => {
   const router = useRouter();
+
   const handleHeartClicked = async () => {
-    await updateBookLikes(bookId);
-    router.refresh();
+    if (isLoggedIn) {
+      await updateBookLikes(bookId);
+      router.refresh();
+    } else {
+      router.push("/login");
+    }
   };
 
   return (
