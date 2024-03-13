@@ -9,7 +9,7 @@ export const BookCard = ({
   userId,
 }: {
   data: BooksData;
-  userId: string | null;
+  userId?: string;
 }) => {
   const exchangeOrGive = data.exchange ? "Exchange" : "Give";
 
