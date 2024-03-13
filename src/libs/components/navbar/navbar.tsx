@@ -1,3 +1,5 @@
+"use server";
+
 import { Avatar, Link } from "@/libs/ui-components";
 import classes from "./navbar.module.css";
 import NextLink from "next/link";
@@ -8,8 +10,8 @@ import { authOptions } from "@/libs/auth/auth";
 import { LoginSignUpButton } from "./login-singup-button";
 
 export const Navbar = async () => {
-  const initials = await getInitials();
   const session = await getServerSession(authOptions);
+  const initials = await getInitials();
 
   return (
     <header className={classes.header}>
