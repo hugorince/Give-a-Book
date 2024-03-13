@@ -17,14 +17,13 @@ export const BooksCardContainer = async ({
 }) => {
   const books = await getBooksData();
   const user = await getServerSession(authOptions);
-  const userId = user?.user.id || null;
+  const userId = user?.user.id || "";
 
   if (searchParams.filter) {
     const params = searchParams.filter.split(",");
     const give = (params.includes("give") && "give") || null;
     const exchange = (params.includes("exchange") && "exchange") || null;
     const likedOnly = (params.includes("liked") && "liked") || null;
-    console.log("params", exchange, give, likedOnly);
 
     return (
       <>

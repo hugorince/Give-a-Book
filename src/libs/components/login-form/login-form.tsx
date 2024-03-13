@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { LoginFormSchema } from "@/libs/types";
@@ -11,6 +12,7 @@ import { Button, InputText } from "@/libs/ui-components";
 
 export const LoginForm = () => {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof LoginFormSchema>>({
     resolver: zodResolver(LoginFormSchema),
@@ -21,6 +23,7 @@ export const LoginForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof LoginFormSchema>) => {
+    setIsLoading(true);
     const signInData = await signIn("credentials", {
       email: values.email,
       password: values.password,
@@ -29,7 +32,10 @@ export const LoginForm = () => {
     if (signInData?.error) {
       console.log(signInData.error, "error");
     } else {
-      router.push("/");
+      setTimeout(() => {
+        router.push("/");
+        setIsLoading(false);
+      }, 1000);
     }
   };
 
@@ -54,7 +60,7 @@ export const LoginForm = () => {
       <Button
         type="submit"
         disabled={!form.formState.isValid}
-        loading={form.formState.isSubmitting}
+        loading={isLoading}
       >
         log in
       </Button>
