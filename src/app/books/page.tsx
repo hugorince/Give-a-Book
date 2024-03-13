@@ -1,4 +1,4 @@
-import { BooksCardWrapper, FilterBooks } from "@/libs/components";
+import { BooksCardContainer, FilterBooks } from "@/libs/components";
 import { MainLayout } from "@/libs/layout";
 import classes from "./books.module.css";
 
@@ -15,7 +15,7 @@ export const Books = async ({
     <MainLayout>
       <div className={classes.pageWrapper}>
         <FilterBooks />
-        <BooksCardWrapper searchParams={searchParams} />
+        <BooksCardContainer searchParams={searchParams} />
       </div>
     </MainLayout>
   );

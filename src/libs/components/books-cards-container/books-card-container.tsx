@@ -1,6 +1,6 @@
 "use server";
 
-import classes from "./books-cards-wrapper.module.css";
+import classes from "./books-cards-container.module.css";
 import { getBooksData } from "@/libs/utils";
 import { BookCard } from "..";
 import { getServerSession } from "next-auth";
@@ -10,7 +10,7 @@ interface ParamsProps {
   [key: string]: string;
 }
 
-export const BooksCardWrapper = async ({
+export const BooksCardContainer = async ({
   searchParams,
 }: {
   searchParams: ParamsProps;
