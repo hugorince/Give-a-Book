@@ -65,17 +65,20 @@ export const BooksCardContainer = async ({
                 return <BookCard data={book} key={index} userId={userId} />;
             })}
           </div>
+        ) : likedOnly && give && !exchange ? (
+          <div className={classes.booksWrapper}>
+            {books.map((book, index) => {
+              if (userId && book.likes.includes(parseInt(userId)) && book[give])
+                return <BookCard data={book} key={index} userId={userId} />;
+            })}
+          </div>
         ) : (
           likedOnly &&
           give &&
-          !exchange && (
+          exchange && (
             <div className={classes.booksWrapper}>
               {books.map((book, index) => {
-                if (
-                  userId &&
-                  book.likes.includes(parseInt(userId)) &&
-                  book[give]
-                )
+                if (userId && book.likes.includes(parseInt(userId)))
                   return <BookCard data={book} key={index} userId={userId} />;
               })}
             </div>
