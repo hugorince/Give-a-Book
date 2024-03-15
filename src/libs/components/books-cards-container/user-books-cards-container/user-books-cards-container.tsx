@@ -15,7 +15,7 @@ export const UserBooksCardsContainer = async ({
 }: UserBooksCardsWrapperProps) => {
   const displayBooks = await getBooksData();
   const user = await getServerSession(authOptions);
-  const connectedUserId = user?.user.id;
+  const connectedUserId = user?.user?.id;
 
   if (connectedUserId) {
     return (
