@@ -5,6 +5,7 @@ import {
   SessionProvider,
   TanstackProvider,
   FilterBooksProvider,
+  UiComponentsProvider,
 } from "@/libs/providers";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -24,7 +25,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <TanstackProvider>
           <SessionProvider>
-            <FilterBooksProvider>{children}</FilterBooksProvider>
+            <FilterBooksProvider>
+              <UiComponentsProvider>{children}</UiComponentsProvider>
+            </FilterBooksProvider>
           </SessionProvider>
         </TanstackProvider>
       </body>

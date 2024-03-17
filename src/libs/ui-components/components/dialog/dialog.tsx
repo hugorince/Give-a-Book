@@ -6,25 +6,29 @@ import { IoCloseSharp } from "react-icons/io5";
 
 interface DialogProps {
   children: ReactNode;
+  open?: boolean;
 }
 
-export const Dialog = ({ children }: DialogProps) => {
+export const Dialog = ({ children, open, ...props }: DialogProps) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   const closeDialog = () => {
     if (dialogRef.current) dialogRef.current.close();
   };
 
-  //   useEffect(() => {
-  //     if (openDialog && dialogRef.current) {
-  //       dialogRef.current.showModal();
-  //     } else {
-  //       dialogRef.current.close();
-  //     }
-  //   }, [openDialog]);
+  useEffect(() => {
+    if (dialogRef.current) {
+      if (open) {
+        dialogRef.current.removeAttribute("open");
+        dialogRef.current.showModal();
+      } else {
+        dialogRef.current.close();
+      }
+    }
+  }, [dialogRef, open]);
 
   return (
-    <dialog ref={dialogRef}>
+    <dialog ref={dialogRef} {...props}>
       <div>
         <Button variant="unstyled" onClick={closeDialog}>
           <IoCloseSharp size={24} />

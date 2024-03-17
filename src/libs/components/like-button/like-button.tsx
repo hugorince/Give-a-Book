@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Dialog } from "@/libs/ui-components";
+import { Button } from "@/libs/ui-components";
 import { updateBookLikes } from "@/libs/utils";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoHeart } from "react-icons/io5";
@@ -19,6 +19,7 @@ export const LikeButton = ({
   isLoggedIn,
 }: LikeButtonProps) => {
   const router = useRouter();
+  const { openDialog } = useDialog();
 
   const handleHeartClicked = async () => {
     if (isLoggedIn) {
@@ -26,6 +27,7 @@ export const LikeButton = ({
       router.refresh();
     } else {
       console.log("open clicked");
+      openDialog(<div>coucou</div>, console.log("fired"));
     }
   };
 
