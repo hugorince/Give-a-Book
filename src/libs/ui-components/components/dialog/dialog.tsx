@@ -6,7 +6,7 @@ import { IoCloseSharp } from "react-icons/io5";
 
 interface DialogProps {
   children: ReactNode;
-  open?: boolean;
+  open: boolean;
 }
 
 export const Dialog = ({ children, open, ...props }: DialogProps) => {
@@ -28,8 +28,8 @@ export const Dialog = ({ children, open, ...props }: DialogProps) => {
   }, [dialogRef, open]);
 
   return (
-    <dialog ref={dialogRef} {...props}>
-      <div>
+    <dialog ref={dialogRef} {...props} className="dialog">
+      <div className="dialog--content">
         <Button variant="unstyled" onClick={closeDialog}>
           <IoCloseSharp size={24} />
         </Button>
@@ -38,3 +38,5 @@ export const Dialog = ({ children, open, ...props }: DialogProps) => {
     </dialog>
   );
 };
+
+Dialog.displayName = "Dialog";

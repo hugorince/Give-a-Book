@@ -1,11 +1,11 @@
 "use client";
 
 import { useMemo, type ReactNode, createContext } from "react";
-import { Dialog, useDialogHook } from ".";
+import { Dialog, openDialogProps, useDialogHook } from ".";
 import { createPortal } from "react-dom";
 
 export interface DialogContextType {
-  openDialog: (children: ReactNode, onClose: () => void) => void;
+  openDialog: any;
 }
 
 export const DialogContext = createContext<DialogContextType | null>(null);
