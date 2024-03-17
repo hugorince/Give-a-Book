@@ -10,6 +10,11 @@ import {
 } from "react";
 import { DialogContext } from ".";
 
+export interface openDialogProps {
+  children: ReactNode;
+  onClose: (e: SyntheticEvent<HTMLDialogElement>) => void;
+}
+
 export const useDialogHook = () => {
   const [dialog, setDialog] = useState<{
     children: ReactNode;
@@ -22,10 +27,7 @@ export const useDialogHook = () => {
   });
 
   const openDialog = useCallback(
-    (
-      children: ReactNode,
-      onClose: (event: SyntheticEvent<HTMLDialogElement>) => void,
-    ) => {
+    ({ children, onClose }: openDialogProps) => {
       console.log("create portal");
 
       const handleOnClose = (event: SyntheticEvent<HTMLDialogElement>) => {
@@ -36,10 +38,9 @@ export const useDialogHook = () => {
           onClose: () => null,
         });
       };
-
       setDialog({ children: children, open: true, onClose: handleOnClose });
     },
-    [],
+    [setDialog],
   );
 
   return useMemo(() => ({ openDialog, dialog }), [openDialog, dialog]);

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/libs/ui-components";
+import { Button, Link } from "@/libs/ui-components";
 import { updateBookLikes } from "@/libs/utils";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoHeart } from "react-icons/io5";
@@ -27,7 +27,24 @@ export const LikeButton = ({
       router.refresh();
     } else {
       console.log("open clicked");
-      openDialog(<div>coucou</div>, console.log("fired"));
+
+      openDialog({
+        children: (
+          <>
+            <div>You must be logged in to like</div>
+            <Link
+              href={"/login"}
+              variant="unstyled"
+              onClick={() => {
+                openDialog.onClose();
+              }}
+            >
+              go to login
+            </Link>
+          </>
+        ),
+        onClose: () => console.log("fired"),
+      });
     }
   };
 
