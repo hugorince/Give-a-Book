@@ -1,10 +1,11 @@
 "use client";
 
-import { Button } from "@/libs/ui-components";
+import { Button, Dialog } from "@/libs/ui-components";
 import { updateBookLikes } from "@/libs/utils";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoHeart } from "react-icons/io5";
 import { useRouter } from "next/navigation";
+import { useDialog } from "@/libs/ui-components";
 
 interface LikeButtonProps {
   bookId: number;
@@ -24,7 +25,7 @@ export const LikeButton = ({
       await updateBookLikes(bookId);
       router.refresh();
     } else {
-      router.push("/login");
+      console.log("open clicked");
     }
   };
 

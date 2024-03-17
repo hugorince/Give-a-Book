@@ -7,3 +7,4 @@ export * from "./chip";
 export * from "./checkbox";
 export * from "./link";
 export * from "./drawer";
+export * from "./dialog";
