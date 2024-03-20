@@ -29,12 +29,10 @@ export const Dialog = ({ children, open, ...props }: DialogProps) => {
 
   return (
     <dialog ref={dialogRef} {...props} className="dialog">
-      <div className="dialog--content">
-        <Button variant="unstyled" onClick={closeDialog}>
-          <IoCloseSharp size={24} />
-        </Button>
-        <div>{children}</div>
-      </div>
+      <Button variant="unstyled" onClick={closeDialog}>
+        <IoCloseSharp size={24} />
+      </Button>
+      <div className="dialog--content">{children}</div>
     </dialog>
   );
 };
