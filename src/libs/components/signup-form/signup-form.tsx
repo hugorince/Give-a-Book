@@ -4,12 +4,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpFormSchema } from "@/libs/types";
 import * as z from "zod";
-import { useRouter } from "next/navigation";
 import classes from "./signup-form.module.css";
 import { Button, InputText } from "@/libs/ui-components";
+import { createUser } from "@/libs/utils";
 
 export const SignUpForm = () => {
-  const router = useRouter();
   const { handleSubmit, register, formState } = useForm<
     z.infer<typeof SignUpFormSchema>
   >({
@@ -17,29 +16,16 @@ export const SignUpForm = () => {
     defaultValues: {
       username: "",
       email: "",
+      postalCode: "",
       password: "",
       confirmPassword: "",
     },
   });
 
   const onSubmit = async (values: z.infer<typeof SignUpFormSchema>) => {
-    const response = await fetch("/api/user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: values.username,
-        email: values.email,
-        password: values.password,
-      }),
-    });
-    if (response.ok) {
-      router.push("/login");
-    } else {
-      console.error("Registration failed");
-    }
+    await createUser(values);
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={classes.formWrapper}>
       <InputText
@@ -54,6 +40,12 @@ export const SignUpForm = () => {
         label="email"
         {...register("email")}
         placeholder="mail@mail.com"
+      />
+      <InputText
+        type="postalCode"
+        label="postal code"
+        {...register("postalCode")}
+        placeholder="75018"
       />
       <InputText
         type="password"
