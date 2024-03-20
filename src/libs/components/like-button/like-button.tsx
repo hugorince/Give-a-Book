@@ -6,6 +6,7 @@ import { IoMdHeartEmpty } from "react-icons/io";
 import { IoHeart } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import { useDialog } from "@/libs/ui-components";
+import classes from "./like-button.module.css";
 
 interface LikeButtonProps {
   bookId: number;
@@ -26,11 +27,9 @@ export const LikeButton = ({
       await updateBookLikes(bookId);
       router.refresh();
     } else {
-      console.log("open clicked");
-
       openDialog({
         children: (
-          <>
+          <div className={classes.dialogContent}>
             <div>You must be logged in to like</div>
             <Link
               href={"/login"}
@@ -41,7 +40,7 @@ export const LikeButton = ({
             >
               go to login
             </Link>
-          </>
+          </div>
         ),
         onClose: () => console.log("fired"),
       });

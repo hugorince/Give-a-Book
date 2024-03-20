@@ -1,12 +1,15 @@
 .dialog {
   border-radius: var(--spacing-100);
-  padding: var(--spacing-100);
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  min-height: 10rem;
-  min-width: 20rem;
+  display: flex;
+  flex-direction: column;
+
+  button {
+    align-self: flex-end;
+  }
 
   &::backdrop {
     background-color: var(--brand-color);
@@ -16,10 +19,9 @@
   &--content {
     display: flex;
     flex-direction: column;
+    height: 100%;
+    width: 100%;
     gap: var(--spacing-025);
-
-    button {
-      align-self: flex-end;
-    }
+    padding: var(--spacing-100);
   }
 }
