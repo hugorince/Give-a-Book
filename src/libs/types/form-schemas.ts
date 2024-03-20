@@ -4,6 +4,7 @@ export const SignUpFormSchema = z
   .object({
     username: z.string().min(1, "Username is required").max(100),
     email: z.string().min(1, "Email is required").email("Invalid email"),
+    postalCode: z.string(),
     password: z
       .string()
       .min(1, "Password is required")
