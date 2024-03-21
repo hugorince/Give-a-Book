@@ -1,5 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { SignUpForm } from ".";
+import { useForm } from "react-hook-form";
 import userEvent from "@testing-library/user-event";
 
 jest.mock("react-hook-form", () => ({
@@ -7,9 +8,11 @@ jest.mock("react-hook-form", () => ({
   useForm: jest.fn(),
 }));
 
+const mockHandleSubmit = jest.fn();
+
 const mockForm = {
   register: jest.fn(),
-  handleSubmit: jest.fn(),
+  handleSubmit: mockHandleSubmit,
   formState: { s: {} },
 };
 
@@ -17,8 +20,7 @@ const user = userEvent.setup();
 
 describe("SignUpForm component", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
-    jest.requireMock("react-hook-form").useForm.mockReturnValue(mockForm);
+    (useForm as jest.Mock).mockReturnValue(mockForm);
   });
   it("should set the input values", async () => {
     render(<SignUpForm />);
@@ -43,7 +45,7 @@ describe("SignUpForm component", () => {
     const submitButton = screen.getByRole("button", { name: "submit" });
     submitButton.click();
 
-    expect(mockForm.handleSubmit).toHaveBeenCalled();
+    expect(mockHandleSubmit).toHaveBeenCalled();
   });
   it("should not call the onSubmit when form not valid", () => {
     render(<SignUpForm />);
