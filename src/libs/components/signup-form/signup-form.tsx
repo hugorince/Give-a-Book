@@ -7,8 +7,10 @@ import * as z from "zod";
 import classes from "./signup-form.module.css";
 import { Button, InputText } from "@/libs/ui-components";
 import { createUser } from "@/libs/utils";
+import { useRouter } from "next/navigation";
 
 export const SignUpForm = () => {
+  const router = useRouter();
   const { handleSubmit, register, formState } = useForm<
     z.infer<typeof SignUpFormSchema>
   >({
@@ -24,6 +26,7 @@ export const SignUpForm = () => {
 
   const onSubmit = async (values: z.infer<typeof SignUpFormSchema>) => {
     await createUser(values);
+    router.push("/login");
   };
 
   return (

@@ -34,7 +34,6 @@ export const createUser = async (values: z.infer<typeof SignUpFormSchema>) => {
         password: encryptedPassword,
       },
     });
-    redirect("/login");
   } catch (error) {
     console.error(error);
   }
