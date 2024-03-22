@@ -1,9 +1,26 @@
 "use server";
 
+import { authOptions } from "@/libs/auth/auth";
 import { db } from "@/libs/database";
 import { PostBookFormSchema } from "@/libs/types";
+import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { z } from "zod";
+
+export type BooksData = {
+  id: number;
+  title: string;
+  author: string;
+  image: string | null;
+  description: string;
+  user: string | null | undefined;
+  userId: number;
+  exchange: boolean;
+  give: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  likes: number[];
+};
 
 export const postBook = async (
   values: z.infer<typeof PostBookFormSchema>,
@@ -49,7 +66,18 @@ export const getBooksData = async () => {
     }),
   );
 
-  return booksData.sort((a, b) => b.id - a.id);
+  return booksData;
+};
+
+export const getBooksWithoutConnectedUser = async () => {
+  const books = await getBooksData();
+  const sortedBooks = await sortBooksByPostalCode(books);
+  return sortedBooks;
+};
+
+export const getBookByUserId = async (userId: string) => {
+  const books = await getBooksData();
+  return books.filter((book) => book.userId === parseInt(userId));
 };
 
 export const getBookById = async (bookId: string) => {
@@ -106,4 +134,43 @@ export const filterBooks = async (formData: FormData) => {
   }
 };
 
-export type BooksData = Awaited<ReturnType<typeof getBooksData>>[number];
+const getBooksPostalCode = async (books: BooksData[]) => {
+  return await Promise.all(
+    books.map(async (book) => {
+      const user = await db.user.findUnique({
+        where: { id: book.userId },
+      });
+      return {
+        ...book,
+        postalCode: user?.postalCode || "",
+      };
+    }),
+  );
+};
+
+const sortBooksByPostalCode = async (books: BooksData[]) => {
+  const user = await getServerSession(authOptions);
+
+  if (!user) return books.sort((a, b) => b.id - a.id);
+
+  const userData = await db.user.findUnique({
+    where: { id: parseInt(user.user.id) },
+  });
+
+  if (!userData) return books.sort((a, b) => b.id - a.id);
+
+  const userPostalCode = parseInt(userData.postalCode);
+  const booksWithPostalCode = await getBooksPostalCode(books);
+
+  const sortedBooks = booksWithPostalCode.sort((a, b) => {
+    const userAPostalCode = parseInt(a.postalCode);
+    const userBPostalCode = parseInt(b.postalCode);
+
+    const differenceA = Math.abs(userAPostalCode - userPostalCode);
+    const differenceB = Math.abs(userBPostalCode - userPostalCode);
+
+    return differenceA - differenceB;
+  });
+
+  return sortedBooks.filter((book) => book.userId !== userData.id);
+};
