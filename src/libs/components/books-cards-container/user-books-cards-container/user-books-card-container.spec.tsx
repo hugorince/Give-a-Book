@@ -1,10 +1,10 @@
-import { render, screen, act } from "@testing-library/react";
-import { getBooksData } from "../../../utils";
+import { screen, act } from "@testing-library/react";
+import { getBookByUserId, render } from "../../../utils";
 import { UserBooksCardsContainer } from ".";
 
 jest.mock("../../../utils", () => ({
   ...jest.requireActual<any>("../../../utils"),
-  getBooksData: jest.fn().mockReturnValue({}),
+  getBookByUserId: jest.fn(),
 }));
 
 jest.mock("next-auth", () => ({
@@ -24,14 +24,6 @@ jest.mock("next-auth", () => ({
 const mockBookData = [
   { id: 1, likes: [6], give: true, title: "book to give", userId: 4 },
   {
-    id: 2,
-    likes: [4],
-    give: false,
-    exchange: true,
-    title: "book to exchange",
-    userId: 5,
-  },
-  {
     id: 3,
     likes: [4],
     give: true,
@@ -43,7 +35,7 @@ const mockBookData = [
 
 describe("UserBooksCardContainer", () => {
   beforeEach(() => {
-    (getBooksData as jest.Mock).mockReturnValue(mockBookData);
+    (getBookByUserId as jest.Mock).mockReturnValue(mockBookData);
   });
   it("should return the books of the user", async () => {
     await act(async () => {
@@ -52,6 +44,5 @@ describe("UserBooksCardContainer", () => {
 
     expect(screen.getByText("book liked to give")).toBeInTheDocument();
     expect(screen.getByText("book to give")).toBeInTheDocument();
-    expect(screen.queryByText("book to exchange")).not.toBeInTheDocument();
   });
 });

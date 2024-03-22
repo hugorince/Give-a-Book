@@ -1,6 +1,6 @@
-import { BooksData } from "@/libs/utils";
+import { BooksData, render } from "@/libs/utils";
 import { BookCard } from ".";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 
 const mockBookData: BooksData = {
   id: 1,
@@ -15,6 +15,7 @@ const mockBookData: BooksData = {
   createdAt: new Date(),
   updatedAt: new Date(),
   likes: [4],
+  postalCode: "75018",
 };
 
 describe("BookCard", () => {
@@ -24,9 +25,11 @@ describe("BookCard", () => {
     expect(
       screen.getByRole("link", { name: mockBookData.user as string }),
     ).toHaveAttribute("href", `/user/${mockBookData.userId}`);
+    expect(
+      screen.getByRole("link", { name: mockBookData.title as string }),
+    ).toHaveAttribute("href", `/book/${mockBookData.id}`);
 
-    expect(screen.getByText("title")).toBeInTheDocument();
-    expect(screen.getByRole("img")).toHaveAttribute("src", "src");
+    expect(screen.getByRole("heading")).toHaveTextContent("title");
     expect(screen.getByText("Exchange")).toBeInTheDocument();
   });
 });
