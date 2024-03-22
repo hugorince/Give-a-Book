@@ -9,6 +9,7 @@ interface BookPageInfosProps {
 export const BookPageInfos = ({ book }: BookPageInfosProps) => {
   const exchangeOrGive = book.exchange ? "Exchange" : "Give";
   const posted = postedOn(book.createdAt);
+  console.log(book.postalCode);
 
   return (
     <div className={classes.wrapper}>
