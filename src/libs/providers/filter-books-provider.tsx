@@ -6,6 +6,7 @@ import {
   ReactNode,
   Dispatch,
   SetStateAction,
+  useContext,
 } from "react";
 
 export type FilterBooksContextType = {
@@ -46,4 +47,13 @@ export const FilterBooksProvider = ({ children }: FilterBooksProviderProps) => {
       {children}
     </FilterBooksContext.Provider>
   );
+};
+
+export const useFilterBooks = () => {
+  const context = useContext(FilterBooksContext);
+
+  if (!context)
+    throw new Error("Wrap your component with the Filter Books Provider");
+
+  return context;
 };

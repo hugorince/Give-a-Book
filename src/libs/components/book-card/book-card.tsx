@@ -3,6 +3,7 @@ import classes from "./book-card.module.css";
 import { BooksData } from "@/libs/utils";
 import { Chip } from "@/libs/ui-components";
 import { LikeButton } from "..";
+import NextLink from "next/link";
 
 export const BookCard = ({
   data,
@@ -32,7 +33,9 @@ export const BookCard = ({
           </Link>
         </div>
       </div>
-      <img src={data.image || ""} alt="" />
+      <NextLink href={`/book/${data.id}`} aria-hidden tabIndex={-1}>
+        <img src={data.image || ""} alt="" />
+      </NextLink>
       <Link variant="unstyled" href={`/book/${data.id}`}>
         <h3>{data.title}</h3>
       </Link>

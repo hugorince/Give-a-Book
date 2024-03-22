@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, type ReactNode, createContext } from "react";
-import { Dialog, openDialogProps, useDialogHook } from ".";
+import { Dialog, useDialogHook } from ".";
 import { createPortal } from "react-dom";
 
 export interface DialogContextType {

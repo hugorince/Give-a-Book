@@ -1,10 +1,10 @@
-import { render, screen, act } from "@testing-library/react";
+import { screen, act } from "@testing-library/react";
 import { BooksCardContainer } from ".";
-import { getBooksData } from "../../utils";
+import { getBooksWithoutConnectedUser, render } from "../../utils";
 
 jest.mock("../../utils", () => ({
-  ...jest.requireActual<any>("../../utils"),
-  getBooksData: jest.fn().mockReturnValue({}),
+  ...jest.requireActual("../../utils"),
+  getBooksWithoutConnectedUser: jest.fn().mockReturnValue({}),
 }));
 
 const mockBookData = [
@@ -21,7 +21,7 @@ const mockBookData = [
 
 describe("BookCardContainer", () => {
   beforeEach(() => {
-    (getBooksData as jest.Mock).mockReturnValue(mockBookData);
+    (getBooksWithoutConnectedUser as jest.Mock).mockReturnValue(mockBookData);
   });
   it("should render the filtered selection of books to give", async () => {
     await act(async () => {

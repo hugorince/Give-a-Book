@@ -1,12 +1,11 @@
 "use client";
 
-import { FilterBooksContext } from "@/libs/providers";
+import { useFilterBooks } from "@/libs/providers";
 import { Button, Checkbox } from "@/libs/ui-components";
 import { filterBooks } from "@/libs/utils";
-import { useContext } from "react";
 
 export const FilterBooksForm = ({ close }: { close: () => void }) => {
-  const { filters, setFiltersFormData } = useContext(FilterBooksContext);
+  const { setFiltersFormData } = useFilterBooks();
 
   const formAction = async (formData: FormData) => {
     await filterBooks(formData);
