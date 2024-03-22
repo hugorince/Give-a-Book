@@ -1,7 +1,7 @@
 "use server";
 
 import classes from "./books-cards-container.module.css";
-import { getBooksData } from "@/libs/utils";
+import { getBooksWithoutConnectedUser } from "@/libs/utils";
 import { BookCard } from "..";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/libs/auth/auth";
@@ -15,9 +15,9 @@ export const BooksCardContainer = async ({
 }: {
   searchParams: ParamsProps;
 }) => {
-  const books = await getBooksData();
   const user = await getServerSession(authOptions);
   const userId = user?.user.id || "";
+  const books = await getBooksWithoutConnectedUser();
 
   if (searchParams.filter) {
     const params = searchParams.filter.split(",");
