@@ -1,4 +1,4 @@
-import { BookPageInfos } from "@/libs/components";
+import { BookPageInfos, RequestBook } from "@/libs/components";
 import { MainLayout } from "@/libs/layout";
 import { getBookById } from "@/libs/utils";
 import classes from "./book.module.css";
@@ -10,7 +10,7 @@ export const BookPage = async ({ params }: { params: { id: string } }) => {
     <MainLayout>
       <div className={classes.pageWrapper}>
         {book && <BookPageInfos book={book} />}
-        <div>booking logic</div>
+        <RequestBook />
       </div>
     </MainLayout>
   );
