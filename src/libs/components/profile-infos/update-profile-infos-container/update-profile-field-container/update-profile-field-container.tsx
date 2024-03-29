@@ -20,6 +20,9 @@ export const UpdateProfileFieldContainer = ({
   handleInputClose,
   updateInput,
 }: UpdateProfileFieldContainerProps) => {
+  const { data: session, update } = useSession();
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof updateUserSchemaWithId>>({
     resolver: zodResolver(updateUserSchemaWithId),
     defaultValues: {
@@ -28,12 +31,7 @@ export const UpdateProfileFieldContainer = ({
     },
   });
 
-  const { data: session, update } = useSession();
-
-  const router = useRouter();
-
   const onSubmit = async (values: z.infer<typeof updateUserSchemaWithId>) => {
-    console.log("update clicked");
     const email = session?.user.email;
     if (email) {
       await updateUser(values, email);
@@ -56,14 +54,16 @@ export const UpdateProfileFieldContainer = ({
         className={classes.updateProfileFieldWrapper}
       >
         <UpdateProfileInput type={updateInput} />
+        <Button variant="secondary" onClick={handleInputClose}>
+          cancel
+        </Button>
         <Button
           type="submit"
           loading={form.formState.isSubmitting}
           disabled={!form.formState.isValid}
         >
-          update
+          confirm
         </Button>
-        <Button onClick={handleInputClose}>cancel</Button>
       </form>
     </FormProvider>
   );
