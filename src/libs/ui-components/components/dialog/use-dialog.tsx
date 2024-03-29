@@ -43,7 +43,18 @@ export const useDialogHook = () => {
     [setDialog],
   );
 
-  return useMemo(() => ({ openDialog, dialog }), [openDialog, dialog]);
+  const closeDialog = useCallback(() => {
+    setDialog({
+      children: "",
+      open: false,
+      onClose: () => null,
+    });
+  }, [setDialog]);
+
+  return useMemo(
+    () => ({ openDialog, dialog, closeDialog }),
+    [openDialog, dialog, closeDialog],
+  );
 };
 
 export const useDialog = () => {

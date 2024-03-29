@@ -4,7 +4,7 @@ import { Loader } from "../loader";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: "s" | "m" | "l";
-  variant?: "primary" | "unstyled";
+  variant?: "primary" | "secondary" | "unstyled";
   type?: "button" | "submit";
   disabled?: boolean;
   loading?: boolean;

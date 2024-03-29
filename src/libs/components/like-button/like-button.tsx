@@ -20,7 +20,7 @@ export const LikeButton = ({
   isLoggedIn,
 }: LikeButtonProps) => {
   const router = useRouter();
-  const { openDialog } = useDialog();
+  const { openDialog, closeDialog } = useDialog();
 
   const handleHeartClicked = async () => {
     if (isLoggedIn) {
@@ -31,13 +31,7 @@ export const LikeButton = ({
         children: (
           <div className={classes.dialogContent}>
             <div>You must be logged in to like</div>
-            <Link
-              href={"/login"}
-              variant="unstyled"
-              onClick={() => {
-                openDialog.onClose();
-              }}
-            >
+            <Link href={"/login"} variant="unstyled" onClick={closeDialog}>
               go to login
             </Link>
           </div>

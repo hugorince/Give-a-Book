@@ -15,6 +15,7 @@ const mockBookData: BooksData = {
   createdAt: new Date(),
   updatedAt: new Date(),
   likes: [4],
+  postalCode: "75018",
 };
 
 describe("BookPageInfos", () => {

@@ -1,6 +1,6 @@
 import { BooksData, postedOn } from "@/libs/utils";
-import classes from "./book-page-infos.module.css";
 import { Chip } from "@/libs/ui-components";
+import classes from "./book-page-infos.module.css";
 
 interface BookPageInfosProps {
   book: BooksData;
@@ -9,7 +9,6 @@ interface BookPageInfosProps {
 export const BookPageInfos = ({ book }: BookPageInfosProps) => {
   const exchangeOrGive = book.exchange ? "Exchange" : "Give";
   const posted = postedOn(book.createdAt);
-  console.log(book.postalCode);
 
   return (
     <div className={classes.wrapper}>
