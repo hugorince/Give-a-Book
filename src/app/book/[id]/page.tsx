@@ -9,8 +9,12 @@ export const BookPage = async ({ params }: { params: { id: string } }) => {
   return (
     <MainLayout>
       <div className={classes.pageWrapper}>
-        {book && <BookPageInfos book={book} />}
-        <RequestBook />
+        {book && (
+          <>
+            <BookPageInfos book={book} />
+            <RequestBook book={book} />
+          </>
+        )}
       </div>
     </MainLayout>
   );

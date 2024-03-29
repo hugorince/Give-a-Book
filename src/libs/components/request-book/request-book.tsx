@@ -1,21 +1,24 @@
 "use client";
 
 import { Button, useDialog } from "@/libs/ui-components";
+import { RequestBookDialog } from "./request-book-dialog";
+import { BooksData, requestBook } from "@/libs/utils";
 
-export const RequestBook = () => {
+interface RequestBookProps {
+  book: BooksData;
+}
+
+export const RequestBook = ({ book }: RequestBookProps) => {
   const { openDialog, closeDialog } = useDialog();
+
+  const proceed = async () => {
+    await requestBook(book);
+    closeDialog();
+  };
 
   const handleOnClick = () => {
     openDialog({
-      children: (
-        <div>
-          <h2>Are you sure you want to request this book ?</h2>
-          <Button variant="secondary" onClick={closeDialog}>
-            Cancel
-          </Button>
-          <Button>Proceed</Button>
-        </div>
-      ),
+      children: <RequestBookDialog proceed={proceed} />,
       onClose: () => console.log("fired"),
     });
   };

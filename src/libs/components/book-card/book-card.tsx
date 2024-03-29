@@ -14,12 +14,14 @@ export const BookCard = ({
 }) => {
   const exchangeOrGive = data.exchange ? "Exchange" : "Give";
   const isLiked = data.likes.includes(parseInt(userId || ""));
+  const requested = data.requested;
 
   return (
     <div className={classes.wrapper}>
       <div className={classes.header}>
         <div className={classes.chipLike}>
           <Chip label={exchangeOrGive} exchange={data.exchange} />
+          {requested && <Chip label="requested" variant="requested" />}
           {userId ? (
             <LikeButton isLiked={isLiked} bookId={data.id} isLoggedIn />
           ) : (
