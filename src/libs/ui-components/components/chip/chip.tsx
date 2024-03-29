@@ -2,7 +2,7 @@ import { clsx } from "clsx";
 
 interface ChipProps {
   size?: "s" | "m" | "l";
-  variant?: "primary" | "unstyled";
+  variant?: "primary" | "requested" | "unstyled";
   label: string;
   exchange?: boolean;
 }

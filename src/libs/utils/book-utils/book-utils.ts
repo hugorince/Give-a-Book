@@ -21,6 +21,7 @@ export type BooksData = {
   updatedAt: Date;
   likes: number[];
   postalCode: string;
+  requested: boolean;
 };
 
 export const postBook = async (
@@ -50,6 +51,11 @@ export const getBooksData = async () => {
       const user = await db.user.findUnique({
         where: { id: book.userId },
       });
+
+      const requested = await db.booking.findFirst({
+        where: { bookId: book.id },
+      });
+
       return {
         id: book.id,
         title: book.title,
@@ -64,6 +70,7 @@ export const getBooksData = async () => {
         updatedAt: book.updatedAt,
         likes: book.likes,
         postalCode: user?.postalCode || "",
+        requested: requested ? true : false,
       };
     }),
   );
@@ -91,11 +98,16 @@ export const getBookById = async (bookId: string) => {
     where: { id: book?.userId },
   });
 
+  const requested = await db.booking.findFirst({
+    where: { bookId: parseInt(bookId) },
+  });
+
   if (book && user) {
     return {
       ...book,
       user: user.username,
       postalCode: user.postalCode,
+      requested: requested ? true : false,
     };
   }
 };
@@ -160,5 +172,31 @@ export const filterBooks = async (formData: FormData) => {
       break;
     default:
       redirect("/books");
+  }
+};
+
+export const requestBook = async (book: BooksData) => {
+  const user = await getServerSession(authOptions);
+
+  if (!user) return null;
+
+  const requester = await db.user.findUnique({
+    where: { id: parseInt(user.user.id) },
+  });
+
+  if (!requester) return null;
+
+  try {
+    await db.booking.create({
+      data: {
+        status: "requested",
+        type: "REQUEST",
+        requesterId: requester.id,
+        ownerId: book.userId,
+        bookId: book.id,
+      },
+    });
+  } catch (err) {
+    console.error(err);
   }
 };

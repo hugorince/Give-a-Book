@@ -16,4 +16,8 @@
   &--give {
     background-color: var(--color-chip-give);
   }
+
+  &--requested {
+    background-color: var(--color-chip-requested);
+  }
 }

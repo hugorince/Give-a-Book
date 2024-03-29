@@ -28,8 +28,6 @@ export const useDialogHook = () => {
 
   const openDialog = useCallback(
     ({ children, onClose }: openDialogProps) => {
-      console.log("create portal");
-
       const handleOnClose = (event: SyntheticEvent<HTMLDialogElement>) => {
         onClose(event);
         setDialog({
