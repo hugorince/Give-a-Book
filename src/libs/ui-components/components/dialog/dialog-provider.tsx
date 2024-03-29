@@ -6,13 +6,17 @@ import { createPortal } from "react-dom";
 
 export interface DialogContextType {
   openDialog: any;
+  closeDialog: () => void;
 }
 
 export const DialogContext = createContext<DialogContextType | null>(null);
 
 export const DialogProvider = ({ children }: { children: ReactNode }) => {
-  const { openDialog, dialog } = useDialogHook();
-  const value = useMemo(() => ({ openDialog }), [openDialog]);
+  const { openDialog, dialog, closeDialog } = useDialogHook();
+  const value = useMemo(
+    () => ({ openDialog, closeDialog }),
+    [openDialog, closeDialog],
+  );
   const displayPortal = typeof document !== "undefined" && dialog.open;
   const { children: dialogBoxChildren, ...dialogProps } = dialog;
 

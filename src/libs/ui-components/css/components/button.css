@@ -71,6 +71,34 @@
     }
   }
 
+  &--secondary {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+
+    &:hover {
+      background-color: black;
+      color: white;
+    }
+
+    &:disabled:hover {
+      color: black;
+    }
+
+    &:disabled:hover:active {
+      border: 1px solid rgb(255, 124, 124);
+    }
+
+    &:active {
+      background-color: var(--brand-color-light);
+      border: 1px solid black;
+    }
+
+    &:disabled {
+      background-color: var(--brand-color-light);
+    }
+  }
+
   &--unstyled {
     all: unset;
     cursor: pointer;
