@@ -11,7 +11,7 @@ export const UpdateProfileInput = ({ type }: UpdateProfileProps) => {
   const { register } = useFormContext();
   return (
     <InputText
-      label="email"
+      label={type}
       type={type}
       {...register(type)}
       placeholder={type === "email" ? "mail@mail.com" : type}
