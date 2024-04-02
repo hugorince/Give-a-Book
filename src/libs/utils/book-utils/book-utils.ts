@@ -45,16 +45,22 @@ export const postBook = async (
 
 export const getBooksData = async () => {
   const books = await db.book.findMany();
+  const userIds = books.map((book) => book.userId);
+
+  const usersPromise = db.user.findMany({
+    where: { id: { in: userIds } },
+  });
+
+  const bookingsPromise = db.booking.findMany({
+    where: { bookId: { in: books.map((book) => book.id) } },
+  });
+
+  const [users, bookings] = await Promise.all([usersPromise, bookingsPromise]);
 
   const booksData = await Promise.all(
     books.map(async (book) => {
-      const user = await db.user.findUnique({
-        where: { id: book.userId },
-      });
-
-      const requested = await db.booking.findFirst({
-        where: { bookId: book.id },
-      });
+      const user = users.find((user) => user.id === book.userId);
+      const requested = bookings.some((booking) => booking.bookId === book.id);
 
       return {
         id: book.id,
@@ -70,7 +76,7 @@ export const getBooksData = async () => {
         updatedAt: book.updatedAt,
         likes: book.likes,
         postalCode: user?.postalCode || "",
-        requested: requested ? true : false,
+        requested: requested,
       };
     }),
   );
