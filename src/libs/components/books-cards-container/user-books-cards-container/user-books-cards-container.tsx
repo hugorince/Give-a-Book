@@ -16,7 +16,7 @@ export const UserBooksCardsContainer = async ({
   return (
     <div className={classes.booksWrapper}>
       {displayBooks.map((book, index) => (
-        <BookCard data={book} key={index} />
+        <BookCard data={book} key={index} userId={userId} />
       ))}
     </div>
   );
