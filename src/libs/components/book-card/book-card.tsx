@@ -4,23 +4,18 @@ import { BooksData } from "@/libs/utils";
 import { Chip } from "@/libs/ui-components";
 import { LikeButton } from "..";
 import NextLink from "next/link";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/libs/auth/auth";
 
 export const BookCard = async ({
   data,
-  userId,
+  connectedUserId,
 }: {
   data: BooksData;
-  userId?: string;
+  connectedUserId?: string;
 }) => {
   const exchangeOrGive = data.exchange ? "Exchange" : "Give";
 
-  const isLiked = data.likes.includes(parseInt(userId || ""));
+  const isLiked = data.likes.includes(parseInt(connectedUserId || ""));
   const requested = data.requested;
-
-  const user = await getServerSession(authOptions);
-  const userConnectedId = user?.user.id;
 
   return (
     <div className={classes.wrapper}>
@@ -28,9 +23,9 @@ export const BookCard = async ({
         <div className={classes.chipLike}>
           <Chip label={exchangeOrGive} exchange={data.exchange} />
           {requested && <Chip label="requested" variant="requested" />}
-          {userConnectedId && parseInt(userConnectedId) !== data.userId && (
+          {connectedUserId && parseInt(connectedUserId) !== data.userId && (
             <>
-              {userId ? (
+              {connectedUserId ? (
                 <LikeButton isLiked={isLiked} bookId={data.id} isLoggedIn />
               ) : (
                 <LikeButton

@@ -21,6 +21,7 @@ export const UpdateProfileFieldContainer = ({
   updateInput,
 }: UpdateProfileFieldContainerProps) => {
   const { data: session, update } = useSession();
+
   const router = useRouter();
 
   const form = useForm<z.infer<typeof updateUserSchemaWithId>>({
@@ -55,14 +56,14 @@ export const UpdateProfileFieldContainer = ({
       >
         <UpdateProfileInput type={updateInput} />
         <Button variant="secondary" onClick={handleInputClose}>
-          cancel
+          Cancel
         </Button>
         <Button
           type="submit"
           loading={form.formState.isSubmitting}
           disabled={!form.formState.isValid}
         >
-          confirm
+          Confirm
         </Button>
       </form>
     </FormProvider>
