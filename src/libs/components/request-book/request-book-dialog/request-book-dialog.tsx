@@ -1,7 +1,7 @@
 import { Button, useDialog } from "@/libs/ui-components";
 
 interface RequestBookDialogProps {
-  proceed: () => void;
+  proceed: () => Promise<void>;
 }
 
 export const RequestBookDialog = ({ proceed }: RequestBookDialogProps) => {
