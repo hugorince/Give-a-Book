@@ -4,6 +4,7 @@ import { Button, useDialog } from "@/libs/ui-components";
 import { RequestBookDialog } from "./request-book-dialog";
 import { BooksData, requestBook } from "@/libs/utils";
 import { useRouter } from "next/navigation";
+import classes from "./request-book.module.css";
 
 interface RequestBookProps {
   book: BooksData;
@@ -27,7 +28,7 @@ export const RequestBook = ({ book }: RequestBookProps) => {
   };
 
   return (
-    <div>
+    <div className={classes.requestBookContainer}>
       {book.requested && <p>this book has already been requested</p>}
       <Button onClick={handleOnClick} disabled={book.requested}>
         Request book

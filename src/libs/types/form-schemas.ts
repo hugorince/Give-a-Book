@@ -33,10 +33,6 @@ export const PostBookFormSchema = z.object({
 });
 
 export const updateUserSchemaWithId = z.object({
-  username: z.string().min(1, "minimum 1 character").max(20).optional(),
-  email: z
-    .string()
-    .min(1, "Email is required")
-    .email("Invalid email")
-    .optional(),
+  username: z.string().optional(),
+  email: z.string().optional(),
 });
