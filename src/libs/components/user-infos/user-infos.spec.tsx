@@ -1,6 +1,7 @@
-import { act, render, screen } from "@testing-library/react";
+import type { ReactElement } from "react";
+import { act, screen } from "@testing-library/react";
 import { UserInfos } from "./user-infos";
-import { ReactElement } from "react";
+import { render } from "@/libs/utils";
 
 jest.mock("../../utils", () => ({
   getUserInfo: jest.fn().mockResolvedValue({
