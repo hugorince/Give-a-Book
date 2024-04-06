@@ -30,28 +30,36 @@ export const BooksCardContainer = async ({
         {exchange && give && !likedOnly ? (
           <div className={classes.booksWrapper}>
             {books.map((book, index) => {
-              return <BookCard data={book} key={index} userId={userId} />;
+              return (
+                <BookCard data={book} key={index} connectedUserId={userId} />
+              );
             })}
           </div>
         ) : exchange && !give && !likedOnly ? (
           <div className={classes.booksWrapper}>
             {books.map((book, index) => {
               if (book[exchange])
-                return <BookCard data={book} key={index} userId={userId} />;
+                return (
+                  <BookCard data={book} key={index} connectedUserId={userId} />
+                );
             })}
           </div>
         ) : give && !exchange && !likedOnly ? (
           <div className={classes.booksWrapper}>
             {books.map((book, index) => {
               if (book[give])
-                return <BookCard data={book} key={index} userId={userId} />;
+                return (
+                  <BookCard data={book} key={index} connectedUserId={userId} />
+                );
             })}
           </div>
         ) : likedOnly && !exchange && !give ? (
           <div className={classes.booksWrapper}>
             {books.map((book, index) => {
               if (userId && book.likes.includes(parseInt(userId)))
-                return <BookCard data={book} key={index} userId={userId} />;
+                return (
+                  <BookCard data={book} key={index} connectedUserId={userId} />
+                );
             })}
           </div>
         ) : likedOnly && exchange && !give ? (
@@ -62,14 +70,18 @@ export const BooksCardContainer = async ({
                 book.likes.includes(parseInt(userId)) &&
                 book[exchange]
               )
-                return <BookCard data={book} key={index} userId={userId} />;
+                return (
+                  <BookCard data={book} key={index} connectedUserId={userId} />
+                );
             })}
           </div>
         ) : likedOnly && give && !exchange ? (
           <div className={classes.booksWrapper}>
             {books.map((book, index) => {
               if (userId && book.likes.includes(parseInt(userId)) && book[give])
-                return <BookCard data={book} key={index} userId={userId} />;
+                return (
+                  <BookCard data={book} key={index} connectedUserId={userId} />
+                );
             })}
           </div>
         ) : (
@@ -79,7 +91,13 @@ export const BooksCardContainer = async ({
             <div className={classes.booksWrapper}>
               {books.map((book, index) => {
                 if (userId && book.likes.includes(parseInt(userId)))
-                  return <BookCard data={book} key={index} userId={userId} />;
+                  return (
+                    <BookCard
+                      data={book}
+                      key={index}
+                      connectedUserId={userId}
+                    />
+                  );
               })}
             </div>
           )
@@ -91,7 +109,7 @@ export const BooksCardContainer = async ({
   return (
     <div className={classes.booksWrapper}>
       {books.map((book, index) => {
-        return <BookCard data={book} key={index} userId={userId} />;
+        return <BookCard data={book} key={index} connectedUserId={userId} />;
       })}
     </div>
   );
