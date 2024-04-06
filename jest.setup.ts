@@ -43,6 +43,7 @@ jest.mock("next-auth", () => ({
 jest.mock("next/navigation", () => ({
   useRouter: () => ({
     push: jest.fn(),
+    refresh: jest.fn(),
   }),
   redirect: jest.fn(),
 }));

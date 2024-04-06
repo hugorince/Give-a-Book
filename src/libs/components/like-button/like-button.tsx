@@ -45,11 +45,11 @@ export const LikeButton = ({
     <>
       {isLiked ? (
         <Button variant="unstyled" onClick={handleHeartClicked}>
-          <IoHeart size={24} />
+          <IoHeart size={24} data-testid="liked-button" />
         </Button>
       ) : (
         <Button variant="unstyled" onClick={handleHeartClicked}>
-          <IoMdHeartEmpty size={24} />
+          <IoMdHeartEmpty size={24} data-testid="not-liked-button" />
         </Button>
       )}
     </>
