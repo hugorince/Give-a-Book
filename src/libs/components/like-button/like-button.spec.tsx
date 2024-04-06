@@ -52,6 +52,6 @@ describe("LikeButton", () => {
     const button = screen.getByTestId("not-liked-button");
     userEvent.click(button);
 
-    await waitFor(() => expect(mockUpdateBookLikes).toHaveBeenCalled());
+    await waitFor(() => expect(mockUpdateBookLikes).toHaveBeenCalledWith(2));
   });
 });
