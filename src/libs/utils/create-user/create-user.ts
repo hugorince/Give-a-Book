@@ -4,7 +4,6 @@ import { db } from "@/libs/database";
 import { SignUpFormSchema } from "@/libs/types";
 import { hash } from "bcrypt";
 import { z } from "zod";
-import { redirect } from "next/navigation";
 
 export const createUser = async (values: z.infer<typeof SignUpFormSchema>) => {
   try {
