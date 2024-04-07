@@ -25,12 +25,17 @@ export const SignUpForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof SignUpFormSchema>) => {
+    console.log("Form values:", values);
     await createUser(values);
     router.push("/login");
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={classes.formWrapper}>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className={classes.formWrapper}
+      data-testid="signup-form"
+    >
       <InputText
         type="text"
         label="username"
