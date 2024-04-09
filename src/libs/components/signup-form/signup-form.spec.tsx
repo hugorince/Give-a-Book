@@ -37,7 +37,6 @@ describe("SignUpForm component", () => {
     const postalCode = screen.getByLabelText("postal code");
     const password = screen.getByLabelText("password");
     const confirmPassword = screen.getByLabelText("confirm password");
-    const formElement = screen.getByTestId("signup-form");
 
     user.type(username, "username");
     await waitFor(() => expect(username).toHaveValue("username"));
@@ -57,7 +56,9 @@ describe("SignUpForm component", () => {
     const submitButton = screen.getByRole("button", { name: "submit" });
     user.click(submitButton);
 
-    await waitFor(() => expect(mockCreateUser).toHaveBeenCalled());
+    await waitFor(() => {
+      expect(mockCreateUser).toHaveBeenCalled();
+    });
   });
   it("should not call the onSubmit when form not valid", () => {
     (useForm as jest.Mock).mockReturnValue({
