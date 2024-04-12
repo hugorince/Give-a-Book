@@ -25,7 +25,6 @@ export const SignUpForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof SignUpFormSchema>) => {
-    console.log("Form values:", values);
     await createUser(values);
     router.push("/login");
   };
