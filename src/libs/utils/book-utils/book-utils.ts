@@ -181,7 +181,7 @@ export const filterBooks = async (formData: FormData) => {
   }
 };
 
-export const requestBook = async (book: BooksData) => {
+export const requestBook = async (book: BooksData, message: string) => {
   const user = await getServerSession(authOptions);
 
   if (!user) return null;
@@ -193,13 +193,29 @@ export const requestBook = async (book: BooksData) => {
   if (!requester) return null;
 
   try {
-    await db.booking.create({
+    const newChat = await db.chat.create({
+      data: {
+        requesterId: requester.id,
+        ownerId: book.userId,
+      },
+    });
+
+    const newMessage = await db.message.create({
+      data: {
+        text: message,
+        senderId: requester.id,
+        chatId: newChat.id,
+      },
+    });
+
+    const newBooking = await db.booking.create({
       data: {
         status: "requested",
         type: "REQUEST",
         requesterId: requester.id,
         ownerId: book.userId,
         bookId: book.id,
+        chatId: newChat.id,
       },
     });
   } catch (err) {

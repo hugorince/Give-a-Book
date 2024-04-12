@@ -1,21 +1,46 @@
-import { Button, useDialog } from "@/libs/ui-components";
+import { Button, Textarea, useDialog } from "@/libs/ui-components";
 import classes from "./request-book-dialog.module.css";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 interface RequestBookDialogProps {
-  proceed: () => Promise<void>;
+  proceed: (message: string) => Promise<void>;
+  user: string | null | undefined;
 }
 
-export const RequestBookDialog = ({ proceed }: RequestBookDialogProps) => {
+const messageSchema = z.object({
+  message: z.string().optional(),
+});
+
+export const RequestBookDialog = ({
+  proceed,
+  user,
+}: RequestBookDialogProps) => {
   const { closeDialog } = useDialog();
+  const { register, handleSubmit } = useForm({
+    resolver: zodResolver(messageSchema),
+  });
+
+  const onSubmit = (values: z.infer<typeof messageSchema>) => {
+    if (values.message) proceed(values.message);
+  };
+
   return (
-    <div className={classes.dialogContainer}>
+    <form className={classes.dialogContainer} onSubmit={handleSubmit(onSubmit)}>
       <h2>Are you sure you want to request this book ?</h2>
+      <Textarea
+        placeholder={`write a message to ${user}`}
+        rows={4}
+        label="request book message"
+        {...register("message")}
+      />
       <div className={classes.actionButtons}>
-        <Button variant="secondary" onClick={closeDialog}>
+        <Button type="button" variant="secondary" onClick={closeDialog}>
           Cancel
         </Button>
-        <Button onClick={proceed}>Proceed</Button>
+        <Button type="submit">Proceed</Button>
       </div>
-    </div>
+    </form>
   );
 };
