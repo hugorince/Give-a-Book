@@ -14,15 +14,15 @@ export const RequestBook = ({ book }: RequestBookProps) => {
   const { openDialog, closeDialog } = useDialog();
   const router = useRouter();
 
-  const proceed = async () => {
-    await requestBook(book);
+  const proceed = async (message: string) => {
+    await requestBook(book, message);
     router.push("/books");
     closeDialog();
   };
 
   const handleOnClick = () => {
     openDialog({
-      children: <RequestBookDialog proceed={proceed} />,
+      children: <RequestBookDialog proceed={proceed} user={book.user} />,
       onClose: () => console.log("fired"),
     });
   };
