@@ -2,7 +2,8 @@
 
 import { Button, useDialog } from "@/libs/ui-components";
 import { RequestBookDialog } from "./request-book-dialog";
-import { BooksData, requestBook } from "@/libs/utils";
+import { CancelRequestBookDialog } from "./cancel-request-book-dialog";
+import { BooksData, cancelRequest, requestBook } from "@/libs/utils";
 import { useRouter } from "next/navigation";
 import classes from "./request-book.module.css";
 
@@ -20,19 +21,32 @@ export const RequestBook = ({ book }: RequestBookProps) => {
     closeDialog();
   };
 
-  const handleOnClick = () => {
+  const openRequestBookDialog = () => {
     openDialog({
       children: <RequestBookDialog proceed={proceed} user={book.user} />,
       onClose: () => console.log("fired"),
     });
   };
 
+  const handleCancelRequest = async () => {
+    await cancelRequest(book);
+    router.push("/books");
+  };
+
+  const openCancelRequestDialog = () => {
+    openDialog({
+      children: <CancelRequestBookDialog cancelRequest={handleCancelRequest} />,
+      onClose: () => console.log("fired"),
+    });
+  };
+
   return (
     <div className={classes.requestBookContainer}>
-      {book.requested && <p>this book has already been requested</p>}
-      <Button onClick={handleOnClick} disabled={book.requested}>
-        Request book
-      </Button>
+      {book.requested ? (
+        <Button onClick={openCancelRequestDialog}>Cancel Request</Button>
+      ) : (
+        <Button onClick={openRequestBookDialog}>Request book</Button>
+      )}
     </div>
   );
 };
