@@ -222,3 +222,21 @@ export const requestBook = async (book: BooksData, message: string) => {
     console.error(err);
   }
 };
+
+export const cancelRequest = async (book: BooksData) => {
+  const user = await getServerSession(authOptions);
+
+  if (!user) return null;
+
+  try {
+    const booking = await db.booking.findFirst({
+      where: { bookId: book.id },
+    });
+
+    await db.booking.delete({
+      where: { id: booking?.id },
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
