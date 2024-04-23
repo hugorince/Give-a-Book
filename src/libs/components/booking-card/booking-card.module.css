@@ -1,0 +1,6 @@
+.cardWrapper {
+  display: flex;
+  border: solid black 1px;
+  border-radius: 0.3rem;
+  padding: var(--spacing-100);
+}

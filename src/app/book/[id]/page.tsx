@@ -4,7 +4,7 @@ import { type BooksData, getBookById } from "@/libs/utils";
 import classes from "./book.module.css";
 
 export const BookPage = async ({ params }: { params: { id: string } }) => {
-  const book: BooksData | undefined = await getBookById(params.id);
+  const book: BooksData | undefined = await getBookById(parseInt(params.id));
 
   if (!book) return <div>No book found</div>;
 
