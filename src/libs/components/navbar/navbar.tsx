@@ -37,6 +37,11 @@ export const Navbar = async () => {
                 </Link>
               </li>
               <li>
+                <Link href="/bookings" variant="unstyled">
+                  My bookings
+                </Link>
+              </li>
+              <li>
                 <SignOutButton />
               </li>
             </>

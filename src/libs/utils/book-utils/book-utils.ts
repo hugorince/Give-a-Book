@@ -95,9 +95,9 @@ export const getBookByUserId = async (userId: string) => {
   return books.filter((book) => book.userId === parseInt(userId));
 };
 
-export const getBookById = async (bookId: string) => {
+export const getBookById = async (bookId: number) => {
   const book = await db.book.findUnique({
-    where: { id: parseInt(bookId) },
+    where: { id: bookId },
   });
 
   const user = await db.user.findUnique({
@@ -105,7 +105,7 @@ export const getBookById = async (bookId: string) => {
   });
 
   const requested = await db.booking.findFirst({
-    where: { bookId: parseInt(bookId) },
+    where: { bookId: bookId },
   });
 
   if (book && user) {
@@ -179,6 +179,31 @@ export const filterBooks = async (formData: FormData) => {
     default:
       redirect("/books");
   }
+};
+
+export const getUserRequestedBook = async () => {
+  const user = await getServerSession(authOptions);
+
+  if (!user) return null;
+
+  const requester = parseInt(user.user.id);
+  const bookings = await db.booking.findMany();
+  const books = await getBooksData();
+
+  const userBookings = bookings.filter(
+    (booking) => booking.requesterId === requester,
+  );
+
+  const userRequestedBooks = userBookings.map((booking) => {
+    const bookId = booking.bookId;
+    return books.find((book) => book.id === bookId);
+  });
+
+  const filteredUserRequestedBooks = userRequestedBooks.filter(
+    (book): book is NonNullable<typeof book> => book !== undefined,
+  );
+
+  return filteredUserRequestedBooks;
 };
 
 export const requestBook = async (book: BooksData, message: string) => {
