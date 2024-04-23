@@ -221,6 +221,8 @@ export const requestBook = async (book: BooksData, message: string) => {
   } catch (err) {
     console.error(err);
   }
+
+  redirect("/books");
 };
 
 export const cancelRequest = async (book: BooksData) => {
@@ -239,4 +241,6 @@ export const cancelRequest = async (book: BooksData) => {
   } catch (err) {
     console.error(err);
   }
+
+  redirect("/books");
 };

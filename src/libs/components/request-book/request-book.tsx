@@ -17,7 +17,6 @@ export const RequestBook = ({ book }: RequestBookProps) => {
 
   const proceed = async (message: string) => {
     await requestBook(book, message);
-    router.push("/books");
     closeDialog();
   };
 
@@ -30,7 +29,6 @@ export const RequestBook = ({ book }: RequestBookProps) => {
 
   const handleCancelRequest = async () => {
     await cancelRequest(book);
-    router.push("/books");
   };
 
   const openCancelRequestDialog = () => {
