@@ -1,18 +1,19 @@
 "use server";
 
-import { getUserRequestedBook } from "@/libs/utils";
+import { BooksData } from "@/libs/utils";
 import { BookingCard } from "../booking-card";
+import classes from "./booking-card-container.module.css";
 
-export const BookingCardContainer = async () => {
-  const requestedBooks = await getUserRequestedBook();
+interface BookingCardContainer {
+  books: BooksData[];
+}
 
-  if (!requestedBooks) return null;
-
+export const BookingCardContainer = async ({ books }: BookingCardContainer) => {
   return (
-    <>
-      {requestedBooks.map((book, index) => (
+    <div className={classes.container}>
+      {books.map((book, index) => (
         <BookingCard key={index} book={book} />
       ))}
-    </>
+    </div>
   );
 };

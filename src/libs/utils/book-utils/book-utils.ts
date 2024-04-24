@@ -206,6 +206,29 @@ export const getUserRequestedBook = async () => {
   return filteredUserRequestedBooks;
 };
 
+export const getUserBookedBooks = async () => {
+  const user = await getServerSession(authOptions);
+
+  if (!user) return null;
+
+  const userId = parseInt(user.user.id);
+  const bookings = await db.booking.findMany();
+  const books = await getBooksData();
+
+  const userBookings = bookings.filter((booking) => booking.ownerId === userId);
+
+  const userBookedBooks = userBookings.map((booking) => {
+    const bookId = booking.bookId;
+    return books.find((book) => book.id === bookId);
+  });
+
+  const filteredUserBookings = userBookedBooks.filter(
+    (book): book is NonNullable<typeof book> => book !== undefined,
+  );
+
+  return filteredUserBookings;
+};
+
 export const requestBook = async (book: BooksData, message: string) => {
   const user = await getServerSession(authOptions);
 
@@ -268,4 +291,15 @@ export const cancelRequest = async (book: BooksData) => {
   }
 
   redirect("/books");
+};
+
+export const deleteBook = async (book: BooksData) => {
+  try {
+    await db.book.delete({
+      where: { id: book.id },
+    });
+  } catch (err) {
+    console.error(err);
+  }
+  redirect("/bookings");
 };
