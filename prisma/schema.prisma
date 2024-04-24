@@ -55,7 +55,7 @@ model Booking {
   owner       User        @relation("OwnerBookings", fields: [ownerId], references: [id])
   ownerId     Int
 
-  book   Book @relation("BookBooking", fields: [bookId], references: [id])
+  book   Book @relation("BookBooking", fields: [bookId], references: [id], onDelete: Cascade)
   bookId Int
 
   chat   Chat? @relation(fields: [chatId], references: [id])

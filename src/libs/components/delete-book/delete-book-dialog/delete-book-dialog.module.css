@@ -1,0 +1,11 @@
+.dialogContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-050);
+}
+
+.actionButtons {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-100);
+}

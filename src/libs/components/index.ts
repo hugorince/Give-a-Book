@@ -10,3 +10,4 @@ export * from "./book-page-infos";
 export * from "./filter-books";
 export * from "./like-button";
 export * from "./request-book";
+export * from "./delete-book";
