@@ -87,7 +87,7 @@ export const getBooksData = async () => {
 export const getBooksWithoutConnectedUser = async () => {
   const books = await getBooksData();
   const sortedBooks = await sortBooksByPostalCode(books);
-  return sortedBooks;
+  return sortedBooks.filter((book) => book.id);
 };
 
 export const getBookByUserId = async (userId: string) => {

@@ -1,5 +1,6 @@
 import { screen, act } from "@testing-library/react";
-import { getBookByUserId, render } from "../../../utils";
+import { getBookByUserId } from "../../../utils";
+import { render } from "../../../utils/test-utils";
 import { UserBooksCardsContainer } from ".";
 
 jest.mock("../../../utils", () => ({
