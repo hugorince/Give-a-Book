@@ -1,23 +1,28 @@
-"use server";
+"use client";
 
-import { Avatar, Link } from "@/libs/ui-components";
+import { Avatar, Button, Link } from "@/libs/ui-components";
 import classes from "./navbar.module.css";
 import NextLink from "next/link";
-import { getInitials } from "@/libs/utils";
-import { SignOutButton } from "./sign-out-button";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/libs/auth/auth";
+import { getInitials, signOut } from "@/libs/utils";
+import { useSession } from "next-auth/react";
 import { LoginSignUpButton } from "./login-signup-button";
+import { useRouter } from "next/navigation";
 
-export const Navbar = async () => {
-  const session = await getServerSession(authOptions);
-  const initials = await getInitials();
+export const Navbar = () => {
+  const session = useSession();
+  const initials = session && getInitials(session.data);
+  const router = useRouter();
+
+  const handleSignOut = () => {
+    signOut();
+    router.push("/login");
+  };
 
   return (
     <header className={classes.header}>
       <nav>
         <ul>
-          {session && (
+          {session.data && (
             <li>
               <NextLink href="/profile">
                 <Avatar initials={initials} />
@@ -29,7 +34,7 @@ export const Navbar = async () => {
               Books
             </Link>
           </li>
-          {session ? (
+          {session.data ? (
             <>
               <li>
                 <Link href="/books/post-book" variant="unstyled">
@@ -42,7 +47,9 @@ export const Navbar = async () => {
                 </Link>
               </li>
               <li>
-                <SignOutButton />
+                <Button onClick={handleSignOut} size="s">
+                  sign out
+                </Button>
               </li>
             </>
           ) : (
