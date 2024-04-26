@@ -6,7 +6,7 @@ describe("Navbar", () => {
   it("should render the Navbar links", async () => {
     await act(async () => render(await Navbar()));
 
-    const logOutButton = screen.getByRole("button", { name: "sign out" });
+    const logOutButton = screen.getByRole("link", { name: "sign out" });
     logOutButton.click();
 
     expect(mockSignOut).toHaveBeenCalled();

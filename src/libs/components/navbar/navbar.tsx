@@ -7,7 +7,7 @@ import { getInitials } from "@/libs/utils";
 import { SignOutButton } from "./sign-out-button";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/libs/auth/auth";
-import { LoginSignUpButton } from "./login-singup-button";
+import { LoginSignUpButton } from "./login-signup-button";
 
 export const Navbar = async () => {
   const session = await getServerSession(authOptions);

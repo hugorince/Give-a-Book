@@ -8,3 +8,4 @@ export * from "./use-outside-click";
 export * from "./likes";
 export * from "./create-user";
 export * from "./test-utils";
+export * from "./user-utils";

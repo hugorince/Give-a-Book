@@ -1,17 +1,15 @@
 "use client";
 
-import { signOut } from "next-auth/react";
-import { redirect } from "next/navigation";
-import { Button } from "@/libs/ui-components";
+import { signOut } from "@/libs/utils";
+import { Button, Link } from "@/libs/ui-components";
 
 export const SignOutButton = () => {
   const handleOnClick = async () => {
     await signOut();
-    redirect("/login");
   };
   return (
-    <Button onClick={handleOnClick} size="s">
+    <Link href="/login" onClick={handleOnClick} size="s">
       sign out
-    </Button>
+    </Link>
   );
 };

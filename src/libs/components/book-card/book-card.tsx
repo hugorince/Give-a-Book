@@ -1,36 +1,36 @@
 import { Link } from "@/libs/ui-components";
 import classes from "./book-card.module.css";
-import { BooksData } from "@/libs/utils";
+import type { BooksData } from "@/libs/utils";
 import { Chip } from "@/libs/ui-components";
 import { LikeButton } from "..";
 import NextLink from "next/link";
 
-export const BookCard = async ({
-  data,
+export const BookCard = ({
+  book,
   connectedUserId,
 }: {
-  data: BooksData;
+  book: BooksData;
   connectedUserId?: string;
 }) => {
-  const exchangeOrGive = data.exchange ? "Exchange" : "Give";
+  const exchangeOrGive = book.exchange ? "Exchange" : "Give";
 
-  const isLiked = data.likes.includes(parseInt(connectedUserId || ""));
-  const requested = data.requested;
+  const isLiked = book.likes.includes(parseInt(connectedUserId || ""));
+  const requested = book.requested;
 
   return (
     <div className={classes.wrapper}>
       <div className={classes.header}>
         <div className={classes.chipLike}>
-          <Chip label={exchangeOrGive} exchange={data.exchange} />
+          <Chip label={exchangeOrGive} exchange={book.exchange} />
           {requested && <Chip label="requested" variant="requested" />}
-          {connectedUserId && parseInt(connectedUserId) !== data.userId && (
+          {connectedUserId && parseInt(connectedUserId) !== book.userId && (
             <>
               {connectedUserId ? (
-                <LikeButton isLiked={isLiked} bookId={data.id} isLoggedIn />
+                <LikeButton isLiked={isLiked} bookId={book.id} isLoggedIn />
               ) : (
                 <LikeButton
                   isLiked={false}
-                  bookId={data.id}
+                  bookId={book.id}
                   isLoggedIn={false}
                 />
               )}
@@ -39,16 +39,16 @@ export const BookCard = async ({
         </div>
         <div className={classes.userLink}>
           <p>offered by </p>
-          <Link href={`/user/${data.userId}`} variant="unstyled">
-            {data.user}
+          <Link href={`/user/${book.userId}`} variant="unstyled">
+            {book.user}
           </Link>
         </div>
       </div>
-      <NextLink href={`/book/${data.id}`} aria-hidden tabIndex={-1}>
-        <img src={data.image || ""} alt="" />
+      <NextLink href={`/book/${book.id}`} aria-hidden tabIndex={-1}>
+        <img src={book.image || ""} alt="" />
       </NextLink>
-      <Link variant="unstyled" href={`/book/${data.id}`}>
-        <h3>{data.title}</h3>
+      <Link variant="unstyled" href={`/book/${book.id}`}>
+        <h3>{book.title}</h3>
       </Link>
     </div>
   );

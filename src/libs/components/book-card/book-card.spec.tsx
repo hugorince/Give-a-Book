@@ -16,11 +16,12 @@ const mockBookData: BooksData = {
   updatedAt: new Date(),
   likes: [4],
   postalCode: "75018",
+  requested: true,
 };
 
 describe("BookCard", () => {
-  it("should map the data to display the book infos", async () => {
-    render(<BookCard data={mockBookData} userId={"4"} />);
+  it("should map the book to display the book infos", async () => {
+    render(<BookCard book={mockBookData} connectedUserId="4" />);
 
     expect(
       screen.getByRole("link", { name: mockBookData.user as string }),

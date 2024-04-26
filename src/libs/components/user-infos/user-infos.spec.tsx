@@ -1,7 +1,6 @@
-import type { ReactElement } from "react";
 import { act, screen } from "@testing-library/react";
 import { UserInfos } from "./user-infos";
-import { render } from "@/libs/utils";
+import { render } from "../../utils/test-utils";
 
 jest.mock("../../utils", () => ({
   getUserInfo: jest.fn().mockResolvedValue({
@@ -15,7 +14,7 @@ jest.mock("../../utils", () => ({
 describe("UserInfos", () => {
   it("renders user information correctly", async () => {
     await act(async () => {
-      render((await UserInfos({ userId: "22" })) as ReactElement);
+      render(await UserInfos({ userId: "22" }));
     });
 
     expect(screen.getByText("USERNAME")).toBeInTheDocument();
