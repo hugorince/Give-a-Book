@@ -1,22 +1,26 @@
 "use server";
 
-import { BooksData } from "@/libs/utils";
+import { type BooksData, calculateDistance, getUserInfo } from "@/libs/utils";
 import classes from "./booking-card.module.css";
 import { RequestBook } from "../request-book";
 import { Link } from "@/libs/ui-components";
 import { DeleteBook } from "../delete-book";
-import { useSession } from "next-auth/react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/libs/auth/auth";
+import type { User } from "@prisma/client";
 
 interface BookingCard {
   book: BooksData;
+  connectedUser: User;
 }
 
-export const BookingCard = async ({ book }: BookingCard) => {
-  const user = await getServerSession(authOptions);
+export const BookingCard = async ({ book, connectedUser }: BookingCard) => {
+  if (!book || !connectedUser) return null;
 
-  if (!book || !user) return null;
+  const distance =
+    connectedUser.id !== book.userId &&
+    (await calculateDistance(book.postalCode, connectedUser.postalCode));
+
   return (
     <div className={classes.cardWrapper}>
       <div className={classes.imageTitle}>
@@ -28,12 +32,12 @@ export const BookingCard = async ({ book }: BookingCard) => {
           <Link href={`user/${book.userId}`} variant="unstyled">
             proposed by {book.user}
           </Link>
-          <p>available near {book.postalCode}</p>
+          {distance && <p>{distance} km from you</p>}
         </div>
       </div>
       <div className={classes.actionsContainer}>
         <RequestBook book={book} />
-        {parseInt(user.user.id) === book.userId && <DeleteBook book={book} />}
+        {connectedUser.id === book.userId && <DeleteBook book={book} />}
       </div>
     </div>
   );

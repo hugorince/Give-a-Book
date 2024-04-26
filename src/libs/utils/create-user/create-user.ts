@@ -37,3 +37,11 @@ export const createUser = async (values: z.infer<typeof SignUpFormSchema>) => {
     console.error(error);
   }
 };
+
+export const verifyPostalCode = async (postalCode: string) => {
+  const getPostalData = await fetch(
+    `https://api-adresse.data.gouv.fr/search/?q=${postalCode}&type=&autocomplete=0`,
+  );
+  const postalData = await getPostalData.json();
+  return postalData.features[0] !== undefined;
+};
