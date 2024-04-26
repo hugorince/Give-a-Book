@@ -1,7 +1,6 @@
-import { Link } from "@/libs/ui-components";
+import { Link, Chip } from "@/libs/ui-components";
 import classes from "./book-card.module.css";
 import type { BooksData } from "@/libs/utils";
-import { Chip } from "@/libs/ui-components";
 import { LikeButton } from "..";
 import NextLink from "next/link";
 
