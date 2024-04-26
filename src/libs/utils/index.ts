@@ -9,3 +9,4 @@ export * from "./likes";
 export * from "./create-user";
 export * from "./test-utils";
 export * from "./user-utils";
+export * from "./calculate-distance";

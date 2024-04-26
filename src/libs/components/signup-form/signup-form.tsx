@@ -6,12 +6,12 @@ import { SignUpFormSchema } from "@/libs/types";
 import * as z from "zod";
 import classes from "./signup-form.module.css";
 import { Button, InputText } from "@/libs/ui-components";
-import { createUser } from "@/libs/utils";
+import { createUser, verifyPostalCode } from "@/libs/utils";
 import { useRouter } from "next/navigation";
 
 export const SignUpForm = () => {
   const router = useRouter();
-  const { handleSubmit, register, formState } = useForm<
+  const { handleSubmit, register, formState, setError } = useForm<
     z.infer<typeof SignUpFormSchema>
   >({
     resolver: zodResolver(SignUpFormSchema),
@@ -25,8 +25,16 @@ export const SignUpForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof SignUpFormSchema>) => {
-    await createUser(values);
-    router.push("/login");
+    const verifiedPostalCode = await verifyPostalCode(values.postalCode);
+    if (verifiedPostalCode) {
+      await createUser(values);
+      router.push("/login");
+    } else {
+      setError("postalCode", {
+        type: "custom",
+        message: "invalid postal code",
+      });
+    }
   };
 
   return (
@@ -54,6 +62,9 @@ export const SignUpForm = () => {
         {...register("postalCode")}
         placeholder="75018"
       />
+      {formState.errors.postalCode && (
+        <p>{formState.errors.postalCode.message}</p>
+      )}
       <InputText
         type="password"
         label="password"
