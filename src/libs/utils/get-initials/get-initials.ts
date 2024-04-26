@@ -1,9 +1,5 @@
-"use server";
+import type { Session } from "next-auth";
 
-import { authOptions } from "@/libs/auth/auth";
-import { getServerSession } from "next-auth";
-
-export const getInitials = async () => {
-  const session = await getServerSession(authOptions);
+export const getInitials = (session: Session | null) => {
   return session?.user.username.charAt(0).toLocaleUpperCase();
 };

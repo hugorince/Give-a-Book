@@ -22,7 +22,6 @@ export const BooksCardContainer = async ({
   if (!books) return null;
 
   if (!searchParams.filter) {
-    console.log("entered no filters");
     return (
       <div className={classes.booksWrapper}>
         {books.map((book, index) => {
