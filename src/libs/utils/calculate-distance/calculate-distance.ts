@@ -14,7 +14,7 @@ export const calculateDistance = async (a: string, b: string) => {
   const gpsBCoordinates = gpsB.features[0].geometry.coordinates;
 
   const distance = await fetch(
-    `https://wxs.ign.fr/calcul/geoportail/itineraire/rest/1.0.0/route?resource=bdtopo-osrm&start=${gpsACoordinates[0]},${gpsACoordinates[1]}&end=${gpsBCoordinates[0]},${gpsBCoordinates[1]}`,
+    `https://wxs.ign.fr/calcul/geoportail/itineraire/rest/1.0.0/route?resource=bdtopo-osrm&profile=car&optimization=fastest&start=${gpsACoordinates[0]},${gpsACoordinates[1]}&end=${gpsBCoordinates[0]},${gpsBCoordinates[1]}`,
   );
 
   const distanceResult = await distance.json();
