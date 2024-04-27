@@ -1,3 +1,4 @@
+import { User } from "@prisma/client";
 import type { BooksData } from "../book-utils";
 
 export const mockedBook: BooksData = {
@@ -15,4 +16,14 @@ export const mockedBook: BooksData = {
   likes: [1],
   postalCode: "75018",
   requested: false,
+};
+
+export const mockedUser: User = {
+  id: 4,
+  email: "mail@ùail.com",
+  username: "username",
+  password: "password",
+  postalCode: "75018",
+  createdAt: new Date("2024/04/02"),
+  updatedAt: new Date("2024/04/02"),
 };

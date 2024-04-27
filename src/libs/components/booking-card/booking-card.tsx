@@ -1,25 +1,22 @@
 "use server";
 
-import { type BooksData, calculateDistance, getUserInfo } from "@/libs/utils";
-import classes from "./booking-card.module.css";
+import type { BooksData } from "@/libs/utils";
+import type { User } from "@prisma/client";
 import { RequestBook } from "../request-book";
 import { Link } from "@/libs/ui-components";
 import { DeleteBook } from "../delete-book";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/libs/auth/auth";
-import type { User } from "@prisma/client";
+import { BookingCardDistance } from "./booking-card-distance";
+import classes from "./booking-card.module.css";
 
 interface BookingCard {
   book: BooksData;
   connectedUser: User;
 }
 
-export const BookingCard = async ({ book, connectedUser }: BookingCard) => {
+export const BookingCard = ({ book, connectedUser }: BookingCard) => {
   if (!book || !connectedUser) return null;
 
-  const distance =
-    connectedUser.id !== book.userId &&
-    (await calculateDistance(book.postalCode, connectedUser.postalCode));
+  const isRequested = connectedUser.id !== book.userId;
 
   return (
     <div className={classes.cardWrapper}>
@@ -29,10 +26,19 @@ export const BookingCard = async ({ book, connectedUser }: BookingCard) => {
           <Link href={`user/${book.userId}`} variant="unstyled" size="l">
             {book.title}
           </Link>
-          <Link href={`user/${book.userId}`} variant="unstyled">
-            proposed by {book.user}
-          </Link>
-          {distance && <p>{distance} km from you</p>}
+          <div className={classes.ownerLink}>
+            <p>proposed by </p>
+            <Link href={`user/${book.userId}`} variant="unstyled">
+              {book.user}
+            </Link>
+          </div>
+
+          {isRequested && (
+            <BookingCardDistance
+              ownerPostalCode={book.postalCode}
+              requesterPostalCode={connectedUser.postalCode}
+            />
+          )}
         </div>
       </div>
       <div className={classes.actionsContainer}>
