@@ -54,6 +54,7 @@ model Booking {
   requesterId Int
   owner       User        @relation("OwnerBookings", fields: [ownerId], references: [id])
   ownerId     Int
+  distance    Int
 
   book   Book @relation("BookBooking", fields: [bookId], references: [id], onDelete: Cascade)
   bookId Int
