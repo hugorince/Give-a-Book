@@ -1,22 +1,16 @@
-"use server";
-
 import type { BooksData } from "@/libs/utils";
-import type { User } from "@prisma/client";
 import { RequestBook } from "../request-book";
 import { Link } from "@/libs/ui-components";
 import { DeleteBook } from "../delete-book";
-import { BookingCardDistance } from "./booking-card-distance";
 import classes from "./booking-card.module.css";
 
 interface BookingCard {
-  book: BooksData;
-  connectedUser: User;
+  book: BooksData & { distance: number };
+  connectedUser: number;
 }
 
 export const BookingCard = ({ book, connectedUser }: BookingCard) => {
   if (!book || !connectedUser) return null;
-
-  const isRequested = connectedUser.id !== book.userId;
 
   return (
     <div className={classes.cardWrapper}>
@@ -32,18 +26,12 @@ export const BookingCard = ({ book, connectedUser }: BookingCard) => {
               {book.user}
             </Link>
           </div>
-
-          {isRequested && (
-            <BookingCardDistance
-              ownerPostalCode={book.postalCode}
-              requesterPostalCode={connectedUser.postalCode}
-            />
-          )}
+          <p>{book.distance} km from you</p>
         </div>
       </div>
       <div className={classes.actionsContainer}>
         <RequestBook book={book} />
-        {connectedUser.id === book.userId && <DeleteBook book={book} />}
+        {connectedUser === book.userId && <DeleteBook book={book} />}
       </div>
     </div>
   );

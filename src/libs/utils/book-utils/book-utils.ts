@@ -6,6 +6,7 @@ import { PostBookFormSchema } from "@/libs/types";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { z } from "zod";
+import { calculateDistance } from "../calculate-distance";
 
 export type BooksData = {
   id: number;
@@ -23,6 +24,8 @@ export type BooksData = {
   postalCode: string;
   requested: boolean;
 };
+
+export type BookedBook = BooksData & { distance: number };
 
 export const postBook = async (
   values: z.infer<typeof PostBookFormSchema>,
@@ -129,16 +132,21 @@ const sortBooksByPostalCode = async (books: BooksData[]) => {
 
   if (!userData) return books.sort((a, b) => b.id - a.id);
 
-  const userPostalCode = parseInt(userData.postalCode);
+  const booksWithDistance = await Promise.all(
+    books.map(async (book) => {
+      const distance = await calculateDistance(
+        book.postalCode,
+        userData.postalCode,
+      );
+      return {
+        ...book,
+        distance: distance,
+      };
+    }),
+  );
 
-  const sortedBooks = books.sort((a, b) => {
-    const userAPostalCode = parseInt(a.postalCode);
-    const userBPostalCode = parseInt(b.postalCode);
-
-    const differenceA = Math.abs(userAPostalCode - userPostalCode);
-    const differenceB = Math.abs(userBPostalCode - userPostalCode);
-
-    return differenceA - differenceB;
+  const sortedBooks = booksWithDistance.sort((a, b) => {
+    return a.distance - b.distance;
   });
 
   return sortedBooks.filter((book) => book.userId !== userData.id);
@@ -181,7 +189,7 @@ export const filterBooks = async (formData: FormData) => {
   }
 };
 
-export const getUserRequestedBook = async () => {
+export const getUserRequestedBooks = async () => {
   const user = await getServerSession(authOptions);
 
   if (!user) return null;
@@ -196,7 +204,13 @@ export const getUserRequestedBook = async () => {
 
   const userRequestedBooks = userBookings.map((booking) => {
     const bookId = booking.bookId;
-    return books.find((book) => book.id === bookId);
+    const book = books.find((book) => book.id === bookId);
+
+    if (!book) return null;
+    return {
+      ...book,
+      distance: booking.distance,
+    };
   });
 
   const filteredUserRequestedBooks = userRequestedBooks.filter(
@@ -219,7 +233,13 @@ export const getUserBookedBooks = async () => {
 
   const userBookedBooks = userBookings.map((booking) => {
     const bookId = booking.bookId;
-    return books.find((book) => book.id === bookId);
+    const book = books.find((book) => book.id === bookId);
+
+    if (!book) return null;
+    return {
+      ...book,
+      distance: booking.distance,
+    };
   });
 
   const filteredUserBookings = userBookedBooks.filter(
@@ -256,6 +276,10 @@ export const requestBook = async (book: BooksData, message: string) => {
       },
     });
 
+    const distance = await calculateDistance(
+      book.postalCode,
+      requester.postalCode,
+    );
     const newBooking = await db.booking.create({
       data: {
         status: "requested",
@@ -264,13 +288,14 @@ export const requestBook = async (book: BooksData, message: string) => {
         ownerId: book.userId,
         bookId: book.id,
         chatId: newChat.id,
+        distance: distance,
       },
     });
+
+    redirect("/books");
   } catch (err) {
     console.error(err);
   }
-
-  redirect("/books");
 };
 
 export const cancelRequest = async (book: BooksData) => {
@@ -286,11 +311,11 @@ export const cancelRequest = async (book: BooksData) => {
     await db.booking.delete({
       where: { id: booking?.id },
     });
+
+    redirect("/books");
   } catch (err) {
     console.error(err);
   }
-
-  redirect("/books");
 };
 
 export const deleteBook = async (book: BooksData) => {
