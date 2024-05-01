@@ -5,6 +5,7 @@ import { RequestBookDialog } from "./request-book-dialog";
 import { CancelRequestBookDialog } from "./cancel-request-book-dialog";
 import { BooksData, cancelRequest, requestBook } from "@/libs/utils";
 import classes from "./request-book.module.css";
+import { useRouter } from "next/navigation";
 
 interface RequestBookProps {
   book: BooksData;
@@ -12,10 +13,12 @@ interface RequestBookProps {
 
 export const RequestBook = ({ book }: RequestBookProps) => {
   const { openDialog, closeDialog } = useDialog();
+  const router = useRouter();
 
   const proceed = async (message: string) => {
     await requestBook(book, message);
     closeDialog();
+    router.refresh();
   };
 
   const openRequestBookDialog = () => {
@@ -27,6 +30,8 @@ export const RequestBook = ({ book }: RequestBookProps) => {
 
   const handleCancelRequest = async () => {
     await cancelRequest(book);
+    closeDialog();
+    router.refresh();
   };
 
   const openCancelRequestDialog = () => {

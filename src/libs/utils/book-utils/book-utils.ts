@@ -89,8 +89,35 @@ export const getBooksData = async () => {
 
 export const getBooksWithoutConnectedUser = async () => {
   const books = await getBooksData();
+  console.log("books", books.length);
   const sortedBooks = await sortBooksByPostalCode(books);
   return sortedBooks.filter((book) => book.id);
+};
+
+export const sortBooksByPostalCode = async (books: BooksData[]) => {
+  const user = await getServerSession(authOptions);
+
+  if (!user) return books;
+
+  const userData = await db.user.findUnique({
+    where: { id: parseInt(user.user.id) },
+  });
+
+  if (!userData) return books;
+
+  const removeUsersBooks = books.filter((book) => book.userId !== userData.id);
+
+  const distancesPromises = removeUsersBooks.map(async (book) => {
+    const distance = await calculateDistance(
+      book.postalCode,
+      userData.postalCode,
+    );
+    return { ...book, distance };
+  });
+
+  const booksWithDistance = await Promise.all(distancesPromises);
+
+  return booksWithDistance.sort((a, b) => a.distance - b.distance);
 };
 
 export const getBookByUserId = async (userId: string) => {
@@ -119,37 +146,6 @@ export const getBookById = async (bookId: number) => {
       requested: requested ? true : false,
     };
   }
-};
-
-const sortBooksByPostalCode = async (books: BooksData[]) => {
-  const user = await getServerSession(authOptions);
-
-  if (!user) return books.sort((a, b) => b.id - a.id);
-
-  const userData = await db.user.findUnique({
-    where: { id: parseInt(user.user.id) },
-  });
-
-  if (!userData) return books.sort((a, b) => b.id - a.id);
-
-  const booksWithDistance = await Promise.all(
-    books.map(async (book) => {
-      const distance = await calculateDistance(
-        book.postalCode,
-        userData.postalCode,
-      );
-      return {
-        ...book,
-        distance: distance,
-      };
-    }),
-  );
-
-  const sortedBooks = booksWithDistance.sort((a, b) => {
-    return a.distance - b.distance;
-  });
-
-  return sortedBooks.filter((book) => book.userId !== userData.id);
 };
 
 const redirectToBooks = (filter: string) => {
@@ -291,8 +287,6 @@ export const requestBook = async (book: BooksData, message: string) => {
         distance: distance,
       },
     });
-
-    redirect("/books");
   } catch (err) {
     console.error(err);
   }
