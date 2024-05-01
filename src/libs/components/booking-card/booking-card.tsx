@@ -1,11 +1,11 @@
-import type { BooksData } from "@/libs/utils";
+import type { BookedBook } from "@/libs/utils";
 import { RequestBook } from "../request-book";
 import { Link } from "@/libs/ui-components";
 import { DeleteBook } from "../delete-book";
 import classes from "./booking-card.module.css";
 
 interface BookingCard {
-  book: BooksData & { distance: number };
+  book: BookedBook;
   connectedUser: number;
 }
 

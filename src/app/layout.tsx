@@ -4,7 +4,6 @@ import "./globals.css";
 import {
   SessionProvider,
   TanstackProvider,
-  FilterBooksProvider,
   UiComponentsProvider,
 } from "@/libs/providers";
 
@@ -25,9 +24,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <TanstackProvider>
           <SessionProvider>
-            <FilterBooksProvider>
-              <UiComponentsProvider>{children}</UiComponentsProvider>
-            </FilterBooksProvider>
+            <UiComponentsProvider>{children}</UiComponentsProvider>
           </SessionProvider>
         </TanstackProvider>
       </body>

@@ -21,94 +21,41 @@ export const BooksCardContainer = async ({
 
   if (!books) return null;
 
-  if (!searchParams.filter) {
-    return (
-      <div className={classes.booksWrapper}>
-        {books.map((book, index) => {
-          return <BookCard book={book} key={index} connectedUserId={userId} />;
-        })}
-      </div>
-    );
-  }
-
-  const params = searchParams.filter.split(",");
-  const give = (params.includes("give") && "give") || null;
-  const exchange = (params.includes("exchange") && "exchange") || null;
-  const likedOnly = (params.includes("liked") && "liked") || null;
+  const filteredBooks = books.filter((book) => {
+    if (searchParams.filter === "liked") {
+      return userId && book.likes.includes(parseInt(userId));
+    }
+    if (searchParams.filter === "give") {
+      return book.give;
+    }
+    if (searchParams.filter === "exchange") {
+      return book.exchange;
+    }
+    if (searchParams.filter === "liked,give") {
+      return userId && book.likes.includes(parseInt(userId)) && book.give;
+    }
+    if (searchParams.filter === "liked,exchange") {
+      return userId && book.likes.includes(parseInt(userId)) && book.exchange;
+    }
+    if (searchParams.filter === "give,exchange") {
+      return book.give && book.exchange;
+    }
+    if (searchParams.filter === "liked,give,exchange") {
+      return (
+        userId &&
+        book.likes.includes(parseInt(userId)) &&
+        book.give &&
+        book.exchange
+      );
+    }
+    return true;
+  });
 
   return (
-    <>
-      {exchange && give && !likedOnly ? (
-        <div className={classes.booksWrapper}>
-          {books.map((book, index) => {
-            return (
-              <BookCard book={book} key={index} connectedUserId={userId} />
-            );
-          })}
-        </div>
-      ) : exchange && !give && !likedOnly ? (
-        <div className={classes.booksWrapper}>
-          {books.map((book, index) => {
-            if (book[exchange])
-              return (
-                <BookCard book={book} key={index} connectedUserId={userId} />
-              );
-          })}
-        </div>
-      ) : give && !exchange && !likedOnly ? (
-        <div className={classes.booksWrapper}>
-          {books.map((book, index) => {
-            if (book[give])
-              return (
-                <BookCard book={book} key={index} connectedUserId={userId} />
-              );
-          })}
-        </div>
-      ) : likedOnly && !exchange && !give ? (
-        <div className={classes.booksWrapper}>
-          {books.map((book, index) => {
-            if (userId && book.likes.includes(parseInt(userId)))
-              return (
-                <BookCard book={book} key={index} connectedUserId={userId} />
-              );
-          })}
-        </div>
-      ) : likedOnly && exchange && !give ? (
-        <div className={classes.booksWrapper}>
-          {books.map((book, index) => {
-            if (
-              userId &&
-              book.likes.includes(parseInt(userId)) &&
-              book[exchange]
-            )
-              return (
-                <BookCard book={book} key={index} connectedUserId={userId} />
-              );
-          })}
-        </div>
-      ) : likedOnly && give && !exchange ? (
-        <div className={classes.booksWrapper}>
-          {books.map((book, index) => {
-            if (userId && book.likes.includes(parseInt(userId)) && book[give])
-              return (
-                <BookCard book={book} key={index} connectedUserId={userId} />
-              );
-          })}
-        </div>
-      ) : (
-        likedOnly &&
-        give &&
-        exchange && (
-          <div className={classes.booksWrapper}>
-            {books.map((book, index) => {
-              if (userId && book.likes.includes(parseInt(userId)))
-                return (
-                  <BookCard book={book} key={index} connectedUserId={userId} />
-                );
-            })}
-          </div>
-        )
-      )}
-    </>
+    <div className={classes.booksWrapper}>
+      {filteredBooks.map((book, index) => (
+        <BookCard book={book} key={index} connectedUserId={userId} />
+      ))}
+    </div>
   );
 };

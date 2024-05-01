@@ -12,7 +12,6 @@ export const CancelRequestBookDialog = ({
 
   const handleOnClick = () => {
     cancelRequest();
-    closeDialog();
   };
 
   return (

@@ -6,13 +6,16 @@ import { getServerSession } from "next-auth";
 
 export const updateBookLikes = async (bookId: number) => {
   const session = await getServerSession(authOptions);
-  const userId = session?.user.id;
+
+  if (!session) return null;
+
+  const userId = parseInt(session.user.id);
   const book = await db.book.findUnique({
     where: { id: bookId },
   });
 
   if (userId && book) {
-    const alreadyLiked = book?.likes.includes(parseInt(userId));
+    const alreadyLiked = book.likes.includes(userId);
 
     if (!alreadyLiked || !book.likes) {
       await db.book.update({
@@ -21,12 +24,12 @@ export const updateBookLikes = async (bookId: number) => {
         },
         data: {
           likes: {
-            push: parseInt(userId),
+            push: userId,
           },
         },
       });
     } else {
-      const index = book.likes.indexOf(parseInt(userId));
+      const index = book.likes.indexOf(userId);
       book.likes.splice(index, 1);
 
       await db.book.update({
