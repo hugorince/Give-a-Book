@@ -1,24 +1,15 @@
 export const calculateDistance = async (
-  postalCodeA: string,
-  postalCodeB: string,
+  coordinatesA: number[],
+  coordinatesB: number[],
 ) => {
   try {
-    const [gpsA, gpsB] = await Promise.all([
-      fetchGpsCoordinates(postalCodeA),
-      fetchGpsCoordinates(postalCodeB),
-    ]);
-
-    const [gpsACoordinates, gpsBCoordinates] = [gpsA, gpsB].map(
-      (gpsCoordinates: any) => gpsCoordinates.features[0].geometry.coordinates,
-    );
-
     const distance = getDistanceFromLatLonInKm(
-      gpsACoordinates[0],
-      gpsACoordinates[1],
-      gpsBCoordinates[0],
-      gpsBCoordinates[1],
+      coordinatesA[0],
+      coordinatesA[1],
+      coordinatesB[0],
+      coordinatesB[1],
     );
-
+    console.log(coordinatesA, coordinatesB);
     console.log("distance", distance);
     return distance;
   } catch (error) {
@@ -27,21 +18,11 @@ export const calculateDistance = async (
   }
 };
 
-const fetchGpsCoordinates = async (postalCode: string) => {
-  const response = await fetch(
-    `https://api-adresse.data.gouv.fr/search/?q=${postalCode}&type=&autocomplete=0`,
-  );
-
-  const data = await response.json();
-  console.log(data.features[0].geometry.coordinates);
-  return data;
-};
-
 const getDistanceFromLatLonInKm = (
-  lat1: number,
   lon1: number,
-  lat2: number,
+  lat1: number,
   lon2: number,
+  lat2: number,
 ) => {
   const R = 6371;
   const dLat = deg2rad(lat2 - lat1);
@@ -54,7 +35,7 @@ const getDistanceFromLatLonInKm = (
       Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   const d = R * c;
-  return Math.floor(d);
+  return Math.floor(d / 1000);
 };
 
 const deg2rad = (deg: number) => {
