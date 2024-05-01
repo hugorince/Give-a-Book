@@ -5,6 +5,15 @@ import { SignUpFormSchema } from "@/libs/types";
 import { hash } from "bcrypt";
 import { z } from "zod";
 
+const fetchGpsCoordinates = async (postalCode: string) => {
+  const response = await fetch(
+    `https://api-adresse.data.gouv.fr/search/?q=${postalCode}&type=&autocomplete=0`,
+  );
+
+  const data = await response.json();
+  return data.features[0].geometry.coordinates;
+};
+
 export const createUser = async (values: z.infer<typeof SignUpFormSchema>) => {
   try {
     const existingUserByEmail = await db.user.findUnique({
@@ -25,11 +34,14 @@ export const createUser = async (values: z.infer<typeof SignUpFormSchema>) => {
 
     const encryptedPassword = await hash(values.password, 10);
 
+    const gpsCoordinates = await fetchGpsCoordinates(values.postalCode);
+
     await db.user.create({
       data: {
         email: values.email,
         username: values.username,
         postalCode: values.postalCode,
+        gpsCoordinates: gpsCoordinates,
         password: encryptedPassword,
       },
     });

@@ -22,6 +22,7 @@ export type BooksData = {
   updatedAt: Date;
   likes: number[];
   postalCode: string;
+  gpsCoordinates: number[];
   requested: boolean;
 };
 
@@ -63,6 +64,7 @@ export const getBooksData = async () => {
   const booksData = await Promise.all(
     books.map(async (book) => {
       const user = users.find((user) => user.id === book.userId);
+
       const requested = bookings.some((booking) => booking.bookId === book.id);
 
       return {
@@ -79,6 +81,7 @@ export const getBooksData = async () => {
         updatedAt: book.updatedAt,
         likes: book.likes,
         postalCode: user?.postalCode || "",
+        gpsCoordinates: user?.gpsCoordinates || [0, 0],
         requested: requested,
       };
     }),
@@ -109,8 +112,8 @@ export const sortBooksByPostalCode = async (books: BooksData[]) => {
 
   const distancesPromises = removeUsersBooks.map(async (book) => {
     const distance = await calculateDistance(
-      book.postalCode,
-      userData.postalCode,
+      book.gpsCoordinates,
+      userData.gpsCoordinates,
     );
     return { ...book, distance };
   });
@@ -143,6 +146,7 @@ export const getBookById = async (bookId: number) => {
       ...book,
       user: user.username,
       postalCode: user.postalCode,
+      gpsCoordinates: user.gpsCoordinates,
       requested: requested ? true : false,
     };
   }
@@ -273,9 +277,10 @@ export const requestBook = async (book: BooksData, message: string) => {
     });
 
     const distance = await calculateDistance(
-      book.postalCode,
-      requester.postalCode,
+      book.gpsCoordinates,
+      requester.gpsCoordinates,
     );
+
     const newBooking = await db.booking.create({
       data: {
         status: "requested",
