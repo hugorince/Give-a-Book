@@ -3,12 +3,7 @@ export const calculateDistance = async (
   coordinatesB: number[],
 ) => {
   try {
-    const distance = getDistanceFromLatLonInKm(
-      coordinatesA[0],
-      coordinatesA[1],
-      coordinatesB[0],
-      coordinatesB[1],
-    );
+    const distance = getDistanceFromLatLonInKm(coordinatesA, coordinatesB);
     console.log(coordinatesA, coordinatesB);
     console.log("distance", distance);
     return distance;
@@ -18,13 +13,13 @@ export const calculateDistance = async (
   }
 };
 
-const getDistanceFromLatLonInKm = (
-  lon1: number,
-  lat1: number,
-  lon2: number,
-  lat2: number,
-) => {
-  const R = 6371;
+const getDistanceFromLatLonInKm = (x: number[], y: number[]) => {
+  const lon1 = x[0];
+  const lat1 = x[1];
+  const lon2 = y[0];
+  const lat2 = y[1];
+
+  const R = 6371; // Earth radius in kilometers
   const dLat = deg2rad(lat2 - lat1);
   const dLon = deg2rad(lon2 - lon1);
   const a =
@@ -34,8 +29,9 @@ const getDistanceFromLatLonInKm = (
       Math.sin(dLon / 2) *
       Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  const d = R * c;
-  return Math.floor(d / 1000);
+  const distance = R * c;
+
+  return distance;
 };
 
 const deg2rad = (deg: number) => {

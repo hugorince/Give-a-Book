@@ -7,7 +7,7 @@ import { z } from "zod";
 
 const fetchGpsCoordinates = async (postalCode: string) => {
   const response = await fetch(
-    `https://api-adresse.data.gouv.fr/search/?q=${postalCode}&type=&autocomplete=0`,
+    `https://api-adresse.data.gouv.fr/search/?q=${postalCode}&type=municipality&autocomplete=0&limit=1`,
   );
 
   const data = await response.json();
