@@ -1,11 +1,12 @@
 "use client";
 
 import { Button, useDialog } from "@/libs/ui-components";
-import { BooksData, deleteBook } from "@/libs/utils";
+import type { BookData } from "@/libs/types";
+import { deleteBook } from "@/libs/database";
 import { DeleteBookDialog } from "./delete-book-dialog";
 
 interface DeleteBookProps {
-  book: BooksData;
+  book: BookData;
 }
 
 export const DeleteBook = ({ book }: DeleteBookProps) => {

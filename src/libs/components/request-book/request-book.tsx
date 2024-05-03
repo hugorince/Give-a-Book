@@ -3,12 +3,13 @@
 import { Button, useDialog } from "@/libs/ui-components";
 import { RequestBookDialog } from "./request-book-dialog";
 import { CancelRequestBookDialog } from "./cancel-request-book-dialog";
-import { BooksData, cancelRequest, requestBook } from "@/libs/utils";
+import { cancelRequest, requestBook } from "@/libs/database";
+import type { BookData } from "@/libs/types";
 import classes from "./request-book.module.css";
 import { useRouter } from "next/navigation";
 
 interface RequestBookProps {
-  book: BooksData;
+  book: BookData;
 }
 
 export const RequestBook = ({ book }: RequestBookProps) => {

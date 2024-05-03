@@ -1,7 +1,7 @@
 import { screen, act } from "@testing-library/react";
 import { BooksCardContainer } from ".";
-import { getBooksWithoutConnectedUser } from "../../utils";
-import { render } from "../../utils/test-utils";
+import { getBooksWithoutConnectedUser } from "@/libs/database";
+import { render } from "../../utils/test-utils/test-utils";
 
 jest.mock("../../utils", () => ({
   ...jest.requireActual("../../utils"),

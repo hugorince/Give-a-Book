@@ -1,4 +1,4 @@
-import { render } from "@/libs/utils";
+import { render } from "../../../utils/test-utils/test-utils";
 import { RequestBookDialog } from "./request-book-dialog";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -16,7 +16,7 @@ describe("RequestBookDialog", () => {
     (useDialog as jest.Mock).mockReturnValue({ closeDialog: mockCloseDialog });
   });
   it("should close the dialog on close button click", async () => {
-    render(<RequestBookDialog proceed={jest.fn()} />);
+    render(<RequestBookDialog proceed={jest.fn()} user="4" />);
 
     const closeButton = screen.getByRole("button", { name: "Cancel" });
     userEvent.click(closeButton);

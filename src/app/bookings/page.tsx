@@ -1,7 +1,7 @@
 import { MainLayout } from "@/libs/layout";
 import classes from "./bookings.module.css";
 import { BookingCardContainer } from "@/libs/components/booking-card-container";
-import { getUserBookedBooks, getUserRequestedBooks } from "@/libs/utils";
+import { getUserBookedBooks, getUserRequestedBooks } from "@/libs/database";
 
 export const Bookings = async () => {
   const requestedBooks = await getUserRequestedBooks();

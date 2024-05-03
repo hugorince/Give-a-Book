@@ -6,7 +6,7 @@ import { SignUpFormSchema } from "@/libs/types";
 import * as z from "zod";
 import classes from "./signup-form.module.css";
 import { Button, InputText } from "@/libs/ui-components";
-import { createUser, verifyPostalCode } from "@/libs/utils";
+import { createUser, verifyPostalCode } from "@/libs/database";
 import { useRouter } from "next/navigation";
 
 export const SignUpForm = () => {

@@ -3,10 +3,11 @@
 import { Avatar, Button, Link } from "@/libs/ui-components";
 import classes from "./navbar.module.css";
 import NextLink from "next/link";
-import { getInitials, signOut } from "@/libs/utils";
+import { getInitials } from "@/libs/utils";
 import { useSession } from "next-auth/react";
 import { LoginSignUpButton } from "./login-signup-button";
 import { useRouter } from "next/navigation";
+import { signOut } from "@/libs/database";
 
 export const Navbar = () => {
   const session = useSession();

@@ -2,52 +2,12 @@
 
 import { authOptions } from "@/libs/auth/auth";
 import { db } from "@/libs/database";
-import { PostBookFormSchema } from "@/libs/types";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { z } from "zod";
-import { calculateDistance } from "../calculate-distance";
+import { calculateDistance } from "@/libs/utils";
+import type { BookData } from "@/libs/types";
 
-export type BooksData = {
-  id: number;
-  title: string;
-  author: string;
-  image: string | null;
-  description: string;
-  user: string | null | undefined;
-  userId: number;
-  exchange: boolean;
-  give: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-  likes: number[];
-  postalCode: string;
-  gpsCoordinates: number[];
-  requested: boolean;
-};
-
-export type BookedBook = BooksData & { distance: number };
-
-export const postBook = async (
-  values: z.infer<typeof PostBookFormSchema>,
-  userId: number,
-) => {
-  const exchange = values.exchangeGive === "exchange";
-
-  await db.book.create({
-    data: {
-      title: values.title,
-      author: values.author,
-      description: values.description,
-      image: values.image,
-      userId: userId as number,
-      exchange: exchange,
-      give: !exchange,
-    },
-  });
-};
-
-export const getBooksData = async () => {
+export const getBookData = async () => {
   const books = await db.book.findMany();
   const userIds = books.map((book) => book.userId);
 
@@ -61,7 +21,7 @@ export const getBooksData = async () => {
 
   const [users, bookings] = await Promise.all([usersPromise, bookingsPromise]);
 
-  const booksData = await Promise.all(
+  const BookData = await Promise.all(
     books.map(async (book) => {
       const user = users.find((user) => user.id === book.userId);
 
@@ -87,17 +47,17 @@ export const getBooksData = async () => {
     }),
   );
 
-  return booksData;
+  return BookData;
 };
 
 export const getBooksWithoutConnectedUser = async () => {
-  const books = await getBooksData();
+  const books = await getBookData();
   console.log("books", books.length);
   const sortedBooks = await sortBooksByPostalCode(books);
   return sortedBooks.filter((book) => book.id);
 };
 
-export const sortBooksByPostalCode = async (books: BooksData[]) => {
+const sortBooksByPostalCode = async (books: BookData[]) => {
   const user = await getServerSession(authOptions);
 
   if (!user) return books;
@@ -124,7 +84,7 @@ export const sortBooksByPostalCode = async (books: BooksData[]) => {
 };
 
 export const getBookByUserId = async (userId: string) => {
-  const books = await getBooksData();
+  const books = await getBookData();
   return books.filter((book) => book.userId === parseInt(userId));
 };
 
@@ -196,7 +156,7 @@ export const getUserRequestedBooks = async () => {
 
   const requester = parseInt(user.user.id);
   const bookings = await db.booking.findMany();
-  const books = await getBooksData();
+  const books = await getBookData();
 
   const userBookings = bookings.filter(
     (booking) => booking.requesterId === requester,
@@ -227,7 +187,7 @@ export const getUserBookedBooks = async () => {
 
   const userId = parseInt(user.user.id);
   const bookings = await db.booking.findMany();
-  const books = await getBooksData();
+  const books = await getBookData();
 
   const userBookings = bookings.filter((booking) => booking.ownerId === userId);
 
@@ -247,83 +207,4 @@ export const getUserBookedBooks = async () => {
   );
 
   return filteredUserBookings;
-};
-
-export const requestBook = async (book: BooksData, message: string) => {
-  const user = await getServerSession(authOptions);
-
-  if (!user) return null;
-
-  const requester = await db.user.findUnique({
-    where: { id: parseInt(user.user.id) },
-  });
-
-  if (!requester) return null;
-
-  try {
-    const newChat = await db.chat.create({
-      data: {
-        requesterId: requester.id,
-        ownerId: book.userId,
-      },
-    });
-
-    const newMessage = await db.message.create({
-      data: {
-        text: message,
-        senderId: requester.id,
-        chatId: newChat.id,
-      },
-    });
-
-    const distance = await calculateDistance(
-      book.gpsCoordinates,
-      requester.gpsCoordinates,
-    );
-
-    const newBooking = await db.booking.create({
-      data: {
-        status: "requested",
-        type: "REQUEST",
-        requesterId: requester.id,
-        ownerId: book.userId,
-        bookId: book.id,
-        chatId: newChat.id,
-        distance: distance,
-      },
-    });
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-export const cancelRequest = async (book: BooksData) => {
-  const user = await getServerSession(authOptions);
-
-  if (!user) return null;
-
-  try {
-    const booking = await db.booking.findFirst({
-      where: { bookId: book.id },
-    });
-
-    await db.booking.delete({
-      where: { id: booking?.id },
-    });
-
-    redirect("/books");
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-export const deleteBook = async (book: BooksData) => {
-  try {
-    await db.book.delete({
-      where: { id: book.id },
-    });
-  } catch (err) {
-    console.error(err);
-  }
-  redirect("/bookings");
 };

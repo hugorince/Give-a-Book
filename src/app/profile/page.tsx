@@ -1,6 +1,6 @@
 import { ProfileInfos, UserBooksCardsContainer } from "@/libs/components";
 import { MainLayout } from "@/libs/layout";
-import { getUserId } from "@/libs/utils";
+import { getUserId } from "@/libs/database";
 
 export const Profile = async () => {
   const userId = await getUserId();
