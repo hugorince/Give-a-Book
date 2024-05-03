@@ -1,7 +1,7 @@
 "use server";
 
 import classes from "./books-cards-container.module.css";
-import { getBooksWithoutConnectedUser } from "@/libs/utils";
+import { getBooksWithoutConnectedUser } from "@/libs/database";
 import { BookCard } from "..";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/libs/auth/auth";

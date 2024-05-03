@@ -1,6 +1,6 @@
 "use server";
 
-import { getBookByUserId } from "@/libs/utils";
+import { getBookByUserId } from "@/libs/database";
 import classes from "./user-books-cards-container.module.css";
 import { BookCard } from "../../book-card";
 import { getServerSession } from "next-auth";

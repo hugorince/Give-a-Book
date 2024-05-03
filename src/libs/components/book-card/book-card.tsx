@@ -1,6 +1,6 @@
 import { Link, Chip } from "@/libs/ui-components";
 import classes from "./book-card.module.css";
-import type { BooksData } from "@/libs/utils";
+import type { BookData } from "@/libs/types";
 import { LikeButton } from "..";
 import NextLink from "next/link";
 
@@ -8,7 +8,7 @@ export const BookCard = ({
   book,
   connectedUserId,
 }: {
-  book: BooksData;
+  book: BookData;
   connectedUserId?: string;
 }) => {
   const exchangeOrGive = book.exchange ? "Exchange" : "Give";

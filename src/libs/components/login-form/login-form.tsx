@@ -27,15 +27,10 @@ export const LoginForm = () => {
     const signInData = await signIn("credentials", {
       email: values.email,
       password: values.password,
-      redirect: false,
+      callbackUrl: "/books",
     });
     if (signInData?.error) {
       console.log(signInData.error, "error");
-    } else {
-      setTimeout(() => {
-        router.push("/");
-        setIsLoading(false);
-      }, 1000);
     }
   };
 

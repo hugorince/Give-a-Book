@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/libs/ui-components";
 import classes from "./update-profile-field.module.css";
 import { updateUserSchemaWithId } from "@/libs/types";
-import { updateUser } from "@/libs/utils";
+import { updateUser } from "@/libs/database";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 interface UpdateProfileFieldContainerProps {

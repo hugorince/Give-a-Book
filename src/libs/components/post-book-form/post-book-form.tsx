@@ -7,7 +7,7 @@ import { PostBookFormSchema } from "@/libs/types";
 import * as z from "zod";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { postBook } from "@/libs/utils";
+import { postBook } from "@/libs/database";
 import { Button } from "@/libs/ui-components";
 import classes from "./post-book-form.module.css";
 import { zodResolver } from "@hookform/resolvers/zod";

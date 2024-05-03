@@ -1,4 +1,4 @@
-import type { BookedBook } from "@/libs/utils";
+import type { BookedBook } from "@/libs/types";
 import { RequestBook } from "../request-book";
 import { Link } from "@/libs/ui-components";
 import { DeleteBook } from "../delete-book";
@@ -6,11 +6,11 @@ import classes from "./booking-card.module.css";
 
 interface BookingCard {
   book: BookedBook;
-  connectedUser: number;
+  connectedUserId: number;
 }
 
-export const BookingCard = ({ book, connectedUser }: BookingCard) => {
-  if (!book || !connectedUser) return null;
+export const BookingCard = ({ book, connectedUserId }: BookingCard) => {
+  if (!book || !connectedUserId) return null;
 
   return (
     <div className={classes.cardWrapper}>
@@ -31,7 +31,7 @@ export const BookingCard = ({ book, connectedUser }: BookingCard) => {
       </div>
       <div className={classes.actionsContainer}>
         <RequestBook book={book} />
-        {connectedUser === book.userId && <DeleteBook book={book} />}
+        {connectedUserId === book.userId && <DeleteBook book={book} />}
       </div>
     </div>
   );

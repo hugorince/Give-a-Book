@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Link } from "@/libs/ui-components";
-import { updateBookLikes } from "@/libs/utils";
+import { updateBookLikes } from "@/libs/database";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoHeart } from "react-icons/io5";
 import { useRouter } from "next/navigation";

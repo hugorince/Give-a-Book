@@ -4,8 +4,6 @@ export const calculateDistance = async (
 ) => {
   try {
     const distance = getDistanceFromLatLonInKm(coordinatesA, coordinatesB);
-    console.log(coordinatesA, coordinatesB);
-    console.log("distance", distance);
     return distance;
   } catch (error) {
     console.error("Error calculating distance:", error);

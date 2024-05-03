@@ -1,9 +1,10 @@
-import { BooksData, postedOn } from "@/libs/utils";
+import { postedOn } from "@/libs/utils";
+import type { BookData } from "@/libs/types";
 import { Chip } from "@/libs/ui-components";
 import classes from "./book-page-infos.module.css";
 
 interface BookPageInfosProps {
-  book: BooksData;
+  book: BookData;
 }
 
 export const BookPageInfos = ({ book }: BookPageInfosProps) => {

@@ -1,4 +1,3 @@
-import { BooksData } from "@/libs/utils";
 import { BookCard } from ".";
 import { screen } from "@testing-library/react";
 import { render } from "@/libs/utils/test-utils/test-utils";
