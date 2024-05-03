@@ -1,0 +1,12 @@
+.messageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-050);
+}
+
+.chatContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-100);
+  max-width: 30rem;
+}

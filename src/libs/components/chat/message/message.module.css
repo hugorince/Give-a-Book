@@ -1,0 +1,14 @@
+.connectedUserMessage {
+  background-color: var(--brand-color-light);
+  padding: var(--spacing-100);
+  border-radius: var(--border-radius-m);
+  width: fit-content;
+  align-self: flex-end;
+}
+
+.requesterMessage {
+  background-color: var(--color-chip-requested);
+  padding: var(--spacing-100);
+  border-radius: var(--border-radius-m);
+  width: fit-content;
+}

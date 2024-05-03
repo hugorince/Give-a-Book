@@ -16,4 +16,4 @@ export type BookData = {
   requested: boolean;
 };
 
-export type BookedBook = BookData & { distance: number };
+export type BookedBook = BookData & { distance: number; bookingId: number };

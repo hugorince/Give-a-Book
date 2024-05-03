@@ -31,6 +31,9 @@ export const BookingCard = ({ book, connectedUserId }: BookingCard) => {
           <p>{book.distance} km from you</p>
         </div>
       </div>
+      <Link variant="unstyled" href={`/booking/${book.bookingId}`}>
+        Booking
+      </Link>
       <div className={classes.actionsContainer}>
         <RequestBook book={book} />
         {isConnectedUserBook && <DeleteBook book={book} />}
