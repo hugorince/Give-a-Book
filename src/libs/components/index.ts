@@ -11,3 +11,4 @@ export * from "./filter-books";
 export * from "./like-button";
 export * from "./request-book";
 export * from "./delete-book";
+export * from "./chat";

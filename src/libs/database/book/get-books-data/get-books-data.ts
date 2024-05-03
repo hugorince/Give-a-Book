@@ -131,6 +131,7 @@ export const getUserRequestedBooks = async () => {
     return {
       ...book,
       distance: booking.distance,
+      bookingId: booking.id,
     };
   });
 
@@ -160,6 +161,7 @@ export const getUserBookedBooks = async () => {
     return {
       ...book,
       distance: booking.distance,
+      bookingId: booking.id,
     };
   });
 
