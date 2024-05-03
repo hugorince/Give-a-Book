@@ -21,7 +21,6 @@ export const BookPageInfos = ({ book }: BookPageInfosProps) => {
           <p>{posted}</p>
           <Chip label={exchangeOrGive} exchange={book.exchange} />
         </div>
-
         <h1>{book.title}</h1>
         <h2>{book.author}</h2>
         <p>{book.description}</p>
