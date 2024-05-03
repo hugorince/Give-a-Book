@@ -12,6 +12,8 @@ interface BookingCard {
 export const BookingCard = ({ book, connectedUserId }: BookingCard) => {
   if (!book || !connectedUserId) return null;
 
+  const isConnectedUserBook = connectedUserId === book.userId;
+
   return (
     <div className={classes.cardWrapper}>
       <div className={classes.imageTitle}>
@@ -31,7 +33,7 @@ export const BookingCard = ({ book, connectedUserId }: BookingCard) => {
       </div>
       <div className={classes.actionsContainer}>
         <RequestBook book={book} />
-        {connectedUserId === book.userId && <DeleteBook book={book} />}
+        {isConnectedUserBook && <DeleteBook book={book} />}
       </div>
     </div>
   );

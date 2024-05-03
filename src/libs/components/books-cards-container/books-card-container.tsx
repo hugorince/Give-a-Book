@@ -16,14 +16,15 @@ export const BooksCardContainer = async ({
   searchParams: ParamsProps;
 }) => {
   const user = await getServerSession(authOptions);
-  const userId = user?.user?.id || "";
+  const connectedUserId = user ? parseInt(user.user.id) : undefined;
+
   const books = await getBooksWithoutConnectedUser();
 
   if (!books) return null;
 
   const filteredBooks = books.filter((book) => {
     if (searchParams.filter === "liked") {
-      return userId && book.likes.includes(parseInt(userId));
+      return connectedUserId && book.likes.includes(connectedUserId);
     }
     if (searchParams.filter === "give") {
       return book.give;
@@ -32,29 +33,25 @@ export const BooksCardContainer = async ({
       return book.exchange;
     }
     if (searchParams.filter === "liked,give") {
-      return userId && book.likes.includes(parseInt(userId)) && book.give;
-    }
-    if (searchParams.filter === "liked,exchange") {
-      return userId && book.likes.includes(parseInt(userId)) && book.exchange;
-    }
-    if (searchParams.filter === "give,exchange") {
-      return book.give && book.exchange;
-    }
-    if (searchParams.filter === "liked,give,exchange") {
       return (
-        userId &&
-        book.likes.includes(parseInt(userId)) &&
-        book.give &&
-        book.exchange
+        connectedUserId && book.likes.includes(connectedUserId) && book.give
       );
     }
-    return true;
+    if (searchParams.filter === "exchange,liked") {
+      return (
+        connectedUserId && book.likes.includes(connectedUserId) && book.exchange
+      );
+    }
+    if (searchParams.filter === "liked,give,exchange") {
+      return connectedUserId && book.likes.includes(connectedUserId);
+    }
+    return book;
   });
 
   return (
     <div className={classes.booksWrapper}>
       {filteredBooks.map((book, index) => (
-        <BookCard book={book} key={index} connectedUserId={userId} />
+        <BookCard book={book} key={index} connectedUserId={connectedUserId} />
       ))}
     </div>
   );

@@ -1,39 +1,33 @@
-import { Link, Chip } from "@/libs/ui-components";
-import classes from "./book-card.module.css";
 import type { BookData } from "@/libs/types";
+import { Link, Chip } from "@/libs/ui-components";
 import { LikeButton } from "..";
 import NextLink from "next/link";
+import classes from "./book-card.module.css";
 
-export const BookCard = ({
-  book,
-  connectedUserId,
-}: {
+interface BookCardProps {
   book: BookData;
-  connectedUserId?: string;
-}) => {
-  const exchangeOrGive = book.exchange ? "Exchange" : "Give";
+  connectedUserId?: number;
+}
 
-  const isLiked = book.likes.includes(parseInt(connectedUserId || ""));
-  const requested = book.requested;
+export const BookCard = ({ book, connectedUserId }: BookCardProps) => {
+  const exchangeOrGive = book.exchange ? "Exchange" : "Give";
+  const isLiked =
+    connectedUserId && book.likes.includes(connectedUserId) ? true : false;
+  const isRequested = book.requested;
+  const isConnectedUserBook = book.userId === connectedUserId;
 
   return (
     <div className={classes.wrapper}>
       <div className={classes.header}>
         <div className={classes.chipLike}>
           <Chip label={exchangeOrGive} exchange={book.exchange} />
-          {requested && <Chip label="requested" variant="requested" />}
-          {connectedUserId && parseInt(connectedUserId) !== book.userId && (
-            <>
-              {connectedUserId ? (
-                <LikeButton isLiked={isLiked} bookId={book.id} isLoggedIn />
-              ) : (
-                <LikeButton
-                  isLiked={false}
-                  bookId={book.id}
-                  isLoggedIn={false}
-                />
-              )}
-            </>
+          {isRequested && <Chip label="requested" variant="requested" />}
+          {!isConnectedUserBook && (
+            <LikeButton
+              isLiked={isLiked}
+              bookId={book.id}
+              isLoggedIn={connectedUserId !== undefined}
+            />
           )}
         </div>
         <div className={classes.userLink}>

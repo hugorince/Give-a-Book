@@ -1,13 +1,36 @@
 "use server";
 
+import type { BookData } from "@/libs/types";
+import { getServerSession } from "next-auth";
 import { authOptions } from "@/libs/auth/auth";
 import { db } from "@/libs/database";
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
 import { calculateDistance } from "@/libs/utils";
-import type { BookData } from "@/libs/types";
 
-export const getBookData = async () => {
+export const getBookById = async (bookId: number) => {
+  const book = await db.book.findUnique({
+    where: { id: bookId },
+  });
+
+  const user = await db.user.findUnique({
+    where: { id: book?.userId },
+  });
+
+  const requested = await db.booking.findFirst({
+    where: { bookId: bookId },
+  });
+
+  if (book && user) {
+    return {
+      ...book,
+      user: user.username,
+      postalCode: user.postalCode,
+      gpsCoordinates: user.gpsCoordinates,
+      requested: requested ? true : false,
+    };
+  }
+};
+
+const getBooksData = async () => {
   const books = await db.book.findMany();
   const userIds = books.map((book) => book.userId);
 
@@ -50,9 +73,13 @@ export const getBookData = async () => {
   return BookData;
 };
 
+export const getBooksByUserId = async (userId: string) => {
+  const books = await getBooksData();
+  return books.filter((book) => book.userId === parseInt(userId));
+};
+
 export const getBooksWithoutConnectedUser = async () => {
-  const books = await getBookData();
-  console.log("books", books.length);
+  const books = await getBooksData();
   const sortedBooks = await sortBooksByPostalCode(books);
   return sortedBooks.filter((book) => book.id);
 };
@@ -83,72 +110,6 @@ const sortBooksByPostalCode = async (books: BookData[]) => {
   return booksWithDistance.sort((a, b) => a.distance - b.distance);
 };
 
-export const getBooksByUserId = async (userId: string) => {
-  const books = await getBookData();
-  return books.filter((book) => book.userId === parseInt(userId));
-};
-
-export const getBookById = async (bookId: number) => {
-  const book = await db.book.findUnique({
-    where: { id: bookId },
-  });
-
-  const user = await db.user.findUnique({
-    where: { id: book?.userId },
-  });
-
-  const requested = await db.booking.findFirst({
-    where: { bookId: bookId },
-  });
-
-  if (book && user) {
-    return {
-      ...book,
-      user: user.username,
-      postalCode: user.postalCode,
-      gpsCoordinates: user.gpsCoordinates,
-      requested: requested ? true : false,
-    };
-  }
-};
-
-const redirectToBooks = (filter: string) => {
-  const param = filter ? new URLSearchParams([["filter", filter]]) : "";
-  redirect(`/books${param ? `?${param}` : ""}`);
-};
-
-export const filterBooks = async (formData: FormData) => {
-  const exchange = formData.get("exchange");
-  const give = formData.get("give");
-  const liked = formData.get("liked");
-
-  switch (true) {
-    case exchange && !give && !liked:
-      redirectToBooks("exchange");
-      break;
-    case give && !exchange && !liked:
-      redirectToBooks("give");
-      break;
-    case liked && !exchange && !give:
-      redirectToBooks("liked");
-      break;
-    case exchange && give && !liked:
-      redirectToBooks("exchange,give");
-      break;
-    case exchange && liked && !give:
-      redirectToBooks("exchange,liked");
-      break;
-    case liked && give && !exchange:
-      redirectToBooks("liked,give");
-      break;
-    case liked !== null && give !== null && exchange !== null:
-      redirectToBooks("liked,give,exchange");
-      break;
-    default:
-      redirect("/books");
-  }
-};
-
 export const getUserRequestedBooks = async () => {
   const user = await getServerSession(authOptions);
 
@@ -156,7 +117,7 @@ export const getUserRequestedBooks = async () => {
 
   const requester = parseInt(user.user.id);
   const bookings = await db.booking.findMany();
-  const books = await getBookData();
+  const books = await getBooksData();
 
   const userBookings = bookings.filter(
     (booking) => booking.requesterId === requester,
@@ -187,7 +148,7 @@ export const getUserBookedBooks = async () => {
 
   const userId = parseInt(user.user.id);
   const bookings = await db.booking.findMany();
-  const books = await getBookData();
+  const books = await getBooksData();
 
   const userBookings = bookings.filter((booking) => booking.ownerId === userId);
 

@@ -14,7 +14,7 @@ export const UserBooksCardsContainer = async ({
   userId,
 }: UserBooksCardsWrapperProps) => {
   const user = await getServerSession(authOptions);
-  const connectedUserId = user ? user.user.id : undefined;
+  const connectedUserId = user ? parseInt(user.user.id) : undefined;
 
   const usersBooks = await getBooksByUserId(userId);
 
