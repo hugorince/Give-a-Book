@@ -17,12 +17,12 @@ export const BookingCard = ({ book, connectedUserId }: BookingCard) => {
       <div className={classes.imageTitle}>
         <img src={book.image as string} alt="" />
         <div className={classes.bookInfos}>
-          <Link href={`user/${book.userId}`} variant="unstyled" size="l">
+          <Link href={`/book/${book.id}`} variant="unstyled" size="l">
             {book.title}
           </Link>
           <div className={classes.ownerLink}>
             <p>proposed by </p>
-            <Link href={`user/${book.userId}`} variant="unstyled">
+            <Link href={`/user/${book.userId}`} variant="unstyled">
               {book.user}
             </Link>
           </div>

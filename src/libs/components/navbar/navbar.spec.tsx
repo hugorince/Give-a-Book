@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react";
 import { Navbar } from ".";
 import { mockSignOut } from "../../../../jest.setup";
-import { render } from "../../utils/test-utils/test-utils";
+import { render } from "@/libs/test-utils";
 
 describe("Navbar", () => {
   it("should render the Navbar links", async () => {

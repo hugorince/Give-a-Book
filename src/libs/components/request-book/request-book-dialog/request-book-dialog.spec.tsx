@@ -1,4 +1,4 @@
-import { render } from "../../../utils/test-utils/test-utils";
+import { render } from "@/libs/test-utils";
 import { RequestBookDialog } from "./request-book-dialog";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";

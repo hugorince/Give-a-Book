@@ -81,7 +81,7 @@ model Message {
   text      String
   sender    User     @relation(fields: [senderId], references: [id])
   senderId  Int
-  chat      Chat     @relation("message", fields: [chatId], references: [id])
+  chat      Chat     @relation("message", fields: [chatId], references: [id], onDelete: Cascade)
   chatId    Int
 }
 

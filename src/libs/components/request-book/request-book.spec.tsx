@@ -1,6 +1,5 @@
-import { render } from "../../utils/test-utils/test-utils";
+import { render, mockedBook } from "@/libs/test-utils";
 import { RequestBook } from "./request-book";
-import { mockedBook } from "@/libs/utils";
 import userEvent from "@testing-library/user-event";
 import { screen, waitFor } from "@testing-library/react";
 import { requestBook } from "@/libs/database";

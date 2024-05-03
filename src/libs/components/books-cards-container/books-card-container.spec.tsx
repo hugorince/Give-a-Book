@@ -1,53 +1,35 @@
-import { screen, act } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { BooksCardContainer } from ".";
-import { getBooksWithoutConnectedUser } from "@/libs/database";
-import { render } from "../../utils/test-utils/test-utils";
+import { getBooksWithoutConnectedUser } from "../../database";
+import { render, mockBooksData } from "@/libs/test-utils";
 
-jest.mock("../../utils", () => ({
-  ...jest.requireActual("../../utils"),
+jest.mock("../../database", () => ({
+  ...jest.requireActual("../../database"),
   getBooksWithoutConnectedUser: jest.fn().mockReturnValue({}),
 }));
 
-const mockBookData = [
-  { id: 1, likes: [6], give: true, title: "book to give" },
-  { id: 2, likes: [4], give: false, exchange: true, title: "book to exchange" },
-  {
-    id: 3,
-    likes: [4],
-    give: true,
-    exchange: false,
-    title: "book liked to give",
-  },
-];
-
 describe("BookCardContainer", () => {
   beforeEach(() => {
-    (getBooksWithoutConnectedUser as jest.Mock).mockReturnValue(mockBookData);
+    (getBooksWithoutConnectedUser as jest.Mock).mockReturnValue(mockBooksData);
   });
   it("should render the filtered selection of books to give", async () => {
-    await act(async () => {
-      render(await BooksCardContainer({ searchParams: { filter: "give" } }));
-    });
+    render(await BooksCardContainer({ searchParams: { filter: "give" } }));
 
     expect(screen.getByText("book to give")).toBeInTheDocument();
     expect(screen.queryByText("book to exchange")).not.toBeInTheDocument();
   });
 
   it("should render the filtered selection of liked books", async () => {
-    await act(async () => {
-      render(await BooksCardContainer({ searchParams: { filter: "liked" } }));
-    });
+    render(await BooksCardContainer({ searchParams: { filter: "liked" } }));
 
     expect(screen.getByText("book to exchange")).toBeInTheDocument();
     expect(screen.queryByText("book to give")).not.toBeInTheDocument();
   });
 
   it("should render the filtered selection of liked books to give", async () => {
-    await act(async () => {
-      render(
-        await BooksCardContainer({ searchParams: { filter: "liked,give" } }),
-      );
-    });
+    render(
+      await BooksCardContainer({ searchParams: { filter: "liked,give" } }),
+    );
 
     expect(screen.getByText("book liked to give")).toBeInTheDocument();
     expect(screen.queryByText("book to exchange")).not.toBeInTheDocument();
