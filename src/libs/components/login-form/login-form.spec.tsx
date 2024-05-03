@@ -1,6 +1,8 @@
-import { render, screen } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import { LoginForm } from "./login-form";
 import userEvent from "@testing-library/user-event";
+import { render } from "@/libs/test-utils";
+import { mockSignIn } from "../../../../jest.setup";
 
 jest.mock("react-hook-form", () => ({
   ...jest.requireActual("react-hook-form"),
@@ -17,7 +19,6 @@ const user = userEvent.setup();
 
 describe("login form", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
     jest.requireMock("react-hook-form").useForm.mockReturnValue(mockForm);
   });
   it("disabled button submit when form is empty", () => {
@@ -31,7 +32,7 @@ describe("login form", () => {
   it("submits when form is filled", async () => {
     render(<LoginForm />);
 
-    const button = screen.getByRole("button");
+    const signInButton = screen.getByRole("button");
 
     const usernameInput = screen.getByPlaceholderText("mail@mail.com");
     const passwordInput = screen.getByPlaceholderText("password");
@@ -39,7 +40,7 @@ describe("login form", () => {
     await user.type(usernameInput, "hugo@mail.com");
     await user.type(passwordInput, "password");
 
-    button.click();
+    user.click(signInButton);
 
     expect(mockForm.handleSubmit).toHaveBeenCalled();
   });

@@ -11,6 +11,13 @@ jest.mock("../../utils", () => ({
   memberSince: jest.fn().mockImplementation((date) => date.getFullYear()),
 }));
 
+jest.mock("../../database", () => ({
+  getUserInfo: jest.fn().mockResolvedValue({
+    username: "username",
+    createdAt: new Date("2022-01-01"),
+  }),
+}));
+
 describe("UserInfos", () => {
   it("renders user information correctly", async () => {
     await act(async () => {

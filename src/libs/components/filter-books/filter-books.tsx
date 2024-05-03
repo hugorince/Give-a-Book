@@ -9,7 +9,7 @@ export const FilterBooks = () => {
 
   return (
     <div>
-      <Button onClick={() => open()}>filter</Button>
+      <Button onClick={open}>filter</Button>
       <Drawer isOpen={isOpen} close={close}>
         <FilterBooksForm closeDrawer={close} />
       </Drawer>
