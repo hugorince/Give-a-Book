@@ -14,8 +14,8 @@ jest.mock("../../ui-components", () => ({
 
 const mockUpdateBookLikes = jest.fn();
 
-jest.mock("../../utils", () => ({
-  ...jest.requireActual("../../utils"),
+jest.mock("../../database", () => ({
+  ...jest.requireActual("../../database"),
   updateBookLikes: jest.fn(),
 }));
 

@@ -10,6 +10,7 @@ export const mockSession = {
 };
 
 export const mockSignOut = jest.fn();
+export const mockSignIn = jest.fn();
 
 jest.mock("next-auth/react", () => {
   const originalModule = jest.requireActual("next-auth/react");
@@ -21,6 +22,7 @@ jest.mock("next-auth/react", () => {
       status: "authenticated",
     })),
     signOut: mockSignOut,
+    signIn: mockSignIn,
   };
 });
 

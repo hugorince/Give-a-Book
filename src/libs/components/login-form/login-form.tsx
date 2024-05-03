@@ -6,12 +6,10 @@ import * as z from "zod";
 import { LoginFormSchema } from "@/libs/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import classes from "./login-form.module.css";
 import { Button, InputText } from "@/libs/ui-components";
 
 export const LoginForm = () => {
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof LoginFormSchema>>({

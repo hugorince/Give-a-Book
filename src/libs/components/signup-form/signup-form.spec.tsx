@@ -1,17 +1,19 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import { SignUpForm } from ".";
 import { useForm } from "react-hook-form";
 import userEvent from "@testing-library/user-event";
-import { createUser } from "@/libs/database";
+import { createUser, verifyPostalCode } from "@/libs/database";
+import { render } from "@/libs/test-utils";
 
 jest.mock("react-hook-form", () => ({
   ...jest.requireActual("react-hook-form"),
   useForm: jest.fn(),
 }));
 
-jest.mock("../../utils", () => ({
-  ...jest.requireActual("../../utils"),
+jest.mock("../../database", () => ({
+  ...jest.requireActual("../../database"),
   createUser: jest.fn(),
+  verifyPostalCode: jest.fn().mockReturnValue(true),
 }));
 
 const mockCreateUser = jest.fn();
@@ -19,7 +21,10 @@ const mockCreateUser = jest.fn();
 const mockForm = {
   register: jest.fn(),
   handleSubmit: (onSubmit: Function) => onSubmit,
-  formState: { isValid: true },
+  formState: {
+    isValid: true,
+    errors: { postalCode: { message: "postal code error" } },
+  },
 };
 
 const user = userEvent.setup();
@@ -63,7 +68,10 @@ describe("SignUpForm component", () => {
   it("should not call the onSubmit when form not valid", () => {
     (useForm as jest.Mock).mockReturnValue({
       ...mockForm,
-      formState: { isValid: false },
+      formState: {
+        isValid: false,
+        errors: { postalCode: { message: "postal code error" } },
+      },
     });
     render(<SignUpForm />);
 

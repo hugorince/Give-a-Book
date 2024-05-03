@@ -5,18 +5,14 @@ import classes from "./navbar.module.css";
 import NextLink from "next/link";
 import { getInitials } from "@/libs/utils";
 import { useSession } from "next-auth/react";
-import { LoginSignUpButton } from "./login-signup-button";
-import { useRouter } from "next/navigation";
 import { signOut } from "@/libs/database";
 
 export const Navbar = () => {
   const session = useSession();
   const initials = session && getInitials(session.data);
-  const router = useRouter();
 
   const handleSignOut = () => {
     signOut();
-    router.push("/login");
   };
 
   return (
@@ -56,10 +52,14 @@ export const Navbar = () => {
           ) : (
             <>
               <li>
-                <LoginSignUpButton loginOrSignUp="login" />
+                <Link href="/login" size="s">
+                  login
+                </Link>
               </li>
               <li>
-                <LoginSignUpButton loginOrSignUp="signup" />
+                <Link href="/signup" size="s">
+                  sign up
+                </Link>
               </li>
             </>
           )}
