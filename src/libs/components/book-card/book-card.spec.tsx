@@ -1,7 +1,6 @@
 import { BookCard } from ".";
 import { screen } from "@testing-library/react";
-import { render } from "@/libs/utils/test-utils/test-utils";
-import { mockedBook } from "@/libs/utils";
+import { render, mockedBook } from "@/libs/test-utils";
 
 describe("BookCard", () => {
   it("should map the book to display the book infos", async () => {

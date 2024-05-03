@@ -13,7 +13,7 @@ export const DeleteBookDialog = ({
   const { closeDialog } = useDialog();
 
   return (
-    <form className={classes.dialogContainer}>
+    <div className={classes.dialogContainer}>
       <h2>Are you sure you want to permanently delete this book ?</h2>
       <div className={classes.actionButtons}>
         <Button type="button" variant="secondary" onClick={closeDialog}>
@@ -21,6 +21,6 @@ export const DeleteBookDialog = ({
         </Button>
         <Button onClick={handleDeleteBook}>Proceed</Button>
       </div>
-    </form>
+    </div>
   );
 };

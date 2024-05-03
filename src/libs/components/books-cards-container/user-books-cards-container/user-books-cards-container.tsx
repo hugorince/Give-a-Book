@@ -1,6 +1,6 @@
 "use server";
 
-import { getBookByUserId } from "@/libs/database";
+import { getBooksByUserId } from "@/libs/database";
 import classes from "./user-books-cards-container.module.css";
 import { BookCard } from "../../book-card";
 import { getServerSession } from "next-auth";
@@ -14,13 +14,13 @@ export const UserBooksCardsContainer = async ({
   userId,
 }: UserBooksCardsWrapperProps) => {
   const user = await getServerSession(authOptions);
-  const connectedUserId = user ? user?.user?.id : undefined;
+  const connectedUserId = user ? user.user.id : undefined;
 
-  const displayBooks = await getBookByUserId(userId);
+  const usersBooks = await getBooksByUserId(userId);
 
   return (
     <div className={classes.booksWrapper}>
-      {displayBooks.map((book, index) => (
+      {usersBooks.map((book, index) => (
         <BookCard book={book} key={index} connectedUserId={connectedUserId} />
       ))}
     </div>

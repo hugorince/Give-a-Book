@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react";
 import { FilterBooksForm } from ".";
 import userEvent from "@testing-library/user-event";
-import { render } from "../../../utils/test-utils/test-utils";
+import { render } from "@/libs/test-utils";
 
 const user = userEvent.setup();
 

@@ -83,7 +83,7 @@ const sortBooksByPostalCode = async (books: BookData[]) => {
   return booksWithDistance.sort((a, b) => a.distance - b.distance);
 };
 
-export const getBookByUserId = async (userId: string) => {
+export const getBooksByUserId = async (userId: string) => {
   const books = await getBookData();
   return books.filter((book) => book.userId === parseInt(userId));
 };
