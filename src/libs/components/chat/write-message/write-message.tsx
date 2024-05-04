@@ -8,7 +8,7 @@ import { sendMessage } from "@/libs/database";
 import { useRouter } from "next/navigation";
 
 const messageSchema = z.object({
-  message: z.string(),
+  message: z.string().min(1, "please type something"),
 });
 
 interface WriteMessageProps {
@@ -17,17 +17,21 @@ interface WriteMessageProps {
 
 export const WriteMessage = ({ chatId }: WriteMessageProps) => {
   const router = useRouter();
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, reset } = useForm({
     resolver: zodResolver(messageSchema),
     defaultValues: {
       message: "",
     },
   });
 
-  const onSubmit = (values: z.infer<typeof messageSchema>) => {
+  const onSubmit = async (values: z.infer<typeof messageSchema>) => {
     const message = values.message;
-    sendMessage(message, chatId);
-    router.refresh();
+
+    if (message) {
+      await sendMessage(message, chatId);
+      router.refresh();
+      reset();
+    }
   };
 
   return (

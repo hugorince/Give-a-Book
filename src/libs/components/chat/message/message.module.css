@@ -3,6 +3,7 @@
   padding: var(--spacing-100);
   border-radius: var(--border-radius-m);
   width: fit-content;
+  max-width: 25rem;
   align-self: flex-end;
 }
 
@@ -11,4 +12,5 @@
   padding: var(--spacing-100);
   border-radius: var(--border-radius-m);
   width: fit-content;
+  max-width: 25rem;
 }

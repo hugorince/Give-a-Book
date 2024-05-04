@@ -1,5 +1,7 @@
 import { getBookingInfos } from "@/libs/database";
 import { Chat } from "@/libs/components";
+import { MainLayout } from "@/libs/layout";
+import classes from "./booking.module.css";
 
 export const BookingPage = async ({ params }: { params: { id: string } }) => {
   const booking = await getBookingInfos(parseInt(params.id));
@@ -13,10 +15,11 @@ export const BookingPage = async ({ params }: { params: { id: string } }) => {
   const messages = booking.messages;
 
   return (
-    <>
-      <h1>Booking Page {book.title}</h1>
-      {messages && <Chat messages={messages} />}
-    </>
+    <MainLayout>
+      <div className={classes.bookingPageContainer}>
+        {messages && <Chat messages={messages} />}
+      </div>
+    </MainLayout>
   );
 };
 
