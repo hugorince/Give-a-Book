@@ -16,6 +16,7 @@ export const BookingPage = async ({ params }: { params: { id: string } }) => {
 
   return (
     <MainLayout>
+      <h1>{book.title}</h1>
       <div className={classes.bookingPageContainer}>
         {messages && <Chat messages={messages} />}
       </div>
