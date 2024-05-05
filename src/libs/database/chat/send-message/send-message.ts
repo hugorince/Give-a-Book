@@ -11,11 +11,20 @@ export const sendMessage = async (message: string, chatId: number) => {
 
   const userId = parseInt(user.user.id);
 
-  await db.message.create({
+  const messageSent = await db.message.create({
     data: {
       text: message,
       chatId: chatId,
       senderId: userId,
+    },
+  });
+
+  const notification = await db.notification.create({
+    data: {
+      userId: userId,
+      messageId: messageSent.id,
+      type: "MESSAGE",
+      isRead: false,
     },
   });
 };

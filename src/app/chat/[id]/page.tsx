@@ -2,6 +2,7 @@ import { getBookingInfos } from "@/libs/database";
 import { Chat } from "@/libs/components";
 import { MainLayout } from "@/libs/layout";
 import classes from "./booking.module.css";
+import { Link } from "@/libs/ui-components";
 
 export const BookingPage = async ({ params }: { params: { id: string } }) => {
   const booking = await getBookingInfos(parseInt(params.id));
@@ -16,6 +17,9 @@ export const BookingPage = async ({ params }: { params: { id: string } }) => {
 
   return (
     <MainLayout>
+      <Link variant="unstyled" href="/bookings">
+        ← back to my bookings
+      </Link>
       <h1>{book.title}</h1>
       <div className={classes.bookingPageContainer}>
         {messages && <Chat messages={messages} />}

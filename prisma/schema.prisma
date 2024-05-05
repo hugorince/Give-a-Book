@@ -8,60 +8,54 @@ datasource db {
 }
 
 model User {
-  id             Int      @id @default(autoincrement())
-  email          String   @unique
-  username       String?  @unique
+  id             Int            @id @default(autoincrement())
+  email          String         @unique
+  username       String?        @unique
   password       String
   postalCode     String
   gpsCoordinates Float[]
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-
-  books Book[] @relation("UsersBooks")
-
-  booked    Booking[] @relation("OwnerBookings")
-  requested Booking[] @relation("UserBookings")
-
-  chatsRequester Chat[]    @relation("requesterChat")
-  chatsOwner     Chat[]    @relation("ownerChat")
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  books          Book[]         @relation("UsersBooks")
+  booked         Booking[]      @relation("OwnerBookings")
+  requested      Booking[]      @relation("UserBookings")
+  chatsRequester Chat[]         @relation("requesterChat")
+  chatsOwner     Chat[]         @relation("ownerChat")
   messages       Message[]
+  notifications  Notification[]
 }
 
 model Book {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   title       String
   author      String
   description String
   image       String?
   give        Boolean
   exchange    Boolean
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  user   User @relation("UsersBooks", fields: [userId], references: [id])
-  userId Int
-
-  likes Int[]
-
-  booking Booking[] @relation("BookBooking")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  user        User      @relation("UsersBooks", fields: [userId], references: [id])
+  userId      Int
+  likes       Int[]
+  booking     Booking[] @relation("BookBooking")
 }
 
 model Booking {
-  id          Int         @id @default(autoincrement())
-  createdAt   DateTime    @default(now())
-  status      String
-  type        BookingType
-  requester   User        @relation("UserBookings", fields: [requesterId], references: [id])
-  requesterId Int
-  owner       User        @relation("OwnerBookings", fields: [ownerId], references: [id])
-  ownerId     Int
-  distance    Int
-
-  book   Book @relation("BookBooking", fields: [bookId], references: [id], onDelete: Cascade)
-  bookId Int
-
-  chat   Chat? @relation(fields: [chatId], references: [id])
-  chatId Int?
+  id           Int            @id @default(autoincrement())
+  createdAt    DateTime       @default(now())
+  status       String
+  type         BookingType
+  requester    User           @relation("UserBookings", fields: [requesterId], references: [id])
+  requesterId  Int
+  owner        User           @relation("OwnerBookings", fields: [ownerId], references: [id])
+  ownerId      Int
+  distance     Int
+  book         Book           @relation("BookBooking", fields: [bookId], references: [id], onDelete: Cascade)
+  bookId       Int
+  chat         Chat?          @relation(fields: [chatId], references: [id])
+  chatId       Int?
+  Notification Notification[]
 }
 
 model Chat {
@@ -76,16 +70,35 @@ model Chat {
 }
 
 model Message {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  text      String
-  sender    User     @relation(fields: [senderId], references: [id])
-  senderId  Int
-  chat      Chat     @relation("message", fields: [chatId], references: [id], onDelete: Cascade)
-  chatId    Int
+  id           Int            @id @default(autoincrement())
+  createdAt    DateTime       @default(now())
+  text         String
+  sender       User           @relation(fields: [senderId], references: [id])
+  senderId     Int
+  chat         Chat           @relation("message", fields: [chatId], references: [id], onDelete: Cascade)
+  chatId       Int
+  notification Notification[]
+}
+
+model Notification {
+  id        Int              @id @default(autoincrement())
+  createdAt DateTime         @default(now())
+  type      NotificationType
+  user      User             @relation(fields: [userId], references: [id])
+  userId    Int
+  isRead    Boolean          @default(false)
+  booking   Booking?         @relation(fields: [bookingId], references: [id])
+  bookingId Int?
+  message   Message?         @relation(fields: [messageId], references: [id])
+  messageId Int?
 }
 
 enum BookingType {
   REQUEST
   PROPOSAL
+}
+
+enum NotificationType {
+  BOOKING_REQUEST
+  MESSAGE
 }
