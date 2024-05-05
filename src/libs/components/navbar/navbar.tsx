@@ -1,25 +1,24 @@
-"use client";
+"use user";
 
-import { Avatar, Button, Link } from "@/libs/ui-components";
+import { Avatar, Link } from "@/libs/ui-components";
 import classes from "./navbar.module.css";
 import NextLink from "next/link";
 import { getInitials } from "@/libs/utils";
-import { useSession } from "next-auth/react";
-import { signOut } from "@/libs/database";
+import { getUserNotifications, signOut } from "@/libs/database";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/libs/auth/auth";
+import { SignOutButton } from "./sign-out-button";
 
-export const Navbar = () => {
-  const session = useSession();
-  const initials = session && getInitials(session.data);
-
-  const handleSignOut = () => {
-    signOut();
-  };
+export const Navbar = async () => {
+  const session = await getServerSession(authOptions);
+  const initials = session && getInitials(session.user.username);
+  const notifications = await getUserNotifications();
 
   return (
     <header className={classes.header}>
       <nav>
         <ul>
-          {session.data && (
+          {initials && (
             <li>
               <NextLink href="/profile">
                 <Avatar initials={initials} />
@@ -31,7 +30,7 @@ export const Navbar = () => {
               Books
             </Link>
           </li>
-          {session.data ? (
+          {initials ? (
             <>
               <li>
                 <Link href="/books/post-book" variant="unstyled">
@@ -43,10 +42,9 @@ export const Navbar = () => {
                   My bookings
                 </Link>
               </li>
+              <li>notifs: {notifications}</li>
               <li>
-                <Button onClick={handleSignOut} size="s">
-                  sign out
-                </Button>
+                <SignOutButton />
               </li>
             </>
           ) : (

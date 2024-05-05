@@ -19,6 +19,7 @@ export const BookPageInfos = ({ book }: BookPageInfosProps) => {
       <div className={classes.bookInfos}>
         <div className={classes.chipDate}>
           <p>{posted}</p>
+          {book.requested && <Chip label="requested" variant="requested" />}
           <Chip label={exchangeOrGive} exchange={book.exchange} />
         </div>
         <h1>{book.title}</h1>
