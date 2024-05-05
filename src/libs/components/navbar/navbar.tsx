@@ -8,6 +8,7 @@ import { getUserNotifications, signOut } from "@/libs/database";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/libs/auth/auth";
 import { SignOutButton } from "./sign-out-button";
+import { Notifications } from "../notifications";
 
 export const Navbar = async () => {
   const session = await getServerSession(authOptions);
@@ -19,7 +20,7 @@ export const Navbar = async () => {
       <nav>
         <ul>
           {initials && (
-            <li>
+            <li className={classes.avatar}>
               <NextLink href="/profile">
                 <Avatar initials={initials} />
               </NextLink>
@@ -42,7 +43,7 @@ export const Navbar = async () => {
                   My bookings
                 </Link>
               </li>
-              <li>notifs: {notifications}</li>
+              {notifications && <Notifications notifications={notifications} />}
               <li>
                 <SignOutButton />
               </li>

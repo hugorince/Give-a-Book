@@ -19,7 +19,7 @@
     gap: var(--spacing-100);
   }
 
-  nav ul li:first-child {
+  .avatar {
     margin-right: auto;
   }
 }
