@@ -11,6 +11,15 @@ export const sendMessage = async (message: string, chatId: number) => {
 
   const userId = parseInt(user.user.id);
 
+  const chat = await db.chat.findUnique({
+    where: { id: chatId },
+  });
+
+  if (!chat) return null;
+
+  const userNotified =
+    userId === chat.ownerId ? chat.requesterId : chat.ownerId;
+
   const messageSent = await db.message.create({
     data: {
       text: message,
@@ -21,7 +30,7 @@ export const sendMessage = async (message: string, chatId: number) => {
 
   const notification = await db.notification.create({
     data: {
-      userId: userId,
+      userId: userNotified,
       messageId: messageSent.id,
       type: "MESSAGE",
       isRead: false,
