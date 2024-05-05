@@ -16,5 +16,5 @@ export const getUserNotifications = async () => {
     include: { notifications: true },
   });
 
-  return userData?.notifications.length;
+  return userData?.notifications;
 };
