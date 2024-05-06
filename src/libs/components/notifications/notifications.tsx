@@ -7,7 +7,7 @@ import { Notification } from "@prisma/client";
 import classes from "./notifications.module.css";
 
 interface NotificationsProps {
-  notifications: Notification[];
+  notifications: any;
 }
 
 export const Notifications = ({ notifications }: NotificationsProps) => {
