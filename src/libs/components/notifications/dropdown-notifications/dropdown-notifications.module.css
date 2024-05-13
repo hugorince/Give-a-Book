@@ -1,6 +1,6 @@
 .dropdownNotificationsContainer {
   position: absolute;
-  width: 100%;
+  width: fit-content;
   max-width: 10rem;
   height: auto;
   max-height: 15rem;

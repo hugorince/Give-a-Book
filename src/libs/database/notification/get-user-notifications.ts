@@ -20,9 +20,9 @@ export const getUserNotifications = async () => {
   if (!userData) return null;
 
   return Promise.all(
-    userData.notifications.map(
-      async (notification) => await getNotificationDetails(notification),
-    ),
+    userData.notifications
+      .map(async (notification) => await getNotificationDetails(notification))
+      .reverse(),
   );
 };
 
