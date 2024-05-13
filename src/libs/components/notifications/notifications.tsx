@@ -3,11 +3,16 @@
 import { Button } from "@/libs/ui-components";
 import { useState } from "react";
 import { DropdownNotifications } from "./dropdown-notifications";
-import { Notification } from "@prisma/client";
 import classes from "./notifications.module.css";
 
+export interface NotificationProps {
+  id: number;
+  username: string;
+  bookingId: number;
+  isRead: boolean;
+}
 interface NotificationsProps {
-  notifications: any;
+  notifications: NotificationProps[];
 }
 
 export const Notifications = ({ notifications }: NotificationsProps) => {

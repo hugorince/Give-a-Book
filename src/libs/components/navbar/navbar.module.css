@@ -11,7 +11,7 @@
   background-color: var(--brand-color-light);
   opacity: 90%;
 
-  nav ul {
+  .listElements {
     opacity: 1000%;
     display: flex;
     justify-content: flex-end;
