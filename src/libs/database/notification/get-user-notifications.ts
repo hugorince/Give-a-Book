@@ -28,17 +28,19 @@ export const getUserNotifications = async () => {
 
 const getNotificationDetails = async (notification: Notification) => {
   if (notification.messageId && notification.type === "MESSAGE") {
-    const chat = await db.message.findUnique({
+    const message = await db.message.findUnique({
       where: {
         id: notification.messageId,
       },
-      include: { sender: true },
+      include: { sender: true, chat: true },
     });
 
-    if (chat)
+    if (message)
       return {
-        username: chat.sender.username,
-        chatId: chat.id,
+        id: notification.id,
+        username: message.sender.username,
+        bookingId: notification.bookingId,
+        isRead: notification.isRead,
       };
   }
 };

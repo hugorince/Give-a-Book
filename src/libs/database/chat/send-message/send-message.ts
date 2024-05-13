@@ -13,6 +13,7 @@ export const sendMessage = async (message: string, chatId: number) => {
 
   const chat = await db.chat.findUnique({
     where: { id: chatId },
+    include: { booking: true },
   });
 
   if (!chat) return null;
@@ -34,6 +35,7 @@ export const sendMessage = async (message: string, chatId: number) => {
       messageId: messageSent.id,
       type: "MESSAGE",
       isRead: false,
+      bookingId: chat.booking[0].id,
     },
   });
 };

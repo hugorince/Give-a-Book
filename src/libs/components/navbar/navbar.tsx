@@ -18,7 +18,7 @@ export const Navbar = async () => {
   return (
     <header className={classes.header}>
       <nav>
-        <ul>
+        <ul className={classes.listElements}>
           {initials && (
             <li className={classes.avatar}>
               <NextLink href="/profile">

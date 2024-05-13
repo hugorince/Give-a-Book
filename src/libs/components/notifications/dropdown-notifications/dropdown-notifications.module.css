@@ -2,6 +2,7 @@
   position: absolute;
   width: 100%;
   max-width: 10rem;
+  height: auto;
   max-height: 15rem;
   overflow: scroll;
   display: flex;
@@ -13,12 +14,11 @@
   gap: 0.5rem;
   padding: var(--spacing-075);
 
-  & li {
-    padding: var(--spacing-025);
+  .isRead {
+    color: blue;
+  }
 
-    &:hover {
-      background-color: var(--brand-color-light);
-      border-radius: var(--spacing-025);
-    }
+  .isNotRead {
+    color: red;
   }
 }
