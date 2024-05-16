@@ -21,15 +21,15 @@ describe("WriteMessage", () => {
     expect(screen.getByRole("button", { name: "Send message" })).toBeVisible();
   });
 
-  it("should send the message on submit", () => {
+  it("should send the message on submit", async () => {
     render(<WriteMessage chatId={1} />);
 
     const textarea = screen.getByLabelText("write message");
     const submitButton = screen.getByRole("button", { name: "Send message" });
 
-    userEvent.type(textarea, "message");
+    await userEvent.type(textarea, "message");
 
-    userEvent.click(submitButton);
+    await userEvent.click(submitButton);
 
     expect(mockSendMessage).toHaveBeenCalledWith("message", 1);
   });
