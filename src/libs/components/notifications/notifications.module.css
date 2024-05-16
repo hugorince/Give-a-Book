@@ -15,8 +15,8 @@
       align-items: center;
       right: -0.4rem;
       top: -0.5rem;
-      background-color: red;
-      border: 3px solid red;
+      background-color: var(--menu-font-color);
+      border: 3px solid var(--menu-font-color);
       border-radius: 50%;
       width: 1.25rem;
       height: 1.25rem;
