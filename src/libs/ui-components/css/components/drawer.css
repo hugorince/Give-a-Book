@@ -17,6 +17,7 @@
 }
 
 .drawerContainerOpen {
+  position: fixed;
   height: 100%;
   transform: translateX(-2rem);
 }

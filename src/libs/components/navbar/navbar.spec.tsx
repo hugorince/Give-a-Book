@@ -5,7 +5,7 @@ import { render } from "@/libs/test-utils";
 
 describe("Navbar", () => {
   it("should render the Navbar links", async () => {
-    render(<Navbar />);
+    render(await Navbar());
 
     const logOutButton = screen.getByRole("button", { name: "sign out" });
     logOutButton.click();

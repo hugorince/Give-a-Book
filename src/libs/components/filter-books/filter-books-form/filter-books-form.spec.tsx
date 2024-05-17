@@ -1,11 +1,22 @@
-import { screen } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import { FilterBooksForm } from ".";
 import userEvent from "@testing-library/user-event";
 import { render } from "@/libs/test-utils";
+import { filterBooks } from "@/libs/database";
 
 const user = userEvent.setup();
 
+jest.mock("../../../database", () => ({
+  filterBooks: jest.fn(),
+}));
+
+const mockFilterBooks = jest.fn();
+
 describe("FilterBooksForm", () => {
+  beforeAll(() => {
+    (filterBooks as jest.Mock).mockImplementation(mockFilterBooks);
+  });
+
   it("renders filter books form correctly", async () => {
     render(<FilterBooksForm closeDrawer={jest.fn()} />);
 
@@ -14,6 +25,7 @@ describe("FilterBooksForm", () => {
     ).toBeInTheDocument();
     expect(screen.getByRole("checkbox", { name: "Give" })).toBeInTheDocument();
   });
+
   it("calls the close callback on submit", async () => {
     const mockOnClose = jest.fn();
 
