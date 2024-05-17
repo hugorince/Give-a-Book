@@ -11,9 +11,15 @@ const mockedMessage = {
 };
 
 describe("Message", () => {
-  it("should display the message", async () => {
+  it("should display the message from non connected user", async () => {
     render(await Message({ message: mockedMessage }));
+
+    expect(screen.getByText("message")).toHaveClass("requesterMessage");
   });
 
-  expect(screen.queryByText("message")).toBeInTheDocument();
+  it("should display the message from connected user", async () => {
+    render(await Message({ message: { ...mockedMessage, senderId: 4 } }));
+
+    expect(screen.getByText("message")).toHaveClass("connectedUserMessage");
+  });
 });

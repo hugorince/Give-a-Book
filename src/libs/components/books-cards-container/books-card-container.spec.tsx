@@ -5,7 +5,7 @@ import { render, mockBooksData } from "@/libs/test-utils";
 
 jest.mock("../../database", () => ({
   ...jest.requireActual("../../database"),
-  getBooksWithoutConnectedUser: jest.fn().mockReturnValue({}),
+  getBooksWithoutConnectedUser: jest.fn(),
 }));
 
 describe("BookCardContainer", () => {
