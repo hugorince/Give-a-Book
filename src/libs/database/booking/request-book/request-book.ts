@@ -50,6 +50,15 @@ export const requestBook = async (book: BookData, message: string) => {
         distance: distance,
       },
     });
+
+    const notification = await db.notification.create({
+      data: {
+        userId: book.userId,
+        type: "BOOKING_REQUEST",
+        isRead: false,
+        bookingId: newBooking.id,
+      },
+    });
   } catch (err) {
     console.error(err);
   }

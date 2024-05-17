@@ -1,9 +1,5 @@
 import "@testing-library/jest-dom";
 
-// **Global Mocks**
-// Any mocks included here, in `@/__tests__/test-utils`, apply to all tests.
-// Due to Jest transformer issues, we mock next-auth's useSession hook directly:
-
 export const mockSession = {
   expires: new Date(Date.now() + 2 * 86400).toISOString(),
   user: { username: "admin", id: 4 },

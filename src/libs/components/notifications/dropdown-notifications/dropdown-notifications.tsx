@@ -1,11 +1,9 @@
-import { Notification } from "@prisma/client";
-import classes from "./dropdown-notifications.module.css";
 import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { useOutsideClick } from "@/libs/utils";
-import { Link } from "@/libs/ui-components";
-import clsx from "clsx";
 import { setNotificationVisibility } from "@/libs/database";
 import { NotificationProps } from "../notifications";
+import { NotificationMessage } from "../notification-message";
+import classes from "./dropdown-notifications.module.css";
 
 interface DropdownNotificationsProps {
   notifications: NotificationProps[];
@@ -30,20 +28,11 @@ export const DropdownNotifications = ({
   return (
     <ul className={classes.dropdownNotificationsContainer} ref={wrapperRef}>
       {notifications.map((notification, key) => (
-        <li
+        <NotificationMessage
           key={key}
-          className={clsx(
-            notification.isRead ? classes.isRead : classes.isNotRead,
-          )}
-        >
-          <Link
-            href={`/chat/${notification.bookingId}`}
-            variant="unstyled"
-            onClick={() => handleNotificationClicked(notification.id)}
-          >
-            new message from {notification.username}
-          </Link>
-        </li>
+          notification={notification}
+          handleNotificationClicked={handleNotificationClicked}
+        />
       ))}
     </ul>
   );

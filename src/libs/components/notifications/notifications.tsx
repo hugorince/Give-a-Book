@@ -5,13 +5,15 @@ import { useState } from "react";
 import { DropdownNotifications } from "./dropdown-notifications";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import classes from "./notifications.module.css";
+import type { NotificationType } from "@prisma/client";
 
-export interface NotificationProps {
+export type NotificationProps = {
   id: number;
-  username: string;
   bookingId: number;
   isRead: boolean;
-}
+  type: NotificationType;
+  username?: string | null;
+};
 interface NotificationsProps {
   notifications: NotificationProps[];
 }
