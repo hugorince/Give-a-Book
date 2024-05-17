@@ -4,7 +4,7 @@ import { render, mockedBook } from "@/libs/test-utils";
 
 describe("BookCard", () => {
   it("should map the book to display the book infos", async () => {
-    render(<BookCard book={mockedBook} connectedUserId="4" />);
+    render(<BookCard book={mockedBook} connectedUserId={4} />);
 
     expect(
       screen.getByRole("link", { name: mockedBook.user as string }),

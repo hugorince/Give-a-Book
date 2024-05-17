@@ -13,12 +13,4 @@
   background-color: white;
   gap: 0.5rem;
   padding: var(--spacing-075);
-
-  .isRead {
-    color: blue;
-  }
-
-  .isNotRead {
-    color: red;
-  }
 }

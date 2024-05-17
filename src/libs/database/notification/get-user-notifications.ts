@@ -38,9 +38,17 @@ const getNotificationDetails = async (notification: Notification) => {
     if (message)
       return {
         id: notification.id,
-        username: message.sender.username,
         bookingId: notification.bookingId,
         isRead: notification.isRead,
+        type: notification.type,
+        username: message.sender.username,
       };
   }
+
+  return {
+    id: notification.id,
+    bookingId: notification.bookingId,
+    isRead: notification.isRead,
+    type: notification.type,
+  };
 };
