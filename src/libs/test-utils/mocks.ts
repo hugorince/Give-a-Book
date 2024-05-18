@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import type { NotificationType, User } from "@prisma/client";
 import type { BookData, BookedBook } from "@/libs/types";
 
 export const mockedBook: BookData = {
@@ -36,11 +36,12 @@ export const mockedBookedBook: BookedBook = {
   requested: false,
   gpsCoordinates: [0, 0],
   distance: 10,
+  bookingId: 1,
 };
 
 export const mockedUser: User = {
   id: 4,
-  email: "mail@ùail.com",
+  email: "mail@mail.com",
   username: "username",
   password: "password",
   postalCode: "75018",
@@ -58,5 +59,43 @@ export const mockBooksData = [
     give: true,
     exchange: false,
     title: "book liked to give",
+  },
+];
+
+export const mockedNotifications = [
+  {
+    id: 1,
+    bookingId: 1,
+    isRead: false,
+    type: "MESSAGE" as NotificationType,
+    username: "hugo",
+  },
+  {
+    id: 2,
+    bookingId: 2,
+    isRead: true,
+    type: "BOOKING_REQUEST" as NotificationType,
+    username: "hugol",
+  },
+];
+
+export const mockedGoogleApiBooks = [
+  {
+    title: "title",
+    authors: ["author 1"],
+    description: "description",
+    image: "imageUrl",
+  },
+  {
+    title: "title 2",
+    authors: ["author 2"],
+    description: "description 2",
+    image: "imageUrl 2",
+  },
+  {
+    title: "title 3",
+    authors: ["author 3"],
+    description: "description 3",
+    image: "imageUrl 3",
   },
 ];
