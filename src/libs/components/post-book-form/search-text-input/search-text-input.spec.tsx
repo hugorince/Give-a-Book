@@ -1,27 +1,15 @@
-import type { ReactNode } from "react";
-import { render, screen, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
+import { RHFWrapper, render, mockOnSubmit } from "@/libs/test-utils";
 import { SearchTextInput } from ".";
-import { FormProvider, useForm } from "react-hook-form";
 import userEvent from "@testing-library/user-event";
-
-const mockOnSubmit = jest.fn();
-
-const Wrapper = ({ children }: { children: ReactNode }) => {
-  const form = useForm();
-
-  return (
-    <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit(mockOnSubmit)}>
-        {children}
-        <button type="submit">submit</button>
-      </form>
-    </FormProvider>
-  );
-};
 
 describe("DescriptionInput", () => {
   it("should correctly render the component", () => {
-    render(<SearchTextInput type="author" />, { wrapper: Wrapper });
+    render(
+      <RHFWrapper>
+        <SearchTextInput type="author" />
+      </RHFWrapper>,
+    );
 
     expect(screen.getByRole("textbox")).toBeInTheDocument();
     expect(
@@ -30,7 +18,11 @@ describe("DescriptionInput", () => {
   });
 
   it("should set the value on submit", async () => {
-    render(<SearchTextInput type="author" />, { wrapper: Wrapper });
+    render(
+      <RHFWrapper>
+        <SearchTextInput type="author" />
+      </RHFWrapper>,
+    );
 
     const user = userEvent.setup();
 
