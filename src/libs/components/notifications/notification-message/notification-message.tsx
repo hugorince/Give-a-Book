@@ -12,7 +12,6 @@ export const NotificationMessage = ({
   notification,
   handleNotificationClicked,
 }: NotificationMessage) => {
-  console.log({ notification });
   const isMessageNotification = notification.type === "MESSAGE";
   const notificationContent = isMessageNotification
     ? `new message from ${notification.username}`
