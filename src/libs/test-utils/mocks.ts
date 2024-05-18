@@ -78,3 +78,24 @@ export const mockedNotifications = [
     username: "hugol",
   },
 ];
+
+export const mockedGoogleApiBooks = [
+  {
+    title: "title",
+    authors: ["author 1"],
+    description: "description",
+    image: "imageUrl",
+  },
+  {
+    title: "title 2",
+    authors: ["author 2"],
+    description: "description 2",
+    image: "imageUrl 2",
+  },
+  {
+    title: "title 3",
+    authors: ["author 3"],
+    description: "description 3",
+    image: "imageUrl 3",
+  },
+];
