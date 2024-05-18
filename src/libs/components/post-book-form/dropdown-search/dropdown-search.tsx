@@ -29,38 +29,39 @@ export const DropdownSearch = ({
     if (outsideClick) setSuggestions(null);
   }, [outsideClick, setSuggestions]);
 
-  if (suggestions)
-    return (
-      <ul className={classes.suggestionsWrapper} ref={wrapperRef}>
-        {type === "title"
-          ? suggestions.map((suggestion, index) => (
-              <li key={index}>
-                <button
-                  onClick={handleOnClick}
-                  value={suggestion[type]}
-                  type="button"
-                >
-                  {suggestion[type]}
-                </button>
-              </li>
-            ))
-          : suggestions.map(
-              (suggestion, index) =>
-                suggestion.authors && (
-                  <li key={index}>
-                    {suggestion.authors.map((author, index) => (
-                      <button
-                        key={index}
-                        value={author}
-                        onClick={handleOnClick}
-                        type="button"
-                      >
-                        {author}
-                      </button>
-                    ))}
-                  </li>
-                ),
-            )}
-      </ul>
-    );
+  if (!suggestions) return null;
+
+  return (
+    <ul className={classes.suggestionsWrapper} ref={wrapperRef}>
+      {type === "title"
+        ? suggestions.map((suggestion, index) => (
+            <li key={index}>
+              <button
+                onClick={handleOnClick}
+                value={suggestion[type]}
+                type="button"
+              >
+                {suggestion[type]}
+              </button>
+            </li>
+          ))
+        : suggestions.map(
+            (suggestion, index) =>
+              suggestion.authors && (
+                <li key={index}>
+                  {suggestion.authors.map((author, index) => (
+                    <button
+                      key={index}
+                      value={author}
+                      onClick={handleOnClick}
+                      type="button"
+                    >
+                      {author}
+                    </button>
+                  ))}
+                </li>
+              ),
+          )}
+    </ul>
+  );
 };
