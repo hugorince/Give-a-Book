@@ -1,7 +1,6 @@
-import { render } from "@/libs/test-utils";
+import { render, mockedNotifications } from "@/libs/test-utils";
 import { DropdownNotifications } from "./dropdown-notifications";
 import { screen } from "@testing-library/react";
-import { NotificationType } from "@prisma/client";
 import { setNotificationVisibility } from "@/libs/database";
 import userEvent from "@testing-library/user-event";
 
@@ -21,23 +20,6 @@ jest.mock("../notification-message", () => ({
 jest.mock("../../../database", () => ({
   setNotificationVisibility: jest.fn(),
 }));
-
-const mockedNotifications = [
-  {
-    id: 1,
-    bookingId: 1,
-    isRead: false,
-    type: "MESSAGE" as NotificationType,
-    username: "hugo",
-  },
-  {
-    id: 2,
-    bookingId: 2,
-    isRead: false,
-    type: "BOOKING_REQUEST" as NotificationType,
-    username: "hugol",
-  },
-];
 
 const mockSetNotificationVisibility = jest.fn();
 
