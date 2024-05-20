@@ -1,31 +1,45 @@
 "use client";
 
+import { useState } from "react";
 import { Button, Link } from "@/libs/ui-components";
-import { updateBookLikes } from "@/libs/database";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoHeart } from "react-icons/io5";
-import { useRouter } from "next/navigation";
 import { useDialog } from "@/libs/ui-components";
+import { updateBookLikes } from "@/libs/database";
 import classes from "./like-button.module.css";
 
 interface LikeButtonProps {
   bookId: number;
   isLiked: boolean;
   isLoggedIn: boolean;
+  likesNumber: number;
 }
 
 export const LikeButton = ({
   bookId,
   isLiked,
   isLoggedIn,
+  likesNumber,
 }: LikeButtonProps) => {
-  const router = useRouter();
   const { openDialog, closeDialog } = useDialog();
+
+  const [isLikedState, setIsLikedState] = useState(isLiked);
+  const [likesNumberState, setLikesNumberState] = useState(likesNumber);
+
+  const showLikesNumber = likesNumberState > 0;
+
+  const updateLikesStates = () => {
+    const newLikesNumber = isLikedState
+      ? likesNumberState - 1
+      : likesNumberState + 1;
+    setLikesNumberState(newLikesNumber);
+    setIsLikedState(!isLikedState);
+  };
 
   const handleHeartClicked = async () => {
     if (isLoggedIn) {
       await updateBookLikes(bookId);
-      router.refresh();
+      updateLikesStates();
     } else {
       openDialog({
         children: (
@@ -43,14 +57,20 @@ export const LikeButton = ({
 
   return (
     <>
-      {isLiked ? (
-        <Button variant="unstyled" onClick={handleHeartClicked}>
-          <IoHeart size={24} data-testid="liked-button" />
-        </Button>
+      {isLikedState ? (
+        <div className={classes.likesWrapper}>
+          <p>{likesNumberState}</p>
+          <Button variant="unstyled" onClick={handleHeartClicked}>
+            <IoHeart size={24} data-testid="liked-button" />
+          </Button>
+        </div>
       ) : (
-        <Button variant="unstyled" onClick={handleHeartClicked}>
-          <IoMdHeartEmpty size={24} data-testid="not-liked-button" />
-        </Button>
+        <div className={classes.likesWrapper}>
+          {showLikesNumber && <p>{likesNumberState}</p>}
+          <Button variant="unstyled" onClick={handleHeartClicked}>
+            <IoMdHeartEmpty size={24} data-testid="not-liked-button" />
+          </Button>
+        </div>
       )}
     </>
   );

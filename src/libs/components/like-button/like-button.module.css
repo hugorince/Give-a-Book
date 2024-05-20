@@ -5,3 +5,10 @@
   align-items: center;
   justify-content: center;
 }
+
+.likesWrapper {
+  display: flex;
+  align-items: flex-end;
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-S);
+}
