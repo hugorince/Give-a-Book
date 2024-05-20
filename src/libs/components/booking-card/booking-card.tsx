@@ -1,8 +1,8 @@
 import type { BookedBook } from "@/libs/types";
-import { RequestBook } from "../request-book";
 import { Link } from "@/libs/ui-components";
 import { DeleteBook } from "../delete-book";
 import classes from "./booking-card.module.css";
+import { RequestBookButton } from "../request-book/request-book-button";
 
 interface BookingCard {
   book: BookedBook;
@@ -33,8 +33,8 @@ export const BookingCard = ({ book, connectedUserId }: BookingCard) => {
       </div>
       <div className={classes.actionsContainer}>
         <Link href={`/chat/${book.bookingId}`}>Message</Link>
-        <RequestBook book={book} />
-        {isConnectedUserBook && <DeleteBook book={book} />}
+        <RequestBookButton book={book} />
+        {isConnectedUserBook && <DeleteBook bookId={book.id} />}
       </div>
     </div>
   );

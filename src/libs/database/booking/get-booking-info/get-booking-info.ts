@@ -5,25 +5,20 @@ import db from "../../db";
 export const getBookingInfos = async (bookingId: number) => {
   const booking = await db.booking.findUnique({
     where: { id: bookingId },
+    include: { chat: true, book: true },
   });
 
-  if (!booking) return null;
-
-  const book = await db.book.findUnique({
-    where: { id: booking.bookId },
-  });
-
-  if (!booking.chatId) return null;
+  if (!booking || !booking.chat) return null;
 
   const chat = await db.chat.findUnique({
-    where: { id: booking.chatId },
+    where: { id: booking.chat.id },
     include: {
       messages: true,
     },
   });
 
   return {
-    book: book,
+    book: booking.book,
     booking: booking,
     messages: chat?.messages,
   };

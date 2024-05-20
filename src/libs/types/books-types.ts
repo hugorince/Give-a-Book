@@ -1,3 +1,5 @@
+import { Booking } from "@prisma/client";
+
 export type BookData = {
   id: number;
   title: string;
@@ -16,4 +18,9 @@ export type BookData = {
   requested: boolean;
 };
 
-export type BookedBook = BookData & { distance: number; bookingId: number };
+export type BookPageData = BookData & BookedBook & { booking: Booking | null };
+
+export type BookedBook = Omit<BookData, "gpsCoordinates" | "postalCode"> & {
+  distance: number;
+  bookingId: number;
+};
