@@ -2,14 +2,22 @@ import { postedOn } from "@/libs/utils";
 import type { BookData } from "@/libs/types";
 import { Chip } from "@/libs/ui-components";
 import classes from "./book-page-infos.module.css";
+import { LikeButton } from "../like-button";
 
 interface BookPageInfosProps {
   book: BookData;
+  connectedUserId: number | undefined;
 }
 
-export const BookPageInfos = ({ book }: BookPageInfosProps) => {
+export const BookPageInfos = ({
+  book,
+  connectedUserId,
+}: BookPageInfosProps) => {
   const exchangeOrGive = book.exchange ? "Exchange" : "Give";
   const posted = postedOn(book.createdAt);
+
+  const isLiked =
+    connectedUserId && book.likes.includes(connectedUserId) ? true : false;
 
   return (
     <div className={classes.wrapper}>
@@ -21,6 +29,12 @@ export const BookPageInfos = ({ book }: BookPageInfosProps) => {
           <p>{posted}</p>
           {book.requested && <Chip label="requested" variant="requested" />}
           <Chip label={exchangeOrGive} exchange={book.exchange} />
+          <LikeButton
+            isLiked={isLiked}
+            bookId={book.id}
+            likesNumber={book.likes.length}
+            isLoggedIn={connectedUserId !== undefined}
+          />
         </div>
         <h1>{book.title}</h1>
         <h2>{book.author}</h2>

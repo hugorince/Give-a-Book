@@ -21,7 +21,13 @@
 
   .chipLike {
     display: flex;
+    align-items: center;
     justify-content: space-between;
+  }
+
+  .chips {
+    display: flex;
+    gap: var(--spacing-025);
   }
 
   h3 {
