@@ -2,7 +2,7 @@ import { screen, waitFor } from "@testing-library/react";
 import { SignUpForm } from ".";
 import { useForm } from "react-hook-form";
 import userEvent from "@testing-library/user-event";
-import { createUser, verifyPostalCode } from "@/libs/database";
+import { createUser } from "@/libs/database";
 import { render } from "@/libs/test-utils";
 
 jest.mock("react-hook-form", () => ({
