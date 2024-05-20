@@ -1,4 +1,4 @@
-import { BookPageInfos, RequestBook } from "@/libs/components";
+import { BookPageInfos, RequestBookContainer } from "@/libs/components";
 import { MainLayout } from "@/libs/layout";
 import { getBookById, getConnectedUserId } from "@/libs/database";
 import classes from "./book.module.css";
@@ -15,7 +15,10 @@ export const BookPage = async ({ params }: { params: { id: string } }) => {
         {book && (
           <>
             <BookPageInfos book={book} connectedUserId={connectedUserId} />
-            <RequestBook book={book} />
+            <RequestBookContainer
+              book={book}
+              connectedUserId={connectedUserId}
+            />
           </>
         )}
       </div>

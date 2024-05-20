@@ -26,19 +26,19 @@ model User {
 }
 
 model Book {
-  id          Int       @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   title       String
   author      String
   description String
   image       String?
   give        Boolean
   exchange    Boolean
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  user        User      @relation("UsersBooks", fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation("UsersBooks", fields: [userId], references: [id])
   userId      Int
   likes       Int[]
-  booking     Booking[] @relation("BookBooking")
+  booking     Booking? @relation("BookBooking")
 }
 
 model Booking {
@@ -51,11 +51,10 @@ model Booking {
   owner        User           @relation("OwnerBookings", fields: [ownerId], references: [id])
   ownerId      Int
   distance     Int
-  book         Book           @relation("BookBooking", fields: [bookId], references: [id], onDelete: Cascade)
-  bookId       Int
-  chat         Chat?          @relation(fields: [chatId], references: [id])
-  chatId       Int?
-  Notification Notification[]
+  book         Book           @relation("BookBooking", onDelete: Cascade, fields: [bookId], references: [id])
+  bookId       Int            @unique
+  notification Notification[]
+  chat         Chat?
 }
 
 model Chat {
@@ -66,7 +65,8 @@ model Chat {
   owner       User      @relation("ownerChat", fields: [ownerId], references: [id])
   ownerId     Int
   messages    Message[] @relation("message")
-  booking     Booking[]
+  booking     Booking   @relation(fields: [bookingId], references: [id])
+  bookingId   Int       @unique
 }
 
 model Message {
@@ -87,7 +87,7 @@ model Notification {
   user      User             @relation(fields: [userId], references: [id])
   userId    Int
   isRead    Boolean          @default(false)
-  booking   Booking          @relation(fields: [bookingId], references: [id])
+  booking   Booking          @relation(fields: [bookingId], references: [id], onDelete: Cascade)
   bookingId Int
   message   Message?         @relation(fields: [messageId], references: [id])
   messageId Int?

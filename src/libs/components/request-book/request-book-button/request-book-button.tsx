@@ -1,18 +1,17 @@
 "use client";
 
 import { Button, useDialog } from "@/libs/ui-components";
-import { RequestBookDialog } from "./request-book-dialog";
-import { CancelRequestBookDialog } from "./cancel-request-book-dialog";
+import { RequestBookDialog } from "../request-book-dialog";
+import { CancelRequestBookDialog } from "../cancel-request-book-dialog";
 import { cancelRequest, requestBook } from "@/libs/database";
-import type { BookData } from "@/libs/types";
-import classes from "./request-book.module.css";
+import type { BookPageData } from "@/libs/types";
 import { useRouter } from "next/navigation";
 
 interface RequestBookProps {
-  book: BookData;
+  book: BookPageData;
 }
 
-export const RequestBook = ({ book }: RequestBookProps) => {
+export const RequestBookButton = ({ book }: RequestBookProps) => {
   const { openDialog, closeDialog } = useDialog();
   const router = useRouter();
 
@@ -43,7 +42,7 @@ export const RequestBook = ({ book }: RequestBookProps) => {
   };
 
   return (
-    <div className={classes.requestBookContainer}>
+    <div>
       {book.requested ? (
         <Button onClick={openCancelRequestDialog}>Cancel Request</Button>
       ) : (
