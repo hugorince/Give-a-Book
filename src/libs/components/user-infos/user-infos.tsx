@@ -5,7 +5,7 @@ import { getUserInfo } from "@/libs/database";
 import classes from "./user-infos.module.css";
 
 export interface UserInfosProps {
-  userId: string;
+  userId: number;
 }
 
 export const UserInfos = async ({ userId }: UserInfosProps) => {

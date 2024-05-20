@@ -73,9 +73,9 @@ const getBooksData = async () => {
   return BookData;
 };
 
-export const getBooksByUserId = async (userId: string) => {
+export const getBooksByUserId = async (userId: number) => {
   const books = await getBooksData();
-  return books.filter((book) => book.userId === parseInt(userId));
+  return books.filter((book) => book.userId === userId);
 };
 
 export const getBooksWithoutConnectedUser = async () => {

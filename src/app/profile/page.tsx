@@ -1,9 +1,9 @@
 import { ProfileInfos, UserBooksCardsContainer } from "@/libs/components";
 import { MainLayout } from "@/libs/layout";
-import { getUserId } from "@/libs/database";
+import { getConnectedUserId } from "@/libs/database";
 
 export const Profile = async () => {
-  const userId = await getUserId();
+  const userId = await getConnectedUserId();
 
   return (
     <MainLayout>

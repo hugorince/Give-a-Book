@@ -3,6 +3,12 @@ import { RHFWrapper, render, mockOnSubmit } from "@/libs/test-utils";
 import { SearchTextInput } from ".";
 import userEvent from "@testing-library/user-event";
 
+global.fetch = jest.fn(() =>
+  Promise.resolve({
+    json: () => Promise.resolve({} as Response),
+  }),
+);
+
 describe("DescriptionInput", () => {
   it("should correctly render the component", () => {
     render(
