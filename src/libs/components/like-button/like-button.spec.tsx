@@ -19,27 +19,42 @@ jest.mock("../../database", () => ({
   updateBookLikes: jest.fn(),
 }));
 
+const likeButtonProps = {
+  bookId: 2,
+  isLiked: true,
+  isLoggedIn: true,
+  likesNumber: 3,
+};
+
 describe("LikeButton", () => {
   beforeAll(() => {
     (useDialog as jest.Mock).mockReturnValue({ openDialog: mockOpenDialog });
     (updateBookLikes as jest.Mock).mockImplementation(mockUpdateBookLikes);
   });
   it("should render the liked button when liked", () => {
-    render(<LikeButton bookId={2} isLiked={true} isLoggedIn={true} />);
+    render(<LikeButton {...likeButtonProps} />);
 
     expect(screen.getByTestId("liked-button")).toBeInTheDocument();
     expect(screen.queryByTestId("not-liked-button")).not.toBeInTheDocument();
   });
 
+  it("should display the number of likes", () => {
+    render(<LikeButton {...likeButtonProps} />);
+
+    expect(screen.getByText("3")).toBeVisible();
+  });
+
   it("should render the not liked button when not liked", () => {
-    render(<LikeButton bookId={2} isLiked={false} isLoggedIn={true} />);
+    render(<LikeButton {...likeButtonProps} isLiked={false} />);
 
     expect(screen.getByTestId("not-liked-button")).toBeInTheDocument();
     expect(screen.queryByTestId("liked-button")).not.toBeInTheDocument();
   });
 
   it("should trigger the dialog if not logged in on click", async () => {
-    render(<LikeButton bookId={2} isLiked={false} isLoggedIn={false} />);
+    render(
+      <LikeButton {...likeButtonProps} isLoggedIn={false} isLiked={false} />,
+    );
 
     const button = screen.getByTestId("not-liked-button");
     userEvent.click(button);
@@ -48,7 +63,7 @@ describe("LikeButton", () => {
   });
 
   it("should trigger the updateBookLikes function if logged in", async () => {
-    render(<LikeButton bookId={2} isLiked={false} isLoggedIn={true} />);
+    render(<LikeButton {...likeButtonProps} isLiked={false} />);
 
     const button = screen.getByTestId("not-liked-button");
     userEvent.click(button);
