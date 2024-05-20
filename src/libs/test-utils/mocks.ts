@@ -32,9 +32,7 @@ export const mockedBookedBook: BookedBook = {
   createdAt: new Date(),
   updatedAt: new Date(),
   likes: [1],
-  postalCode: "75018",
   requested: false,
-  gpsCoordinates: [0, 0],
   distance: 10,
   bookingId: 1,
 };

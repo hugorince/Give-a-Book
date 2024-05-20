@@ -1,5 +1,7 @@
+"use server";
+
 import type { BookPageData } from "@/libs/types";
-import { AlreadyRequested } from "./already-requested";
+import { BookAlreadyRequested } from "./book-already-requested";
 import { NotConnectedRequestBook } from "./not-connected-request-book";
 import { BookNewRequest } from "./book-new-request";
 import { BookCancelRequest } from "./book-cancel-request";
@@ -13,17 +15,17 @@ export const RequestBookContainer = ({
   book,
   connectedUserId,
 }: RequestBookProps) => {
-  const isAlreadyRequested = book.requested;
   const isAlreadyRequestedByOrFromConnectedUser =
     connectedUserId === book.booking?.ownerId ||
     connectedUserId === book.booking?.requesterId;
+  const isAlreadyRequested = book.requested;
 
   if (!connectedUserId) return <NotConnectedRequestBook />;
 
   if (isAlreadyRequestedByOrFromConnectedUser)
     return <BookCancelRequest book={book} />;
 
-  if (isAlreadyRequested) return <AlreadyRequested />;
+  if (isAlreadyRequested) return <BookAlreadyRequested />;
 
   return <BookNewRequest book={book} />;
 };

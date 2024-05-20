@@ -1,8 +1,10 @@
+"use server";
+
 import { RiForbid2Line } from "react-icons/ri";
-import classes from "./already-requested.module.css";
+import classes from "./book-already-requested.module.css";
 import { Link } from "@/libs/ui-components";
 
-export const AlreadyRequested = () => {
+export const BookAlreadyRequested = () => {
   return (
     <div className={classes.alreadyRequestedWrapper}>
       <RiForbid2Line size={64} color="red" />
