@@ -1,10 +1,11 @@
 "use server";
 
 import classes from "./books-cards-container.module.css";
-import { getBooksWithoutConnectedUser } from "@/libs/database";
+import {
+  getBooksWithoutConnectedUser,
+  getConnectedUserId,
+} from "@/libs/database";
 import { BookCard } from "..";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/libs/auth/auth";
 
 interface ParamsProps {
   [key: string]: string;
@@ -15,9 +16,7 @@ export const BooksCardContainer = async ({
 }: {
   searchParams: ParamsProps;
 }) => {
-  const user = await getServerSession(authOptions);
-  const connectedUserId = user ? parseInt(user.user.id) : undefined;
-
+  const connectedUserId = await getConnectedUserId();
   const books = await getBooksWithoutConnectedUser();
 
   if (!books) return null;
