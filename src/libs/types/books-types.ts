@@ -18,6 +18,9 @@ export type BookData = {
   requested: boolean;
 };
 
-export type BookPageData = BookData & { booking: Booking };
+export type BookPageData = BookData & { booking: Booking | null };
 
-export type BookedBook = BookData & { distance: number; bookingId: number };
+export type BookedBook = Omit<BookData, "gpsCoordinates" | "postalCode"> & {
+  distance: number;
+  bookingId: number;
+};

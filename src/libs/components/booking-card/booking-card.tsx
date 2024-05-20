@@ -34,7 +34,7 @@ export const BookingCard = ({ book, connectedUserId }: BookingCard) => {
       <div className={classes.actionsContainer}>
         <Link href={`/chat/${book.bookingId}`}>Message</Link>
         <RequestBookButton book={book} />
-        {isConnectedUserBook && <DeleteBook book={book} />}
+        {isConnectedUserBook && <DeleteBook bookId={book.id} />}
       </div>
     </div>
   );

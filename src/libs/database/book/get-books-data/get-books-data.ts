@@ -79,12 +79,10 @@ export const getBooksWithoutConnectedUser = async () => {
 };
 
 const sortBooksByPostalCode = async (books: BookData[]) => {
-  const user = await getServerSession(authOptions);
-
-  if (!user) return books;
+  const userId = await getConnectedUserId();
 
   const userData = await db.user.findUnique({
-    where: { id: parseInt(user.user.id) },
+    where: { id: userId },
   });
 
   if (!userData) return books;
@@ -111,17 +109,21 @@ export const getUserRequestedBooks = async () => {
     include: { book: true },
   });
 
+  const books = await getBooksData();
+
   const userBookings = bookings.filter(
     (booking) => booking.requesterId === requesterId,
   );
 
   const userRequestedBooks = userBookings.map((booking) => {
-    const book = booking.book;
+    const bookId = booking.bookId;
+    const book = books.find((book) => book.id === bookId);
 
     if (!book) return null;
 
     return {
       ...book,
+      requested: true,
       distance: booking.distance,
       bookingId: booking.id,
     };
@@ -141,14 +143,18 @@ export const getUserBookedBooks = async () => {
     include: { book: true },
   });
 
+  const books = await getBooksData();
+
   const userBookings = bookings.filter((booking) => booking.ownerId === userId);
 
   const userBookedBooks = userBookings.map((booking) => {
-    const book = booking.book;
+    const bookId = booking.bookId;
+    const book = books.find((book) => book.id === bookId);
 
     if (!book) return null;
     return {
       ...book,
+      requested: true,
       distance: booking.distance,
       bookingId: booking.id,
     };

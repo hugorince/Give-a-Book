@@ -64,14 +64,14 @@ export const requestBook = async (book: BookData, message: string) => {
   }
 };
 
-export const cancelRequest = async (book: BookData) => {
+export const cancelRequest = async (bookId: number) => {
   const user = await getServerSession(authOptions);
 
   if (!user) return null;
 
   try {
     const booking = await db.booking.findFirst({
-      where: { bookId: book.id },
+      where: { bookId: bookId },
     });
 
     if (!booking) return null;
