@@ -1,7 +1,9 @@
+"use server";
+
+import type { BookPageData } from "@/libs/types";
 import { FaRegCircleCheck } from "react-icons/fa6";
-import classes from "./book-new-request.module.css";
 import { RequestBookButton } from "../request-book-button";
-import { BookPageData } from "@/libs/types";
+import classes from "./book-new-request.module.css";
 
 interface BookNewRequestProps {
   book: BookPageData;

@@ -1,8 +1,6 @@
 "use server";
 
 import type { BookData } from "@/libs/types";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/libs/auth/auth";
 import { db, getConnectedUserId } from "@/libs/database";
 import { calculateDistance } from "@/libs/utils";
 
@@ -75,11 +73,13 @@ export const getBooksByUserId = async (userId: number) => {
 export const getBooksWithoutConnectedUser = async () => {
   const books = await getBooksData();
   const sortedBooks = await sortBooksByPostalCode(books);
-  return sortedBooks.filter((book) => book.id).sort((book) => book.id);
+  return sortedBooks.filter((book) => book.id);
 };
 
 const sortBooksByPostalCode = async (books: BookData[]) => {
   const userId = await getConnectedUserId();
+
+  if (!userId) return books;
 
   const userData = await db.user.findUnique({
     where: { id: userId },
@@ -104,6 +104,8 @@ const sortBooksByPostalCode = async (books: BookData[]) => {
 
 export const getUserRequestedBooks = async () => {
   const requesterId = await getConnectedUserId();
+
+  if (!requesterId) return null;
 
   const bookings = await db.booking.findMany({
     include: { book: true },
@@ -138,6 +140,8 @@ export const getUserRequestedBooks = async () => {
 
 export const getUserBookedBooks = async () => {
   const userId = await getConnectedUserId();
+
+  if (!userId) return null;
 
   const bookings = await db.booking.findMany({
     include: { book: true },
