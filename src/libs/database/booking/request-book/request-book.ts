@@ -19,21 +19,6 @@ export const requestBook = async (book: BookData, message: string) => {
   if (!requester) return null;
 
   try {
-    const newChat = await db.chat.create({
-      data: {
-        requesterId: requester.id,
-        ownerId: book.userId,
-      },
-    });
-
-    const newMessage = await db.message.create({
-      data: {
-        text: message,
-        senderId: requester.id,
-        chatId: newChat.id,
-      },
-    });
-
     const distance = await calculateDistance(
       book.gpsCoordinates,
       requester.gpsCoordinates,
@@ -46,8 +31,23 @@ export const requestBook = async (book: BookData, message: string) => {
         requesterId: requester.id,
         ownerId: book.userId,
         bookId: book.id,
-        chatId: newChat.id,
         distance: distance,
+      },
+    });
+
+    const newChat = await db.chat.create({
+      data: {
+        requesterId: requester.id,
+        ownerId: book.userId,
+        bookingId: newBooking.id,
+      },
+    });
+
+    const newMessage = await db.message.create({
+      data: {
+        text: message,
+        senderId: requester.id,
+        chatId: newChat.id,
       },
     });
 
@@ -74,11 +74,11 @@ export const cancelRequest = async (book: BookData) => {
       where: { bookId: book.id },
     });
 
-    await db.booking.delete({
-      where: { id: booking?.id },
-    });
+    if (!booking) return null;
 
-    redirect("/books");
+    await db.booking.delete({
+      where: { id: booking.id },
+    });
   } catch (err) {
     console.error(err);
   }

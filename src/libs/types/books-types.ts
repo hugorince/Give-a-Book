@@ -1,3 +1,5 @@
+import { Booking } from "@prisma/client";
+
 export type BookData = {
   id: number;
   title: string;
@@ -15,5 +17,7 @@ export type BookData = {
   gpsCoordinates: number[];
   requested: boolean;
 };
+
+export type BookPageData = BookData & { booking: Booking };
 
 export type BookedBook = BookData & { distance: number; bookingId: number };
