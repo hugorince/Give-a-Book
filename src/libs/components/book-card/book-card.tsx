@@ -11,6 +11,7 @@ interface BookCardProps {
 
 export const BookCard = ({ book, connectedUserId }: BookCardProps) => {
   const exchangeOrGive = book.exchange ? "Exchange" : "Give";
+
   const isLiked =
     connectedUserId && book.likes.includes(connectedUserId) ? true : false;
   const isRequested = book.requested;
@@ -20,12 +21,15 @@ export const BookCard = ({ book, connectedUserId }: BookCardProps) => {
     <div className={classes.wrapper}>
       <div className={classes.header}>
         <div className={classes.chipLike}>
-          <Chip label={exchangeOrGive} exchange={book.exchange} />
-          {isRequested && <Chip label="requested" variant="requested" />}
+          <div className={classes.chips}>
+            <Chip label={exchangeOrGive} exchange={book.exchange} />
+            {isRequested && <Chip label="requested" variant="requested" />}
+          </div>
           {!isConnectedUserBook && (
             <LikeButton
               isLiked={isLiked}
               bookId={book.id}
+              likesNumber={book.likes.length}
               isLoggedIn={connectedUserId !== undefined}
             />
           )}
