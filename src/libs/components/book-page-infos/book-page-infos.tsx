@@ -1,11 +1,12 @@
 import { postedOn } from "@/libs/utils";
-import type { BookData } from "@/libs/types";
+import type { BookPageData } from "@/libs/types";
 import { Chip } from "@/libs/ui-components";
 import classes from "./book-page-infos.module.css";
 import { LikeButton } from "../like-button";
+import { Booking } from "@prisma/client";
 
 interface BookPageInfosProps {
-  book: BookData;
+  book: BookPageData;
   connectedUserId: number | undefined;
 }
 

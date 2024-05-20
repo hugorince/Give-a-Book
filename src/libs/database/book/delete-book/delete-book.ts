@@ -1,13 +1,12 @@
 "use server";
 
-import type { BookData } from "@/libs/types";
 import db from "../../db";
 import { redirect } from "next/navigation";
 
-export const deleteBook = async (book: BookData) => {
+export const deleteBook = async (bookId: number) => {
   try {
     await db.book.delete({
-      where: { id: book.id },
+      where: { id: bookId },
     });
   } catch (err) {
     console.error(err);
