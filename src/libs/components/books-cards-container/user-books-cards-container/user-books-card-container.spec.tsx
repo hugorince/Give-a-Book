@@ -17,7 +17,7 @@ describe("UserBooksCardContainer", () => {
     (getBooksByUserId as jest.Mock).mockReturnValue(mockBooksData);
   });
   it("should return all the books of the user", async () => {
-    render(await UserBooksCardsContainer({ userId: "4" }));
+    render(await UserBooksCardsContainer({ userId: 4 }));
 
     expect(screen.queryAllByText("Book Card")).toHaveLength(3);
   });

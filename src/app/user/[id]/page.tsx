@@ -3,7 +3,7 @@ import { UserInfos } from "@/libs/components/user-infos/user-infos";
 import { MainLayout } from "@/libs/layout";
 
 export const UserPage = async ({ params }: { params: { id: string } }) => {
-  const userId = params.id;
+  const userId = parseInt(params.id);
 
   return (
     <MainLayout>
