@@ -12,15 +12,8 @@ export const BookPage = async ({ params }: { params: { id: string } }) => {
   return (
     <MainLayout>
       <div className={classes.pageWrapper}>
-        {book && (
-          <>
-            <BookPageInfos book={book} connectedUserId={connectedUserId} />
-            <RequestBookContainer
-              book={book}
-              connectedUserId={connectedUserId}
-            />
-          </>
-        )}
+        <BookPageInfos book={book} connectedUserId={connectedUserId} />
+        <RequestBookContainer book={book} connectedUserId={connectedUserId} />
       </div>
     </MainLayout>
   );
