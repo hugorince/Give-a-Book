@@ -1,11 +1,12 @@
 "use client";
 
 import { Button } from "@/libs/ui-components";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { DropdownNotifications } from "./dropdown-notifications";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import classes from "./notifications.module.css";
 import type { NotificationType } from "@prisma/client";
+import { useOutsideClick } from "@/libs/utils";
 
 export type NotificationProps = {
   id: number;
@@ -21,17 +22,28 @@ interface NotificationsProps {
 
 export const Notifications = ({ notifications }: NotificationsProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { outsideClick } = useOutsideClick({
+    refs: [dropdownRef, containerRef],
+  });
+
+  useEffect(() => {
+    if (outsideClick) {
+      setIsOpen(false);
+    }
+  }, [outsideClick, setIsOpen]);
 
   const handleOnClick = () => {
     setIsOpen((prev) => !prev);
   };
 
-  const notificationNonReadNumber = notifications.filter(
+  const notificationsNumber = notifications.filter(
     (notification) => !notification.isRead,
   ).length;
 
   return (
-    <div className={classes.notificationsContainer}>
+    <div className={classes.notificationsContainer} ref={containerRef}>
       <Button
         variant="unstyled"
         size="s"
@@ -39,15 +51,12 @@ export const Notifications = ({ notifications }: NotificationsProps) => {
         className={classes.notificationsButton}
       >
         <IoMdNotificationsOutline size={24} />
-        {notificationNonReadNumber > 0 && (
-          <div>{notificationNonReadNumber}</div>
-        )}
+        {notificationsNumber > 0 && <div>{notificationsNumber}</div>}
       </Button>
       {isOpen && (
-        <DropdownNotifications
-          notifications={notifications}
-          setIsOpen={setIsOpen}
-        />
+        <div ref={dropdownRef}>
+          <DropdownNotifications notifications={notifications} />
+        </div>
       )}
     </div>
   );

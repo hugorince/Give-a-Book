@@ -23,7 +23,7 @@ export const DropdownSearch = ({
   handleOnClick,
 }: DropdownSearchProps) => {
   const wrapperRef = useRef<HTMLUListElement>(null);
-  const { outsideClick } = useOutsideClick({ ref: wrapperRef });
+  const { outsideClick } = useOutsideClick({ refs: [wrapperRef] });
 
   useEffect(() => {
     if (outsideClick) setSuggestions(null);
