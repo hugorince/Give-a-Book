@@ -1,7 +1,35 @@
+.notificationMessage {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-025);
+  border: solid 1px black;
+  padding: 1rem;
+  text-decoration: none;
+  color: var(--menu-font-color);
+  font-weight: var(--font-weight-regular);
+
+  .content {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--spacing-025);
+  }
+
+  .date {
+    font-size: var(--font-size-xxs);
+    align-self: center;
+  }
+}
+
 .isRead {
-  color: blue;
+  background-color: var(--light-grey-bg);
 }
 
 .isNotRead {
-  color: red;
+  color: var(--menu-font-color);
+  font-weight: var(--font-weight-regular);
+
+  &:hover {
+    background-color: var(--light-grey-bg);
+    color: black;
+  }
 }

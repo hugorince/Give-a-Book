@@ -19,11 +19,22 @@ export const getUserNotifications = async () => {
 
   if (!userData) return null;
 
-  return Promise.all(
+  const notifications = Promise.all(
     userData.notifications
       .map(async (notification) => await getNotificationDetails(notification))
       .reverse(),
   );
+
+  notifications.then((resolvedNotifications) => {
+    const sortedNotifications = resolvedNotifications.sort((a, b) => {
+      if (a.isRead === b.isRead) {
+        return 0;
+      }
+      return a.isRead ? 1 : -1;
+    });
+  });
+
+  return notifications;
 };
 
 const getNotificationDetails = async (notification: Notification) => {
@@ -42,6 +53,7 @@ const getNotificationDetails = async (notification: Notification) => {
         isRead: notification.isRead,
         type: notification.type,
         username: message.sender.username,
+        createdAt: notification.createdAt,
       };
   }
 
@@ -50,5 +62,6 @@ const getNotificationDetails = async (notification: Notification) => {
     bookingId: notification.bookingId,
     isRead: notification.isRead,
     type: notification.type,
+    createdAt: notification.createdAt,
   };
 };
