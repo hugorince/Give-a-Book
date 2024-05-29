@@ -27,7 +27,7 @@ export const postedOn = (date: Date) => {
 
 export const timeSinceString = (date: Date) => {
   const today = new Date();
-  const timeDifference = date.getTime() - today.getTime();
+  const timeDifference = today.getTime() - date.getTime();
 
   const daysDifference = Math.round(timeDifference / (1000 * 3600 * 24));
   const hoursDifference = Math.round(daysDifference / 24);
