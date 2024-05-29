@@ -13,6 +13,7 @@ export type NotificationProps = {
   isRead: boolean;
   type: NotificationType;
   username?: string | null;
+  createdAt: Date;
 };
 interface NotificationsProps {
   notifications: NotificationProps[];

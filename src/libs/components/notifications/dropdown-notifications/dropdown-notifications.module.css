@@ -1,16 +1,14 @@
 .dropdownNotificationsContainer {
   position: absolute;
-  width: fit-content;
-  max-width: 10rem;
-  height: auto;
-  max-height: 15rem;
-  overflow: scroll;
   display: flex;
   flex-direction: column;
+  left: -3rem;
+  width: 12rem;
+  max-height: 15rem;
+  overflow: scroll;
   z-index: 100;
   border: 1px solid black;
   border-radius: var(--spacing-025);
   background-color: white;
-  gap: 0.5rem;
-  padding: var(--spacing-075);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
