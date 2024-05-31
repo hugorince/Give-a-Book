@@ -1,11 +1,11 @@
-import type { BookedBook } from "@/libs/types";
+import type { BookPageData, BookedBook } from "@/libs/types";
 import { Link } from "@/libs/ui-components";
 import { DeleteBook } from "../delete-book";
 import classes from "./booking-card.module.css";
 import { RequestBookButton } from "../request-book/request-book-button";
 
 interface BookingCard {
-  book: BookedBook;
+  book: BookPageData & BookedBook;
   connectedUserId: number;
 }
 

@@ -19,7 +19,8 @@ export const RequestBookContainer = ({
   const isAlreadyRequestedByOrFromConnectedUser =
     connectedUserId === book.booking?.ownerId ||
     connectedUserId === book.booking?.requesterId;
-  const isAlreadyRequested = book.requested;
+  const isAlreadyRequested =
+    book.requested || book.proposed || book.propositionReceived;
 
   if (!connectedUserId) return <NotConnectedRequestBook />;
 

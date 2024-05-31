@@ -1,4 +1,4 @@
-import { Booking } from "@prisma/client";
+import { Booking, Proposition } from "@prisma/client";
 
 export type BookData = {
   id: number;
@@ -16,6 +16,8 @@ export type BookData = {
   postalCode: string;
   gpsCoordinates: number[];
   requested: boolean;
+  proposed?: Proposition[];
+  propositionReceived?: Proposition[];
 };
 
 export type BookPageData = BookData & { booking: Booking | null };
