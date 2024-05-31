@@ -13,7 +13,7 @@ interface ProposeExchangeDialogProps {
 }
 
 const proposeBookSchema = z.object({
-  bookId: z.number(),
+  bookId: z.number().optional(),
 });
 
 export const ProposeExchangeDialog = ({
