@@ -1,11 +1,16 @@
 import { MainLayout } from "@/libs/layout";
 import classes from "./bookings.module.css";
-import { BookingCardContainer } from "@/libs/components/booking-card-container";
-import { getUserBookedBooks, getUserRequestedBooks } from "@/libs/server";
+import { BookingCardContainer, PropositionsContainer } from "@/libs/components";
+import {
+  getUserBookedBooks,
+  getUserPropositions,
+  getUserRequestedBooks,
+} from "@/libs/server";
 
 export const Bookings = async () => {
   const requestedBooks = await getUserRequestedBooks();
   const bookedBooks = await getUserBookedBooks();
+  const propositions = await getUserPropositions();
 
   return (
     <MainLayout>
@@ -17,6 +22,12 @@ export const Bookings = async () => {
         <div>
           <h2>My booked books</h2>
           {bookedBooks && <BookingCardContainer books={bookedBooks} />}
+        </div>
+        <div>
+          <h2>My propositions</h2>
+          {propositions && (
+            <PropositionsContainer propositions={propositions.proposed} />
+          )}
         </div>
       </div>
     </MainLayout>

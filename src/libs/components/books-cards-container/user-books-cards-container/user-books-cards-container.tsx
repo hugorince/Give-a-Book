@@ -1,6 +1,6 @@
 "use server";
 
-import { getBooksByUserId, getConnectedUserId } from "@/libs/server";
+import { getBooksByUserIdLegacy, getConnectedUserId } from "@/libs/server";
 import classes from "./user-books-cards-container.module.css";
 import { BookCard } from "../../book-card";
 interface UserBooksCardsWrapperProps {
@@ -11,7 +11,7 @@ export const UserBooksCardsContainer = async ({
   userId,
 }: UserBooksCardsWrapperProps) => {
   const connectedUserId = await getConnectedUserId();
-  const usersBooks = await getBooksByUserId(userId);
+  const usersBooks = await getBooksByUserIdLegacy(userId);
 
   return (
     <div className={classes.booksWrapper}>
