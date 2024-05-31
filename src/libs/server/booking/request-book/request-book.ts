@@ -83,7 +83,7 @@ export const cancelRequest = async (bookId: number) => {
   }
 };
 
-export const proposeExchangeBook = async (
+export const proposeExchange = async (
   requestedBookId: number,
   proposedBookId: number,
 ) => {

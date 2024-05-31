@@ -5,6 +5,7 @@ import { BookAlreadyRequested } from "./book-already-requested";
 import { NotConnectedRequestBook } from "./not-connected-request-book";
 import { BookNewRequest } from "./book-new-request";
 import { BookCancelRequest } from "./book-cancel-request";
+import { ProposeExchange } from "./propose-exchange";
 
 interface RequestBookProps {
   book: BookPageData;
@@ -26,6 +27,8 @@ export const RequestBookContainer = ({
     return <BookCancelRequest book={book} />;
 
   if (isAlreadyRequested) return <BookAlreadyRequested />;
+
+  if (book.exchange) return <ProposeExchange book={book} />;
 
   return <BookNewRequest book={book} />;
 };
