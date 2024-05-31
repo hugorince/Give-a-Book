@@ -4,7 +4,7 @@ import { Avatar, Link } from "@/libs/ui-components";
 import classes from "./navbar.module.css";
 import NextLink from "next/link";
 import { getInitials } from "@/libs/utils";
-import { getUserNotifications } from "@/libs/database";
+import { getUserNotifications } from "@/libs/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/libs/auth/auth";
 import { SignOutButton } from "./sign-out-button";

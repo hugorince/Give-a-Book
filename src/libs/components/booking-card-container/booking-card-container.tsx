@@ -3,7 +3,7 @@
 import { type BookedBook } from "@/libs/types";
 import { BookingCard } from "../booking-card";
 import classes from "./booking-card-container.module.css";
-import { getConnectedUserId } from "@/libs/database";
+import { getConnectedUserId } from "@/libs/server";
 
 interface BookingCardContainer {
   books: BookedBook[];

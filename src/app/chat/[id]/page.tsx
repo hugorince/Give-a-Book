@@ -1,4 +1,4 @@
-import { getBookingInfos } from "@/libs/database";
+import { getBookingInfos } from "@/libs/server";
 import { Chat } from "@/libs/components";
 import { MainLayout } from "@/libs/layout";
 import classes from "./booking.module.css";

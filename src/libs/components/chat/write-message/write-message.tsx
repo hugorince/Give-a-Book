@@ -4,7 +4,7 @@ import { Button, Textarea } from "@/libs/ui-components";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { sendMessage } from "@/libs/database";
+import { sendMessage } from "@/libs/server";
 import { useRouter } from "next/navigation";
 
 const messageSchema = z.object({

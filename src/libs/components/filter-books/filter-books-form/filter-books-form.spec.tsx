@@ -2,7 +2,7 @@ import { screen, waitFor } from "@testing-library/react";
 import { FilterBooksForm } from ".";
 import userEvent from "@testing-library/user-event";
 import { render } from "@/libs/test-utils";
-import { filterBooks } from "@/libs/database";
+import { filterBooks } from "@/libs/server";
 
 const user = userEvent.setup();
 

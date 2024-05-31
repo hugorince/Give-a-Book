@@ -1,6 +1,6 @@
 "use server";
 
-import { db } from "@/libs/database";
+import { db } from "@/libs/server";
 import { updateUserSchemaWithId } from "@/libs/types";
 import { z } from "zod";
 

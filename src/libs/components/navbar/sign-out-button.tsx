@@ -1,6 +1,6 @@
 "use client";
 
-import { signOut } from "@/libs/database";
+import { signOut } from "@/libs/server";
 import { Button } from "@/libs/ui-components";
 
 export const SignOutButton = () => {

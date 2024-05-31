@@ -4,7 +4,7 @@ import type { BookPageData } from "@/libs/types";
 import { Button, useDialog } from "@/libs/ui-components";
 import { RequestBookDialog } from "../request-book-dialog";
 import { CancelRequestBookDialog } from "../cancel-request-book-dialog";
-import { cancelRequest, requestBook } from "@/libs/database";
+import { cancelRequest, requestBook } from "@/libs/server";
 import { useRouter } from "next/navigation";
 
 interface RequestBookProps {

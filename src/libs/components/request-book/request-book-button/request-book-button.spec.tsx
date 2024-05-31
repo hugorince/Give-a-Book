@@ -2,7 +2,7 @@ import { render, mockedBook } from "@/libs/test-utils";
 import { RequestBookButton } from "./request-book-button";
 import userEvent from "@testing-library/user-event";
 import { screen, waitFor } from "@testing-library/react";
-import { requestBook } from "@/libs/database";
+import { requestBook } from "@/libs/server";
 import { useDialog } from "@/libs/ui-components";
 
 const mockOpenDialog = jest.fn();

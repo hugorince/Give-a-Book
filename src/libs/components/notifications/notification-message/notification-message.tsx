@@ -16,8 +16,8 @@ export const NotificationMessage = ({
 }: NotificationMessage) => {
   const isMessageNotification = notification.type === "MESSAGE";
   const notificationContent = isMessageNotification
-    ? `new message from ${notification.username}`
-    : `new booking`;
+    ? `New message from ${notification.username}`
+    : `New booking`;
 
   const timeSinceLabel = timeSinceString(notification.createdAt);
 

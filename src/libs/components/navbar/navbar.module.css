@@ -9,7 +9,6 @@
   height: var(--sizing-400);
   padding: 0 var(--spacing-200);
   background-color: var(--brand-color-light);
-  opacity: 90%;
 
   .listElements {
     opacity: 1000%;

@@ -6,7 +6,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { DescriptionInput } from "./description-input";
 import { SearchTextInput } from "./search-text-input";
 import { SelectInput } from "./select-input";
-import { postBook } from "@/libs/database";
+import { postBook } from "@/libs/server";
 import { Button } from "@/libs/ui-components";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";

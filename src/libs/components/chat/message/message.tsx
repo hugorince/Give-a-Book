@@ -3,7 +3,7 @@
 import type { Message as MessageType } from "@prisma/client";
 import clsx from "clsx";
 import classes from "./message.module.css";
-import { getConnectedUserId } from "@/libs/database";
+import { getConnectedUserId } from "@/libs/server";
 
 interface MessageProps {
   message: MessageType;

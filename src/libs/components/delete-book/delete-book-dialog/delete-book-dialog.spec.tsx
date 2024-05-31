@@ -1,7 +1,7 @@
 import { render } from "@/libs/test-utils";
 import { DeleteBookDialog } from "./delete-book-dialog";
 import { screen, waitFor } from "@testing-library/react";
-import { deleteBook } from "@/libs/database";
+import { deleteBook } from "@/libs/server";
 import userEvent from "@testing-library/user-event";
 
 const mockCloseDialog = jest.fn();

@@ -4,7 +4,7 @@ import classes from "./books-cards-container.module.css";
 import {
   getBooksWithoutConnectedUser,
   getConnectedUserId,
-} from "@/libs/database";
+} from "@/libs/server";
 import { BookCard } from "..";
 
 interface ParamsProps {
