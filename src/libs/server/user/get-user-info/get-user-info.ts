@@ -1,7 +1,7 @@
 "use server";
 
 import { authOptions } from "@/libs/auth/auth";
-import { db } from "@/libs/database";
+import { db } from "@/libs/server";
 import { getServerSession } from "next-auth";
 
 export const getUserInfo = async (userId: number) => {

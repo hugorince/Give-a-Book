@@ -2,7 +2,7 @@ import { render } from "@/libs/test-utils";
 import { WriteMessage } from "./write-message";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { sendMessage } from "@/libs/database";
+import { sendMessage } from "@/libs/server";
 
 const mockSendMessage = jest.fn();
 

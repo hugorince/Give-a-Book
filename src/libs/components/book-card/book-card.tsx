@@ -1,3 +1,5 @@
+"use server";
+
 import type { BookData } from "@/libs/types";
 import { Link, Chip } from "@/libs/ui-components";
 import { LikeButton } from "..";

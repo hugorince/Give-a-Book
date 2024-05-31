@@ -30,7 +30,7 @@ export const timeSinceString = (date: Date) => {
   const timeDifference = today.getTime() - date.getTime();
 
   const daysDifference = Math.round(timeDifference / (1000 * 3600 * 24));
-  const hoursDifference = Math.round(daysDifference / 24);
+  const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
 
   return daysDifference > 0
     ? `${daysDifference} day(s) ago`

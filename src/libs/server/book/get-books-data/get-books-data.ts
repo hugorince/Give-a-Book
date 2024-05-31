@@ -1,7 +1,7 @@
 "use server";
 
 import type { BookData } from "@/libs/types";
-import { db, getConnectedUserId } from "@/libs/database";
+import { db, getConnectedUserId } from "@/libs/server";
 import { calculateDistance } from "@/libs/utils";
 
 export const getBookById = async (bookId: number) => {

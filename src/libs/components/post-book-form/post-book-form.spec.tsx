@@ -2,7 +2,7 @@ import { render } from "@/libs/test-utils";
 import { PostBookForm } from "./post-book-form";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { postBook } from "@/libs/database";
+import { postBook } from "@/libs/server";
 import { DescriptionInput } from "./description-input";
 import { input } from "@testing-library/user-event/dist/cjs/event/input.js";
 

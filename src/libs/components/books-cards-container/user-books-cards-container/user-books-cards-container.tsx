@@ -1,6 +1,6 @@
 "use server";
 
-import { getBooksByUserId, getConnectedUserId } from "@/libs/database";
+import { getBooksByUserId, getConnectedUserId } from "@/libs/server";
 import classes from "./user-books-cards-container.module.css";
 import { BookCard } from "../../book-card";
 interface UserBooksCardsWrapperProps {
