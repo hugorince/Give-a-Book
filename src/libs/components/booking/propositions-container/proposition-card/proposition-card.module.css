@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  border: solid black 1px;
+  border-radius: 0.3rem;
+  padding: var(--spacing-100);
+  gap: var(--spacing-100);
+  justify-content: space-between;
+
+  img {
+    max-height: 8rem;
+  }
+
+  button {
+    width: auto;
+  }
+}
+
+.bookInfos {
+  display: flex;
+}

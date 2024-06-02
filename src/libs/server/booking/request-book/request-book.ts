@@ -1,12 +1,12 @@
 "use server";
 
-import type { BookData } from "@/libs/types";
+import type { BookedBook } from "@/libs/types";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/libs/auth/auth";
 import { calculateDistance } from "@/libs/utils";
 import db from "../../db";
 
-export const requestBook = async (book: BookData, message: string) => {
+export const requestBook = async (book: BookedBook, message: string) => {
   const user = await getServerSession(authOptions);
 
   if (!user) return null;
@@ -18,6 +18,8 @@ export const requestBook = async (book: BookData, message: string) => {
   if (!requester) return null;
 
   try {
+    if (!book.gpsCoordinates) return null;
+
     const distance = await calculateDistance(
       book.gpsCoordinates,
       requester.gpsCoordinates,
@@ -77,23 +79,6 @@ export const cancelRequest = async (bookId: number) => {
 
     await db.booking.delete({
       where: { id: booking.id },
-    });
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-export const proposeExchange = async (
-  requestedBookId: number,
-  proposedBookId: number,
-) => {
-  try {
-    await db.proposition.create({
-      data: {
-        status: "PENDING",
-        proposedBookId: proposedBookId,
-        receiverBookId: requestedBookId,
-      },
     });
   } catch (err) {
     console.error(err);

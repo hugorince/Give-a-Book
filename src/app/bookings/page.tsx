@@ -12,6 +12,8 @@ export const Bookings = async () => {
   const bookedBooks = await getUserBookedBooks();
   const propositions = await getUserPropositions();
 
+  console.log(propositions?.booksAskedForExchange);
+
   return (
     <MainLayout>
       <div className={classes.pageWrapper}>
@@ -26,7 +28,9 @@ export const Bookings = async () => {
         <div>
           <h2>My propositions</h2>
           {propositions && (
-            <PropositionsContainer propositions={propositions.proposed} />
+            <PropositionsContainer
+              propositions={propositions.booksAskedForExchange}
+            />
           )}
         </div>
       </div>

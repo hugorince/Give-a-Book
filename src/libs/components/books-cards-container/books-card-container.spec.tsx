@@ -1,12 +1,16 @@
 import { screen } from "@testing-library/react";
 import { BooksCardContainer } from ".";
-import { getBooksWithoutConnectedUser } from "../../database";
+import { getBooksWithoutConnectedUser } from "../../server";
 import { render, mockBooksData } from "@/libs/test-utils";
 
-jest.mock("../../database", () => ({
-  ...jest.requireActual("../../database"),
+jest.mock("../../server", () => ({
+  ...jest.requireActual("../../server"),
   getBooksWithoutConnectedUser: jest.fn(),
 }));
+
+// jest.mock("..", () => ({
+//   BookCard: () => <div>Book Card</div>,
+// }));
 
 describe("BookCardContainer", () => {
   beforeEach(() => {

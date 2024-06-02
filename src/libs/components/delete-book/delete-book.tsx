@@ -1,7 +1,6 @@
 "use client";
 
 import { Button, useDialog } from "@/libs/ui-components";
-import type { BookData, BookedBook } from "@/libs/types";
 import { deleteBook } from "@/libs/server";
 import { DeleteBookDialog } from "./delete-book-dialog";
 

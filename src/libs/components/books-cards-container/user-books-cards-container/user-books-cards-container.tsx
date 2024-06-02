@@ -2,7 +2,7 @@
 
 import { getBooksByUserIdLegacy, getConnectedUserId } from "@/libs/server";
 import classes from "./user-books-cards-container.module.css";
-import { BookCard } from "../../book-card";
+import { BookCard } from "../book-card";
 interface UserBooksCardsWrapperProps {
   userId: number;
 }
