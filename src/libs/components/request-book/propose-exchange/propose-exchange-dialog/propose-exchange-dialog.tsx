@@ -1,6 +1,6 @@
 "use client;";
 
-import type { BookData } from "@/libs/types";
+import type { Book } from "@prisma/client";
 import { Button, useDialog } from "@/libs/ui-components";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,7 +9,7 @@ import classes from "./propose-exchange-dialog.module.css";
 
 interface ProposeExchangeDialogProps {
   proceed: (bookId: number) => void;
-  connectedUserBooks: BookData[];
+  connectedUserBooks: Book[];
 }
 
 const proposeBookSchema = z.object({

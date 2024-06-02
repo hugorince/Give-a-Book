@@ -79,7 +79,7 @@ export const getBooksByUserId = async (userId: number) => {
         equals: userId,
       },
     },
-    include: { proposed: true, propositionReceived: true },
+    include: { booking: true, proposed: true, propositionReceived: true },
   });
   return books;
 };
@@ -195,5 +195,9 @@ export const getConnectedUserBooks = async () => {
 
   if (!connectedUserId) return null;
 
-  return await getBooksByUserId(connectedUserId);
+  const books = await getBooksByUserId(connectedUserId);
+
+  return books.filter(
+    (book) => !book.booking || !book.proposed || !book.propositionReceived,
+  );
 };
