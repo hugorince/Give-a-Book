@@ -5,10 +5,11 @@ import { Button, useDialog } from "@/libs/ui-components";
 import { useRouter } from "next/navigation";
 import { ProposeExchangeDialog } from "../propose-exchange-dialog";
 import { proposeExchange } from "@/libs/server";
+import type { Book } from "@prisma/client";
 
 interface ProposeExchangeButtonProps {
   book: BookPageData;
-  connectedUserBooks: BookData[];
+  connectedUserBooks: Book[];
 }
 
 export const ProposeExchangeButton = ({
