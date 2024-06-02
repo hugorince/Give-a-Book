@@ -22,7 +22,7 @@ export type BookData = {
 
 export type BookPageData = BookData & { booking: Booking | null };
 
-export type BookedBook = Omit<BookData, "gpsCoordinates" | "postalCode"> & {
+export type BookedBook = Omit<BookData, "postalCode"> & {
   distance: number;
   bookingId: number;
 };
