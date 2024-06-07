@@ -6,15 +6,19 @@
   gap: var(--spacing-100);
   justify-content: space-between;
 
-  img {
-    max-height: 8rem;
-  }
-
   button {
     width: auto;
   }
 }
 
-.bookInfos {
+.booksInfos {
   display: flex;
+  gap: var(--spacing-200);
+  align-items: center;
+}
+
+.ctaContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-050);
 }
