@@ -7,7 +7,12 @@ import { calculateDistance } from "@/libs/utils";
 export const getBookById = async (bookId: number) => {
   const book = await db.book.findUnique({
     where: { id: bookId },
-    include: { booking: true, user: true },
+    include: {
+      booking: true,
+      user: true,
+      proposed: true,
+      propositionReceived: true,
+    },
   });
 
   if (book) {
@@ -18,6 +23,8 @@ export const getBookById = async (bookId: number) => {
       gpsCoordinates: book.user.gpsCoordinates,
       requested: book.booking ? true : false,
       booking: book.booking,
+      proposed: book.proposed,
+      propositionReceived: book.propositionReceived,
     };
   }
 };
@@ -66,6 +73,18 @@ const getBooksData = async () => {
 };
 
 export const getBooksByUserId = async (userId: number) => {
+  const books = await db.book.findMany({
+    where: {
+      userId: {
+        equals: userId,
+      },
+    },
+    include: { booking: true, proposed: true, propositionReceived: true },
+  });
+  return books;
+};
+
+export const getBooksByUserIdLegacy = async (userId: number) => {
   const books = await getBooksData();
   return books.filter((book) => book.userId === userId);
 };
@@ -169,4 +188,16 @@ export const getUserBookedBooks = async () => {
   );
 
   return filteredUserBookings;
+};
+
+export const getConnectedUserBooks = async () => {
+  const connectedUserId = await getConnectedUserId();
+
+  if (!connectedUserId) return null;
+
+  const books = await getBooksByUserId(connectedUserId);
+
+  return books.filter(
+    (book) => !book.booking || !book.proposed || !book.propositionReceived,
+  );
 };

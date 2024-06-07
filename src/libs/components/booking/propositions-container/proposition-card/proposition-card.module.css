@@ -1,4 +1,4 @@
-.cardWrapper {
+.container {
   display: flex;
   border: solid black 1px;
   border-radius: 0.3rem;
@@ -6,33 +6,19 @@
   gap: var(--spacing-100);
   justify-content: space-between;
 
-  img {
-    max-height: 8rem;
-  }
-
   button {
     width: auto;
   }
 }
 
-.imageTitle {
+.booksInfos {
   display: flex;
-  gap: var(--spacing-050);
-
-  .bookInfos {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .ownerLink {
-    display: flex;
-    gap: var(--spacing-025);
-  }
+  gap: var(--spacing-200);
+  align-items: center;
 }
 
-.actionsContainer {
+.ctaContainer {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-050);
-  justify-content: flex-end;
 }
