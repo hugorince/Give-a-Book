@@ -8,6 +8,7 @@ import { BookCancelRequest } from "./book-cancel-request";
 import { ProposeExchange } from "./propose-exchange";
 import { RxQuestionMarkCircled } from "react-icons/rx";
 import { DeleteBook } from "../delete-book";
+import { BookCancelProposition } from "./book-cancel-proposition";
 import classes from "./request-book-container.module.css";
 
 interface RequestBookProps {
@@ -25,6 +26,17 @@ export const RequestBookContainer = ({
     connectedUserId === book.booking?.requesterId;
   const isAlreadyRequested = book.requested;
 
+  const isAlreadyProposed =
+    (book.proposed && book.proposed.length > 0) ||
+    (book.propositionReceived && book.propositionReceived?.length > 0);
+
+  const isAlreadyProposedByConnectedUser = isAlreadyProposed && isOwnBook;
+  const isAlreadyRequestedByConnectedUser =
+    book.propositionReceived &&
+    book.propositionReceived[0].receiverBookId === book.id;
+
+  console.log(book.propositionReceived);
+
   if (isOwnBook)
     return (
       <div className={classes.ownBookWrapper}>
@@ -39,7 +51,10 @@ export const RequestBookContainer = ({
   if (isAlreadyRequestedByOrFromConnectedUser)
     return <BookCancelRequest book={book} />;
 
-  if (isAlreadyRequested) return <BookAlreadyRequested />;
+  if (isAlreadyProposedByConnectedUser || isAlreadyRequestedByConnectedUser)
+    return <BookCancelProposition book={book} />;
+
+  if (isAlreadyRequested || isAlreadyProposed) return <BookAlreadyRequested />;
 
   if (book.exchange) return <ProposeExchange book={book} />;
 
