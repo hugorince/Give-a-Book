@@ -20,7 +20,7 @@ export const ProposeExchangeButton = ({
   const router = useRouter();
 
   const proceed = async (proposedBookId: number) => {
-    await proposeExchange(book.id, proposedBookId);
+    await proposeExchange(book, proposedBookId);
     closeDialog();
     router.refresh();
   };
