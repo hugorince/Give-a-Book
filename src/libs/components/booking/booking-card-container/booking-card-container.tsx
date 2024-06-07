@@ -1,9 +1,9 @@
 "use server";
 
-import { type BookedBook } from "@/libs/types";
-import { BookingCard } from "../booking-card";
-import classes from "./booking-card-container.module.css";
+import type { BookPageData, BookedBook } from "@/libs/types";
+import { BookingCard } from "../booking-card/booking-card";
 import { getConnectedUserId } from "@/libs/server";
+import classes from "./booking-card-container.module.css";
 
 interface BookingCardContainer {
   books: BookedBook[];

@@ -1,14 +1,15 @@
 "use client";
 
-import type { BookPageData } from "@/libs/types";
+import type { BookPageData, BookedBook } from "@/libs/types";
 import { Button, useDialog } from "@/libs/ui-components";
 import { RequestBookDialog } from "../request-book-dialog";
 import { CancelRequestBookDialog } from "../cancel-request-book-dialog";
 import { cancelRequest, requestBook } from "@/libs/server";
 import { useRouter } from "next/navigation";
+import { CancelRequestBookButton } from "../cancel-book-request-button";
 
 interface RequestBookProps {
-  book: BookPageData;
+  book: BookedBook;
 }
 
 export const RequestBookButton = ({ book }: RequestBookProps) => {
@@ -28,23 +29,10 @@ export const RequestBookButton = ({ book }: RequestBookProps) => {
     });
   };
 
-  const handleCancelRequest = async () => {
-    await cancelRequest(book.id);
-    closeDialog();
-    router.refresh();
-  };
-
-  const openCancelRequestDialog = () => {
-    openDialog({
-      children: <CancelRequestBookDialog cancelRequest={handleCancelRequest} />,
-      onClose: () => console.log("fired"),
-    });
-  };
-
   return (
     <div>
       {book.requested ? (
-        <Button onClick={openCancelRequestDialog}>Cancel Request</Button>
+        <CancelRequestBookButton book={book} />
       ) : (
         <Button onClick={openRequestBookDialog}>Request book</Button>
       )}
