@@ -1,0 +1,20 @@
+.bookContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-025);
+  max-width: 6rem;
+
+  a {
+    display: inline-block;
+    font-size: var(--font-size-xxs);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  img {
+    width: auto;
+    object-fit: contain;
+  }
+}

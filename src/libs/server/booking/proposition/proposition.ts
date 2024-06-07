@@ -70,3 +70,11 @@ export const getUserPropositions = async () => {
     return null;
   }
 };
+
+export const deleteProposition = async (propositionId: number) => {
+  if (!propositionId) return null;
+
+  await db.proposition.delete({
+    where: { id: propositionId },
+  });
+};
