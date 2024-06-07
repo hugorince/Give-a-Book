@@ -1,32 +1,22 @@
-"use client";
+"use server";
 
 import type { PropositionGroup } from "@/libs/types";
 import { PropositionBook } from "./proposition-book";
 import { FaExchangeAlt } from "react-icons/fa";
 import classes from "./proposition-card.module.css";
 import { Button } from "@/libs/ui-components";
-import { deleteProposition } from "@/libs/server";
-import { useRouter } from "next/navigation";
+import { RefusePropositionButton } from "./refuse-proposition-button";
 
 interface PropositionCardProps {
   proposition: PropositionGroup;
 }
 
 export const PropositionCard = ({ proposition }: PropositionCardProps) => {
-  const router = useRouter();
-
   if (!proposition) return null;
 
-  const refuseProposition = async () => {
-    const propositionId =
-      proposition.ownedBook?.proposed[0].id ||
-      proposition.proposedInExchange?.proposed[0].id;
-
-    await deleteProposition(propositionId);
-    router.refresh();
-  };
-
-  const acceptProposition = () => {};
+  const propositionId =
+    proposition.ownedBook?.proposed[0]?.id ||
+    proposition.proposedInExchange?.proposed[0]?.id;
 
   return (
     <div className={classes.container}>
@@ -36,10 +26,8 @@ export const PropositionCard = ({ proposition }: PropositionCardProps) => {
         <PropositionBook book={proposition.proposedInExchange} />
       </div>
       <div className={classes.ctaContainer}>
-        <Button onClick={acceptProposition}>Accept Proposition</Button>
-        <Button variant="secondary" onClick={refuseProposition}>
-          Refuse Proposition
-        </Button>
+        <Button>Accept Proposition</Button>
+        <RefusePropositionButton propositionId={propositionId} />
       </div>
     </div>
   );
