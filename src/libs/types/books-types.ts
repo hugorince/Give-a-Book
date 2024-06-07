@@ -16,8 +16,8 @@ export type BookData = {
   postalCode: string;
   gpsCoordinates: number[];
   requested: boolean;
-  proposed?: Proposition[];
-  propositionReceived?: Proposition[];
+  proposed?: boolean;
+  propositionReceived?: boolean;
 };
 
 export type BookPageData = BookData & { booking: Booking | null };
@@ -29,8 +29,8 @@ export type BookedBook = Omit<BookData, "postalCode"> & {
 
 export type PropositionProposed = {
   booking: Booking | null;
-  proposed: Proposition[];
-  propositionReceived: Proposition[];
+  proposed: Proposition | null;
+  propositionReceived: Proposition | null;
 } & Book;
 
 export type RequestedExchangeBook = {
@@ -39,8 +39,8 @@ export type RequestedExchangeBook = {
   gpsCoordinates: number[];
   requested: boolean;
   booking: Booking | null;
-  proposed: Proposition[];
-  propositionReceived: Proposition[];
+  proposed: Proposition | null;
+  propositionReceived: Proposition | null;
 } & Book;
 
 export type PropositionGroup = {

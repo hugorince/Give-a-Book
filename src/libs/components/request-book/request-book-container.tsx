@@ -21,23 +21,23 @@ export const RequestBookContainer = ({
   connectedUserId,
 }: RequestBookProps) => {
   const isOwnBook = book.userId === connectedUserId;
+  const isAlreadyRequested = book.requested;
   const isAlreadyRequestedByOrFromConnectedUser =
     connectedUserId === book.booking?.ownerId ||
     connectedUserId === book.booking?.requesterId;
-  const isAlreadyRequested = book.requested;
 
-  const isAlreadyProposed =
-    (book.proposed && book.proposed.length > 0) ||
-    (book.propositionReceived && book.propositionReceived?.length > 0);
+  const isAlreadyProposed = book.proposed || book.propositionReceived;
+  const isAlreadyProposedByConnectedUser = Boolean(
+    isAlreadyProposed && isOwnBook,
+  );
+  const isAlreadyRequestedForExchangeByConnectedUser =
+    Boolean(
+      isAlreadyProposed && isAlreadyProposed.proposedBookId === book.id,
+    ) || isAlreadyProposed?.receiverBookId === book.id;
 
-  const isAlreadyProposedByConnectedUser = isAlreadyProposed && isOwnBook;
-  const isAlreadyRequestedByConnectedUser =
-    book.propositionReceived &&
-    book.propositionReceived[0].receiverBookId === book.id;
+  console.log("book", book, "isAlreadyProposed", isAlreadyProposed);
 
-  console.log(book.propositionReceived);
-
-  if (isOwnBook)
+  if (isOwnBook && !isAlreadyProposed && !isAlreadyRequested)
     return (
       <div className={classes.ownBookWrapper}>
         <RxQuestionMarkCircled size={64} color="orange" />
@@ -48,11 +48,14 @@ export const RequestBookContainer = ({
 
   if (!connectedUserId) return <NotConnectedRequestBook />;
 
+  if (
+    isAlreadyProposedByConnectedUser ||
+    isAlreadyRequestedForExchangeByConnectedUser
+  )
+    return <BookCancelProposition book={book} />;
+
   if (isAlreadyRequestedByOrFromConnectedUser)
     return <BookCancelRequest book={book} />;
-
-  if (isAlreadyProposedByConnectedUser || isAlreadyRequestedByConnectedUser)
-    return <BookCancelProposition book={book} />;
 
   if (isAlreadyRequested || isAlreadyProposed) return <BookAlreadyRequested />;
 
