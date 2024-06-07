@@ -36,6 +36,24 @@ export const getUserPropositions = async () => {
           const proposedBookInExchange = await getBookById(
             book.proposed[0].receiverBookId,
           );
+          if (!proposedBookInExchange) return null;
+
+          return {
+            ownedBook: book,
+            proposedInExchange: proposedBookInExchange,
+          };
+        }),
+    );
+
+    const booksExchangePropositionReceived = await Promise.all(
+      userBooks
+        .filter((book) => book.propositionReceived.length > 0)
+        .map(async (book) => {
+          const proposedBookInExchange = await getBookById(
+            book.propositionReceived[0].proposedBookId,
+          );
+          if (!proposedBookInExchange) return null;
+
           return {
             ownedBook: book,
             proposedInExchange: proposedBookInExchange,
@@ -45,6 +63,7 @@ export const getUserPropositions = async () => {
 
     return {
       booksAskedForExchange,
+      booksExchangePropositionReceived,
     };
   } catch (error) {
     console.error("Error fetching user propositions:", error);
