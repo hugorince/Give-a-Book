@@ -1,9 +1,9 @@
 "use server";
 
-import { Message as MessageType } from "@prisma/client";
+import type { Message as MessageType } from "@prisma/client";
 import { Message } from "./message";
-import classes from "./chat.module.css";
 import { WriteMessage } from "./write-message";
+import classes from "./chat.module.css";
 
 interface ChatProps {
   messages: MessageType[];

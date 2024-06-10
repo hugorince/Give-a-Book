@@ -1,6 +1,6 @@
 "use server";
 
-import { db } from "@/libs/server";
+import { db } from "@/libs/server-actions";
 import { SignUpFormSchema } from "@/libs/types";
 import { hash } from "bcrypt";
 import { z } from "zod";

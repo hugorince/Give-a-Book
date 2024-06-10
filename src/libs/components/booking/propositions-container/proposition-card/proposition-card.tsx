@@ -15,8 +15,8 @@ export const PropositionCard = ({ proposition }: PropositionCardProps) => {
   if (!proposition) return null;
 
   const propositionId =
-    proposition.ownedBook?.proposed[0]?.id ||
-    proposition.proposedInExchange?.proposed[0]?.id;
+    proposition.ownedBook?.proposed?.id ||
+    proposition.proposedInExchange?.proposed?.id;
 
   return (
     <div className={classes.container}>
@@ -27,7 +27,9 @@ export const PropositionCard = ({ proposition }: PropositionCardProps) => {
       </div>
       <div className={classes.ctaContainer}>
         <Button>Accept Proposition</Button>
-        <RefusePropositionButton propositionId={propositionId} />
+        {propositionId && (
+          <RefusePropositionButton propositionId={propositionId} />
+        )}
       </div>
     </div>
   );

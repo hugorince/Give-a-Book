@@ -2,9 +2,8 @@
 
 import { Button, useDialog } from "@/libs/ui-components";
 import { useRouter } from "next/navigation";
-import { deleteProposition } from "@/libs/server";
-import { DeleteBookDialog } from "@/libs/components/delete-book/delete-book-dialog";
-import classes from "./refuse-proposition-button.module.css";
+import { deleteProposition } from "@/libs/server-actions";
+import { DialogBox } from "@/libs/components/dialog-box";
 
 interface RefusePropositionButtonProps {
   propositionId: number;
@@ -19,8 +18,8 @@ export const RefusePropositionButton = ({
   const openRefusePropositionDialog = () => {
     openDialog({
       children: (
-        <DeleteBookDialog
-          handleDeleteBook={refuseProposition}
+        <DialogBox
+          cta={refuseProposition}
           label="Are you sure you want to cancel this proposition?"
         />
       ),

@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { updateBookLikes } from "@/libs/server-actions";
 import { Button, Link, useDialog } from "@/libs/ui-components";
 import { IoHeart } from "react-icons/io5";
-import { updateBookLikes } from "@/libs/server";
-import classes from "./like-button.module.css";
 import { IoMdHeartEmpty } from "react-icons/io";
+import classes from "./like-button.module.css";
 
 interface LikeButtonProps {
   bookId: number;

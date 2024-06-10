@@ -1,6 +1,6 @@
 "use client";
 
-import { cancelRequest } from "@/libs/server";
+import { cancelRequest } from "@/libs/server-actions";
 import { Button, useDialog } from "@/libs/ui-components";
 import { useRouter } from "next/navigation";
 import { CancelRequestBookDialog } from "../cancel-request-book-dialog";

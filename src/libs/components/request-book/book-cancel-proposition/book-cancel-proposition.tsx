@@ -5,8 +5,8 @@ import { BookPageData } from "@/libs/types";
 
 export const BookCancelProposition = ({ book }: { book: BookPageData }) => {
   const propositionId =
-    (book.proposed && book.proposed[0]?.id) ||
-    (book.propositionReceived && book.propositionReceived[0].id);
+    (book.proposed && book.proposed?.id) ||
+    (book.propositionReceived && book.propositionReceived?.id);
 
   return (
     <div className={classes.bookCancelPropositionWrapper}>

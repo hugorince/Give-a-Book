@@ -1,4 +1,4 @@
-import { setNotificationVisibility } from "@/libs/server";
+import { setNotificationVisibility } from "@/libs/server-actions";
 import { NotificationProps } from "../notifications";
 import { NotificationMessage } from "../notification-message";
 import classes from "./dropdown-notifications.module.css";

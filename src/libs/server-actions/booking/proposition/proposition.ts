@@ -3,9 +3,10 @@
 import { getBookById, getBooksByUserId } from "../../book/get-books-data";
 import { getConnectedUserId } from "../../user";
 import db from "../../db";
+import { BookPageData } from "@/libs/types";
 
 export const proposeExchange = async (
-  requestedBookId: number,
+  requestedBook: BookPageData,
   proposedBookId: number,
 ) => {
   try {
@@ -13,7 +14,15 @@ export const proposeExchange = async (
       data: {
         status: "PENDING",
         proposedBookId: proposedBookId,
-        receiverBookId: requestedBookId,
+        receiverBookId: requestedBook.id,
+      },
+    });
+
+    await db.notification.create({
+      data: {
+        userId: requestedBook.userId,
+        type: "PROPOSITION",
+        isRead: false,
       },
     });
   } catch (err) {
@@ -31,10 +40,11 @@ export const getUserPropositions = async () => {
 
     const booksAskedForExchange = await Promise.all(
       userBooks
-        .filter((book) => book.proposed.length > 0)
+        .filter((book) => book.proposed)
         .map(async (book) => {
+          if (!book.proposed) return null;
           const proposedBookInExchange = await getBookById(
-            book.proposed[0].receiverBookId,
+            book.proposed.receiverBookId,
           );
           if (!proposedBookInExchange) return null;
 
@@ -47,10 +57,11 @@ export const getUserPropositions = async () => {
 
     const booksExchangePropositionReceived = await Promise.all(
       userBooks
-        .filter((book) => book.propositionReceived.length > 0)
+        .filter((book) => book.propositionReceived)
         .map(async (book) => {
+          if (!book.propositionReceived) return null;
           const proposedBookInExchange = await getBookById(
-            book.propositionReceived[0].proposedBookId,
+            book.propositionReceived.proposedBookId,
           );
           if (!proposedBookInExchange) return null;
 

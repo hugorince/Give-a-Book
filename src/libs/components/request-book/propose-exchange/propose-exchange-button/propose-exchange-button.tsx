@@ -4,7 +4,7 @@ import type { BookData, BookPageData } from "@/libs/types";
 import { Button, useDialog } from "@/libs/ui-components";
 import { useRouter } from "next/navigation";
 import { ProposeExchangeDialog } from "../propose-exchange-dialog";
-import { proposeExchange } from "@/libs/server";
+import { proposeExchange } from "@/libs/server-actions";
 import type { Book } from "@prisma/client";
 
 interface ProposeExchangeButtonProps {
@@ -20,7 +20,7 @@ export const ProposeExchangeButton = ({
   const router = useRouter();
 
   const proceed = async (proposedBookId: number) => {
-    await proposeExchange(book.id, proposedBookId);
+    await proposeExchange(book, proposedBookId);
     closeDialog();
     router.refresh();
   };

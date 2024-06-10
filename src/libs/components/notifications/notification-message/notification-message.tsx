@@ -1,9 +1,8 @@
-import clsx from "clsx";
-import classes from "./notification-message.module.css";
-import Link from "next/link";
 import type { NotificationProps } from "../notifications";
-import { CiCircleCheck } from "react-icons/ci";
+import clsx from "clsx";
+import Link from "next/link";
 import { timeSinceString } from "@/libs/utils";
+import classes from "./notification-message.module.css";
 
 interface NotificationMessage {
   notification: NotificationProps;
@@ -15,9 +14,12 @@ export const NotificationMessage = ({
   handleNotificationClicked,
 }: NotificationMessage) => {
   const isMessageNotification = notification.type === "MESSAGE";
+  const isPropositionNotification = notification.type === "PROPOSITION";
   const notificationContent = isMessageNotification
     ? `New message from ${notification.username}`
-    : `New booking`;
+    : isPropositionNotification
+      ? `New proposition received`
+      : `New booking`;
 
   const timeSinceLabel = timeSinceString(notification.createdAt);
 
@@ -32,10 +34,7 @@ export const NotificationMessage = ({
         notification.isRead ? classes.isRead : classes.isNotRead,
       )}
     >
-      <span className={classes.content}>
-        {notificationContent}
-        {notification.isRead && <CiCircleCheck size={36} color="green" />}
-      </span>
+      <span className={classes.content}>{notificationContent}</span>
       <span className={classes.date}>{timeSinceLabel}</span>
     </Link>
   );

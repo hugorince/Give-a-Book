@@ -1,6 +1,6 @@
 import { LoginForm } from "@/libs/components";
-import classes from "./login-page.module.css";
 import Link from "next/link";
+import classes from "./login-page.module.css";
 
 export const Login = () => {
   return (
