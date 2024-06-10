@@ -2,7 +2,7 @@
 
 import type { BookPageData, BookedBook } from "@/libs/types";
 import { BookingCard } from "../booking-card/booking-card";
-import { getConnectedUserId } from "@/libs/server";
+import { getConnectedUserId } from "@/libs/server-actions";
 import classes from "./booking-card-container.module.css";
 
 interface BookingCardContainer {

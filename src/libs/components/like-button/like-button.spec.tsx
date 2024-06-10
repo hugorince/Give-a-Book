@@ -1,5 +1,5 @@
 import { render } from "@/libs/test-utils";
-import { updateBookLikes } from "@/libs/server";
+import { updateBookLikes } from "@/libs/server-actions";
 import { LikeButton } from "./like-button";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";

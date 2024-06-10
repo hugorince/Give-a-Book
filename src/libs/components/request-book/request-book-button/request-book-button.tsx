@@ -4,7 +4,7 @@ import type { BookPageData, BookedBook } from "@/libs/types";
 import { Button, useDialog } from "@/libs/ui-components";
 import { RequestBookDialog } from "../request-book-dialog";
 import { CancelRequestBookDialog } from "../cancel-request-book-dialog";
-import { cancelRequest, requestBook } from "@/libs/server";
+import { cancelRequest, requestBook } from "@/libs/server-actions";
 import { useRouter } from "next/navigation";
 import { CancelRequestBookButton } from "../cancel-book-request-button";
 

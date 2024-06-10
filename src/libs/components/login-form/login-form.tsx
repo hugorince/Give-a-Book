@@ -1,13 +1,13 @@
 "use client";
 
+import { LoginFormSchema } from "@/libs/types";
 import { useState } from "react";
+import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { LoginFormSchema } from "@/libs/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signIn } from "next-auth/react";
-import classes from "./login-form.module.css";
 import { Button, InputText } from "@/libs/ui-components";
+import classes from "./login-form.module.css";
 
 export const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);

@@ -1,11 +1,11 @@
 import { MainLayout } from "@/libs/layout";
-import classes from "./bookings.module.css";
 import { BookingCardContainer, PropositionsContainer } from "@/libs/components";
 import {
   getUserBookedBooks,
   getUserPropositions,
   getUserRequestedBooks,
-} from "@/libs/server";
+} from "@/libs/server-actions";
+import classes from "./bookings.module.css";
 
 export const Bookings = async () => {
   const requestedBooks = await getUserRequestedBooks();

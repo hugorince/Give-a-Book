@@ -1,7 +1,7 @@
 "use server";
 
 import { authOptions } from "@/libs/auth/auth";
-import { db } from "@/libs/server";
+import { db } from "@/libs/server-actions";
 import { getServerSession } from "next-auth";
 
 export const updateBookLikes = async (bookId: number) => {

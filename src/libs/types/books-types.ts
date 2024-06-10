@@ -1,4 +1,4 @@
-import { Book, Booking, Proposition } from "@prisma/client";
+import type { Book, Booking, Proposition, User } from "@prisma/client";
 
 export type BookData = {
   id: number;
@@ -20,7 +20,14 @@ export type BookData = {
   propositionReceived?: boolean;
 };
 
-export type BookPageData = BookData & { booking: Booking | null };
+export type BookPageData = Omit<
+  BookData,
+  "proposed" | "propositionReceived"
+> & {
+  booking: Booking | null;
+  proposed: Proposition | null;
+  propositionReceived: Proposition | null;
+};
 
 export type BookedBook = Omit<BookData, "postalCode"> & {
   distance: number;

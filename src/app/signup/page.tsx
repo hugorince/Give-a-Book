@@ -1,6 +1,6 @@
 import { SignUpForm } from "@/libs/components";
-import classes from "./signup-page.module.css";
 import Link from "next/link";
+import classes from "./signup-page.module.css";
 
 export const SignUp = () => {
   return (

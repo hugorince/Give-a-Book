@@ -1,9 +1,5 @@
-import { MainLayout } from "@/libs/layout";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return (
-    <MainLayout>
-      <h1>Welcome to Give A Book</h1>
-    </MainLayout>
-  );
+  redirect("/books");
 }

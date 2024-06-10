@@ -35,6 +35,7 @@ export const mockedBookedBook: BookedBook = {
   requested: false,
   distance: 10,
   bookingId: 1,
+  gpsCoordinates: [],
 };
 
 export const mockedUser: User = {

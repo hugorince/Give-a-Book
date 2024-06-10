@@ -1,5 +1,4 @@
-import { UserBooksCardsContainer } from "@/libs/components";
-import { UserInfos } from "@/libs/components/user-infos/user-infos";
+import { UserBooksCardsContainer, UserInfos } from "@/libs/components";
 import { MainLayout } from "@/libs/layout";
 
 export const UserPage = async ({ params }: { params: { id: string } }) => {
