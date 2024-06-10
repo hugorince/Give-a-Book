@@ -1,7 +1,7 @@
 "use server";
 
 import { capitalize, memberSince } from "@/libs/utils";
-import { getUserInfo } from "@/libs/server";
+import { getUserInfo } from "@/libs/server-actions";
 import classes from "./user-infos.module.css";
 
 export interface UserInfosProps {

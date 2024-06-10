@@ -13,7 +13,7 @@ export const BookPageInfos = ({
   book,
   connectedUserId,
 }: BookPageInfosProps) => {
-  const exchangeOrGive = book.exchange ? "Exchange" : "Give";
+  const requestTypeLabel = book.exchange ? "Exchange" : "Give";
   const posted = postedOn(book.createdAt);
 
   const isLiked =
@@ -28,7 +28,7 @@ export const BookPageInfos = ({
         <div className={classes.chipDate}>
           <p>{posted}</p>
           {book.requested && <Chip label="requested" variant="requested" />}
-          <Chip label={exchangeOrGive} exchange={book.exchange} />
+          <Chip label={requestTypeLabel} exchange={book.exchange} />
           <LikeButton
             isLiked={isLiked}
             bookId={book.id}

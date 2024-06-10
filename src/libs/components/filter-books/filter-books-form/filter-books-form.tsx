@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Checkbox } from "@/libs/ui-components";
-import { filterBooks } from "@/libs/server";
+import { filterBooks } from "@/libs/server-actions";
 
 export const FilterBooksForm = ({
   closeDrawer,

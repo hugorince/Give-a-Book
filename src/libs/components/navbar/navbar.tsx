@@ -1,14 +1,14 @@
-"use user";
+"use server";
 
 import { Avatar, Link } from "@/libs/ui-components";
-import classes from "./navbar.module.css";
 import NextLink from "next/link";
 import { getInitials } from "@/libs/utils";
-import { getUserNotifications } from "@/libs/server";
+import { getUserNotifications } from "@/libs/server-actions";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/libs/auth/auth";
 import { SignOutButton } from "./sign-out-button";
 import { Notifications } from "../notifications";
+import classes from "./navbar.module.css";
 
 export const Navbar = async () => {
   const session = await getServerSession(authOptions);

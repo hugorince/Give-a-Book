@@ -1,7 +1,7 @@
 import { render, mockedNotifications } from "@/libs/test-utils";
 import { DropdownNotifications } from "./dropdown-notifications";
 import { screen } from "@testing-library/react";
-import { setNotificationVisibility } from "@/libs/server";
+import { setNotificationVisibility } from "@/libs/server-actions";
 import userEvent from "@testing-library/user-event";
 
 jest.mock("../notification-message", () => ({

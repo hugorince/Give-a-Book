@@ -1,8 +1,8 @@
 "use client";
 
 import { Button, useDialog } from "@/libs/ui-components";
-import { deleteBook } from "@/libs/server";
-import { DeleteBookDialog } from "./delete-book-dialog";
+import { deleteBook } from "@/libs/server-actions";
+import { DialogBox } from "../dialog-box";
 
 interface DeleteBookProps {
   bookId: number;
@@ -18,7 +18,12 @@ export const DeleteBook = ({ bookId }: DeleteBookProps) => {
 
   const openDeleteBookDialog = () => {
     openDialog({
-      children: <DeleteBookDialog handleDeleteBook={handleDeleteBook} />,
+      children: (
+        <DialogBox
+          cta={handleDeleteBook}
+          label="Are you sure you want to permanently delete this book ?"
+        />
+      ),
       onClose: () => console.log("fired"),
     });
   };

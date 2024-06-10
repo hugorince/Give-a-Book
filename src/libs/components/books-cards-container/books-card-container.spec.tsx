@@ -1,10 +1,10 @@
 import { screen } from "@testing-library/react";
 import { BooksCardContainer } from ".";
-import { getBooksWithoutConnectedUser } from "../../server";
+import { getBooksWithoutConnectedUser } from "../../server-actions";
 import { render, mockBooksData } from "@/libs/test-utils";
 
-jest.mock("../../server", () => ({
-  ...jest.requireActual("../../server"),
+jest.mock("../../server-actions", () => ({
+  ...jest.requireActual("../../server-actions"),
   getBooksWithoutConnectedUser: jest.fn(),
 }));
 

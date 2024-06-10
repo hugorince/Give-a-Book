@@ -1,15 +1,15 @@
 "use client";
 
+import { updateUserSchemaWithId } from "@/libs/types";
 import { FormProvider, useForm } from "react-hook-form";
-import { UpdateProfileInput, UpdateProfileProps } from "./update-profile-input";
 import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { UpdateProfileInput, UpdateProfileProps } from "./update-profile-input";
+import { updateUser } from "@/libs/server-actions";
 import { Button } from "@/libs/ui-components";
 import classes from "./update-profile-field.module.css";
-import { updateUserSchemaWithId } from "@/libs/types";
-import { updateUser } from "@/libs/server";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 interface UpdateProfileFieldContainerProps {
   handleInputClose: () => void;

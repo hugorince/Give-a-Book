@@ -1,17 +1,14 @@
 "use client";
 
 import { Button, useDialog } from "@/libs/ui-components";
-import classes from "./delete-book-dialog.module.css";
+import classes from "./dialog-box.module.css";
 
-interface DeleteBookDialogProps {
-  handleDeleteBook: () => void;
-  label?: string;
+interface DialogBoxProps {
+  cta: () => void;
+  label: string;
 }
 
-export const DeleteBookDialog = ({
-  handleDeleteBook,
-  label = "Are you sure you want to permanently delete this book ?",
-}: DeleteBookDialogProps) => {
+export const DialogBox = ({ label, cta }: DialogBoxProps) => {
   const { closeDialog } = useDialog();
 
   return (
@@ -21,7 +18,7 @@ export const DeleteBookDialog = ({
         <Button type="button" variant="secondary" onClick={closeDialog}>
           Cancel
         </Button>
-        <Button onClick={handleDeleteBook}>Proceed</Button>
+        <Button onClick={cta}>Proceed</Button>
       </div>
     </div>
   );
