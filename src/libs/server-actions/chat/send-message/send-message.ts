@@ -35,7 +35,6 @@ export const sendMessage = async (message: string, chatId: number) => {
       messageId: messageSent.id,
       type: "MESSAGE",
       isRead: false,
-      bookingId: chat.booking.id,
     },
   });
 };

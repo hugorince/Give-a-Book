@@ -1,21 +1,23 @@
 "use server";
 
-import classes from "./books-cards-container.module.css";
 import {
   getBooksWithoutConnectedUser,
   getConnectedUserId,
-} from "@/libs/server";
+} from "@/libs/server-actions";
 import { BookCard } from "..";
+import classes from "./books-cards-container.module.css";
 
 interface ParamsProps {
   [key: string]: string;
 }
 
+interface BooksCardContainerProps {
+  searchParams: ParamsProps;
+}
+
 export const BooksCardContainer = async ({
   searchParams,
-}: {
-  searchParams: ParamsProps;
-}) => {
+}: BooksCardContainerProps) => {
   const connectedUserId = await getConnectedUserId();
   const books = await getBooksWithoutConnectedUser();
 

@@ -1,16 +1,16 @@
 "use client";
 
-import { Button } from "@/libs/ui-components";
+import type { NotificationType } from "@prisma/client";
 import { useEffect, useRef, useState } from "react";
+import { useOutsideClick } from "@/libs/utils";
+import { Button } from "@/libs/ui-components";
 import { DropdownNotifications } from "./dropdown-notifications";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import classes from "./notifications.module.css";
-import type { NotificationType } from "@prisma/client";
-import { useOutsideClick } from "@/libs/utils";
 
 export type NotificationProps = {
   id: number;
-  bookingId: number;
+  bookingId: number | null;
   isRead: boolean;
   type: NotificationType;
   username?: string | null;
@@ -28,19 +28,19 @@ export const Notifications = ({ notifications }: NotificationsProps) => {
     refs: [dropdownRef, containerRef],
   });
 
-  useEffect(() => {
-    if (outsideClick) {
-      setIsOpen(false);
-    }
-  }, [outsideClick, setIsOpen]);
+  const notificationsNumber = notifications.filter(
+    (notification) => !notification.isRead,
+  ).length;
 
   const handleOnClick = () => {
     setIsOpen((prev) => !prev);
   };
 
-  const notificationsNumber = notifications.filter(
-    (notification) => !notification.isRead,
-  ).length;
+  useEffect(() => {
+    if (outsideClick) {
+      setIsOpen(false);
+    }
+  }, [outsideClick, setIsOpen]);
 
   return (
     <div className={classes.notificationsContainer} ref={containerRef}>

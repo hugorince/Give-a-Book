@@ -1,7 +1,6 @@
 "use server";
 
-import type { BookData } from "@/libs/types";
-import { db, getConnectedUserId } from "@/libs/server";
+import { db, getConnectedUserId } from "@/libs/server-actions";
 import { calculateDistance } from "@/libs/utils";
 
 export const getBookById = async (bookId: number) => {
@@ -30,7 +29,9 @@ export const getBookById = async (bookId: number) => {
 };
 
 const getBooksData = async () => {
-  const books = await db.book.findMany();
+  const books = await db.book.findMany({
+    include: { proposed: true, propositionReceived: true },
+  });
   const userIds = books.map((book) => book.userId);
 
   const usersPromise = db.user.findMany({
@@ -65,6 +66,8 @@ const getBooksData = async () => {
         postalCode: user?.postalCode || "",
         gpsCoordinates: user?.gpsCoordinates || [0, 0],
         requested: requested,
+        proposed: book.proposed ? true : false,
+        propositionReceived: book.propositionReceived ? true : false,
       };
     }),
   );
@@ -95,7 +98,9 @@ export const getBooksWithoutConnectedUser = async () => {
   return sortedBooks.filter((book) => book.id);
 };
 
-const sortBooksByPostalCode = async (books: BookData[]) => {
+const sortBooksByPostalCode = async (
+  books: Awaited<ReturnType<typeof getBooksData>>,
+) => {
   const userId = await getConnectedUserId();
 
   if (!userId) return books;
@@ -198,6 +203,6 @@ export const getConnectedUserBooks = async () => {
   const books = await getBooksByUserId(connectedUserId);
 
   return books.filter(
-    (book) => !book.booking || !book.proposed || !book.propositionReceived,
+    (book) => !book.booking && !book.proposed && !book.propositionReceived,
   );
 };

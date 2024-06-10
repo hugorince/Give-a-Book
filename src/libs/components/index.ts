@@ -13,3 +13,4 @@ export * from "./request-book";
 export * from "./delete-book";
 export * from "./chat";
 export * from "./notifications";
+export * from "./dialog-box";

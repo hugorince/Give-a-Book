@@ -1,8 +1,8 @@
-import { getBookingInfos } from "@/libs/server";
-import { Chat } from "@/libs/components";
+import { getBookingInfos } from "@/libs/server-actions";
 import { MainLayout } from "@/libs/layout";
-import classes from "./booking.module.css";
 import { Link } from "@/libs/ui-components";
+import { Chat } from "@/libs/components";
+import classes from "./booking.module.css";
 
 export const BookingPage = async ({ params }: { params: { id: string } }) => {
   const booking = await getBookingInfos(parseInt(params.id));

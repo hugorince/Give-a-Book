@@ -1,8 +1,11 @@
 "use server";
 
-import { getBooksByUserIdLegacy, getConnectedUserId } from "@/libs/server";
-import classes from "./user-books-cards-container.module.css";
+import {
+  getBooksByUserIdLegacy,
+  getConnectedUserId,
+} from "@/libs/server-actions";
 import { BookCard } from "../book-card";
+import classes from "./user-books-cards-container.module.css";
 interface UserBooksCardsWrapperProps {
   userId: number;
 }
