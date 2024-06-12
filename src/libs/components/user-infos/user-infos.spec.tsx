@@ -11,7 +11,7 @@ jest.mock("../../utils", () => ({
   memberSince: jest.fn().mockImplementation((date) => date.getFullYear()),
 }));
 
-jest.mock("../../database", () => ({
+jest.mock("../../server-actions", () => ({
   getUserInfo: jest.fn().mockResolvedValue({
     username: "username",
     createdAt: new Date("2022-01-01"),
@@ -21,7 +21,7 @@ jest.mock("../../database", () => ({
 describe("UserInfos", () => {
   it("renders user information correctly", async () => {
     await act(async () => {
-      render(await UserInfos({ userId: "22" }));
+      render(await UserInfos({ userId: 22 }));
     });
 
     expect(screen.getByText("USERNAME")).toBeInTheDocument();

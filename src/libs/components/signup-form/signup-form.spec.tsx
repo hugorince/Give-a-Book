@@ -10,8 +10,8 @@ jest.mock("react-hook-form", () => ({
   useForm: jest.fn(),
 }));
 
-jest.mock("../../database", () => ({
-  ...jest.requireActual("../../database"),
+jest.mock("../../server-actions", () => ({
+  ...jest.requireActual("../../server-actions"),
   createUser: jest.fn(),
   verifyPostalCode: jest.fn().mockReturnValue(true),
 }));
