@@ -28,7 +28,7 @@ export const LoginForm = () => {
       callbackUrl: "/books",
     });
     if (signInData?.error) {
-      console.log(signInData.error, "error");
+      console.error(signInData.error, "error");
     }
   };
 

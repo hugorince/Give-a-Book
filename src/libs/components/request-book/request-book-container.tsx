@@ -35,8 +35,6 @@ export const RequestBookContainer = ({
       isAlreadyProposed && isAlreadyProposed.proposedBookId === book.id,
     ) || isAlreadyProposed?.receiverBookId === book.id;
 
-  console.log("book", book, "isAlreadyProposed", isAlreadyProposed);
-
   if (isOwnBook && !isAlreadyProposed && !isAlreadyRequested)
     return (
       <div className={classes.ownBookWrapper}>
