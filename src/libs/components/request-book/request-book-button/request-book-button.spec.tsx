@@ -1,5 +1,4 @@
-import type { BookPageData } from "@/libs/types";
-import { render, mockedBook } from "@/libs/test-utils";
+import { render, mockedBookedBook } from "@/libs/test-utils";
 import { RequestBookButton } from "./request-book-button";
 import userEvent from "@testing-library/user-event";
 import { screen, waitFor } from "@testing-library/react";
@@ -15,8 +14,8 @@ jest.mock("../../../ui-components", () => ({
 
 const mockRequestBook = jest.fn();
 
-jest.mock("../../../database", () => ({
-  ...jest.requireActual("../../../database"),
+jest.mock("../../../server-actions", () => ({
+  ...jest.requireActual("../../../server-actions"),
   requestBook: jest.fn(),
 }));
 
@@ -26,7 +25,7 @@ describe("RequestBook", () => {
     (requestBook as jest.Mock).mockImplementation(mockRequestBook);
   });
   it("should trigger open the dialog on click", async () => {
-    render(<RequestBookButton book={mockedBook as BookPageData} />);
+    render(<RequestBookButton book={mockedBookedBook} />);
 
     userEvent.click(screen.getByRole("button", { name: "Request book" }));
     await waitFor(() => expect(mockOpenDialog).toHaveBeenCalled());
