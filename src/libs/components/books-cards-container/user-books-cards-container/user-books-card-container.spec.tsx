@@ -1,20 +1,20 @@
-import { screen, act } from "@testing-library/react";
-import { getBooksByUserId } from "../../../database";
+import { screen } from "@testing-library/react";
+import { getBooksByUserIdLegacy } from "../../../server-actions";
 import { render, mockBooksData } from "@/libs/test-utils";
 import { UserBooksCardsContainer } from ".";
 
-jest.mock("../../../database", () => ({
-  ...jest.requireActual<any>("../../../database"),
-  getBooksByUserId: jest.fn(),
+jest.mock("../../../server-actions", () => ({
+  ...jest.requireActual<any>("../../../server-actions"),
+  getBooksByUserIdLegacy: jest.fn(),
 }));
 
-jest.mock("../../book-card", () => ({
+jest.mock("../book-card", () => ({
   BookCard: () => <div>Book Card</div>,
 }));
 
 describe("UserBooksCardContainer", () => {
   beforeEach(() => {
-    (getBooksByUserId as jest.Mock).mockReturnValue(mockBooksData);
+    (getBooksByUserIdLegacy as jest.Mock).mockReturnValue(mockBooksData);
   });
   it("should return all the books of the user", async () => {
     render(await UserBooksCardsContainer({ userId: 4 }));

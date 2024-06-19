@@ -5,6 +5,7 @@ import type {
   User,
 } from "@prisma/client";
 import type { BookData, BookPageData, BookedBook } from "@/libs/types";
+import type { NotificationProps } from "../components";
 
 export const mockedBook: BookData = {
   id: 1,
@@ -74,9 +75,10 @@ export const mockBooksData = [
   },
 ];
 
-export const mockedNotifications = [
+export const mockedNotifications: NotificationProps[] = [
   {
     id: 1,
+    createdAt: new Date(),
     bookingId: 1,
     isRead: false,
     type: "MESSAGE" as NotificationType,
@@ -84,6 +86,7 @@ export const mockedNotifications = [
   },
   {
     id: 2,
+    createdAt: new Date(),
     bookingId: 2,
     isRead: true,
     type: "BOOKING_REQUEST" as NotificationType,

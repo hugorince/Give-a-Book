@@ -17,7 +17,7 @@ jest.mock("../notification-message", () => ({
   ),
 }));
 
-jest.mock("../../../database", () => ({
+jest.mock("../../../server-actions", () => ({
   setNotificationVisibility: jest.fn(),
 }));
 
@@ -30,23 +30,13 @@ describe("DropdownNotifications", () => {
     );
   });
   it("should should as many notifications as props", () => {
-    render(
-      <DropdownNotifications
-        notifications={mockedNotifications}
-        setIsOpen={jest.fn()}
-      />,
-    );
+    render(<DropdownNotifications notifications={mockedNotifications} />);
 
     expect(screen.queryAllByText("Notification Message")).toHaveLength(2);
   });
 
   it("should set the visibility on click", async () => {
-    render(
-      <DropdownNotifications
-        notifications={mockedNotifications}
-        setIsOpen={jest.fn()}
-      />,
-    );
+    render(<DropdownNotifications notifications={mockedNotifications} />);
 
     const button = screen.queryAllByText("set visibility")[0];
     await userEvent.click(button);
