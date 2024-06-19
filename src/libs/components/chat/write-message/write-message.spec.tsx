@@ -6,7 +6,7 @@ import { sendMessage } from "@/libs/server-actions";
 
 const mockSendMessage = jest.fn();
 
-jest.mock("../../../database", () => ({
+jest.mock("../../../server-actions", () => ({
   sendMessage: jest.fn(),
 }));
 

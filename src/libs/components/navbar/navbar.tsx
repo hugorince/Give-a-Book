@@ -14,6 +14,7 @@ export const Navbar = async () => {
   const session = await getServerSession(authOptions);
   const initials = session && getInitials(session.user.username);
   const notifications = await getUserNotifications();
+  console.log(notifications);
 
   return (
     <header className={classes.header}>

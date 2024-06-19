@@ -44,19 +44,19 @@ model Book {
 }
 
 model Booking {
-  id           Int           @id @default(autoincrement())
-  createdAt    DateTime      @default(now())
-  status       String
-  type         BookingType
-  requester    User          @relation("UserBookings", fields: [requesterId], references: [id])
-  requesterId  Int
-  owner        User          @relation("OwnerBookings", fields: [ownerId], references: [id])
-  ownerId      Int
-  distance     Int
-  book         Book          @relation("BookBooking", onDelete: Cascade, fields: [bookId], references: [id])
-  bookId       Int           @unique
-  notification Notification?
-  chat         Chat?
+  id            Int            @id @default(autoincrement())
+  createdAt     DateTime       @default(now())
+  status        String
+  type          BookingType
+  requester     User           @relation("UserBookings", fields: [requesterId], references: [id])
+  requesterId   Int
+  owner         User           @relation("OwnerBookings", fields: [ownerId], references: [id])
+  ownerId       Int
+  distance      Int
+  book          Book           @relation("BookBooking", onDelete: Cascade, fields: [bookId], references: [id])
+  bookId        Int            @unique
+  notifications Notification[]
+  chat          Chat?
 }
 
 model Proposition {
@@ -67,7 +67,7 @@ model Proposition {
   receiverBook   Book                  @relation("receiverBook", fields: [receiverBookId], references: [id])
   proposedBookId Int                   @unique
   receiverBookId Int                   @unique
-  notification   Notification?
+  notification   Notification[]
 }
 
 model Chat {
@@ -101,9 +101,9 @@ model Notification {
   userId        Int
   isRead        Boolean          @default(false)
   booking       Booking?         @relation(fields: [bookingId], references: [id], onDelete: Cascade)
-  bookingId     Int?             @unique
+  bookingId     Int?
   proposition   Proposition?     @relation(fields: [propositionId], references: [id], onDelete: Cascade)
-  propositionId Int?             @unique
+  propositionId Int?
   message       Message?         @relation(fields: [messageId], references: [id])
   messageId     Int?
 }

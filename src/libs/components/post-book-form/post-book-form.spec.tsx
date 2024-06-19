@@ -1,12 +1,10 @@
 import { render } from "@/libs/test-utils";
 import { PostBookForm } from "./post-book-form";
-import { screen, waitFor } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { postBook } from "@/libs/server-actions";
-import { DescriptionInput } from "./description-input";
-import { input } from "@testing-library/user-event/dist/cjs/event/input.js";
 
-jest.mock("../../database", () => ({
+jest.mock("../../server-actions", () => ({
   postBook: jest.fn(),
 }));
 
