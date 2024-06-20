@@ -6,6 +6,10 @@ import {
 } from "../../server-actions";
 import { BooksCardContainer } from ".";
 
+jest.mock("..", () => ({
+  BookCard: ({ book }) => <div>{book.title}</div>,
+}));
+
 jest.mock("../../server-actions", () => ({
   ...jest.requireActual("../../server-actions"),
   getBooksWithoutConnectedUser: jest.fn(),
