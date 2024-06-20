@@ -1,5 +1,11 @@
-import type { NotificationType, User } from "@prisma/client";
-import type { BookData, BookedBook } from "@/libs/types";
+import type {
+  Booking,
+  NotificationType,
+  Proposition,
+  User,
+} from "@prisma/client";
+import type { BookData, BookPageData, BookedBook } from "@/libs/types";
+import type { NotificationProps } from "../components";
 
 export const mockedBook: BookData = {
   id: 1,
@@ -50,20 +56,29 @@ export const mockedUser: User = {
 };
 
 export const mockBooksData = [
-  { id: 1, likes: [6], give: true, title: "book to give" },
-  { id: 2, likes: [4], give: false, exchange: true, title: "book to exchange" },
+  { id: 1, likes: [6], give: true, title: "book to give", requested: false },
+  {
+    id: 2,
+    likes: [2],
+    give: false,
+    exchange: true,
+    title: "book to exchange",
+    requested: false,
+  },
   {
     id: 3,
-    likes: [4],
+    likes: [2],
     give: true,
     exchange: false,
     title: "book liked to give",
+    requested: false,
   },
 ];
 
-export const mockedNotifications = [
+export const mockedNotifications: NotificationProps[] = [
   {
     id: 1,
+    createdAt: new Date(),
     bookingId: 1,
     isRead: false,
     type: "MESSAGE" as NotificationType,
@@ -71,6 +86,7 @@ export const mockedNotifications = [
   },
   {
     id: 2,
+    createdAt: new Date(),
     bookingId: 2,
     isRead: true,
     type: "BOOKING_REQUEST" as NotificationType,
@@ -98,3 +114,43 @@ export const mockedGoogleApiBooks = [
     image: "imageUrl 3",
   },
 ];
+
+export const mockedBooking: Booking = {
+  id: 1,
+  createdAt: new Date(),
+  status: "PENDING",
+  type: "PROPOSAL",
+  requesterId: 1,
+  ownerId: 2,
+  distance: 1,
+  bookId: 1,
+};
+
+export const mockedProposition: Proposition = {
+  id: 1,
+  createdAt: new Date(),
+  status: "PENDING",
+  proposedBookId: 1,
+  receiverBookId: 2,
+};
+
+export const mockedBookPage: BookPageData = {
+  id: 1,
+  title: "title",
+  author: "author",
+  image: "image",
+  description: "description",
+  user: "user",
+  userId: 2,
+  exchange: true,
+  give: false,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  likes: [1],
+  postalCode: "75018",
+  requested: false,
+  gpsCoordinates: [0, 0],
+  booking: mockedBooking,
+  proposed: null,
+  propositionReceived: null,
+};

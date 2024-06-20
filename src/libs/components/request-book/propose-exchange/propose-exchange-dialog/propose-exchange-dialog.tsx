@@ -29,7 +29,6 @@ export const ProposeExchangeDialog = ({
     if (values.bookId) proceed(values.bookId);
   };
 
-  console.log(connectedUserBooks);
   return (
     <form className={classes.dialogContainer} onSubmit={handleSubmit(onSubmit)}>
       <label>select a book you propose in exchange</label>

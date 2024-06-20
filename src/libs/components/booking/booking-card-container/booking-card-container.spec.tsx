@@ -2,7 +2,7 @@ import { render, mockedBookedBook } from "@/libs/test-utils";
 import { BookingCardContainer } from "./booking-card-container";
 import { screen } from "@testing-library/react";
 
-jest.mock("../booking-card", () => ({
+jest.mock("../booking-card/booking-card", () => ({
   BookingCard: () => <p>Booking Card</p>,
 }));
 
