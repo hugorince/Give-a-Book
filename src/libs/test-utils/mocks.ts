@@ -59,7 +59,7 @@ export const mockBooksData = [
   { id: 1, likes: [6], give: true, title: "book to give", requested: false },
   {
     id: 2,
-    likes: [4],
+    likes: [2],
     give: false,
     exchange: true,
     title: "book to exchange",
@@ -67,7 +67,7 @@ export const mockBooksData = [
   },
   {
     id: 3,
-    likes: [4],
+    likes: [2],
     give: true,
     exchange: false,
     title: "book liked to give",
