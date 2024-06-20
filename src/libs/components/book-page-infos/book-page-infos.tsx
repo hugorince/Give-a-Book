@@ -1,8 +1,10 @@
-import { postedOn } from "@/libs/utils";
+"use server";
+
 import type { BookPageData } from "@/libs/types";
+import { postedOn } from "@/libs/utils";
 import { Chip } from "@/libs/ui-components";
-import classes from "./book-page-infos.module.css";
 import { LikeButton } from "../like-button";
+import classes from "./book-page-infos.module.css";
 
 interface BookPageInfosProps {
   book: BookPageData;

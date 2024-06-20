@@ -11,7 +11,7 @@ describe("NotificationMessage", () => {
       />,
     );
 
-    expect(screen.getByText("new message from hugo")).toBeVisible();
+    expect(screen.getByText("New message from hugo")).toBeVisible();
   });
 
   it("should display the correct message for new booking", () => {
@@ -22,7 +22,7 @@ describe("NotificationMessage", () => {
       />,
     );
 
-    expect(screen.getByText("new booking")).toBeVisible();
+    expect(screen.getByText("New booking")).toBeVisible();
   });
 
   it("should display the correct message color for unread message", () => {
@@ -33,7 +33,7 @@ describe("NotificationMessage", () => {
       />,
     );
 
-    expect(screen.getByRole("listitem")).toHaveClass("isNotRead");
+    expect(screen.getByRole("link")).toHaveClass("isNotRead");
   });
 
   it("should display the correct message color for read message", () => {
@@ -44,6 +44,6 @@ describe("NotificationMessage", () => {
       />,
     );
 
-    expect(screen.getByRole("listitem")).toHaveClass("isRead");
+    expect(screen.getByRole("link")).toHaveClass("isRead");
   });
 });
