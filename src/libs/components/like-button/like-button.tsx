@@ -56,7 +56,7 @@ export const LikeButton = ({
   return (
     <div className={classes.likesWrapper}>
       {likesNumberState > 0 && <p>{likesNumberState}</p>}
-      <Button variant="unstyled" onClick={handleHeartClicked}>
+      <Button variant="unstyled" onClick={handleHeartClicked} label="like">
         {isLikedState ? (
           <IoHeart size={24} data-testid="liked-button" />
         ) : (
