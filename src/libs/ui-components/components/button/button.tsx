@@ -10,6 +10,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean;
   fullWidth?: boolean;
   className?: string;
+  label?: string;
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -22,6 +23,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       disabled = false,
       fullWidth = false,
       loading = false,
+      label,
       className,
       ...props
     },
@@ -37,8 +39,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         type={type}
         ref={ref}
         {...props}
+        aria-label={label}
       >
-        {loading ? <Loader size="s" /> : <>{children}</>}
+        {loading ? <Loader size="s" /> : <span>{children}</span>}
       </button>
     );
   },
