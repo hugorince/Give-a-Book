@@ -1,13 +1,14 @@
 .container {
   display: flex;
+  flex-direction: column;
   border: solid black 1px;
   border-radius: 0.3rem;
   padding: var(--spacing-100);
   gap: var(--spacing-100);
   justify-content: space-between;
 
-  button {
-    width: auto;
+  @media (min-width: 720px) {
+    flex-direction: row;
   }
 }
 

@@ -40,7 +40,7 @@ export const Navbar = async () => {
               </li>
               <li>
                 <Link href="/bookings" variant="unstyled">
-                  My bookings
+                  bookings
                 </Link>
               </li>
               {notifications && <Notifications notifications={notifications} />}
