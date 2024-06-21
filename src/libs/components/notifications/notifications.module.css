@@ -1,5 +1,10 @@
 .notificationsContainer {
   position: relative;
+  display: none;
+
+  @media (min-width: 720px) {
+    display: block;
+  }
 
   .notificationsButton {
     display: flex;

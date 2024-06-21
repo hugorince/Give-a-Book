@@ -28,9 +28,5 @@ export const CancelRequestBookButton = ({
       onClose: () => console.log("fired"),
     });
   };
-  return (
-    <div>
-      <Button onClick={openCancelRequestDialog}>Cancel Request</Button>
-    </div>
-  );
+  return <Button onClick={openCancelRequestDialog}>Cancel Request</Button>;
 };

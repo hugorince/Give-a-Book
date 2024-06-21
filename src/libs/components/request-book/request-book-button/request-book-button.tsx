@@ -30,12 +30,12 @@ export const RequestBookButton = ({ book }: RequestBookProps) => {
   };
 
   return (
-    <div>
+    <>
       {book.requested ? (
         <CancelRequestBookButton book={book} />
       ) : (
         <Button onClick={openRequestBookDialog}>Request book</Button>
       )}
-    </div>
+    </>
   );
 };
