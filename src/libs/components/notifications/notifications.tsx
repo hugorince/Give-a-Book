@@ -49,6 +49,7 @@ export const Notifications = ({ notifications }: NotificationsProps) => {
         size="s"
         onClick={handleOnClick}
         className={classes.notificationsButton}
+        label="notifications"
       >
         <IoMdNotificationsOutline size={24} />
         {notificationsNumber > 0 && <div>{notificationsNumber}</div>}
