@@ -17,7 +17,7 @@ const getDistanceFromLatLonInKm = (x: number[], y: number[]) => {
   const lon2 = y[0];
   const lat2 = y[1];
 
-  const R = 6371; // Earth radius in kilometers
+  const R = 6371;
   const dLat = deg2rad(lat2 - lat1);
   const dLon = deg2rad(lon2 - lon1);
   const a =
