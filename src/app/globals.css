@@ -1,5 +1,5 @@
-@import "../../src/libs/ui-components/css/components/index.css";
-@import "../../src/libs/ui-components/css/variables/index.css";
+@import "../../src/ui-kit/css/components/index.css";
+@import "../../src/ui-kit/css/variables/index.css";
 
 /*
   1. Use a more-intuitive box-sizing model.

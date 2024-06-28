@@ -5,7 +5,7 @@ import {
   SessionProvider,
   TanstackProvider,
   UiComponentsProvider,
-} from "@/libs/providers";
+} from "@/providers";
 
 const inter = Inter({ subsets: ["latin"] });
 

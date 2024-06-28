@@ -1,4 +1,4 @@
-import { LoginForm } from "@/libs/components";
+import { LoginForm } from "@/components";
 import Link from "next/link";
 import classes from "./login-page.module.css";
 

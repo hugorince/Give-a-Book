@@ -1,6 +1,6 @@
-import { ProfileInfos, UserBooksCardsContainer } from "@/libs/components";
-import { MainLayout } from "@/libs/layout";
-import { getConnectedUserId } from "@/libs/server-actions";
+import { ProfileInfos, UserBooksCardsContainer } from "@/components";
+import { MainLayout } from "@/layout";
+import { getConnectedUserId } from "@/actions";
 
 export const Profile = async () => {
   const userId = await getConnectedUserId();
