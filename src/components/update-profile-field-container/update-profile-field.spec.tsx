@@ -5,7 +5,7 @@ describe("UpdateProfileFieldContainer", () => {
   it("should render UpdateProfileFieldContainer", () => {
     render(
       <UpdateProfileFieldContainer
-        handleInputClose={() => {}}
+        handleInputClose={jest.fn()}
         updateInput="email"
       />,
     );

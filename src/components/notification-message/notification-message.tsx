@@ -4,7 +4,7 @@ import Link from "next/link";
 import { timeSinceString } from "@/utils";
 import classes from "./notification-message.module.css";
 
-interface NotificationMessage {
+interface NotificationMessageProps {
   notification: NotificationProps;
   handleNotificationClicked: (id: number) => void;
 }
@@ -12,7 +12,7 @@ interface NotificationMessage {
 export const NotificationMessage = ({
   notification,
   handleNotificationClicked,
-}: NotificationMessage) => {
+}: NotificationMessageProps) => {
   const isMessageNotification = notification.type === "MESSAGE";
   const isPropositionNotification = notification.type === "PROPOSITION";
   const notificationContent = isMessageNotification

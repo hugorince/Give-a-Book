@@ -29,7 +29,7 @@ export const sendMessage = async (message: string, chatId: number) => {
     },
   });
 
-  const notification = await db.notification.create({
+  await db.notification.create({
     data: {
       userId: userNotified,
       messageId: messageSent.id,

@@ -1,10 +1,10 @@
 import { screen } from "@testing-library/react";
-import { getBooksByUserIdLegacy } from "../../../actions";
+import { getBooksByUserIdLegacy } from "@/actions";
 import { render, mockBooksData } from "@/test-utils";
 import { UserBooksCardsContainer } from ".";
 
-jest.mock("../../../actions", () => ({
-  ...jest.requireActual<any>("../../../actions"),
+jest.mock("../../actions", () => ({
+  ...jest.requireActual("../../actions"),
   getBooksByUserIdLegacy: jest.fn(),
 }));
 

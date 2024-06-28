@@ -4,8 +4,12 @@ import { useMemo, type ReactNode, createContext } from "react";
 import { Dialog, useDialogHook } from ".";
 import { createPortal } from "react-dom";
 
+type OpenDialogProps = {
+  children: ReactNode;
+  onClose: () => void;
+};
 export interface DialogContextType {
-  openDialog: any;
+  openDialog: (OpenDialogProps: OpenDialogProps) => void;
   closeDialog: () => void;
 }
 
