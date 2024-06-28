@@ -1,5 +1,5 @@
-import { PostBookForm } from "@/libs/components";
-import { MainLayout } from "@/libs/layout";
+import { PostBookForm } from "@/components";
+import { MainLayout } from "@/layout";
 import classes from "./post-book.module.css";
 
 export const PostBook = () => {

@@ -1,4 +1,4 @@
-import { SignUpForm } from "@/libs/components";
+import { SignUpForm } from "@/components";
 import Link from "next/link";
 import classes from "./signup-page.module.css";
 

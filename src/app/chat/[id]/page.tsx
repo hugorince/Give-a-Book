@@ -1,7 +1,7 @@
-import { getBookingInfos } from "@/libs/server-actions";
-import { MainLayout } from "@/libs/layout";
-import { Link } from "@/libs/ui-components";
-import { Chat } from "@/libs/components";
+import { getBookingInfos } from "@/actions";
+import { MainLayout } from "@/layout";
+import { Link } from "@/ui-kit";
+import { Chat } from "@/components";
 import classes from "./booking.module.css";
 
 export const BookingPage = async ({ params }: { params: { id: string } }) => {

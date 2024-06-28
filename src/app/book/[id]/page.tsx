@@ -1,6 +1,6 @@
-import { BookPageInfos, RequestBookContainer } from "@/libs/components";
-import { MainLayout } from "@/libs/layout";
-import { getBookById, getConnectedUserId } from "@/libs/server-actions";
+import { BookPageInfos, RequestBookContainer } from "@/components";
+import { MainLayout } from "@/layout";
+import { getBookById, getConnectedUserId } from "@/actions";
 import classes from "./book.module.css";
 
 export const BookPage = async ({ params }: { params: { id: string } }) => {
