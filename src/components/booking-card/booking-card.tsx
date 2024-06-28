@@ -6,12 +6,12 @@ import { DeleteBook } from "../delete-book";
 import { RequestBookButton } from "../request-book-button";
 import classes from "./booking-card.module.css";
 
-interface BookingCard {
+interface BookingCardProps {
   book: BookedBook;
   connectedUserId: number;
 }
 
-export const BookingCard = ({ book, connectedUserId }: BookingCard) => {
+export const BookingCard = ({ book, connectedUserId }: BookingCardProps) => {
   if (!book || !connectedUserId) return null;
 
   const isConnectedUserBook = connectedUserId === book.userId;

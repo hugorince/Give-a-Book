@@ -2,14 +2,12 @@ import { render, screen, act } from "@testing-library/react";
 import { ProfileTitle } from "./profile-title";
 
 jest.mock("next-auth", () => ({
-  getServerSession: jest.fn(),
+  getServerSession: jest.fn().mockReturnValueOnce({
+    user: {
+      username: "test user",
+    },
+  }),
 }));
-
-jest.spyOn(require("next-auth"), "getServerSession").mockResolvedValueOnce({
-  user: {
-    username: "test user",
-  },
-});
 
 describe("ProfileTitle component", () => {
   it("renders the correct username in the h1 element", async () => {

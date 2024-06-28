@@ -26,7 +26,7 @@ export const getUserNotifications = async () => {
   );
 
   notifications.then((resolvedNotifications) => {
-    const sortedNotifications = resolvedNotifications.sort((a, b) => {
+    resolvedNotifications.sort((a, b) => {
       if (a.isRead === b.isRead) {
         return 0;
       }

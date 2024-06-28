@@ -1,8 +1,7 @@
-import { screen, waitFor } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { LoginForm } from "./login-form";
 import userEvent from "@testing-library/user-event";
 import { render } from "@/test-utils";
-import { mockSignIn } from "../../../jest.setup";
 
 jest.mock("react-hook-form", () => ({
   ...jest.requireActual("react-hook-form"),

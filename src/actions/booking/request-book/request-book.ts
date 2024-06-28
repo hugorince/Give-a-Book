@@ -44,7 +44,7 @@ export const requestBook = async (book: BookedBook, message: string) => {
       },
     });
 
-    const newMessage = await db.message.create({
+    await db.message.create({
       data: {
         text: message,
         senderId: requester.id,
@@ -52,7 +52,7 @@ export const requestBook = async (book: BookedBook, message: string) => {
       },
     });
 
-    const notification = await db.notification.create({
+    await db.notification.create({
       data: {
         userId: book.userId,
         type: "BOOKING_REQUEST",

@@ -20,7 +20,7 @@ const mockCreateUser = jest.fn();
 
 const mockForm = {
   register: jest.fn(),
-  handleSubmit: (onSubmit: Function) => onSubmit,
+  handleSubmit: (onSubmit: () => void) => onSubmit,
   formState: {
     isValid: true,
     errors: { postalCode: { message: "postal code error" } },
