@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { UpdateProfileFieldContainer } from "./update-profile-field-container";
-import { ProfileFieldContainer } from "./profile-field-container";
+import { UpdateProfileFieldContainer } from "../update-profile-field-container";
+import { ProfileFieldContainer } from "../profile-field-container";
 import classes from "./update-profile-info-container.module.css";
 
 interface ProfileInfoContainerProps {

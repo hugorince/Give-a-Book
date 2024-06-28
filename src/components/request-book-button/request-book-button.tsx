@@ -1,10 +1,9 @@
 "use client";
 
-import type { BookPageData, BookedBook } from "@/types";
+import type { BookedBook } from "@/types";
 import { Button, useDialog } from "@/ui-kit";
 import { RequestBookDialog } from "../request-book-dialog";
-import { CancelRequestBookDialog } from "../cancel-request-book-dialog";
-import { cancelRequest, requestBook } from "@/actions";
+import { requestBook } from "@/actions";
 import { useRouter } from "next/navigation";
 import { CancelRequestBookButton } from "../cancel-book-request-button";
 

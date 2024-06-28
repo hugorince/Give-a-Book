@@ -3,9 +3,9 @@
 import { PostBookFormSchema } from "@/types";
 import { useRouter } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
-import { DescriptionInput } from "./description-input";
-import { SearchTextInput } from "./search-text-input";
-import { SelectInput } from "./select-input";
+import { DescriptionInput } from "../description-input";
+import { SearchTextInput } from "../search-text-input";
+import { SelectInput } from "../select-input";
 import { postBook } from "@/actions";
 import { Button } from "@/ui-kit";
 import { zodResolver } from "@hookform/resolvers/zod";

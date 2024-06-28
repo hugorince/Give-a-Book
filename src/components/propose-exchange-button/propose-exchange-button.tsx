@@ -1,6 +1,6 @@
 "use client";
 
-import type { BookData, BookPageData } from "@/types";
+import type { BookPageData } from "@/types";
 import { Button, useDialog } from "@/ui-kit";
 import { useRouter } from "next/navigation";
 import { ProposeExchangeDialog } from "../propose-exchange-dialog";

@@ -2,8 +2,8 @@
 
 import type { BookedBook } from "@/types";
 import { Link } from "@/ui-kit";
-import { DeleteBook } from "../../delete-book";
-import { RequestBookButton } from "../../request-book/request-book-button";
+import { DeleteBook } from "../delete-book";
+import { RequestBookButton } from "../request-book-button";
 import classes from "./booking-card.module.css";
 
 interface BookingCard {

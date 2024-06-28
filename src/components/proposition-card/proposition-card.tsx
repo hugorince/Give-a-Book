@@ -1,11 +1,11 @@
 "use server";
 
 import type { PropositionGroup } from "@/types";
-import { PropositionBook } from "./proposition-book";
+import { PropositionBook } from "../proposition-book";
 import { FaExchangeAlt } from "react-icons/fa";
 import classes from "./proposition-card.module.css";
 import { Button } from "@/ui-kit";
-import { RefusePropositionButton } from "./refuse-proposition-button";
+import { RefusePropositionButton } from "../refuse-proposition-button";
 
 interface PropositionCardProps {
   proposition: PropositionGroup;

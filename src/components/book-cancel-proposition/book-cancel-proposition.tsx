@@ -1,6 +1,6 @@
 import { RxQuestionMarkCircled } from "react-icons/rx";
 import classes from "./book-cancel-proposition.module.css";
-import { RefusePropositionButton } from "../../booking/propositions-container/proposition-card/refuse-proposition-button";
+import { RefusePropositionButton } from "../refuse-proposition-button";
 import { BookPageData } from "@/types";
 
 export const BookCancelProposition = ({ book }: { book: BookPageData }) => {

@@ -2,7 +2,7 @@
 
 import type { BookData } from "@/types";
 import { Link, Chip } from "@/ui-kit";
-import { LikeButton } from "../../like-button";
+import { LikeButton } from "../like-button";
 import NextLink from "next/link";
 import classes from "./book-card.module.css";
 
