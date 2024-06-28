@@ -8,7 +8,7 @@ jest.mock("../../actions", () => ({
   postBook: jest.fn(),
 }));
 
-jest.mock("./select-input", () => ({
+jest.mock("../select-input", () => ({
   SelectInput: () => (
     <select defaultValue="give" name="exchangeGive">
       <option value="give" selected>
@@ -18,13 +18,13 @@ jest.mock("./select-input", () => ({
   ),
 }));
 
-jest.mock("./search-text-input", () => ({
+jest.mock("../search-text-input", () => ({
   SearchTextInput: ({ type }: { type: string }) => (
     <input type="text" name={type} defaultValue={type} />
   ),
 }));
 
-jest.mock("./description-input", () => ({
+jest.mock("../description-input", () => ({
   DescriptionInput: () => (
     <input type="text" defaultValue="description" name="description" />
   ),

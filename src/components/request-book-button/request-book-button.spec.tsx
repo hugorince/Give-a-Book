@@ -7,15 +7,15 @@ import { useDialog } from "@/ui-kit";
 
 const mockOpenDialog = jest.fn();
 
-jest.mock("../../../ui-kit", () => ({
-  ...jest.requireActual("../../../ui-kit"),
+jest.mock("../../ui-kit", () => ({
+  ...jest.requireActual("../../ui-kit"),
   useDialog: jest.fn(),
 }));
 
 const mockRequestBook = jest.fn();
 
-jest.mock("../../../actions", () => ({
-  ...jest.requireActual("../../../actions"),
+jest.mock("../../actions", () => ({
+  ...jest.requireActual("../../actions"),
   requestBook: jest.fn(),
 }));
 

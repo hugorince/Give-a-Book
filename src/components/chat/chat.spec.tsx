@@ -2,7 +2,7 @@ import { render } from "@/test-utils";
 import { Chat } from "./chat";
 import { screen } from "@testing-library/react";
 
-jest.mock("./message", () => ({
+jest.mock("../message", () => ({
   Message: () => <div>message</div>,
 }));
 

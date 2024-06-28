@@ -3,7 +3,7 @@ import { render } from "@/test-utils";
 import { screen } from "@testing-library/react";
 import { PropositionsContainer } from "./propositions-container";
 
-jest.mock("./proposition-card", () => ({
+jest.mock("../proposition-card", () => ({
   PropositionCard: () => <div>PropositionCard</div>,
 }));
 

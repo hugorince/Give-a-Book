@@ -3,7 +3,7 @@ import { FilterBooks } from "./filter-books";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-jest.mock("./filter-books-form", () => ({
+jest.mock("../filter-books-form", () => ({
   FilterBooksForm: () => <div>filter book form</div>,
 }));
 

@@ -6,8 +6,8 @@ import { useDialog } from "@/ui-kit";
 
 const mockCloseDialog = jest.fn();
 
-jest.mock("../../../ui-kit", () => ({
-  ...jest.requireActual("../../../ui-kit"),
+jest.mock("../../ui-kit", () => ({
+  ...jest.requireActual("../../ui-kit"),
   useDialog: jest.fn(),
 }));
 

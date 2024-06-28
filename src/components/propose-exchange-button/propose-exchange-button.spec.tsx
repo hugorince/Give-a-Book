@@ -7,8 +7,8 @@ import { BookPageData } from "@/types";
 
 const mockOpenDialog = jest.fn();
 
-jest.mock("../../../../ui-kit", () => ({
-  ...jest.requireActual("../../../../ui-kit"),
+jest.mock("../../ui-kit", () => ({
+  ...jest.requireActual("../../ui-kit"),
   useDialog: jest.fn(),
 }));
 
