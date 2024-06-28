@@ -5,6 +5,17 @@ type fetchSuggestionsProps = {
   type: "author" | "title";
 };
 
+type GoogleApiBook = {
+  volumeInfo: {
+    title: string;
+    authors: string[];
+    description: string;
+    imageLinks: {
+      thumbnail?: string;
+    };
+  };
+};
+
 const constructQueryUrl = ({
   title,
   author,
@@ -41,7 +52,7 @@ export const fetchSuggestions = async ({
   const books = await response.json();
 
   if (response.ok && books.items) {
-    const allBooks = books.items.map((book: any) => ({
+    const allBooks = books.items.map((book: GoogleApiBook) => ({
       title: book.volumeInfo.title,
       authors: book.volumeInfo.authors,
       description: book.volumeInfo.description,
@@ -49,6 +60,7 @@ export const fetchSuggestions = async ({
         ? book.volumeInfo.imageLinks.thumbnail
         : "",
     }));
+
     return allBooks;
   } else {
     return [];
