@@ -1,10 +1,10 @@
-import { MainLayout } from "@/libs/layout";
-import { BookingCardContainer, PropositionsContainer } from "@/libs/components";
+import { MainLayout } from "@/layout";
+import { BookingCardContainer, PropositionsContainer } from "@/components";
 import {
   getUserBookedBooks,
   getUserPropositions,
   getUserRequestedBooks,
-} from "@/libs/server-actions";
+} from "@/actions";
 import classes from "./bookings.module.css";
 
 export const Bookings = async () => {
