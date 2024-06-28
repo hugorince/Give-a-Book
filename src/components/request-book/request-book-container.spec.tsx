@@ -2,27 +2,27 @@ import { mockedBookPage, mockedProposition, render } from "@/test-utils";
 import { RequestBookContainer } from "./request-book-container";
 import { screen } from "@testing-library/react";
 
-jest.mock("./book-already-requested", () => ({
+jest.mock("../book-already-requested", () => ({
   BookAlreadyRequested: () => <div>BookAlreadyRequested</div>,
 }));
 
-jest.mock("./not-connected-request-book", () => ({
+jest.mock("../not-connected-request-book", () => ({
   NotConnectedRequestBook: () => <div>NotConnectedRequestBook</div>,
 }));
 
-jest.mock("./book-new-request", () => ({
+jest.mock("../book-new-request", () => ({
   BookNewRequest: () => <div>BookNewRequest</div>,
 }));
 
-jest.mock("./book-cancel-request", () => ({
+jest.mock("../book-cancel-request", () => ({
   BookCancelRequest: () => <div>BookCancelRequest</div>,
 }));
 
-jest.mock("./propose-exchange", () => ({
+jest.mock("../propose-exchange", () => ({
   ProposeExchange: () => <div>ProposeExchange</div>,
 }));
 
-jest.mock("./book-cancel-proposition", () => ({
+jest.mock("../book-cancel-proposition", () => ({
   BookCancelProposition: () => <div>BookCancelProposition</div>,
 }));
 

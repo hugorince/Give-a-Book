@@ -2,7 +2,7 @@ import { mockedBookPage, render } from "@/test-utils";
 import { ProposeExchange } from "./propose-exchange";
 import { screen } from "@testing-library/react";
 
-jest.mock("../../../actions", () => ({
+jest.mock("../../actions", () => ({
   getConnectedUserBooks: jest.fn().mockReturnValue([]),
 }));
 

@@ -17,7 +17,7 @@ jest.mock("../notification-message", () => ({
   ),
 }));
 
-jest.mock("../../../actions", () => ({
+jest.mock("../../actions", () => ({
   setNotificationVisibility: jest.fn(),
 }));
 

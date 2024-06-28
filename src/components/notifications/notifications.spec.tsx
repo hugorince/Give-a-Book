@@ -3,7 +3,7 @@ import { Notifications } from "./notifications";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-jest.mock("./dropdown-notifications", () => ({
+jest.mock("../dropdown-notifications", () => ({
   DropdownNotifications: () => <div>DropdownNotifications</div>,
 }));
 

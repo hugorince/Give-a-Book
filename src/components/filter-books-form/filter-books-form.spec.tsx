@@ -6,7 +6,7 @@ import { filterBooks } from "@/actions";
 
 const user = userEvent.setup();
 
-jest.mock("../../../actions", () => ({
+jest.mock("../../actions", () => ({
   filterBooks: jest.fn(),
 }));
 
