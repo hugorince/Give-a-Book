@@ -1,5 +1,5 @@
-import { BooksCardContainer, FilterBooks } from "@/libs/components";
-import { MainLayout } from "@/libs/layout";
+import { BooksCardContainer, FilterBooks } from "@/components";
+import { MainLayout } from "@/layout";
 import classes from "./books.module.css";
 
 interface ParamsProps {
