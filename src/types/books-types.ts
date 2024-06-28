@@ -1,4 +1,4 @@
-import type { Book, Booking, Proposition, User } from "@prisma/client";
+import type { Book, Booking, Proposition } from "@prisma/client";
 
 export type BookData = {
   id: number;

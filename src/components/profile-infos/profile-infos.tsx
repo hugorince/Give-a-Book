@@ -1,5 +1,5 @@
-import { ProfileTitle } from "./profile-title/profile-title";
-import { UpdateProfileInfoContainer } from "./update-profile-infos-container";
+import { ProfileTitle } from "../profile-title/profile-title";
+import { UpdateProfileInfoContainer } from "../update-profile-infos-container";
 import classes from "./profile.infos.module.css";
 
 export const ProfileInfos = () => {

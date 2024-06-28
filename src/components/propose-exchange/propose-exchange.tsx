@@ -2,7 +2,7 @@
 
 import type { BookPageData } from "@/types";
 import { FaRegCircleCheck } from "react-icons/fa6";
-import { ProposeExchangeButton } from "./propose-exchange-button";
+import { ProposeExchangeButton } from "../propose-exchange-button";
 import { getConnectedUserBooks } from "@/actions";
 import classes from "./propose-exchange.module.css";
 

@@ -1,7 +1,7 @@
 "use server";
 
 import { getBooksWithoutConnectedUser, getConnectedUserId } from "@/actions";
-import { BookCard } from "..";
+import { BookCard } from "../book-card";
 import classes from "./books-cards-container.module.css";
 
 interface ParamsProps {

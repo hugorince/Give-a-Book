@@ -1,7 +1,7 @@
 "use server";
 
 import { PropositionGroup } from "@/types";
-import { PropositionCard } from "./proposition-card";
+import { PropositionCard } from "../proposition-card";
 import classes from "./propositions-container.module.css";
 
 interface PropositionsContainerProps {

@@ -4,7 +4,7 @@ import type { NotificationType } from "@prisma/client";
 import { useEffect, useRef, useState } from "react";
 import { useOutsideClick } from "@/utils";
 import { Button } from "@/ui-kit";
-import { DropdownNotifications } from "./dropdown-notifications";
+import { DropdownNotifications } from "../dropdown-notifications";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import classes from "./notifications.module.css";
 

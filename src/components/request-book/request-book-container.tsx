@@ -1,14 +1,14 @@
 "use server";
 
 import type { BookPageData } from "@/types";
-import { BookAlreadyRequested } from "./book-already-requested";
-import { NotConnectedRequestBook } from "./not-connected-request-book";
-import { BookNewRequest } from "./book-new-request";
-import { BookCancelRequest } from "./book-cancel-request";
-import { ProposeExchange } from "./propose-exchange";
+import { BookAlreadyRequested } from "../book-already-requested";
+import { NotConnectedRequestBook } from "../not-connected-request-book";
+import { BookNewRequest } from "../book-new-request";
+import { BookCancelRequest } from "../book-cancel-request";
+import { ProposeExchange } from "../propose-exchange";
 import { RxQuestionMarkCircled } from "react-icons/rx";
 import { DeleteBook } from "../delete-book";
-import { BookCancelProposition } from "./book-cancel-proposition";
+import { BookCancelProposition } from "../book-cancel-proposition";
 import classes from "./request-book-container.module.css";
 
 interface RequestBookProps {

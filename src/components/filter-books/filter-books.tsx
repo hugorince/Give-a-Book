@@ -2,7 +2,7 @@
 
 import { useDrawer } from "@/hooks";
 import { Button, Drawer } from "@/ui-kit";
-import { FilterBooksForm } from "./filter-books-form";
+import { FilterBooksForm } from "../filter-books-form";
 
 export const FilterBooks = () => {
   const { open, isOpen, close } = useDrawer();
