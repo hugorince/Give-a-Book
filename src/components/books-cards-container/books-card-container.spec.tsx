@@ -5,9 +5,10 @@ import {
   getConnectedUserId,
 } from "../../actions";
 import { BooksCardContainer } from ".";
+import type { BookData } from "@/types";
 
 jest.mock("..", () => ({
-  BookCard: ({ book }) => <div>{book.title}</div>,
+  BookCard: ({ book }: { book: BookData }) => <div>{book.title}</div>,
 }));
 
 jest.mock("../../actions", () => ({
