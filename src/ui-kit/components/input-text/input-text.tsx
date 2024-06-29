@@ -6,7 +6,7 @@ import React, {
 import clsx from "clsx";
 
 interface InputTextProps extends InputHTMLAttributes<HTMLInputElement> {
-  fieldSize?: string;
+  fieldSize?: "s" | "m" | "l";
   type?: HTMLInputTypeAttribute;
   label: string;
 }
