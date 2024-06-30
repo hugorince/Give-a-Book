@@ -6,7 +6,10 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { UpdateProfileInput, UpdateProfileProps } from "./update-profile-input";
+import {
+  UpdateProfileInput,
+  UpdateProfileProps,
+} from "../update-profile-input";
 import { updateUser } from "@/actions";
 import { Button } from "@/ui-kit";
 import classes from "./update-profile-field.module.css";
