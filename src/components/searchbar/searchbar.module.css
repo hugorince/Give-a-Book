@@ -1,0 +1,19 @@
+.searchbar {
+  display: none;
+
+  @media (min-width: 720px) {
+    display: inline-block;
+    font-size: var(--font-size-s);
+    gap: var(--spacing-100);
+    width: 100%;
+    border: var(--border-width-s) solid black;
+    border-radius: var(--border-radius-l);
+    background-color: rgb(219, 251, 233);
+    padding: var(--spacing-025);
+
+    &:focus-visible {
+      outline: var(--border-width-m) solid var(--color-focus-border);
+      outline-offset: var(--spacing-012);
+    }
+  }
+}

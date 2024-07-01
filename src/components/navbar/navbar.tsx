@@ -9,6 +9,7 @@ import { authOptions } from "@/actions/auth/auth";
 import { SignOutButton } from "./sign-out-button";
 import { Notifications } from "../notifications";
 import classes from "./navbar.module.css";
+import { Searchbar } from "../searchbar";
 
 export const Navbar = async () => {
   const session = await getServerSession(authOptions);
@@ -26,6 +27,7 @@ export const Navbar = async () => {
               </NextLink>
             </li>
           )}
+          <Searchbar />
           <li>
             <Link href="/books" variant="unstyled">
               Books

@@ -8,23 +8,20 @@
 
   .notificationsButton {
     display: flex;
-
-    button {
-      position: relative;
-    }
+    width: max-content;
 
     div {
-      position: absolute;
       display: flex;
-      justify-content: center;
-      align-items: center;
+      position: absolute;
+      width: 1.25rem;
+      height: 1.25rem;
       right: -0.4rem;
       top: -0.5rem;
+      justify-content: center;
+      align-items: center;
       background-color: var(--menu-font-color);
       border: 3px solid var(--menu-font-color);
       border-radius: 50%;
-      width: 1.25rem;
-      height: 1.25rem;
       color: white;
       font-size: var(--font-size-xs);
     }
