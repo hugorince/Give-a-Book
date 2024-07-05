@@ -3,7 +3,7 @@
 import { Avatar, Link } from "@/ui-kit";
 import NextLink from "next/link";
 import { getInitials } from "@/utils";
-import { getUserNotifications } from "@/actions";
+import { getBooksWithoutConnectedUser, getUserNotifications } from "@/actions";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/actions/auth/auth";
 import { SignOutButton } from "./sign-out-button";
@@ -15,6 +15,7 @@ export const Navbar = async () => {
   const session = await getServerSession(authOptions);
   const initials = session && getInitials(session.user.username);
   const notifications = await getUserNotifications();
+  const books = await getBooksWithoutConnectedUser();
 
   return (
     <header className={classes.header}>
@@ -27,7 +28,7 @@ export const Navbar = async () => {
               </NextLink>
             </li>
           )}
-          <Searchbar />
+          <Searchbar books={books} />
           <li>
             <Link href="/books" variant="unstyled">
               Books

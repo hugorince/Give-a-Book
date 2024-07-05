@@ -1,0 +1,23 @@
+.suggestionsWrapper {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  max-height: 15rem;
+  overflow: scroll;
+  flex-direction: column;
+  z-index: 100;
+  border: 1px solid black;
+  border-radius: var(--spacing-025);
+  gap: var(--spacing-050);
+  padding: var(--spacing-075);
+  background-color: white;
+
+  & li {
+    padding: var(--spacing-025);
+
+    &:hover {
+      background-color: var(--brand-color-light);
+      border-radius: var(--spacing-025);
+    }
+  }
+}
