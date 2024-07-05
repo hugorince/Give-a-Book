@@ -2,7 +2,7 @@ import { PostBookForm } from "@/components";
 import { MainLayout } from "@/layout";
 import classes from "./post-book.module.css";
 
-export const PostBook = () => {
+const PostBook = () => {
   return (
     <MainLayout>
       <div className={classes.pageWrapper}>

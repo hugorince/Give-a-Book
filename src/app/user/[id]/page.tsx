@@ -1,7 +1,8 @@
+import type { PageProps } from "@/types";
 import { UserBooksCardsContainer, UserInfos } from "@/components";
 import { MainLayout } from "@/layout";
 
-export const UserPage = async ({ params }: { params: { id: string } }) => {
+const UserPage = async ({ params }: PageProps) => {
   const userId = parseInt(params.id);
 
   return (

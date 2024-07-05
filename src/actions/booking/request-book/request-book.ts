@@ -1,12 +1,15 @@
 "use server";
 
-import type { BookedBook } from "@/types";
+import type { BookedBook, BookPageData } from "@/types";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/actions/auth/auth";
 import { calculateDistance } from "@/utils";
 import { db } from "@/db";
 
-export const requestBook = async (book: BookedBook, message: string) => {
+export const requestBook = async (
+  book: BookedBook | BookPageData,
+  message: string,
+) => {
   const user = await getServerSession(authOptions);
 
   if (!user) return null;

@@ -2,7 +2,7 @@ import { ProfileInfos, UserBooksCardsContainer } from "@/components";
 import { MainLayout } from "@/layout";
 import { getConnectedUserId } from "@/actions";
 
-export const Profile = async () => {
+const Profile = async () => {
   const userId = await getConnectedUserId();
 
   return (
