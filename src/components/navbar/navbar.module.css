@@ -16,6 +16,7 @@
     align-items: center;
     gap: var(--spacing-050);
     font-size: var(--font-size-xxs);
+    white-space: nowrap;
 
     @media (min-width: 720px) {
       font-size: var(--font-size-s);

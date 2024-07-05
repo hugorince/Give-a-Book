@@ -2,13 +2,13 @@
 ::backdrop {
   --brand-color: rgb(72, 255, 148);
   --brand-color-light: rgb(192, 249, 216);
+  --brand-color-extra-light: rgb(241, 255, 247);
+
   --menu-font-color: rgb(62, 62, 62);
   --menu-font-color-hover: rgb(132, 132, 132);
 
   --border-input: rgb(152, 152, 152);
-
   --light-grey-bg: rgb(225, 225, 225);
-
   --color-focus-border: rgb(62, 62, 62);
 
   --color-chip-exchange: rgb(214, 213, 213);
