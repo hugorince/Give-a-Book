@@ -8,7 +8,7 @@
     width: 100%;
     border: var(--border-width-m) solid black;
     border-radius: var(--border-radius-l);
-    background-color: rgb(241, 255, 247);
+    background-color: var(--brand-color-extra-light);
     padding: var(--spacing-025);
     text-indent: var(--spacing-050);
 
