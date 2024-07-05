@@ -1,0 +1,25 @@
+.searchbar {
+  display: none;
+
+  @media (min-width: 720px) {
+    display: inline-block;
+    font-size: var(--font-size-s);
+    gap: var(--spacing-100);
+    width: 100%;
+    border: var(--border-width-m) solid black;
+    border-radius: var(--border-radius-l);
+    background-color: var(--brand-color-extra-light);
+    padding: var(--spacing-025);
+    text-indent: var(--spacing-050);
+
+    &:focus-visible {
+      outline: var(--border-width-m) solid var(--color-focus-border);
+      outline-offset: var(--spacing-012);
+    }
+  }
+}
+
+.searchbarContainer {
+  position: relative;
+  width: 100%;
+}
