@@ -7,7 +7,7 @@ import {
 } from "@/actions";
 import classes from "./bookings.module.css";
 
-export const Bookings = async () => {
+const Bookings = async () => {
   const requestedBooks = await getUserRequestedBooks();
   const bookedBooks = await getUserBookedBooks();
   const propositions = await getUserPropositions();

@@ -2,7 +2,7 @@ import { SignUpForm } from "@/components";
 import Link from "next/link";
 import classes from "./signup-page.module.css";
 
-export const SignUp = () => {
+const SignUp = () => {
   return (
     <main className={classes.pageWrapper}>
       <h1>Welcome to Give a Book</h1>

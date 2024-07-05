@@ -1,9 +1,10 @@
+import type { PageProps } from "@/types";
 import { BookPageInfos, RequestBookContainer } from "@/components";
 import { MainLayout } from "@/layout";
 import { getBookById, getConnectedUserId } from "@/actions";
 import classes from "./book.module.css";
 
-export const BookPage = async ({ params }: { params: { id: string } }) => {
+const BookPage = async ({ params }: PageProps) => {
   const book = await getBookById(parseInt(params.id));
   const connectedUserId = await getConnectedUserId();
 

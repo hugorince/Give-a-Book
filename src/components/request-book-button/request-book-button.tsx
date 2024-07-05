@@ -1,6 +1,6 @@
 "use client";
 
-import type { BookedBook } from "@/types";
+import type { BookedBook, BookPageData } from "@/types";
 import { Button, useDialog } from "@/ui-kit";
 import { RequestBookDialog } from "../request-book-dialog";
 import { requestBook } from "@/actions";
@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { CancelRequestBookButton } from "../cancel-book-request-button";
 
 interface RequestBookProps {
-  book: BookedBook;
+  book: BookedBook | BookPageData;
 }
 
 export const RequestBookButton = ({ book }: RequestBookProps) => {

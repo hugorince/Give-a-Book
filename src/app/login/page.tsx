@@ -2,7 +2,7 @@ import { LoginForm } from "@/components";
 import Link from "next/link";
 import classes from "./login-page.module.css";
 
-export const Login = () => {
+const Login = () => {
   return (
     <main className={classes.pageWrapper}>
       <h1>Welcome to Give a Book</h1>

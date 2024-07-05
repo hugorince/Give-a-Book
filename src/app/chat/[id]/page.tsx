@@ -1,10 +1,11 @@
+import type { PageProps } from "../../../../.next/types/app/page";
 import { getBookingInfos } from "@/actions";
 import { MainLayout } from "@/layout";
 import { Link } from "@/ui-kit";
 import { Chat } from "@/components";
 import classes from "./booking.module.css";
 
-export const BookingPage = async ({ params }: { params: { id: string } }) => {
+const BookingPage = async ({ params }: PageProps) => {
   const booking = await getBookingInfos(parseInt(params.id));
 
   if (!booking) return null;
