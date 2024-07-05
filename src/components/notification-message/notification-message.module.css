@@ -2,15 +2,14 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-025);
-  padding: 1rem;
+  padding: var(--spacing-100);
   text-decoration: none;
   color: var(--menu-font-color);
   font-weight: var(--font-weight-regular);
 
   .content {
-    display: flex;
-    align-items: flex-end;
-    gap: var(--spacing-025);
+    text-align: center;
+    text-wrap: wrap;
   }
 
   .date {
@@ -25,10 +24,10 @@
 
 .isNotRead {
   color: var(--menu-font-color);
-  font-weight: var(--font-weight-regular);
+  font-weight: var(--font-weight-bold);
 
   &:hover {
-    background-color: var(--light-grey-bg);
+    background-color: var(--brand-color-extra-light);
     color: black;
   }
 }
