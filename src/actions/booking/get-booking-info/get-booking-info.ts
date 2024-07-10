@@ -1,8 +1,11 @@
 "use server";
 
+import { getConnectedUserId, getUserInfo } from "@/actions/user";
 import { db } from "@/db";
 
 export const getBookingInfos = async (bookingId: number) => {
+  const connectedUserId = await getConnectedUserId();
+
   const booking = await db.booking.findUnique({
     where: { id: bookingId },
     include: { chat: true, book: true },
@@ -17,9 +20,15 @@ export const getBookingInfos = async (bookingId: number) => {
     },
   });
 
+  const userChat =
+    booking.ownerId === connectedUserId ? booking.requesterId : booking.ownerId;
+
+  const userChatUserName = await getUserInfo(userChat);
+
   return {
     book: booking.book,
     booking: booking,
     messages: chat?.messages,
+    username: userChatUserName?.username,
   };
 };

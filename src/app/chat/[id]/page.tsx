@@ -2,11 +2,12 @@ import type { PageProps } from "../../../../.next/types/app/page";
 import { getBookingInfos } from "@/actions";
 import { MainLayout } from "@/layout";
 import { Chat } from "@/components";
+import classes from "./page.module.css";
 
 const ChatPage = async ({ params }: PageProps) => {
   const booking = await getBookingInfos(parseInt(params.id));
 
-  if (!booking) return null;
+  if (!booking?.book) return null;
 
   const book = booking.book;
 
@@ -16,8 +17,15 @@ const ChatPage = async ({ params }: PageProps) => {
 
   return (
     <MainLayout>
-      <h1>{book.title}</h1>
-      <div>{messages && <Chat messages={messages} />}</div>
+      <div className={classes.pageContainer}>
+        {messages && (
+          <Chat
+            messages={messages}
+            title={book.title}
+            userName={booking.username}
+          />
+        )}
+      </div>
     </MainLayout>
   );
 };
