@@ -11,11 +11,12 @@ interface ChatProps {
 
 export const Chat = ({ messages }: ChatProps) => {
   const chatId = messages[0].chatId;
+  const reverseMessages = messages.reverse();
 
   return (
     <div className={classes.chatContainer}>
-      <div className={classes.messageContainer}>
-        {messages.map((message, key) => (
+      <div className={classes.messagesContainer}>
+        {reverseMessages.map((message, key) => (
           <Message key={key} message={message} />
         ))}
       </div>

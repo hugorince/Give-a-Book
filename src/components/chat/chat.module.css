@@ -1,17 +1,23 @@
-.messageContainer {
+.messagesContainer {
   display: flex;
-  flex-direction: column;
+  height: 45vh;
+  flex-direction: column-reverse;
   gap: var(--spacing-050);
-  overflow: scroll;
-  max-height: 30rem;
+  padding: var(--spacing-050);
+  overflow: auto;
 }
 
 .chatContainer {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: var(--spacing-100);
-  max-width: 30rem;
   border: 1px solid black;
   border-radius: var(--border-radius-m);
   padding: var(--spacing-100);
+
+  @media (min-width: 720px) {
+    max-width: 30rem;
+    height: 50rem;
+  }
 }
