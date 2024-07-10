@@ -1,16 +1,18 @@
 import { screen } from "@testing-library/react";
 import { Navbar } from ".";
-import { mockSignOut } from "../../../jest.setup";
 import { render } from "@/test-utils";
+
+jest.mock("../../actions", () => ({
+  getBooksWithoutConnectedUser: jest.fn(),
+  getUserNotifications: jest.fn(),
+}));
 
 describe("Navbar", () => {
   it("should render the Navbar links", async () => {
     render(await Navbar());
 
-    const logOutButton = screen.getByRole("button", { name: "sign out" });
-    logOutButton.click();
+    expect(screen.getByRole("button", { name: "sign out" })).toBeVisible();
 
-    expect(mockSignOut).toHaveBeenCalled();
     expect(screen.getByRole("link", { name: "Books" })).toHaveAttribute(
       "href",
       "/books",

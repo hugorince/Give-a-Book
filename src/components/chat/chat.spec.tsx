@@ -25,7 +25,12 @@ const mockedMessages = [
 
 describe("Chat", () => {
   it("should display the Chat", () => {
-    render(<Chat messages={mockedMessages} />);
+    render(
+      <Chat
+        messages={mockedMessages}
+        userChat={{ id: 1, username: "username" }}
+      />,
+    );
 
     expect(screen.queryAllByText("message")).toHaveLength(2);
     expect(screen.getByRole("textbox")).toBeVisible();

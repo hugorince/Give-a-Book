@@ -22,7 +22,7 @@ const ChatPage = async ({ params }: PageProps) => {
           <Chat
             messages={messages}
             title={book.title}
-            userName={booking.username}
+            userChat={booking.userChat}
           />
         )}
       </div>

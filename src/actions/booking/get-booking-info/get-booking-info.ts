@@ -29,6 +29,9 @@ export const getBookingInfos = async (bookingId: number) => {
     book: booking.book,
     booking: booking,
     messages: chat?.messages,
-    username: userChatUserName?.username,
+    userChat: {
+      id: userChatUserName?.id,
+      username: userChatUserName?.username,
+    },
   };
 };
