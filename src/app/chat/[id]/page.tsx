@@ -1,14 +1,13 @@
 import type { PageProps } from "../../../../.next/types/app/page";
 import { getBookingInfos } from "@/actions";
 import { MainLayout } from "@/layout";
-import { Link } from "@/ui-kit";
 import { Chat } from "@/components";
-import classes from "./booking.module.css";
+import classes from "./page.module.css";
 
-const BookingPage = async ({ params }: PageProps) => {
+const ChatPage = async ({ params }: PageProps) => {
   const booking = await getBookingInfos(parseInt(params.id));
 
-  if (!booking) return null;
+  if (!booking?.book) return null;
 
   const book = booking.book;
 
@@ -18,15 +17,17 @@ const BookingPage = async ({ params }: PageProps) => {
 
   return (
     <MainLayout>
-      <Link variant="unstyled" href="/bookings">
-        ← back to my bookings
-      </Link>
-      <h1>{book.title}</h1>
-      <div className={classes.bookingPageContainer}>
-        {messages && <Chat messages={messages} />}
+      <div className={classes.pageContainer}>
+        {messages && (
+          <Chat
+            messages={messages}
+            title={book.title}
+            userChat={booking.userChat}
+          />
+        )}
       </div>
     </MainLayout>
   );
 };
 
-export default BookingPage;
+export default ChatPage;
