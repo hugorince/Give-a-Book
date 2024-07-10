@@ -1,6 +1,33 @@
+.contactContainer {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--brand-color);
+  padding: var(--spacing-100);
+  border-bottom: 1px solid black;
+  margin: calc(var(--spacing-100) * -1);
+
+  .userName {
+    font-weight: var(--font-weight-bold);
+
+    @media (min-width: 720px) {
+      font-size: var(--font-size-l);
+    }
+  }
+
+  .bookTitle {
+    font-size: var(--font-size-xs);
+
+    @media (min-width: 720px) {
+      font-size: var(--font-size-s);
+    }
+  }
+}
+
 .messagesContainer {
   display: flex;
-  height: 45vh;
+  height: 50vh;
   flex-direction: column-reverse;
   gap: var(--spacing-050);
   padding: var(--spacing-050);
@@ -15,9 +42,9 @@
   border: 1px solid black;
   border-radius: var(--border-radius-m);
   padding: var(--spacing-100);
+  overflow: hidden;
 
   @media (min-width: 720px) {
     max-width: 30rem;
-    height: 50rem;
   }
 }
