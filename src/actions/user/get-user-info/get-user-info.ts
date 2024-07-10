@@ -13,6 +13,6 @@ export const getUserInfo = async (userId: number) => {
 export const getConnectedUserId = async () => {
   const user = await getServerSession(authOptions);
 
-  if (user) return parseInt(user?.user.id);
+  if (user) return parseInt(user.user?.id);
   return undefined;
 };

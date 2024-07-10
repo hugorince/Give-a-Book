@@ -1,17 +1,43 @@
-.messageContainer {
+.contactContainer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--brand-color);
+  padding: var(--spacing-100);
+  border-bottom: 1px solid black;
+  margin: calc(var(--spacing-100) * -1);
+
+  .bookTitle {
+    font-size: var(--font-size-xs);
+
+    @media (min-width: 720px) {
+      font-size: var(--font-size-s);
+    }
+  }
+}
+
+.messagesContainer {
+  display: flex;
+  height: 50vh;
+  flex-direction: column-reverse;
   gap: var(--spacing-050);
-  overflow: scroll;
-  max-height: 30rem;
+  padding: var(--spacing-050);
+  overflow: auto;
 }
 
 .chatContainer {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  margin: auto;
   gap: var(--spacing-100);
-  max-width: 30rem;
   border: 1px solid black;
   border-radius: var(--border-radius-m);
   padding: var(--spacing-100);
+  overflow: hidden;
+
+  @media (min-width: 720px) {
+    max-width: 30rem;
+  }
 }
