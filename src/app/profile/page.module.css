@@ -1,0 +1,19 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--spacing-100);
+
+  @media (min-width: 720px) {
+    flex-direction: row;
+    max-width: 1620px;
+    margin: auto;
+  }
+}
+
+.booksContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-100);
+  max-width: 1024px;
+}

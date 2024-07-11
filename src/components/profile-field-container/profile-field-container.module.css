@@ -11,7 +11,7 @@
 
 .container {
   display: flex;
-  gap: 0.5rem;
+  gap: var(--spacing-050);
 }
 
 .fieldName {

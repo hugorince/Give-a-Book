@@ -1,5 +1,5 @@
 .booksWrapper {
   display: flex;
-  gap: 1rem;
+  gap: var(--spacing-100);
   flex-wrap: wrap;
 }

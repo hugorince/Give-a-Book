@@ -35,4 +35,5 @@ export const PostBookFormSchema = z.object({
 export const updateUserSchemaWithId = z.object({
   username: z.string().optional(),
   email: z.string().optional(),
+  postalCode: z.string().optional(),
 });

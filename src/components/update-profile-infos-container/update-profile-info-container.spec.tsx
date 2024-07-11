@@ -1,5 +1,5 @@
 import { UpdateProfileInfoContainer } from "./update-profile-info-container";
-import { render } from "@/test-utils";
+import { mockedUser, render } from "@/test-utils";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -25,7 +25,7 @@ jest.mock("../profile-field-container", () => ({
 
 describe("UpdateProfileInfoContainer", () => {
   it("renders the ProfileFieldContainer initially", () => {
-    render(<UpdateProfileInfoContainer type="email" />);
+    render(<UpdateProfileInfoContainer type="email" userInfos={mockedUser} />);
 
     expect(screen.getByText("email")).toBeInTheDocument();
     expect(screen.getByTestId("profile-field")).toBeInTheDocument();
@@ -33,7 +33,9 @@ describe("UpdateProfileInfoContainer", () => {
   });
 
   it("renders the UpdateProfileFieldContainer when Edit is clicked", async () => {
-    render(<UpdateProfileInfoContainer type="username" />);
+    render(
+      <UpdateProfileInfoContainer type="username" userInfos={mockedUser} />,
+    );
 
     userEvent.click(screen.getByText("Edit"));
 
@@ -45,7 +47,7 @@ describe("UpdateProfileInfoContainer", () => {
   });
 
   it("closes the UpdateProfileFieldContainer when Close is clicked", async () => {
-    render(<UpdateProfileInfoContainer type="email" />);
+    render(<UpdateProfileInfoContainer type="email" userInfos={mockedUser} />);
 
     userEvent.click(screen.getByText("Edit"));
 
