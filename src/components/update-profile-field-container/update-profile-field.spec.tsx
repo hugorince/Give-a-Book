@@ -1,5 +1,6 @@
+import { mockedUser, render } from "@/test-utils";
 import { UpdateProfileFieldContainer } from "./update-profile-field-container";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 
 describe("UpdateProfileFieldContainer", () => {
   it("should render UpdateProfileFieldContainer", () => {
@@ -7,6 +8,7 @@ describe("UpdateProfileFieldContainer", () => {
       <UpdateProfileFieldContainer
         handleInputClose={jest.fn()}
         updateInput="email"
+        userInfos={mockedUser}
       />,
     );
 

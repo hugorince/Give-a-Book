@@ -1,11 +1,21 @@
 .container {
   display: flex;
-  gap: 0.5rem;
-  height: 2rem;
+  gap: var(--spacing-050);
+  height: var(--spacing-200);
   align-items: center;
 }
 
 .fieldName {
   font-weight: bold;
   width: 6rem;
+}
+
+.hide {
+  display: none;
+
+  @media (min-width: 720px) {
+    display: inline-block;
+    font-weight: bold;
+    width: 6rem;
+  }
 }

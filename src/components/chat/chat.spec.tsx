@@ -16,10 +16,10 @@ const mockedMessages = [
   },
   {
     id: 1,
+    chatId: 2,
     createdAt: new Date(),
     text: "message",
     senderId: 4,
-    chatId: 1,
   },
 ];
 
@@ -29,6 +29,7 @@ describe("Chat", () => {
       <Chat
         messages={mockedMessages}
         userChat={{ id: 1, username: "username" }}
+        title="title"
       />,
     );
 
