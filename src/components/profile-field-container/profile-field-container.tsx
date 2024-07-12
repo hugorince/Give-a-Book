@@ -1,19 +1,19 @@
-import { useSession } from "next-auth/react";
 import classes from "./profile-field-container.module.css";
 
 export interface ProfileFieldContainerProps {
   handleOnClick: () => void;
-  type: "email" | "username";
+  fieldValue: string | null;
 }
 
 export const ProfileFieldContainer = ({
   handleOnClick,
-  type,
+  fieldValue,
 }: ProfileFieldContainerProps) => {
-  const { data: session } = useSession();
+  if (!fieldValue) return null;
+
   return (
     <div className={classes.container}>
-      <p>{session?.user[type]}</p>
+      <p>{fieldValue}</p>
       <button onClick={handleOnClick} className={classes.updateButton}>
         update
       </button>

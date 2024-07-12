@@ -7,6 +7,7 @@ const PostBook = () => {
     <MainLayout>
       <div className={classes.pageWrapper}>
         <h1>Propose a book</h1>
+        <p>Please provide the author, a title and description</p>
         <PostBookForm />
       </div>
     </MainLayout>

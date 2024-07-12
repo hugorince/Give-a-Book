@@ -4,30 +4,16 @@ import {
 } from "./profile-field-container";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import { useSession } from "next-auth/react";
 
 const props: ProfileFieldContainerProps = {
-  type: "email",
+  fieldValue: "email",
   handleOnClick: jest.fn(),
 };
-
-jest.mock("next-auth/react");
-
-const mockSession = {
-  data: {
-    user: {
-      email: "test@example.com",
-    },
-  },
-  update: jest.fn(),
-};
-
-(useSession as jest.Mock).mockReturnValue(mockSession);
 
 describe("ProfileFieldContainer", () => {
   it("should render the component", () => {
     render(<ProfileFieldContainer {...props} />);
-    expect(screen.getByText("test@example.com")).toBeInTheDocument();
+    expect(screen.getByText("email")).toBeInTheDocument();
   });
 
   it("should fire the callback when update button is clicked", () => {

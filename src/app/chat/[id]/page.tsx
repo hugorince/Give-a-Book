@@ -1,4 +1,4 @@
-import type { PageProps } from "../../../../.next/types/app/page";
+import type { PageProps } from "@/types";
 import { getBookingInfos } from "@/actions";
 import { MainLayout } from "@/layout";
 import { Chat } from "@/components";

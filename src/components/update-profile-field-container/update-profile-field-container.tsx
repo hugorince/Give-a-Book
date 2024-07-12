@@ -1,11 +1,11 @@
 "use client";
 
+import type { User } from "@prisma/client";
 import { updateUserSchemaWithId } from "@/types";
 import { FormProvider, useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import {
   UpdateProfileInput,
   UpdateProfileProps,
@@ -13,10 +13,12 @@ import {
 import { updateUser } from "@/actions";
 import { Button } from "@/ui-kit";
 import classes from "./update-profile-field.module.css";
+import { useRouter } from "next/navigation";
 
 interface UpdateProfileFieldContainerProps {
   handleInputClose: () => void;
   updateInput: UpdateProfileProps["type"];
+  userInfos: User;
 }
 
 export const UpdateProfileFieldContainer = ({
@@ -24,7 +26,6 @@ export const UpdateProfileFieldContainer = ({
   updateInput,
 }: UpdateProfileFieldContainerProps) => {
   const { data: session, update } = useSession();
-
   const router = useRouter();
 
   const form = useForm<z.infer<typeof updateUserSchemaWithId>>({
@@ -32,6 +33,7 @@ export const UpdateProfileFieldContainer = ({
     defaultValues: {
       username: "",
       email: "",
+      postalCode: "",
     },
   });
 

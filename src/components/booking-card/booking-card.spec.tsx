@@ -9,7 +9,7 @@ describe("BookingCard", () => {
     );
 
     expect(
-      screen.getByRole("link", { name: mockedBookedBook.user as string }),
+      screen.getByRole("link", { name: mockedBookedBook.username as string }),
     ).toHaveAttribute("href", `/user/${mockedBookedBook.userId}`);
     expect(
       screen.getByRole("link", { name: mockedBookedBook.title as string }),

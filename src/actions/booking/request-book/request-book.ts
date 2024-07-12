@@ -1,21 +1,19 @@
 "use server";
 
-import type { BookedBook, BookPageData } from "@/types";
+import type { BookPageData } from "@/types";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/actions/auth/auth";
 import { calculateDistance } from "@/utils";
 import { db } from "@/db";
+import { getConnectedUserId } from "@/actions/user";
 
-export const requestBook = async (
-  book: BookedBook | BookPageData,
-  message: string,
-) => {
-  const user = await getServerSession(authOptions);
+export const requestBook = async (book: BookPageData, message: string) => {
+  const userId = await getConnectedUserId();
 
-  if (!user) return null;
+  if (!userId) return null;
 
   const requester = await db.user.findUnique({
-    where: { id: parseInt(user.user.id) },
+    where: { id: userId },
   });
 
   if (!requester) return null;

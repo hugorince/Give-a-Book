@@ -3,8 +3,8 @@
 import type { BookedBook } from "@/types";
 import { Link } from "@/ui-kit";
 import { DeleteBook } from "../delete-book";
-import { RequestBookButton } from "../request-book-button";
 import classes from "./booking-card.module.css";
+import { CancelRequestBookButton } from "../cancel-book-request-button";
 
 interface BookingCardProps {
   book: BookedBook;
@@ -12,8 +12,6 @@ interface BookingCardProps {
 }
 
 export const BookingCard = ({ book, connectedUserId }: BookingCardProps) => {
-  if (!book || !connectedUserId) return null;
-
   const isConnectedUserBook = connectedUserId === book.userId;
 
   return (
@@ -27,7 +25,7 @@ export const BookingCard = ({ book, connectedUserId }: BookingCardProps) => {
           <div className={classes.ownerLink}>
             <p>proposed by </p>
             <Link href={`/user/${book.userId}`} variant="unstyled">
-              {book.user}
+              {book.username}
             </Link>
           </div>
           <p>{book.distance} km from you</p>
@@ -35,7 +33,7 @@ export const BookingCard = ({ book, connectedUserId }: BookingCardProps) => {
       </div>
       <div className={classes.actionsContainer}>
         <Link href={`/chat/${book.bookingId}`}>Message</Link>
-        <RequestBookButton book={book} />
+        <CancelRequestBookButton book={book} />
         {isConnectedUserBook && <DeleteBook bookId={book.id} />}
       </div>
     </div>
