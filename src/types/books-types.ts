@@ -29,9 +29,13 @@ export type BookPageData = Omit<
   propositionReceived: Proposition | null;
 };
 
-export type BookedBook = Omit<BookData, "postalCode"> & {
+export type BookedBook = Omit<
+  BookData,
+  "postalCode" | "gpsCoordinates" | "user"
+> & {
   distance: number;
   bookingId: number;
+  ownerId: number;
 };
 
 export type PropositionProposed = {

@@ -1,15 +1,10 @@
 import { MainLayout } from "@/layout";
 import { BookingCardContainer, PropositionsContainer } from "@/components";
-import {
-  getUserBookedBooks,
-  getUserPropositions,
-  getUserRequestedBooks,
-} from "@/actions";
+import { getUserBookings, getUserPropositions } from "@/actions";
 import classes from "./bookings.module.css";
 
 const Bookings = async () => {
-  const requestedBooks = await getUserRequestedBooks();
-  const bookedBooks = await getUserBookedBooks();
+  const bookings = await getUserBookings();
   const propositions = await getUserPropositions();
 
   return (
@@ -17,11 +12,15 @@ const Bookings = async () => {
       <div className={classes.pageWrapper}>
         <div>
           <h2>My bookings</h2>
-          {requestedBooks && <BookingCardContainer books={requestedBooks} />}
+          {bookings?.userRequestedBooks && (
+            <BookingCardContainer books={bookings.userRequestedBooks} />
+          )}
         </div>
         <div>
           <h2>My booked books</h2>
-          {bookedBooks && <BookingCardContainer books={bookedBooks} />}
+          {bookings?.userBookings && (
+            <BookingCardContainer books={bookings.userBookings} />
+          )}
         </div>
         {propositions && (
           <>

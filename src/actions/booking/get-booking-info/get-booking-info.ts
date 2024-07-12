@@ -2,6 +2,13 @@
 
 import { getConnectedUserId, getUserInfo } from "@/actions/user";
 import { db } from "@/db";
+import { Prisma } from "@prisma/client";
+
+type BookingWithBook = Prisma.BookingGetPayload<{
+  include: {
+    book: true;
+  };
+}>;
 
 export const getBookingInfos = async (bookingId: number) => {
   const connectedUserId = await getConnectedUserId();
@@ -33,5 +40,71 @@ export const getBookingInfos = async (bookingId: number) => {
       id: userChatUserName?.id,
       username: userChatUserName?.username,
     },
+  };
+};
+
+const getUserBookedBooks = async (bookings: BookingWithBook[]) => {
+  const userId = await getConnectedUserId();
+
+  if (!userId) return null;
+
+  const userBookings = bookings.filter((booking) => booking.ownerId === userId);
+
+  const userBookedBooks = userBookings.map((booking) => {
+    const book = booking.book;
+
+    if (!book) return null;
+    return {
+      ...book,
+      requested: true,
+      distance: booking.distance,
+      bookingId: booking.id,
+      ownerId: booking.book.userId,
+    };
+  });
+
+  const filteredUserBookings = userBookedBooks.filter(
+    (book): book is NonNullable<typeof book> => book !== undefined,
+  );
+
+  return filteredUserBookings;
+};
+
+export const getUserBookings = async () => {
+  const requesterId = await getConnectedUserId();
+
+  if (!requesterId) return null;
+
+  const bookings = await db.booking.findMany({
+    include: { book: true },
+  });
+
+  const userBookings = bookings.filter(
+    (booking) => booking.requesterId === requesterId,
+  );
+
+  const userRequestedBooks = userBookings.map((booking) => {
+    const book = booking.book;
+
+    if (!book) return null;
+
+    return {
+      ...book,
+      requested: true,
+      distance: booking.distance,
+      bookingId: booking.id,
+      ownerId: booking.book.userId,
+    };
+  });
+
+  const filteredUserRequestedBooks = userRequestedBooks.filter(
+    (book): book is NonNullable<typeof book> => book !== undefined,
+  );
+
+  const filteredUserBookings = await getUserBookedBooks(bookings);
+
+  return {
+    userRequestedBooks: filteredUserRequestedBooks,
+    userBookings: filteredUserBookings,
   };
 };
