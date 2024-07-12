@@ -7,7 +7,7 @@ describe("BookCard", () => {
     render(<BookCard book={mockedBook} connectedUserId={4} />);
 
     expect(
-      screen.getByRole("link", { name: mockedBook.user as string }),
+      screen.getByRole("link", { name: mockedBook.username as string }),
     ).toHaveAttribute("href", `/user/${mockedBook.userId}`);
     expect(
       screen.getByRole("link", { name: mockedBook.title as string }),

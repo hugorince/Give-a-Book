@@ -1,7 +1,7 @@
 import { MainLayout } from "@/layout";
 import { BookingCardContainer, PropositionsContainer } from "@/components";
 import { getUserBookings, getUserPropositions } from "@/actions";
-import classes from "./bookings.module.css";
+import classes from "./page.module.css";
 
 const Bookings = async () => {
   const bookings = await getUserBookings();
