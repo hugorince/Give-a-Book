@@ -78,7 +78,6 @@ export const getUserPropositions = async () => {
     };
   } catch (error) {
     console.error("Error fetching user propositions:", error);
-    return null;
   }
 };
 

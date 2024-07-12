@@ -8,7 +8,7 @@ export const updateUser = async (
   values: z.infer<typeof updateUserSchemaWithId>,
   sessionEmail: string,
 ) => {
-  const { username, email } = values;
+  const { username, email, postalCode } = values;
 
   const existingUser = await db.user.findUnique({
     where: { email: sessionEmail },
@@ -36,6 +36,17 @@ export const updateUser = async (
       },
       data: {
         email: email,
+      },
+    });
+  }
+
+  if (postalCode) {
+    await db.user.update({
+      where: {
+        email: sessionEmail,
+      },
+      data: {
+        postalCode: postalCode,
       },
     });
   }

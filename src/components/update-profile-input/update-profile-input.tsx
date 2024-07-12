@@ -4,7 +4,7 @@ import { InputText } from "@/ui-kit";
 import { useFormContext } from "react-hook-form";
 
 export interface UpdateProfileProps {
-  type: "email" | "username";
+  type: "email" | "username" | "postalCode";
 }
 
 export const UpdateProfileInput = ({ type }: UpdateProfileProps) => {

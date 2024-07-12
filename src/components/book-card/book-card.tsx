@@ -45,7 +45,7 @@ export const BookCard = ({ book, connectedUserId }: BookCardProps) => {
         <div className={classes.userLink}>
           <p>offered by </p>
           <Link href={`/user/${book.userId}`} variant="unstyled">
-            {book.user}
+            {book.username}
           </Link>
         </div>
       </div>

@@ -1,0 +1,17 @@
+.pageWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-200);
+  max-width: 720px;
+  margin: auto;
+
+  h2 {
+    padding-bottom: var(--spacing-050);
+  }
+
+  @media (min-width: 1280px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 1440px;
+  }
+}
