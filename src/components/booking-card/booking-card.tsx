@@ -1,6 +1,7 @@
 "use server";
 
 import type { BookedBook } from "@/types";
+import type { User } from "@prisma/client";
 import { Link } from "@/ui-kit";
 import { DeleteBook } from "../delete-book";
 import { RequestBookButton } from "../request-book-button";
@@ -9,9 +10,14 @@ import classes from "./booking-card.module.css";
 interface BookingCardProps {
   book: BookedBook;
   connectedUserId: number;
+  ownerInfos: User;
 }
 
-export const BookingCard = ({ book, connectedUserId }: BookingCardProps) => {
+export const BookingCard = ({
+  book,
+  connectedUserId,
+  ownerInfos,
+}: BookingCardProps) => {
   if (!book || !connectedUserId) return null;
 
   const isConnectedUserBook = connectedUserId === book.userId;
@@ -27,7 +33,7 @@ export const BookingCard = ({ book, connectedUserId }: BookingCardProps) => {
           <div className={classes.ownerLink}>
             <p>proposed by </p>
             <Link href={`/user/${book.userId}`} variant="unstyled">
-              {book.user}
+              {ownerInfos.username}
             </Link>
           </div>
           <p>{book.distance} km from you</p>

@@ -2,7 +2,7 @@
 
 import type { BookedBook } from "@/types";
 import { BookingCard } from "../booking-card/booking-card";
-import { getConnectedUserId } from "@/actions";
+import { getConnectedUserId, getUserInfo } from "@/actions";
 import classes from "./booking-card-container.module.css";
 
 interface BookingCardContainerProps {
@@ -18,13 +18,18 @@ export const BookingCardContainer = async ({
 
   return (
     <div className={classes.container}>
-      {books.map((book, index) => (
-        <BookingCard
-          key={index}
-          book={book}
-          connectedUserId={connectedUserId}
-        />
-      ))}
+      {books.map(async (book, index) => {
+        const bookOwnerInfos = await getUserInfo(book.ownerId);
+        if (!bookOwnerInfos) return null;
+        return (
+          <BookingCard
+            key={index}
+            book={book}
+            connectedUserId={connectedUserId}
+            ownerInfos={bookOwnerInfos}
+          />
+        );
+      })}
     </div>
   );
 };

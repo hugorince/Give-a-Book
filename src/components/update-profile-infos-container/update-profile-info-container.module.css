@@ -12,10 +12,4 @@
 
 .hide {
   display: none;
-
-  @media (min-width: 720px) {
-    display: inline-block;
-    font-weight: bold;
-    width: 6rem;
-  }
 }
