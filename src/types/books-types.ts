@@ -6,7 +6,7 @@ export type BookData = {
   author: string;
   image: string | null;
   description: string;
-  user: string | null | undefined;
+  username: string | null | undefined;
   userId: number;
   exchange: boolean;
   give: boolean;
@@ -36,6 +36,7 @@ export type BookedBook = Omit<
   distance: number;
   bookingId: number;
   ownerId: number;
+  username: string;
 };
 
 export type PropositionProposed = {
@@ -45,7 +46,7 @@ export type PropositionProposed = {
 } & Book;
 
 export type RequestedExchangeBook = {
-  user: string | null;
+  username: string | null;
   postalCode: string;
   gpsCoordinates: number[];
   requested: boolean;

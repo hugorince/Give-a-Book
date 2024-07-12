@@ -7,6 +7,7 @@ import { Prisma } from "@prisma/client";
 type BookingWithBook = Prisma.BookingGetPayload<{
   include: {
     book: true;
+    owner: true;
   };
 }>;
 
@@ -18,7 +19,7 @@ export const getBookingInfos = async (bookingId: number) => {
     include: { chat: true, book: true },
   });
 
-  if (!booking || !booking.chat) return null;
+  if (!booking?.chat) return null;
 
   const chat = await db.chat.findUnique({
     where: { id: booking.chat.id },
@@ -33,8 +34,8 @@ export const getBookingInfos = async (bookingId: number) => {
   const userChatUserName = await getUserInfo(userChat);
 
   return {
+    booking,
     book: booking.book,
-    booking: booking,
     messages: chat?.messages,
     userChat: {
       id: userChatUserName?.id,
@@ -54,12 +55,14 @@ const getUserBookedBooks = async (bookings: BookingWithBook[]) => {
     const book = booking.book;
 
     if (!book) return null;
+
     return {
       ...book,
       requested: true,
       distance: booking.distance,
       bookingId: booking.id,
       ownerId: booking.book.userId,
+      username: booking.owner.username || "",
     };
   });
 
@@ -76,7 +79,7 @@ export const getUserBookings = async () => {
   if (!requesterId) return null;
 
   const bookings = await db.booking.findMany({
-    include: { book: true },
+    include: { book: true, owner: true },
   });
 
   const userBookings = bookings.filter(
@@ -94,6 +97,7 @@ export const getUserBookings = async () => {
       distance: booking.distance,
       bookingId: booking.id,
       ownerId: booking.book.userId,
+      username: booking.owner.username || "",
     };
   });
 

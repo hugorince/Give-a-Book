@@ -2,13 +2,15 @@ import classes from "./profile-field-container.module.css";
 
 export interface ProfileFieldContainerProps {
   handleOnClick: () => void;
-  fieldValue: string;
+  fieldValue: string | null;
 }
 
 export const ProfileFieldContainer = ({
   handleOnClick,
   fieldValue,
 }: ProfileFieldContainerProps) => {
+  if (!fieldValue) return null;
+
   return (
     <div className={classes.container}>
       <p>{fieldValue}</p>

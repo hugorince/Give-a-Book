@@ -19,7 +19,7 @@ export const getBookById = async (bookId: number) => {
 
   return {
     ...book,
-    user: book.user.username,
+    username: book.user.username,
     postalCode: book.user.postalCode,
     gpsCoordinates: book.user.gpsCoordinates,
     requested: book.booking ? true : false,
@@ -42,7 +42,7 @@ const getBooksData = async () => {
         author: book.author,
         image: book.image,
         description: book.description,
-        user: user?.username || "",
+        username: user?.username || "",
         userId: book.userId,
         exchange: book.exchange,
         give: book.give,

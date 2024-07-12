@@ -13,7 +13,7 @@ export const mockedBook: BookData = {
   author: "author",
   image: "image",
   description: "description",
-  user: "user",
+  username: "user",
   userId: 2,
   exchange: true,
   give: false,
@@ -31,7 +31,7 @@ export const mockedBookedBook: BookedBook = {
   author: "author",
   image: "image",
   description: "description",
-  user: "user",
+  username: "username",
   userId: 2,
   exchange: true,
   give: false,
@@ -41,7 +41,7 @@ export const mockedBookedBook: BookedBook = {
   requested: false,
   distance: 10,
   bookingId: 1,
-  gpsCoordinates: [],
+  ownerId: 1,
 };
 
 export const mockedUser: User = {
@@ -140,7 +140,7 @@ export const mockedBookPage: BookPageData = {
   author: "author",
   image: "image",
   description: "description",
-  user: "user",
+  username: "user",
   userId: 2,
   exchange: true,
   give: false,
