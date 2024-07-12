@@ -1,6 +1,6 @@
 "use server";
 
-import { getConnectedUserId } from "@/actions";
+import { getConnectedUserId, getUserInfo } from "@/actions";
 import { db } from "@/db";
 import { calculateDistance } from "@/utils";
 
@@ -15,41 +15,26 @@ export const getBookById = async (bookId: number) => {
     },
   });
 
-  if (book) {
-    return {
-      ...book,
-      user: book.user.username,
-      postalCode: book.user.postalCode,
-      gpsCoordinates: book.user.gpsCoordinates,
-      requested: book.booking ? true : false,
-      booking: book.booking,
-      proposed: book.proposed,
-      propositionReceived: book.propositionReceived,
-    };
-  }
+  if (!book) return null;
+
+  return {
+    ...book,
+    user: book.user.username,
+    postalCode: book.user.postalCode,
+    gpsCoordinates: book.user.gpsCoordinates,
+    requested: book.booking ? true : false,
+  };
 };
 
 const getBooksData = async () => {
   const books = await db.book.findMany({
-    include: { proposed: true, propositionReceived: true },
-  });
-  const userIds = books.map((book) => book.userId);
-
-  const usersPromise = db.user.findMany({
-    where: { id: { in: userIds } },
+    include: { proposed: true, propositionReceived: true, booking: true },
   });
 
-  const bookingsPromise = db.booking.findMany({
-    where: { bookId: { in: books.map((book) => book.id) } },
-  });
-
-  const [users, bookings] = await Promise.all([usersPromise, bookingsPromise]);
-
-  const BookData = await Promise.all(
+  const booksData = await Promise.all(
     books.map(async (book) => {
-      const user = users.find((user) => user.id === book.userId);
-
-      const requested = bookings.some((booking) => booking.bookId === book.id);
+      const user = await getUserInfo(book.userId);
+      const requested = book.booking ? true : false;
 
       return {
         id: book.id,
@@ -73,24 +58,7 @@ const getBooksData = async () => {
     }),
   );
 
-  return BookData;
-};
-
-export const getBooksByUserId = async (userId: number) => {
-  const books = await db.book.findMany({
-    where: {
-      userId: {
-        equals: userId,
-      },
-    },
-    include: { booking: true, proposed: true, propositionReceived: true },
-  });
-  return books;
-};
-
-export const getBooksByUserIdLegacy = async (userId: number) => {
-  const books = await getBooksData();
-  return books.filter((book) => book.userId === userId);
+  return booksData;
 };
 
 export const getBooksWithoutConnectedUser = async () => {
@@ -106,15 +74,13 @@ const sortBooksByPostalCode = async (
 
   if (!userId) return books;
 
-  const userData = await db.user.findUnique({
-    where: { id: userId },
-  });
+  const userData = await getUserInfo(userId);
 
   if (!userData) return books;
 
-  const removeUsersBooks = books.filter((book) => book.userId !== userData.id);
+  const booksWithoutOwned = books.filter((book) => book.userId !== userData.id);
 
-  const distancesPromises = removeUsersBooks.map(async (book) => {
+  const distancesPromises = booksWithoutOwned.map(async (book) => {
     const distance = await calculateDistance(
       book.gpsCoordinates,
       userData.gpsCoordinates,
@@ -137,4 +103,21 @@ export const getConnectedUserBooks = async () => {
   return books.filter(
     (book) => !book.booking && !book.proposed && !book.propositionReceived,
   );
+};
+
+export const getBooksByUserId = async (userId: number) => {
+  const books = await db.book.findMany({
+    where: {
+      userId: {
+        equals: userId,
+      },
+    },
+    include: { booking: true, proposed: true, propositionReceived: true },
+  });
+  return books;
+};
+
+export const getBooksByUserIdLegacy = async (userId: number) => {
+  const books = await getBooksData();
+  return books.filter((book) => book.userId === userId);
 };
