@@ -34,8 +34,7 @@ export const getBookingInfos = async (bookingId: number) => {
   const userChatUserName = await getUserInfo(userChat);
 
   return {
-    booking,
-    book: booking.book,
+    ...booking,
     messages: chat?.messages,
     userChat: {
       id: userChatUserName?.id,
@@ -79,6 +78,7 @@ export const getUserBookings = async () => {
   if (!requesterId) return null;
 
   const bookings = await db.booking.findMany({
+    where: { status: "REQUESTED" },
     include: { book: true, owner: true },
   });
 

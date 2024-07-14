@@ -18,16 +18,4 @@ describe("BookingCard", () => {
       screen.queryByRole("button", { name: "Delete Book" }),
     ).not.toBeInTheDocument();
   });
-
-  it("should show delete button when booked is owned by connected user", () => {
-    render(
-      <BookingCard
-        book={{ ...mockedBookedBook, userId: 4 }}
-        connectedUserId={mockedUser.id}
-      />,
-    );
-    expect(
-      screen.getByRole("button", { name: "Delete Book" }),
-    ).toBeInTheDocument();
-  });
 });

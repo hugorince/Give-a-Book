@@ -29,6 +29,7 @@ const Bookings = async () => {
               {propositions.booksAskedForExchange && (
                 <PropositionsContainer
                   propositions={propositions.booksAskedForExchange}
+                  type="PROPOSED"
                 />
               )}
             </div>
@@ -37,6 +38,7 @@ const Bookings = async () => {
               {propositions.booksExchangePropositionReceived && (
                 <PropositionsContainer
                   propositions={propositions.booksExchangePropositionReceived}
+                  type="RECEIVED"
                 />
               )}
             </div>

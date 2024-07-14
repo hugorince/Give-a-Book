@@ -10,6 +10,7 @@ interface LinkProps extends NextLinkProps<HTMLAnchorElement> {
   loading?: boolean;
   fullWidth?: boolean;
   children: ReactNode;
+  className?: string;
 }
 
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
@@ -20,6 +21,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
       variant = "primary",
       fullWidth = false,
       loading = false,
+      className,
       ...props
     },
     ref,
@@ -28,7 +30,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
       "link--full": fullWidth,
     });
     return (
-      <NextLink className={classes} ref={ref} {...props}>
+      <NextLink className={clsx(classes, className)} ref={ref} {...props}>
         {loading ? <Loader size="s" /> : <>{children}</>}
       </NextLink>
     );

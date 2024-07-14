@@ -22,7 +22,9 @@ export const getBookById = async (bookId: number) => {
     username: book.user.username,
     postalCode: book.user.postalCode,
     gpsCoordinates: book.user.gpsCoordinates,
-    requested: book.booking ? true : false,
+    requested:
+      book.booking && book?.booking?.status === "REQUESTED" ? true : false,
+    completed: book?.booking?.status === "COMPLETED",
   };
 };
 
@@ -34,7 +36,9 @@ const getBooksData = async () => {
   const booksData = await Promise.all(
     books.map(async (book) => {
       const user = await getUserInfo(book.userId);
-      const requested = book.booking ? true : false;
+      const requested =
+        book.booking && book?.booking?.status === "REQUESTED" ? true : false;
+      const completed = book?.booking?.status === "COMPLETED";
 
       return {
         id: book.id,
@@ -52,6 +56,7 @@ const getBooksData = async () => {
         postalCode: user?.postalCode || "",
         gpsCoordinates: user?.gpsCoordinates || [0, 0],
         requested: requested,
+        completed: completed,
         proposed: book.proposed ? true : false,
         propositionReceived: book.propositionReceived ? true : false,
       };
@@ -62,7 +67,7 @@ const getBooksData = async () => {
 };
 
 export const getBooksWithoutConnectedUser = async () => {
-  const books = await getBooksData();
+  const books = await getBooksWithoutCompleted();
   const sortedBooks = await sortBooksByPostalCode(books);
   return sortedBooks.filter((book) => book.id);
 };
@@ -120,4 +125,9 @@ export const getBooksByUserId = async (userId: number) => {
 export const getBooksByUserIdLegacy = async (userId: number) => {
   const books = await getBooksData();
   return books.filter((book) => book.userId === userId);
+};
+
+export const getBooksWithoutCompleted = async () => {
+  const books = await getBooksData();
+  return books.filter((book) => !book.completed);
 };

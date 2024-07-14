@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 interface RequestBookDialogProps {
   proceed: (message: string) => Promise<void>;
-  user: string | null | undefined;
+  user?: string | null | undefined;
 }
 
 const messageSchema = z.object({
@@ -30,7 +30,7 @@ export const RequestBookDialog = ({
     <form className={classes.dialogContainer} onSubmit={handleSubmit(onSubmit)}>
       <h2>Are you sure you want to request this book ?</h2>
       <Textarea
-        placeholder={`write a message to ${user}`}
+        placeholder={user ? `write a message to ${user}` : "write a message"}
         rows={4}
         label="request book message"
         {...register("message")}
