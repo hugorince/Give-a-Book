@@ -44,17 +44,17 @@ model Book {
 }
 
 model Booking {
-  id            Int            @id @default(autoincrement())
-  createdAt     DateTime       @default(now())
-  status        String
+  id            Int               @id @default(autoincrement())
+  createdAt     DateTime          @default(now())
+  status        BookingStatusType
   type          BookingType
-  requester     User           @relation("UserBookings", fields: [requesterId], references: [id])
+  requester     User              @relation("UserBookings", fields: [requesterId], references: [id])
   requesterId   Int
-  owner         User           @relation("OwnerBookings", fields: [ownerId], references: [id])
+  owner         User              @relation("OwnerBookings", fields: [ownerId], references: [id])
   ownerId       Int
   distance      Int
-  book          Book           @relation("BookBooking", onDelete: Cascade, fields: [bookId], references: [id])
-  bookId        Int            @unique
+  book          Book              @relation("BookBooking", onDelete: Cascade, fields: [bookId], references: [id])
+  bookId        Int               @unique
   notifications Notification[]
   chat          Chat?
 }
@@ -111,6 +111,11 @@ model Notification {
 enum BookingType {
   REQUEST
   PROPOSAL
+}
+
+enum BookingStatusType {
+  REQUESTED
+  COMPLETED
 }
 
 enum NotificationType {

@@ -20,6 +20,10 @@
   display: flex;
   gap: var(--spacing-050);
 
+  .title {
+    max-width: 15rem;
+  }
+
   .bookInfos {
     display: flex;
     flex-direction: column;

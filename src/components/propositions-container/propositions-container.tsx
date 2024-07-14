@@ -6,17 +6,23 @@ import classes from "./propositions-container.module.css";
 
 interface PropositionsContainerProps {
   propositions: PropositionGroup[];
+  type: "PROPOSED" | "RECEIVED";
 }
 
 export const PropositionsContainer = ({
   propositions,
+  type,
 }: PropositionsContainerProps) => {
   if (!propositions) return null;
 
   return (
     <div className={classes.propositionsContainer}>
       {propositions.map((proposition, key) => (
-        <PropositionCard key={key} proposition={proposition} />
+        <PropositionCard
+          key={key}
+          proposition={proposition}
+          propositionType={type}
+        />
       ))}
     </div>
   );

@@ -16,6 +16,7 @@ export type BookData = {
   postalCode: string;
   gpsCoordinates: number[];
   requested: boolean;
+  completed: boolean;
   proposed?: boolean;
   propositionReceived?: boolean;
 };
@@ -31,7 +32,7 @@ export type BookPageData = Omit<
 
 export type BookedBook = Omit<
   BookData,
-  "postalCode" | "gpsCoordinates" | "user"
+  "postalCode" | "gpsCoordinates" | "user" | "completed"
 > & {
   distance: number;
   bookingId: number;

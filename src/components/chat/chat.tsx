@@ -14,10 +14,10 @@ interface ChatProps {
     username: string | null | undefined;
     id: number | undefined;
   };
+  chatId: number;
 }
 
-export const Chat = ({ messages, title, userChat }: ChatProps) => {
-  const chatId = messages[0].chatId;
+export const Chat = ({ messages, title, userChat, chatId }: ChatProps) => {
   const reverseMessages = messages.reverse();
 
   return (
