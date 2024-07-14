@@ -12,7 +12,6 @@ interface BookingCardContainerProps {
 export const BookingCardContainer = async ({
   books,
 }: BookingCardContainerProps) => {
-  console.log(books);
   const connectedUserId = await getConnectedUserId();
 
   if (!connectedUserId) return null;

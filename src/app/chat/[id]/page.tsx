@@ -7,10 +7,9 @@ import classes from "./page.module.css";
 const ChatPage = async ({ params }: PageProps) => {
   const booking = await getBookingInfos(parseInt(params.id));
 
-  if (!booking?.book) return null;
+  if (!booking?.book || !booking?.chat?.id) return null;
 
   const book = booking.book;
-
   if (!book) return null;
 
   const messages = booking.messages;
@@ -23,6 +22,7 @@ const ChatPage = async ({ params }: PageProps) => {
             messages={messages}
             title={book.title}
             userChat={booking.userChat}
+            chatId={booking.chat.id}
           />
         )}
       </div>

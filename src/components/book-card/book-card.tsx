@@ -17,6 +17,7 @@ export const BookCard = ({ book, connectedUserId }: BookCardProps) => {
   const isLiked =
     connectedUserId && book.likes.includes(connectedUserId) ? true : false;
   const isRequested = book.requested;
+  const isCompleted = book.completed;
   const isInExchangeProposition = Boolean(
     book.proposed || book.propositionReceived,
   );
@@ -29,6 +30,7 @@ export const BookCard = ({ book, connectedUserId }: BookCardProps) => {
           <div className={classes.chips}>
             <Chip label={exchangeOrGive} exchange={book.exchange} />
             {isRequested && <Chip label="requested" variant="requested" />}
+            {isCompleted && <Chip label="completed" />}
             {isInExchangeProposition && (
               <Chip label="proposed" variant="requested" />
             )}

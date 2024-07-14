@@ -7,3 +7,9 @@
   justify-content: center;
   align-items: center;
 }
+
+.actionsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-025);
+}
