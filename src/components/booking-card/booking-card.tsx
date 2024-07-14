@@ -2,24 +2,27 @@
 
 import type { BookedBook } from "@/types";
 import { Link } from "@/ui-kit";
-import { DeleteBook } from "../delete-book";
 import classes from "./booking-card.module.css";
 import { CancelRequestBookButton } from "../cancel-book-request-button";
+import { CompleteBookingButton } from "../complete-booking-button";
 
 interface BookingCardProps {
   book: BookedBook;
   connectedUserId: number;
 }
 
-export const BookingCard = ({ book, connectedUserId }: BookingCardProps) => {
-  const isConnectedUserBook = connectedUserId === book.userId;
-
+export const BookingCard = ({ book }: BookingCardProps) => {
   return (
     <div className={classes.cardWrapper}>
       <div className={classes.imageTitle}>
         <img src={book.image as string} alt="" />
         <div className={classes.bookInfos}>
-          <Link href={`/book/${book.id}`} variant="unstyled" size="l">
+          <Link
+            href={`/book/${book.id}`}
+            variant="unstyled"
+            size="l"
+            className={classes.title}
+          >
             {book.title}
           </Link>
           <div className={classes.ownerLink}>
@@ -34,7 +37,7 @@ export const BookingCard = ({ book, connectedUserId }: BookingCardProps) => {
       <div className={classes.actionsContainer}>
         <Link href={`/chat/${book.bookingId}`}>Message</Link>
         <CancelRequestBookButton book={book} />
-        {isConnectedUserBook && <DeleteBook bookId={book.id} />}
+        <CompleteBookingButton bookingId={book.bookingId} />
       </div>
     </div>
   );

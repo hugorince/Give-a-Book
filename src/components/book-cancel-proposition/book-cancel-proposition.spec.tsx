@@ -19,12 +19,12 @@ describe("BookCancelProposition", () => {
       />,
     );
 
-    expect(screen.getByText("Refuse Proposition")).toBeVisible();
+    expect(screen.getByText("Cancel Proposition")).toBeVisible();
   });
 
   it("should not show the refuse proposition button if book not proposed", () => {
     render(<BookCancelProposition book={mockedBookPage} />);
 
-    expect(screen.queryByText("Refuse Proposition")).not.toBeInTheDocument();
+    expect(screen.queryByText("Cancel Proposition")).not.toBeInTheDocument();
   });
 });

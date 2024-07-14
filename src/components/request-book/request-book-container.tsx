@@ -10,6 +10,7 @@ import { RxQuestionMarkCircled } from "react-icons/rx";
 import { DeleteBook } from "../delete-book";
 import { BookCancelProposition } from "../book-cancel-proposition";
 import classes from "./request-book-container.module.css";
+import { FaRegCircleCheck } from "react-icons/fa6";
 
 interface RequestBookProps {
   book: BookPageData;
@@ -21,7 +22,10 @@ export const RequestBookContainer = ({
   connectedUserId,
 }: RequestBookProps) => {
   const isOwnBook = book.userId === connectedUserId;
+
   const isAlreadyRequested = book.requested;
+  const isAlreadyCompleted = book.completed;
+
   const isAlreadyRequestedByOrFromConnectedUser =
     connectedUserId === book.booking?.ownerId ||
     connectedUserId === book.booking?.requesterId;
@@ -35,6 +39,16 @@ export const RequestBookContainer = ({
       isAlreadyProposed && isAlreadyProposed.proposedBookId === book.id,
     ) || isAlreadyProposed?.receiverBookId === book.id;
 
+  if (!connectedUserId) return <NotConnectedRequestBook />;
+
+  if (isAlreadyCompleted)
+    return (
+      <div className={classes.ownBookWrapper}>
+        <FaRegCircleCheck size={64} color="green" />
+        <p>This book has already been given</p>
+      </div>
+    );
+
   if (isOwnBook && !isAlreadyProposed && !isAlreadyRequested)
     return (
       <div className={classes.ownBookWrapper}>
@@ -44,7 +58,11 @@ export const RequestBookContainer = ({
       </div>
     );
 
-  if (!connectedUserId) return <NotConnectedRequestBook />;
+  if (isOwnBook && isAlreadyProposed)
+    return <BookCancelProposition book={book} withDeleteButton />;
+
+  if (isOwnBook && isAlreadyRequested)
+    return <BookCancelRequest book={book} withDeleteButton />;
 
   if (
     isAlreadyProposedByConnectedUser ||
@@ -56,6 +74,8 @@ export const RequestBookContainer = ({
     return <BookCancelRequest book={book} />;
 
   if (isAlreadyRequested || isAlreadyProposed) return <BookAlreadyRequested />;
+
+  if (isOwnBook) return <DeleteBook bookId={book.id} />;
 
   if (book.exchange) return <ProposeExchange book={book} />;
 

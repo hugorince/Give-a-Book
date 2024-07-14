@@ -7,10 +7,12 @@ import { DialogBox } from "@/components/dialog-box";
 
 interface RefusePropositionButtonProps {
   propositionId: number;
+  label: string;
 }
 
 export const RefusePropositionButton = ({
   propositionId,
+  label,
 }: RefusePropositionButtonProps) => {
   const router = useRouter();
   const { openDialog, closeDialog } = useDialog();
@@ -35,7 +37,7 @@ export const RefusePropositionButton = ({
 
   return (
     <Button variant="secondary" onClick={openRefusePropositionDialog}>
-      Refuse Proposition
+      {label}
     </Button>
   );
 };

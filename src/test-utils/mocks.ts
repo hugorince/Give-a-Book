@@ -22,6 +22,7 @@ export const mockedBook: BookData = {
   likes: [1],
   postalCode: "75018",
   requested: false,
+  completed: false,
   gpsCoordinates: [0, 0],
 };
 
@@ -32,7 +33,7 @@ export const mockedBookedBook: BookedBook = {
   image: "image",
   description: "description",
   username: "username",
-  userId: 2,
+  userId: 4,
   exchange: true,
   give: false,
   createdAt: new Date(),
@@ -118,7 +119,7 @@ export const mockedGoogleApiBooks = [
 export const mockedBooking: Booking = {
   id: 1,
   createdAt: new Date(),
-  status: "PENDING",
+  status: "REQUESTED",
   type: "PROPOSAL",
   requesterId: 1,
   ownerId: 2,
@@ -149,6 +150,7 @@ export const mockedBookPage: BookPageData = {
   likes: [1],
   postalCode: "75018",
   requested: false,
+  completed: false,
   gpsCoordinates: [0, 0],
   booking: mockedBooking,
   proposed: null,
