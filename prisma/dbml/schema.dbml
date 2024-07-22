@@ -1,0 +1,156 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table User {
+  id Int [pk, increment]
+  email String [unique, not null]
+  username String [unique]
+  password String [not null]
+  postalCode String [not null]
+  gpsCoordinates Float[] [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  books Book [not null]
+  booked Booking [not null]
+  requested Booking [not null]
+  chatsRequester Chat [not null]
+  chatsOwner Chat [not null]
+  messages Message [not null]
+  notifications Notification [not null]
+}
+
+Table Book {
+  id Int [pk, increment]
+  title String [not null]
+  author String [not null]
+  description String [not null]
+  image String
+  give Boolean [not null]
+  exchange Boolean [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  user User [not null]
+  userId Int [not null]
+  likes Int[] [not null]
+  booking Booking
+  proposed Proposition
+  propositionReceived Proposition
+}
+
+Table Booking {
+  id Int [pk, increment]
+  createdAt DateTime [default: `now()`, not null]
+  status BookingStatusType [not null]
+  type BookingType [not null]
+  requester User [not null]
+  requesterId Int [not null]
+  owner User [not null]
+  ownerId Int [not null]
+  distance Int [not null]
+  book Book [not null]
+  bookId Int [unique, not null]
+  notifications Notification [not null]
+  chat Chat
+}
+
+Table Proposition {
+  id Int [pk, increment]
+  createdAt DateTime [default: `now()`, not null]
+  status PropositionStatusType [not null]
+  proposedBook Book [not null]
+  receiverBook Book [not null]
+  proposedBookId Int [unique, not null]
+  receiverBookId Int [unique, not null]
+  notification Notification [not null]
+}
+
+Table Chat {
+  id Int [pk, increment]
+  createdAt DateTime [default: `now()`, not null]
+  requester User [not null]
+  requesterId Int [not null]
+  owner User [not null]
+  ownerId Int [not null]
+  messages Message [not null]
+  booking Booking [not null]
+  bookingId Int [unique, not null]
+}
+
+Table Message {
+  id Int [pk, increment]
+  createdAt DateTime [default: `now()`, not null]
+  text String [not null]
+  sender User [not null]
+  senderId Int [not null]
+  chat Chat [not null]
+  chatId Int [not null]
+  notification Notification [not null]
+}
+
+Table Notification {
+  id Int [pk, increment]
+  createdAt DateTime [default: `now()`, not null]
+  type NotificationType [not null]
+  user User [not null]
+  userId Int [not null]
+  isRead Boolean [not null, default: false]
+  booking Booking
+  bookingId Int
+  proposition Proposition
+  propositionId Int
+  message Message
+  messageId Int
+}
+
+Enum BookingType {
+  REQUEST
+  PROPOSAL
+}
+
+Enum BookingStatusType {
+  REQUESTED
+  COMPLETED
+}
+
+Enum NotificationType {
+  BOOKING_REQUEST
+  PROPOSITION
+  MESSAGE
+}
+
+Enum PropositionStatusType {
+  PENDING
+  ACCEPTED
+  REFUSED
+}
+
+Ref: Book.userId > User.id
+
+Ref: Booking.requesterId > User.id
+
+Ref: Booking.ownerId > User.id
+
+Ref: Booking.bookId - Book.id [delete: Cascade]
+
+Ref: Proposition.proposedBookId - Book.id
+
+Ref: Proposition.receiverBookId - Book.id
+
+Ref: Chat.requesterId > User.id
+
+Ref: Chat.ownerId > User.id
+
+Ref: Chat.bookingId - Booking.id [delete: Cascade]
+
+Ref: Message.senderId > User.id
+
+Ref: Message.chatId > Chat.id [delete: Cascade]
+
+Ref: Notification.userId > User.id
+
+Ref: Notification.bookingId > Booking.id [delete: Cascade]
+
+Ref: Notification.propositionId > Proposition.id [delete: Cascade]
+
+Ref: Notification.messageId > Message.id
