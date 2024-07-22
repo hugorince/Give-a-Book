@@ -12,6 +12,7 @@ describe("PropositionContainer", () => {
     render(
       <PropositionsContainer
         propositions={[{}, {}] as unknown as PropositionGroup[]}
+        type="RECEIVED"
       />,
     );
 
