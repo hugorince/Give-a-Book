@@ -7,7 +7,7 @@
   font-weight: var(--font-weight-bold);
   text-align: center;
   border: 1px solid transparent;
-  border-radius: 0.5rem;
+  border-radius: var(--spacing-050);
   cursor: pointer;
 
   &:disabled {

@@ -13,19 +13,21 @@ interface ProposeExchangeDialogProps {
 }
 
 const proposeBookSchema = z.object({
-  bookId: z.number().optional(),
+  bookId: z.number(),
 });
+
+type ProposeBookSchemaType = z.infer<typeof proposeBookSchema>;
 
 export const ProposeExchangeDialog = ({
   proceed,
   connectedUserBooks,
 }: ProposeExchangeDialogProps) => {
   const { closeDialog } = useDialog();
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit } = useForm<ProposeBookSchemaType>({
     resolver: zodResolver(proposeBookSchema),
   });
 
-  const onSubmit = (values: z.infer<typeof proposeBookSchema>) => {
+  const onSubmit = (values: ProposeBookSchemaType) => {
     if (values.bookId) proceed(values.bookId);
   };
 
