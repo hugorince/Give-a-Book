@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
+import { render } from "@/test-utils";
 import { UpdateProfileInput } from "./update-profile-input";
 
 jest.mock("react-hook-form", () => ({
