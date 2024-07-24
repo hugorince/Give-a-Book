@@ -7,7 +7,7 @@ import {
 } from "react";
 import type { SearchTextInputProps, Book } from "../search-text-input";
 import classes from "./dropdown-search.module.css";
-import { useOutsideClick } from "@/utils";
+import { useOutsideClick } from "@/hooks";
 
 interface DropdownSearchProps {
   type: SearchTextInputProps["type"];
