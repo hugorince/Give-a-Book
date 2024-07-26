@@ -1,5 +1,6 @@
 "use server";
 
+import { BOOKING_STATUS } from "@/constants";
 import { db } from "@/db";
 
 export const completeBooking = async (bookingId: number) => {
@@ -8,7 +9,7 @@ export const completeBooking = async (bookingId: number) => {
       id: bookingId,
     },
     data: {
-      status: "COMPLETED",
+      status: BOOKING_STATUS.COMPLETED,
     },
   });
 };

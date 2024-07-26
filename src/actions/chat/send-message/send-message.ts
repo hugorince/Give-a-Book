@@ -1,15 +1,13 @@
 "use server";
 
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/actions/auth/auth";
 import { db } from "@/db";
+import { getConnectedUserId } from "@/actions/user";
+import { NOTIFICATION_TYPE } from "@/constants";
 
 export const sendMessage = async (message: string, chatId: number) => {
-  const user = await getServerSession(authOptions);
+  const userId = await getConnectedUserId();
 
-  if (!user) return null;
-
-  const userId = parseInt(user.user.id);
+  if (!userId) return null;
 
   const chat = await db.chat.findUnique({
     where: { id: chatId },
@@ -33,7 +31,7 @@ export const sendMessage = async (message: string, chatId: number) => {
     data: {
       userId: userNotified,
       messageId: messageSent.id,
-      type: "MESSAGE",
+      type: NOTIFICATION_TYPE.MESSAGE,
       isRead: false,
       bookingId: chat.booking.id,
     },

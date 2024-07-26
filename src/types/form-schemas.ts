@@ -1,4 +1,5 @@
-import { BOOKTYPE } from "@/constants";
+import { BOOK_TYPE } from "@/constants";
+import { getValues } from "@/utils";
 import * as z from "zod";
 
 export const SignUpFormSchema = z
@@ -30,7 +31,7 @@ export const PostBookFormSchema = z.object({
   author: z.string().min(1, "author is required"),
   description: z.string(),
   image: z.string().optional(),
-  exchangeGive: z.literal(BOOKTYPE.GIVE || BOOKTYPE.EXCHANGE),
+  exchangeGive: z.enum(getValues(BOOK_TYPE)),
 });
 
 export const updateUserSchemaWithId = z.object({
