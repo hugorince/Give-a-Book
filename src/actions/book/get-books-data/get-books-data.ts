@@ -1,7 +1,7 @@
 "use server";
 
 import { getConnectedUserId, getUserInfo } from "@/actions";
-import { BOOKTYPE } from "@/constants";
+import { BOOK_TYPE, BOOKING_STATUS } from "@/constants";
 import { db } from "@/db";
 import { calculateDistance } from "@/utils";
 
@@ -20,14 +20,16 @@ export const getBookById = async (bookId: number) => {
 
   return {
     ...book,
-    exchange: book.type === BOOKTYPE.EXCHANGE,
-    give: book.type === BOOKTYPE.GIVE,
+    exchange: book.type === BOOK_TYPE.EXCHANGE,
+    give: book.type === BOOK_TYPE.GIVE,
     username: book.user.username,
     postalCode: book.user.postalCode,
     gpsCoordinates: book.user.gpsCoordinates,
     requested:
-      book.booking && book?.booking?.status === "REQUESTED" ? true : false,
-    completed: book?.booking?.status === "COMPLETED",
+      book.booking && book?.booking?.status === BOOKING_STATUS.REQUESTED
+        ? true
+        : false,
+    completed: book?.booking?.status === BOOKING_STATUS.COMPLETED,
   };
 };
 
@@ -40,8 +42,10 @@ const getBooksData = async () => {
     books.map(async (book) => {
       const user = await getUserInfo(book.userId);
       const requested =
-        book.booking && book?.booking?.status === "REQUESTED" ? true : false;
-      const completed = book?.booking?.status === "COMPLETED";
+        book.booking && book?.booking?.status === BOOKING_STATUS.REQUESTED
+          ? true
+          : false;
+      const completed = book?.booking?.status === BOOKING_STATUS.COMPLETED;
 
       return {
         id: book.id,
@@ -51,8 +55,8 @@ const getBooksData = async () => {
         description: book.description,
         username: user?.username || "",
         userId: book.userId,
-        exchange: book.type === "EXCHANGE",
-        give: book.type === "GIVE",
+        exchange: book.type === BOOK_TYPE.EXCHANGE,
+        give: book.type === BOOK_TYPE.GIVE,
         createdAt: book.createdAt,
         updatedAt: book.updatedAt,
         likes: book.likes,

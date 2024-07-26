@@ -1,5 +1,6 @@
 "use server";
 
+import { NOTIFICATION_TYPE, PROPOSITION_STATUS_TYPE } from "@/constants";
 import { getBookById, getBooksByUserId } from "../../book/get-books-data";
 import { getConnectedUserId } from "../../user";
 import { db } from "@/db";
@@ -12,7 +13,7 @@ export const proposeExchange = async (
   try {
     await db.proposition.create({
       data: {
-        status: "PENDING",
+        status: PROPOSITION_STATUS_TYPE.PENDING,
         proposedBookId: proposedBookId,
         receiverBookId: requestedBook.id,
       },
@@ -21,7 +22,7 @@ export const proposeExchange = async (
     await db.notification.create({
       data: {
         userId: requestedBook.userId,
-        type: "PROPOSITION",
+        type: NOTIFICATION_TYPE.PROPOSITION,
         isRead: false,
       },
     });

@@ -41,7 +41,6 @@ Table Booking {
   id Int [pk, increment]
   createdAt DateTime [default: `now()`, not null]
   status BookingStatusType [not null]
-  type BookingType [not null]
   requester User [not null]
   requesterId Int [not null]
   owner User [not null]
@@ -105,11 +104,6 @@ Table Notification {
 Enum BookType {
   GIVE
   EXCHANGE
-}
-
-Enum BookingType {
-  REQUEST
-  PROPOSAL
 }
 
 Enum BookingStatusType {

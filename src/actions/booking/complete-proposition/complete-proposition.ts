@@ -3,6 +3,7 @@
 import { db } from "@/db";
 import { createBooking, requestBook } from "../request-book";
 import { getBookById } from "@/actions/book/get-books-data";
+import { PROPOSITION_STATUS_TYPE } from "@/constants";
 
 export const completeProposition = async (
   propositionId: number,
@@ -14,7 +15,7 @@ export const completeProposition = async (
         id: propositionId,
       },
       data: {
-        status: "ACCEPTED",
+        status: PROPOSITION_STATUS_TYPE.ACCEPTED,
       },
       include: {
         proposedBook: true,

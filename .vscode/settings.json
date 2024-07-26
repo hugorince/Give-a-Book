@@ -1,3 +1,10 @@
 {
-  "cSpell.words": ["BOOKTYPE", "clsx", "hookform", "signup", "Tanstack"]
+  "cSpell.words": [
+    "BOOK_TYPE",
+    "clsx",
+    "hookform",
+    "NOTIFICATION_TYPE",
+    "signup",
+    "Tanstack"
+  ]
 }
