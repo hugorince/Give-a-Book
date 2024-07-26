@@ -7,6 +7,7 @@ import { authOptions } from "@/actions/auth/auth";
 import { calculateDistance } from "@/utils";
 import { db } from "@/db";
 import { getConnectedUserId } from "@/actions/user";
+import { BOOKING_STATUS, NOTIFICATION_TYPE } from "@/constants";
 
 export const createBooking = async (book: BookPageData, requester: User) => {
   try {
@@ -19,8 +20,7 @@ export const createBooking = async (book: BookPageData, requester: User) => {
 
     const newBooking = await db.booking.create({
       data: {
-        status: "REQUESTED",
-        type: "REQUEST",
+        status: BOOKING_STATUS.REQUESTED,
         requesterId: requester.id,
         ownerId: book.userId,
         bookId: book.id,
@@ -39,7 +39,7 @@ export const createBooking = async (book: BookPageData, requester: User) => {
     await db.notification.create({
       data: {
         userId: book.userId,
-        type: "BOOKING_REQUEST",
+        type: NOTIFICATION_TYPE.BOOKING_REQUEST,
         isRead: false,
         bookingId: newBooking.id,
       },
@@ -70,8 +70,7 @@ export const requestBook = async (book: BookPageData, message: string) => {
 
     const newBooking = await db.booking.create({
       data: {
-        status: "REQUESTED",
-        type: "REQUEST",
+        status: BOOKING_STATUS.REQUESTED,
         requesterId: requester.id,
         ownerId: book.userId,
         bookId: book.id,

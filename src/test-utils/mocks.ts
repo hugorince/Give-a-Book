@@ -6,6 +6,7 @@ import type {
 } from "@prisma/client";
 import type { BookData, BookPageData, BookedBook } from "@/types";
 import type { NotificationProps } from "../components";
+import { BOOKING_STATUS } from "@/constants";
 
 export const mockedBook: BookData = {
   id: 1,
@@ -119,8 +120,7 @@ export const mockedGoogleApiBooks = [
 export const mockedBooking: Booking = {
   id: 1,
   createdAt: new Date(),
-  status: "REQUESTED",
-  type: "PROPOSAL",
+  status: BOOKING_STATUS.REQUESTED,
   requesterId: 1,
   ownerId: 2,
   distance: 1,

@@ -4,6 +4,7 @@ import { authOptions } from "@/actions/auth/auth";
 import { getServerSession } from "next-auth";
 import { db } from "@/db";
 import { Notification } from "@prisma/client";
+import { NOTIFICATION_TYPE } from "@/constants";
 
 export const getUserNotifications = async () => {
   const user = await getServerSession(authOptions);
@@ -38,7 +39,10 @@ export const getUserNotifications = async () => {
 };
 
 const getNotificationDetails = async (notification: Notification) => {
-  if (notification.messageId && notification.type === "MESSAGE") {
+  if (
+    notification.messageId &&
+    notification.type === NOTIFICATION_TYPE.MESSAGE
+  ) {
     const message = await db.message.findUnique({
       where: {
         id: notification.messageId,
@@ -48,12 +52,8 @@ const getNotificationDetails = async (notification: Notification) => {
 
     if (message)
       return {
-        id: notification.id,
-        bookingId: notification.bookingId,
-        isRead: notification.isRead,
-        type: notification.type,
+        ...notification,
         username: message.sender.username,
-        createdAt: notification.createdAt,
       };
   }
 

@@ -1,7 +1,7 @@
 "use server";
 
 import { getConnectedUserId, getUserInfo } from "@/actions/user";
-import { BOOKTYPE } from "@/constants";
+import { BOOK_TYPE } from "@/constants";
 import { db } from "@/db";
 import { Prisma } from "@prisma/client";
 
@@ -58,8 +58,8 @@ const getUserBookedBooks = async (bookings: BookingWithBook[]) => {
 
     return {
       ...book,
-      exchange: book.type === BOOKTYPE.EXCHANGE,
-      give: book.type === BOOKTYPE.GIVE,
+      exchange: book.type === BOOK_TYPE.EXCHANGE,
+      give: book.type === BOOK_TYPE.GIVE,
       requested: true,
       distance: booking.distance,
       bookingId: booking.id,
@@ -81,7 +81,6 @@ export const getUserBookings = async () => {
   if (!requesterId) return null;
 
   const bookings = await db.booking.findMany({
-    where: { status: "REQUESTED" },
     include: { book: true, owner: true },
   });
 
@@ -96,8 +95,8 @@ export const getUserBookings = async () => {
 
     return {
       ...book,
-      exchange: book.type === BOOKTYPE.EXCHANGE,
-      give: book.type === BOOKTYPE.GIVE,
+      exchange: book.type === BOOK_TYPE.EXCHANGE,
+      give: book.type === BOOK_TYPE.GIVE,
       requested: true,
       distance: booking.distance,
       bookingId: booking.id,
