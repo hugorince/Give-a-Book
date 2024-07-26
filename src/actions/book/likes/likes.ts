@@ -1,15 +1,13 @@
 "use server";
 
-import { authOptions } from "@/actions/auth/auth";
+import { getConnectedUserId } from "@/actions/user";
 import { db } from "@/db";
-import { getServerSession } from "next-auth";
 
 export const updateBookLikes = async (bookId: number) => {
-  const session = await getServerSession(authOptions);
+  const userId = await getConnectedUserId();
 
-  if (!session) return null;
+  if (!userId) return null;
 
-  const userId = parseInt(session.user.id);
   const book = await db.book.findUnique({
     where: { id: bookId },
   });

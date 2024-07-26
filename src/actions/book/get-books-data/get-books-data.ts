@@ -33,7 +33,7 @@ export const getBookById = async (bookId: number) => {
   };
 };
 
-const getBooksData = async () => {
+export const getBooksData = async () => {
   const books = await db.book.findMany({
     include: { proposed: true, propositionReceived: true, booking: true },
   });
