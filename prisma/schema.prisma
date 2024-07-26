@@ -46,7 +46,6 @@ model Booking {
   id            Int               @id @default(autoincrement())
   createdAt     DateTime          @default(now())
   status        BookingStatusType
-  type          BookingType
   requester     User              @relation("UserBookings", fields: [requesterId], references: [id])
   requesterId   Int
   owner         User              @relation("OwnerBookings", fields: [ownerId], references: [id])
@@ -110,11 +109,6 @@ model Notification {
 enum BookType {
   GIVE
   EXCHANGE
-}
-
-enum BookingType {
-  REQUEST
-  PROPOSAL
 }
 
 enum BookingStatusType {
