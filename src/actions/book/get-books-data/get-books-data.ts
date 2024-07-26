@@ -1,6 +1,7 @@
 "use server";
 
 import { getConnectedUserId, getUserInfo } from "@/actions";
+import { BOOKTYPE } from "@/constants";
 import { db } from "@/db";
 import { calculateDistance } from "@/utils";
 
@@ -19,6 +20,8 @@ export const getBookById = async (bookId: number) => {
 
   return {
     ...book,
+    exchange: book.type === BOOKTYPE.EXCHANGE,
+    give: book.type === BOOKTYPE.GIVE,
     username: book.user.username,
     postalCode: book.user.postalCode,
     gpsCoordinates: book.user.gpsCoordinates,
@@ -48,8 +51,8 @@ const getBooksData = async () => {
         description: book.description,
         username: user?.username || "",
         userId: book.userId,
-        exchange: book.exchange,
-        give: book.give,
+        exchange: book.type === "EXCHANGE",
+        give: book.type === "GIVE",
         createdAt: book.createdAt,
         updatedAt: book.updatedAt,
         likes: book.likes,

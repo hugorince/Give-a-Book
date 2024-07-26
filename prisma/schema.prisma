@@ -31,8 +31,7 @@ model Book {
   author              String
   description         String
   image               String?
-  give                Boolean
-  exchange            Boolean
+  type                BookType
   createdAt           DateTime     @default(now())
   updatedAt           DateTime     @updatedAt
   user                User         @relation("UsersBooks", fields: [userId], references: [id])
@@ -106,6 +105,11 @@ model Notification {
   propositionId Int?
   message       Message?         @relation(fields: [messageId], references: [id])
   messageId     Int?
+}
+
+enum BookType {
+  GIVE
+  EXCHANGE
 }
 
 enum BookingType {
