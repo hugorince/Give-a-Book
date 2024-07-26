@@ -8,8 +8,6 @@ export const postBook = async (
   values: z.infer<typeof PostBookFormSchema>,
   userId: number,
 ) => {
-  const exchange = values.exchangeGive === "exchange";
-
   await db.book.create({
     data: {
       title: values.title,
@@ -17,8 +15,7 @@ export const postBook = async (
       description: values.description,
       image: values.image,
       userId: userId as number,
-      exchange: exchange,
-      give: !exchange,
+      type: values.exchangeGive,
     },
   });
 };

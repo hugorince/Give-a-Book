@@ -1,3 +1,4 @@
+import { BOOKTYPE } from "@/constants";
 import * as z from "zod";
 
 export const SignUpFormSchema = z
@@ -29,7 +30,7 @@ export const PostBookFormSchema = z.object({
   author: z.string().min(1, "author is required"),
   description: z.string(),
   image: z.string().optional(),
-  exchangeGive: z.string(),
+  exchangeGive: z.literal(BOOKTYPE.GIVE || BOOKTYPE.EXCHANGE),
 });
 
 export const updateUserSchemaWithId = z.object({

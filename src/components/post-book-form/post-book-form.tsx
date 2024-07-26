@@ -12,6 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useClientSession } from "@/hooks";
 import classes from "./post-book-form.module.css";
+import { BOOKTYPE } from "@/constants";
 
 export const PostBookForm = () => {
   const router = useRouter();
@@ -24,7 +25,7 @@ export const PostBookForm = () => {
       author: "",
       description: "",
       image: "",
-      exchangeGive: "give",
+      exchangeGive: BOOKTYPE.GIVE,
     },
   });
 
