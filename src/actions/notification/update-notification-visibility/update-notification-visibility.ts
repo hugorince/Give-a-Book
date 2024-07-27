@@ -2,7 +2,7 @@
 
 import { db } from "@/db";
 
-export const setNotificationVisibility = async (notificationId: number) => {
+export const updateNotificationVisibility = async (notificationId: number) => {
   await db.notification.update({
     where: { id: notificationId },
     data: {

@@ -1,17 +1,14 @@
 "use server";
 
-import { authOptions } from "@/actions/auth/auth";
-import { getServerSession } from "next-auth";
 import { db } from "@/db";
 import { Notification } from "@prisma/client";
 import { NOTIFICATION_TYPE } from "@/constants";
+import { getConnectedUserId } from "@/actions/user";
 
 export const getUserNotifications = async () => {
-  const user = await getServerSession(authOptions);
+  const userId = await getConnectedUserId();
 
-  if (!user) return null;
-
-  const userId = parseInt(user.user.id);
+  if (!userId) return null;
 
   const userData = await db.user.findUnique({
     where: { id: userId },

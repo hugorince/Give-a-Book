@@ -44,7 +44,7 @@ export const getBookingInfos = async (bookingId: number) => {
   };
 };
 
-const getUserBookedBooks = async (bookings: BookingWithBook[]) => {
+export const getUserBookedBooks = async (bookings: BookingWithBook[]) => {
   const userId = await getConnectedUserId();
 
   if (!userId) return null;
@@ -81,6 +81,7 @@ export const getUserBookings = async () => {
   if (!requesterId) return null;
 
   const bookings = await db.booking.findMany({
+    where: { status: "REQUESTED" },
     include: { book: true, owner: true },
   });
 
