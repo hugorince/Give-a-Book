@@ -1,11 +1,11 @@
 "use client";
 
 import type { BookPageData } from "@/types";
+import type { Book } from "@prisma/client";
 import { Button, useDialog } from "@/ui-kit";
 import { useRouter } from "next/navigation";
 import { ProposeExchangeDialog } from "../propose-exchange-dialog";
 import { proposeExchange } from "@/actions";
-import type { Book } from "@prisma/client";
 
 interface ProposeExchangeButtonProps {
   book: BookPageData;
