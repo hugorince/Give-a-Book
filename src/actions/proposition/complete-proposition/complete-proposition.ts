@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/db";
-import { createBooking, requestBook } from "../request-book";
+import { createBooking, requestBook } from "../../booking/request-book";
 import { getBookById } from "@/actions/book/get-books-data";
 import { PROPOSITION_STATUS_TYPE } from "@/constants";
 

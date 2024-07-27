@@ -2,8 +2,6 @@
 
 import type { BookPageData } from "@/types";
 import type { User } from "@prisma/client";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/actions/auth/auth";
 import { calculateDistance } from "@/utils";
 import { db } from "@/db";
 import { getConnectedUserId } from "@/actions/user";
@@ -101,26 +99,6 @@ export const requestBook = async (book: BookPageData, message: string) => {
         isRead: false,
         bookingId: newBooking.id,
       },
-    });
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-export const cancelRequest = async (bookId: number) => {
-  const user = await getServerSession(authOptions);
-
-  if (!user) return null;
-
-  try {
-    const booking = await db.booking.findFirst({
-      where: { bookId: bookId },
-    });
-
-    if (!booking) return null;
-
-    await db.booking.delete({
-      where: { id: booking.id },
     });
   } catch (err) {
     console.error(err);

@@ -1,35 +1,7 @@
 "use server";
 
-import { NOTIFICATION_TYPE, PROPOSITION_STATUS_TYPE } from "@/constants";
-import { getBookById, getBooksByUserId } from "../../book/get-books-data";
-import { getConnectedUserId } from "../../user";
-import { db } from "@/db";
-import { BookPageData } from "@/types";
-
-export const proposeExchange = async (
-  requestedBook: BookPageData,
-  proposedBookId: number,
-) => {
-  try {
-    await db.proposition.create({
-      data: {
-        status: PROPOSITION_STATUS_TYPE.PENDING,
-        proposedBookId: proposedBookId,
-        receiverBookId: requestedBook.id,
-      },
-    });
-
-    await db.notification.create({
-      data: {
-        userId: requestedBook.userId,
-        type: NOTIFICATION_TYPE.PROPOSITION,
-        isRead: false,
-      },
-    });
-  } catch (err) {
-    console.error(err);
-  }
-};
+import { getBookById, getBooksByUserId } from "@/actions/book";
+import { getConnectedUserId } from "@/actions/user";
 
 export const getUserPropositions = async () => {
   try {
@@ -80,12 +52,4 @@ export const getUserPropositions = async () => {
   } catch (error) {
     console.error("Error fetching user propositions:", error);
   }
-};
-
-export const deleteProposition = async (propositionId: number) => {
-  if (!propositionId) return null;
-
-  await db.proposition.delete({
-    where: { id: propositionId },
-  });
 };
