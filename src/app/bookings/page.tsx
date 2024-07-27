@@ -10,39 +10,38 @@ const Bookings = async () => {
   return (
     <MainLayout>
       <div className={classes.pageWrapper}>
-        <div>
-          <h2>My bookings</h2>
-          {bookings?.userRequestedBooks && (
-            <BookingCardContainer books={bookings.userRequestedBooks} />
-          )}
-        </div>
-        <div>
-          <h2>My booked books</h2>
-          {bookings?.userBookings && (
+        {bookings?.userRequestedBooks && (
+          <div>
+            <h2>My bookings</h2>
+            <BookingCardContainer
+              books={bookings.userRequestedBooks}
+              isRequestedBook
+            />
+          </div>
+        )}
+        {bookings?.userBookings && (
+          <div>
+            <h2>My booked books</h2>
             <BookingCardContainer books={bookings.userBookings} />
-          )}
-        </div>
-        {propositions && (
-          <>
-            <div>
-              <h2>My proposed propositions</h2>
-              {propositions.booksAskedForExchange && (
-                <PropositionsContainer
-                  propositions={propositions.booksAskedForExchange}
-                  type="PROPOSED"
-                />
-              )}
-            </div>
-            <div>
-              <h2>My received propositions</h2>
-              {propositions.booksExchangePropositionReceived && (
-                <PropositionsContainer
-                  propositions={propositions.booksExchangePropositionReceived}
-                  type="RECEIVED"
-                />
-              )}
-            </div>
-          </>
+          </div>
+        )}
+        {propositions?.booksAskedForExchange && (
+          <div>
+            <h2>My proposed propositions</h2>
+            <PropositionsContainer
+              propositions={propositions.booksAskedForExchange}
+              type="PROPOSED"
+            />
+          </div>
+        )}
+        {propositions?.booksExchangePropositionReceived && (
+          <div>
+            <h2>My received propositions</h2>
+            <PropositionsContainer
+              propositions={propositions.booksExchangePropositionReceived}
+              type="RECEIVED"
+            />
+          </div>
         )}
       </div>
     </MainLayout>

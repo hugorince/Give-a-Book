@@ -1,7 +1,7 @@
 import { render, mockedNotifications } from "@/test-utils";
 import { DropdownNotifications } from "./dropdown-notifications";
 import { screen } from "@testing-library/react";
-import { setNotificationVisibility } from "@/actions";
+import { updateNotificationVisibility } from "@/actions";
 import userEvent from "@testing-library/user-event";
 
 jest.mock("../notification-message", () => ({
@@ -18,15 +18,15 @@ jest.mock("../notification-message", () => ({
 }));
 
 jest.mock("../../actions", () => ({
-  setNotificationVisibility: jest.fn(),
+  updateNotificationVisibility: jest.fn(),
 }));
 
-const mockSetNotificationVisibility = jest.fn();
+const mockUpdateNotificationVisibility = jest.fn();
 
 describe("DropdownNotifications", () => {
   beforeAll(() => {
-    (setNotificationVisibility as jest.Mock).mockImplementation(
-      mockSetNotificationVisibility,
+    (updateNotificationVisibility as jest.Mock).mockImplementation(
+      mockUpdateNotificationVisibility,
     );
   });
   it("should should as many notifications as props", () => {
@@ -41,6 +41,6 @@ describe("DropdownNotifications", () => {
     const button = screen.queryAllByText("set visibility")[0];
     await userEvent.click(button);
 
-    expect(mockSetNotificationVisibility).toHaveBeenCalled();
+    expect(mockUpdateNotificationVisibility).toHaveBeenCalled();
   });
 });

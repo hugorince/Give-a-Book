@@ -8,10 +8,10 @@ import { CompleteBookingButton } from "../complete-booking-button";
 
 interface BookingCardProps {
   book: BookedBook;
-  connectedUserId: number;
+  isRequestedBook: boolean;
 }
 
-export const BookingCard = ({ book }: BookingCardProps) => {
+export const BookingCard = ({ book, isRequestedBook }: BookingCardProps) => {
   return (
     <div className={classes.cardWrapper}>
       <div className={classes.imageTitle}>
@@ -37,7 +37,9 @@ export const BookingCard = ({ book }: BookingCardProps) => {
       <div className={classes.actionsContainer}>
         <Link href={`/chat/${book.bookingId}`}>Message</Link>
         <CancelRequestBookButton book={book} />
-        <CompleteBookingButton bookingId={book.bookingId} />
+        {!isRequestedBook && (
+          <CompleteBookingButton bookingId={book.bookingId} />
+        )}
       </div>
     </div>
   );

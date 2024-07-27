@@ -1,4 +1,5 @@
-import { postBook } from "./post-book"; // Adjust the import path as needed
+import { BOOK_TYPE } from "@/constants";
+import { postBook } from "./post-book";
 import { db } from "@/db";
 
 jest.mock("../../../db", () => ({
@@ -9,16 +10,17 @@ jest.mock("../../../db", () => ({
   },
 }));
 
-describe("postBook", () => {
-  const values = {
-    title: "Test Book",
-    author: "Test Author",
-    description: "A description of the test book",
-    image: "test-image-url",
-    exchangeGive: "EXCHANGE",
-  };
-  const userId = 1;
+const values = {
+  title: "Test Book",
+  author: "Test Author",
+  description: "A description of the test book",
+  image: "image-url",
+  exchangeGive: BOOK_TYPE.EXCHANGE,
+};
 
+const userId = 1;
+
+describe("postBook", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -42,9 +44,9 @@ describe("postBook", () => {
     const partialValues = {
       title: "Partial Test Book",
       author: "Test Author",
-      description: undefined,
+      description: "",
       image: undefined,
-      exchangeGive: "give",
+      exchangeGive: BOOK_TYPE.EXCHANGE,
     };
 
     await postBook(partialValues, userId);
@@ -53,7 +55,7 @@ describe("postBook", () => {
       data: {
         title: partialValues.title,
         author: partialValues.author,
-        description: undefined,
+        description: "",
         image: undefined,
         userId: userId,
         type: partialValues.exchangeGive,
