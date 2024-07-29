@@ -12,6 +12,7 @@ export const SignUpFormSchema = z
       .min(1, "Password is required")
       .min(8, "Password must have than 8 characters"),
     confirmPassword: z.string().min(1, "Password confirmation is required"),
+    confidentiality: z.boolean(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"],

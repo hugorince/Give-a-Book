@@ -7,7 +7,11 @@
   align-items: center;
   gap: var(--spacing-100);
 
+  h1 {
+    text-align: center;
+  }
+
   form {
-    max-width: 20rem;
+    max-width: 25rem;
   }
 }
