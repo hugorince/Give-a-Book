@@ -60,13 +60,14 @@ export const UpdateProfileFieldContainer = ({
         className={classes.updateProfileFieldWrapper}
       >
         <UpdateProfileInput type={updateInput} />
-        <Button variant="secondary" onClick={handleInputClose}>
+        <Button variant="secondary" onClick={handleInputClose} size="s">
           Cancel
         </Button>
         <Button
           type="submit"
           loading={form.formState.isSubmitting}
           disabled={!form.formState.isValid}
+          size="s"
         >
           Confirm
         </Button>
