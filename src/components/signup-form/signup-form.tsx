@@ -38,8 +38,6 @@ export const SignUpForm = () => {
     }
   };
 
-  console.log({ formState });
-
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
