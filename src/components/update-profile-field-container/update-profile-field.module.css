@@ -1,4 +1,5 @@
 .updateProfileFieldWrapper {
   display: flex;
   gap: var(--spacing-050);
+  align-items: center;
 }

@@ -6,7 +6,7 @@ const SignUp = () => {
   return (
     <main className={classes.pageWrapper}>
       <h1>Welcome to Give a Book</h1>
-      <p>please sign up</p>
+      <p>create your account</p>
       <SignUpForm />
       <Link href="/login">already have an account? log in!</Link>
     </main>
