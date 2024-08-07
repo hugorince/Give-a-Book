@@ -27,14 +27,16 @@ const mockForm = {
   },
 };
 
-const user = userEvent.setup();
-
 describe("SignUpForm component", () => {
-  beforeAll(() => {
-    (createUser as jest.Mock).mockImplementation(mockCreateUser);
+  afterEach(() => {
+    jest.clearAllMocks();
   });
   it("should set the input values on submit", async () => {
     (useForm as jest.Mock).mockReturnValue(mockForm);
+    (createUser as jest.Mock).mockImplementation(mockCreateUser);
+
+    const user = userEvent.setup();
+
     render(<SignUpForm />);
 
     const username = screen.getByLabelText("username");
@@ -42,6 +44,9 @@ describe("SignUpForm component", () => {
     const postalCode = screen.getByLabelText("postal code");
     const password = screen.getByLabelText("password");
     const confirmPassword = screen.getByLabelText("confirm password");
+    const checkbox = screen.getByLabelText(
+      "I have agreed the confidentiality politics",
+    );
 
     user.type(username, "username");
     await waitFor(() => expect(username).toHaveValue("username"));
@@ -58,14 +63,15 @@ describe("SignUpForm component", () => {
     user.type(confirmPassword, "password");
     await waitFor(() => expect(confirmPassword).toHaveValue("password"));
 
-    const submitButton = screen.getByRole("button", { name: "submit" });
-    user.click(submitButton);
+    user.click(checkbox);
 
-    await waitFor(() => {
-      expect(mockCreateUser).toHaveBeenCalled();
-    });
+    const submitButton = screen.getByRole("button", { name: "submit" });
+
+    await user.click(submitButton);
+
+    expect(mockCreateUser).toHaveBeenCalled();
   });
-  it("should not call the onSubmit when form not valid", () => {
+  it("should not call the onSubmit when form not valid", async () => {
     (useForm as jest.Mock).mockReturnValue({
       ...mockForm,
       formState: {
@@ -73,9 +79,16 @@ describe("SignUpForm component", () => {
         errors: { postalCode: { message: "postal code error" } },
       },
     });
+    (createUser as jest.Mock).mockImplementation(mockCreateUser);
+
+    const user = userEvent.setup();
+
     render(<SignUpForm />);
 
     const submitButton = screen.getByRole("button", { name: "submit" });
-    expect(submitButton).toBeDisabled();
+
+    await user.click(submitButton);
+
+    expect(mockCreateUser).not.toHaveBeenCalled();
   });
 });
