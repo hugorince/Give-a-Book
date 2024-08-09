@@ -3,8 +3,8 @@
 import { cancelRequest } from "@/actions";
 import { Button, useDialog } from "@/ui-kit";
 import { useRouter } from "next/navigation";
-import { CancelRequestBookDialog } from "../cancel-request-book-dialog";
 import { BookPageData, BookedBook } from "@/types";
+import { DialogBox } from "../dialog-box";
 
 interface CancelBookRequestButtonProps {
   book: BookedBook | BookPageData;
@@ -24,9 +24,15 @@ export const CancelRequestBookButton = ({
 
   const openCancelRequestDialog = () => {
     openDialog({
-      children: <CancelRequestBookDialog cancelRequest={handleCancelRequest} />,
+      children: (
+        <DialogBox
+          cta={handleCancelRequest}
+          label="Are you sure you want to cancel your request ?"
+        />
+      ),
       onClose: () => console.log("fired"),
     });
   };
+
   return <Button onClick={openCancelRequestDialog}>Cancel Request</Button>;
 };

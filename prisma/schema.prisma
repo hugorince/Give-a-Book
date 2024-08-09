@@ -34,7 +34,7 @@ model Book {
   type                BookType
   createdAt           DateTime     @default(now())
   updatedAt           DateTime     @updatedAt
-  user                User         @relation("UsersBooks", fields: [userId], references: [id])
+  user                User         @relation("UsersBooks", onDelete: Cascade, fields: [userId], references: [id])
   userId              Int
   likes               Int[]
   booking             Booking?     @relation("BookBooking")
@@ -46,9 +46,9 @@ model Booking {
   id            Int               @id @default(autoincrement())
   createdAt     DateTime          @default(now())
   status        BookingStatusType
-  requester     User              @relation("UserBookings", fields: [requesterId], references: [id])
+  requester     User              @relation("UserBookings", onDelete: Cascade, fields: [requesterId], references: [id])
   requesterId   Int
-  owner         User              @relation("OwnerBookings", fields: [ownerId], references: [id])
+  owner         User              @relation("OwnerBookings", onDelete: Cascade, fields: [ownerId], references: [id])
   ownerId       Int
   distance      Int
   book          Book              @relation("BookBooking", onDelete: Cascade, fields: [bookId], references: [id])
@@ -61,8 +61,8 @@ model Proposition {
   id             Int                   @id @default(autoincrement())
   createdAt      DateTime              @default(now())
   status         PropositionStatusType
-  proposedBook   Book                  @relation("proposedBook", fields: [proposedBookId], references: [id])
-  receiverBook   Book                  @relation("receiverBook", fields: [receiverBookId], references: [id])
+  proposedBook   Book                  @relation("proposedBook", onDelete: Cascade, fields: [proposedBookId], references: [id])
+  receiverBook   Book                  @relation("receiverBook", onDelete: Cascade, fields: [receiverBookId], references: [id])
   proposedBookId Int                   @unique
   receiverBookId Int                   @unique
   notification   Notification[]
@@ -71,9 +71,9 @@ model Proposition {
 model Chat {
   id          Int       @id @default(autoincrement())
   createdAt   DateTime  @default(now())
-  requester   User      @relation("requesterChat", fields: [requesterId], references: [id])
+  requester   User      @relation("requesterChat", onDelete: Cascade, fields: [requesterId], references: [id])
   requesterId Int
-  owner       User      @relation("ownerChat", fields: [ownerId], references: [id])
+  owner       User      @relation("ownerChat", onDelete: Cascade, fields: [ownerId], references: [id])
   ownerId     Int
   messages    Message[] @relation("message")
   booking     Booking   @relation(fields: [bookingId], references: [id], onDelete: Cascade)
@@ -84,9 +84,9 @@ model Message {
   id           Int            @id @default(autoincrement())
   createdAt    DateTime       @default(now())
   text         String
-  sender       User           @relation(fields: [senderId], references: [id])
+  sender       User           @relation(fields: [senderId], onDelete: Cascade, references: [id])
   senderId     Int
-  chat         Chat           @relation("message", fields: [chatId], references: [id], onDelete: Cascade)
+  chat         Chat           @relation("message", fields: [chatId], onDelete: Cascade, references: [id])
   chatId       Int
   notification Notification[]
 }
@@ -95,14 +95,14 @@ model Notification {
   id            Int              @id @default(autoincrement())
   createdAt     DateTime         @default(now())
   type          NotificationType
-  user          User             @relation(fields: [userId], references: [id])
+  user          User             @relation(fields: [userId], onDelete: Cascade, references: [id])
   userId        Int
   isRead        Boolean          @default(false)
-  booking       Booking?         @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  booking       Booking?         @relation(fields: [bookingId], onDelete: Cascade, references: [id])
   bookingId     Int?
-  proposition   Proposition?     @relation(fields: [propositionId], references: [id], onDelete: Cascade)
+  proposition   Proposition?     @relation(fields: [propositionId], onDelete: Cascade, references: [id])
   propositionId Int?
-  message       Message?         @relation(fields: [messageId], references: [id])
+  message       Message?         @relation(fields: [messageId], onDelete: Cascade, references: [id])
   messageId     Int?
 }
 
