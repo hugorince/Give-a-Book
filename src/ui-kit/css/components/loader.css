@@ -23,7 +23,8 @@
     width: var(--sizing-400);
     height: var(--sizing-400);
     margin: var(--sizing-400);
-    border: 1.8rem solid grey;
+    border-radius: 50%;
+    border: 0.6rem solid grey;
     border-top-color: black;
   }
 }

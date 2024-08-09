@@ -4,16 +4,10 @@
   justify-content: center;
   width: 100%;
   gap: var(--spacing-100);
-
-  @media (min-width: 1024px) {
-    max-width: 1620px;
-  }
 }
 
 .booksContainer {
   display: flex;
   flex-direction: column;
-  align-self: flex-end;
   gap: var(--spacing-100);
-  max-width: 1024px;
 }

@@ -4,7 +4,7 @@ export const capitalize = (str: string) => {
 
 export const memberSince = (date: Date) => {
   return (
-    date.toLocaleString("default", {
+    date.toLocaleString("en-GB", {
       month: "long",
     }) +
     " " +
@@ -15,7 +15,7 @@ export const memberSince = (date: Date) => {
 export const postedOn = (date: Date) => {
   return (
     "posted on " +
-    date.toLocaleString("default", {
+    date.toLocaleString("en-GB", {
       month: "long",
     }) +
     " " +
