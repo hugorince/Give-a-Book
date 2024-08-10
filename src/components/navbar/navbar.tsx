@@ -37,7 +37,7 @@ export const Navbar = async () => {
           {initials ? (
             <>
               <li>
-                <Link href="/books/post-book" variant="unstyled">
+                <Link href="/post-book" variant="unstyled">
                   Add book
                 </Link>
               </li>

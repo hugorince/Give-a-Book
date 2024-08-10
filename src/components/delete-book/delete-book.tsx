@@ -3,6 +3,7 @@
 import { Button, useDialog } from "@/ui-kit";
 import { deleteBook } from "@/actions";
 import { DialogBox } from "../dialog-box";
+import { toast } from "sonner";
 
 interface DeleteBookProps {
   bookId: number;
@@ -12,8 +13,14 @@ export const DeleteBook = ({ bookId }: DeleteBookProps) => {
   const { openDialog, closeDialog } = useDialog();
 
   const handleDeleteBook = async () => {
-    await deleteBook(bookId);
     closeDialog();
+
+    try {
+      await deleteBook(bookId);
+      toast.success("This book has been deleted");
+    } catch (err) {
+      toast.error("An error occurred");
+    }
   };
 
   const openDeleteBookDialog = () => {

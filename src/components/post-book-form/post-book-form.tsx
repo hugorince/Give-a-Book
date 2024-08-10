@@ -1,5 +1,6 @@
 "use client";
 
+import { BOOK_TYPE } from "@/constants";
 import { PostBookFormSchema } from "@/types";
 import { useRouter } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
@@ -11,8 +12,8 @@ import { Button } from "@/ui-kit";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useClientSession } from "@/hooks";
+import { toast } from "sonner";
 import classes from "./post-book-form.module.css";
-import { BOOK_TYPE } from "@/constants";
 
 export const PostBookForm = () => {
   const router = useRouter();
@@ -31,9 +32,14 @@ export const PostBookForm = () => {
 
   const onSubmit = async (values: z.infer<typeof PostBookFormSchema>) => {
     if (connectedUserId) {
-      await postBook(values, connectedUserId);
-      router.refresh();
-      router.push("/books");
+      try {
+        await postBook(values, connectedUserId);
+        router.refresh();
+        router.push("/books");
+        toast.success("Your book has been proposed");
+      } catch (err) {
+        toast.error("An error occurred");
+      }
     }
   };
 

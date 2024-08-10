@@ -1,5 +1,6 @@
 "use server";
 
+import type { BookPageData } from "@/types";
 import { getBookById, getBooksByUserId } from "@/actions/book";
 import { getConnectedUserId } from "@/actions/user";
 
@@ -52,4 +53,18 @@ export const getUserPropositions = async () => {
   } catch (error) {
     console.error("Error fetching user propositions:", error);
   }
+};
+
+export const getIsAlreadyRequestedForExchangeByConnectedUser = async (
+  book: BookPageData,
+) => {
+  const propositions = await getUserPropositions();
+
+  if (!propositions) return false;
+
+  return (
+    propositions.booksAskedForExchange.map(
+      (prop) => prop?.proposedInExchange.id === book.id,
+    ).length > 0
+  );
 };
