@@ -11,13 +11,14 @@ import { DeleteBook } from "../delete-book";
 import { BookCancelProposition } from "../book-cancel-proposition";
 import classes from "./request-book-container.module.css";
 import { FaRegCircleCheck } from "react-icons/fa6";
+import { getIsAlreadyRequestedForExchangeByConnectedUser } from "@/actions";
 
 interface RequestBookProps {
   book: BookPageData;
   connectedUserId: number | undefined;
 }
 
-export const RequestBookContainer = ({
+export const RequestBookContainer = async ({
   book,
   connectedUserId,
 }: RequestBookProps) => {
@@ -35,9 +36,7 @@ export const RequestBookContainer = ({
     isAlreadyProposed && isOwnBook,
   );
   const isAlreadyRequestedForExchangeByConnectedUser =
-    Boolean(
-      isAlreadyProposed && isAlreadyProposed.proposedBookId === book.id,
-    ) || isAlreadyProposed?.receiverBookId === book.id;
+    await getIsAlreadyRequestedForExchangeByConnectedUser(book);
 
   if (!connectedUserId) return <NotConnectedRequestBook />;
 

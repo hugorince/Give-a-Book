@@ -123,32 +123,32 @@ Enum PropositionStatusType {
   REFUSED
 }
 
-Ref: Book.userId > User.id
+Ref: Book.userId > User.id [delete: Cascade]
 
-Ref: Booking.requesterId > User.id
+Ref: Booking.requesterId > User.id [delete: Cascade]
 
-Ref: Booking.ownerId > User.id
+Ref: Booking.ownerId > User.id [delete: Cascade]
 
 Ref: Booking.bookId - Book.id [delete: Cascade]
 
-Ref: Proposition.proposedBookId - Book.id
+Ref: Proposition.proposedBookId - Book.id [delete: Cascade]
 
-Ref: Proposition.receiverBookId - Book.id
+Ref: Proposition.receiverBookId - Book.id [delete: Cascade]
 
-Ref: Chat.requesterId > User.id
+Ref: Chat.requesterId > User.id [delete: Cascade]
 
-Ref: Chat.ownerId > User.id
+Ref: Chat.ownerId > User.id [delete: Cascade]
 
 Ref: Chat.bookingId - Booking.id [delete: Cascade]
 
-Ref: Message.senderId > User.id
+Ref: Message.senderId > User.id [delete: Cascade]
 
 Ref: Message.chatId > Chat.id [delete: Cascade]
 
-Ref: Notification.userId > User.id
+Ref: Notification.userId > User.id [delete: Cascade]
 
 Ref: Notification.bookingId > Booking.id [delete: Cascade]
 
 Ref: Notification.propositionId > Proposition.id [delete: Cascade]
 
-Ref: Notification.messageId > Message.id
+Ref: Notification.messageId > Message.id [delete: Cascade]

@@ -4,6 +4,7 @@ import { Button, useDialog } from "@/ui-kit";
 import { useRouter } from "next/navigation";
 import { deleteProposition } from "@/actions";
 import { DialogBox } from "@/components/dialog-box";
+import { toast } from "sonner";
 
 interface RefusePropositionButtonProps {
   propositionId: number;
@@ -30,9 +31,14 @@ export const RefusePropositionButton = ({
   };
 
   const refuseProposition = async () => {
-    await deleteProposition(propositionId);
     closeDialog();
-    router.refresh();
+    try {
+      await deleteProposition(propositionId);
+      toast.success("The proposition has been canceled");
+      router.refresh();
+    } catch (err) {
+      toast.error("An error occurred");
+    }
   };
 
   return (

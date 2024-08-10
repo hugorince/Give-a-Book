@@ -11,9 +11,10 @@ import {
   UpdateProfileProps,
 } from "../update-profile-input";
 import { updateUser } from "@/actions";
-import { Button } from "@/ui-kit";
-import classes from "./update-profile-field.module.css";
 import { useRouter } from "next/navigation";
+import { Button } from "@/ui-kit";
+import { toast } from "sonner";
+import classes from "./update-profile-field.module.css";
 
 interface UpdateProfileFieldContainerProps {
   handleInputClose: () => void;
@@ -38,18 +39,24 @@ export const UpdateProfileFieldContainer = ({
   });
 
   const onSubmit = async (values: z.infer<typeof updateUserSchemaWithId>) => {
-    const email = session?.user.email;
+    const email = session?.user?.email;
+
     if (email) {
-      await updateUser(values, email);
-      await update({
-        ...session,
-        user: {
-          ...session?.user,
-          [updateInput]: values[updateInput as keyof typeof values],
-        },
-      });
-      handleInputClose();
-      router.refresh();
+      try {
+        handleInputClose();
+        await updateUser(values, email);
+        await update({
+          ...session,
+          user: {
+            ...session?.user,
+            [updateInput]: values[updateInput as keyof typeof values],
+          },
+        });
+        router.refresh();
+        toast.success("Your profile has been successfully updated");
+      } catch (err) {
+        toast.error("An error occurred");
+      }
     }
   };
 

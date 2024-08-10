@@ -6,6 +6,7 @@ import { Button, useDialog } from "@/ui-kit";
 import { useRouter } from "next/navigation";
 import { ProposeExchangeDialog } from "../propose-exchange-dialog";
 import { proposeExchange } from "@/actions";
+import { toast } from "sonner";
 
 interface ProposeExchangeButtonProps {
   book: BookPageData;
@@ -20,9 +21,14 @@ export const ProposeExchangeButton = ({
   const router = useRouter();
 
   const proceed = async (proposedBookId: number) => {
-    await proposeExchange(book, proposedBookId);
     closeDialog();
-    router.refresh();
+    try {
+      await proposeExchange(book, proposedBookId);
+      router.refresh();
+      toast.success("Your proposition has been sent");
+    } catch (err) {
+      toast.error("An error occurred");
+    }
   };
 
   const openProposeExchangeDialog = () => {
