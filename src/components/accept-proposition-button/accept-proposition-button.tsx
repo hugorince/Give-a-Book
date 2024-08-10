@@ -4,6 +4,7 @@ import { Button, useDialog } from "@/ui-kit";
 import { RequestBookDialog } from "../request-book-dialog";
 import { completeProposition } from "@/actions";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface RequestBookProps {
   propositionId: number;
@@ -16,9 +17,15 @@ export const AcceptPropositionButton = ({
   const router = useRouter();
 
   const proceed = async (message: string) => {
-    await completeProposition(propositionId, message);
     closeDialog();
-    router.refresh();
+
+    try {
+      await completeProposition(propositionId, message);
+      router.refresh();
+      toast.success("The proposition has been accepted");
+    } catch (err) {
+      toast.error("An error occurred");
+    }
   };
 
   const openRequestBookDialog = () => {

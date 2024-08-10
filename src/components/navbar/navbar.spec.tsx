@@ -19,7 +19,7 @@ describe("Navbar", () => {
     );
     expect(screen.getByRole("link", { name: "Add book" })).toHaveAttribute(
       "href",
-      "/books/post-book",
+      "/post-book",
     );
   });
 });
