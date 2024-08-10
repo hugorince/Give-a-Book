@@ -8,6 +8,7 @@ import classes from "./signup-form.module.css";
 import { Button, Checkbox, InputText } from "@/ui-kit";
 import { createUser, verifyPostalCode } from "@/actions";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export const SignUpForm = () => {
   const router = useRouter();
@@ -28,13 +29,19 @@ export const SignUpForm = () => {
   const onSubmit = async (values: z.infer<typeof SignUpFormSchema>) => {
     const verifiedPostalCode = await verifyPostalCode(values.postalCode);
     if (verifiedPostalCode) {
-      await createUser(values);
-      router.push("/login");
+      try {
+        await createUser(values);
+        router.push("/login");
+        toast.success("Your account has been successfully created");
+      } catch (err) {
+        toast.error("An error occurred");
+      }
     } else {
       setError("postalCode", {
         type: "custom",
         message: "invalid postal code",
       });
+      toast.error("This postal code is not correct");
     }
   };
 

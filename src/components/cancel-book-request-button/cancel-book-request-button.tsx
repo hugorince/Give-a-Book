@@ -5,6 +5,7 @@ import { Button, useDialog } from "@/ui-kit";
 import { useRouter } from "next/navigation";
 import { BookPageData, BookedBook } from "@/types";
 import { DialogBox } from "../dialog-box";
+import { toast } from "sonner";
 
 interface CancelBookRequestButtonProps {
   book: BookedBook | BookPageData;
@@ -17,9 +18,15 @@ export const CancelRequestBookButton = ({
   const router = useRouter();
 
   const handleCancelRequest = async () => {
-    await cancelRequest(book.id);
     closeDialog();
-    router.refresh();
+
+    try {
+      await cancelRequest(book.id);
+      router.refresh();
+      toast.success("Booking successfully canceled");
+    } catch (err) {
+      toast.error("An error occurred");
+    }
   };
 
   const openCancelRequestDialog = () => {

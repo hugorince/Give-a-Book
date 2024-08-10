@@ -5,6 +5,7 @@ import { Button, useDialog } from "@/ui-kit";
 import { RequestBookDialog } from "../request-book-dialog";
 import { requestBook } from "@/actions";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface RequestBookProps {
   book: BookPageData;
@@ -15,9 +16,14 @@ export const RequestBookButton = ({ book }: RequestBookProps) => {
   const router = useRouter();
 
   const proceed = async (message: string) => {
-    await requestBook(book, message);
     closeDialog();
-    router.refresh();
+    try {
+      await requestBook(book, message);
+      router.refresh();
+      toast.success("Your booking has been registered");
+    } catch (err) {
+      toast.error("An error occurred");
+    }
   };
 
   const openRequestBookDialog = () => {

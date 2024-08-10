@@ -1,6 +1,7 @@
 import { mockedBookPage, mockedProposition, render } from "@/test-utils";
 import { RequestBookContainer } from "./request-book-container";
 import { screen } from "@testing-library/react";
+import { getIsAlreadyRequestedForExchangeByConnectedUser } from "@/actions";
 
 jest.mock("../book-already-requested", () => ({
   BookAlreadyRequested: () => <div>BookAlreadyRequested</div>,
@@ -26,19 +27,27 @@ jest.mock("../book-cancel-proposition", () => ({
   BookCancelProposition: () => <div>BookCancelProposition</div>,
 }));
 
+jest.mock("../../actions", () => ({
+  getIsAlreadyRequestedForExchangeByConnectedUser: jest
+    .fn()
+    .mockReturnValue(false),
+}));
+
 describe("RequestBookContainer", () => {
-  it("should display the right request possibility when logged in and exchange true", () => {
-    render(<RequestBookContainer book={mockedBookPage} connectedUserId={4} />);
+  it("should display the right request possibility when logged in and exchange true", async () => {
+    render(
+      await RequestBookContainer({ book: mockedBookPage, connectedUserId: 4 }),
+    );
 
     expect(screen.getByText("ProposeExchange")).toBeVisible();
   });
 
-  it("should display the right request possibility when logged and own book", () => {
+  it("should display the right request possibility when logged and own book", async () => {
     render(
-      <RequestBookContainer
-        book={{ ...mockedBookPage, userId: 4 }}
-        connectedUserId={4}
-      />,
+      await RequestBookContainer({
+        book: { ...mockedBookPage, userId: 4 },
+        connectedUserId: 4,
+      }),
     );
 
     expect(
@@ -48,48 +57,51 @@ describe("RequestBookContainer", () => {
     ).toBeVisible();
   });
 
-  it("should display the right request possibility when logged in and exchange false", () => {
+  it("should display the right request possibility when logged in and exchange false", async () => {
     render(
-      <RequestBookContainer
-        book={{ ...mockedBookPage, exchange: false, give: true }}
-        connectedUserId={4}
-      />,
+      await RequestBookContainer({
+        book: { ...mockedBookPage, exchange: false, give: true },
+        connectedUserId: 4,
+      }),
     );
 
     expect(screen.getByText("BookNewRequest")).toBeVisible();
   });
 
-  it("should display the right request possibility when logged in and already proposed", () => {
+  it("should display the right request possibility when logged in and already proposed", async () => {
+    (
+      getIsAlreadyRequestedForExchangeByConnectedUser as jest.Mock
+    ).mockReturnValueOnce(true);
     render(
-      <RequestBookContainer
-        book={{ ...mockedBookPage, proposed: mockedProposition }}
-        connectedUserId={4}
-      />,
+      await RequestBookContainer({
+        book: { ...mockedBookPage, proposed: mockedProposition },
+        connectedUserId: 4,
+      }),
     );
 
     expect(screen.getByText("BookCancelProposition")).toBeVisible();
   });
 
-  it("should display the right request possibility when logged in and already proposed to another user", () => {
+  it("should display the right request possibility when logged in and already proposed to another user", async () => {
     render(
-      <RequestBookContainer
-        book={{
+      await RequestBookContainer({
+        book: {
           ...mockedBookPage,
           proposed: { ...mockedProposition, proposedBookId: 3 },
-        }}
-        connectedUserId={4}
-      />,
+        },
+        connectedUserId: 4,
+      }),
     );
 
     expect(screen.getByText("BookAlreadyRequested")).toBeVisible();
   });
 
-  it("should display the right request possibility when not logged in", () => {
+  it("should display the right request possibility when not logged in", async () => {
     render(
-      <RequestBookContainer
-        book={mockedBookPage}
-        connectedUserId={undefined}
-      />,
+      await RequestBookContainer({
+        book: mockedBookPage,
+        connectedUserId: undefined,
+      }),
     );
     expect(screen.getByText("NotConnectedRequestBook")).toBeVisible();
   });
