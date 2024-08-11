@@ -60,6 +60,7 @@ export const SearchTextInput = ({ type }: SearchTextInputProps) => {
         placeholder={`Enter book ${type}`}
         {...register(type)}
         onChange={handleInputChange}
+        required
       />
       {suggestions && (
         <DropdownSearch
