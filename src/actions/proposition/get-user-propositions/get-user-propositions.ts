@@ -60,10 +60,12 @@ export const getIsAlreadyRequestedForExchangeByConnectedUser = async (
 ) => {
   const propositions = await getUserPropositions();
 
+  console.log("entered", propositions?.booksAskedForExchange);
+
   if (!propositions) return false;
 
   return (
-    propositions.booksAskedForExchange.map(
+    propositions.booksAskedForExchange.filter(
       (prop) => prop?.proposedInExchange.id === book.id,
     ).length > 0
   );
