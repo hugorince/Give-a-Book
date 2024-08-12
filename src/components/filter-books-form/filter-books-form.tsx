@@ -2,6 +2,7 @@
 
 import { Button, Checkbox } from "@/ui-kit";
 import { filterBooks } from "@/actions";
+import classes from "./filter-books-form.module.css";
 
 export const FilterBooksForm = ({
   closeDrawer,
@@ -13,8 +14,8 @@ export const FilterBooksForm = ({
   };
 
   return (
-    <form action={formAction}>
-      <div>
+    <form action={formAction} className={classes.formWrapper}>
+      <div className={classes.checkboxes}>
         <Checkbox label="Exchange" value="exchange" name="exchange" />
         <Checkbox label="Give" value="give" name="give" />
         <Checkbox label="Liked" value="liked" name="liked" />

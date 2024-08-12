@@ -53,11 +53,7 @@ export const PostBookForm = () => {
         <SearchTextInput type="title" />
         <SearchTextInput type="author" />
         <DescriptionInput />
-        <Button
-          type="submit"
-          disabled={!form.formState.isValid}
-          loading={form.formState.isSubmitting}
-        >
+        <Button type="submit" loading={form.formState.isSubmitting}>
           submit book
         </Button>
       </form>
