@@ -30,6 +30,7 @@ describe("Chat", () => {
         messages={mockedMessages}
         userChat={{ id: 1, username: "username" }}
         title="title"
+        chatId={1}
       />,
     );
 
