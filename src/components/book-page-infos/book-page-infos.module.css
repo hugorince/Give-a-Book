@@ -20,20 +20,28 @@
     display: flex;
     flex-direction: column;
 
+    a {
+      align-self: flex-end;
+    }
+
     .chipDate {
       display: flex;
       align-items: center;
       gap: var(--spacing-100);
+
+      & :first-child {
+        align-self: center;
+      }
     }
 
-    @media (min-width: 720px) {
+    @media (min-width: 800px) {
       & :first-child {
         align-self: flex-end;
       }
     }
   }
 
-  @media (min-width: 720px) {
+  @media (min-width: 800px) {
     display: grid;
     grid-template-columns: 1fr 2fr;
     align-items: start;

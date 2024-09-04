@@ -60,8 +60,6 @@ export const getIsAlreadyRequestedForExchangeByConnectedUser = async (
 ) => {
   const propositions = await getUserPropositions();
 
-  console.log("entered", propositions?.booksAskedForExchange);
-
   if (!propositions) return false;
 
   return (

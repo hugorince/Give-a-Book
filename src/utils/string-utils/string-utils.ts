@@ -19,7 +19,7 @@ export const postedOn = (date: Date) => {
       month: "long",
     }) +
     " " +
-    date.getDay() +
+    date.getDate() +
     " " +
     date.getFullYear()
   );
