@@ -1,8 +1,5 @@
-"use server";
-
 import type { BookPageData } from "@/types";
-import { getUserInfo } from "@/actions";
-import { calculateDistance, postedOn } from "@/utils";
+import { postedOn } from "@/utils";
 import { Chip, Link } from "@/ui-kit";
 import { LikeButton } from "../like-button";
 import classes from "./book-page-infos.module.css";
@@ -10,34 +7,20 @@ import classes from "./book-page-infos.module.css";
 interface BookPageInfosProps {
   book: BookPageData;
   connectedUserId?: number;
+  distance: number | null;
+  isOwnBook: boolean;
 }
 
-export const BookPageInfos = async ({
+export const BookPageInfos = ({
   book,
   connectedUserId,
+  distance,
+  isOwnBook,
 }: BookPageInfosProps) => {
   const requestTypeLabel = book.exchange ? "Exchange" : "Give";
   const postedOnLabel = postedOn(book.createdAt);
   const isLiked =
     connectedUserId && book.likes.includes(connectedUserId) ? true : false;
-
-  const connectedUserInfos =
-    connectedUserId && (await getUserInfo(connectedUserId));
-  const ownerInfos = await getUserInfo(book.userId);
-  const isOwnBook =
-    connectedUserInfos && connectedUserInfos?.id === ownerInfos?.id;
-
-  const getDistance = async () => {
-    if (!connectedUserId || !connectedUserInfos || !ownerInfos || isOwnBook)
-      return null;
-
-    return calculateDistance(
-      connectedUserInfos.gpsCoordinates,
-      ownerInfos.gpsCoordinates,
-    );
-  };
-
-  const distance = await getDistance();
 
   return (
     <div className={classes.wrapper}>
