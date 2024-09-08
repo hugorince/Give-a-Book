@@ -22,6 +22,9 @@ export const BookCard = ({ book, connectedUserId }: BookCardProps) => {
     book.proposed || book.propositionReceived,
   );
   const isConnectedUserBook = book.userId === connectedUserId;
+  const userProfileHref = isConnectedUserBook
+    ? "/profile"
+    : `/user/${book.userId}`;
 
   return (
     <div className={classes.wrapper}>
@@ -46,7 +49,7 @@ export const BookCard = ({ book, connectedUserId }: BookCardProps) => {
         </div>
         <div className={classes.userLink}>
           <p>offered by </p>
-          <Link href={`/user/${book.userId}`} variant="unstyled">
+          <Link href={userProfileHref} variant="unstyled">
             {book.username}
           </Link>
         </div>
