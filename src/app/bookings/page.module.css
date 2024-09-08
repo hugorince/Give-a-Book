@@ -1,6 +1,6 @@
 .pageWrapper {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: var(--spacing-200);
   max-width: 720px;
   margin: auto;
@@ -9,9 +9,26 @@
     padding-bottom: var(--spacing-050);
   }
 
-  @media (min-width: 1280px) {
-    display: grid;
+  @media (min-width: 1300px) {
     grid-template-columns: 1fr 1fr;
     max-width: 1440px;
+  }
+}
+
+.noBookingsContainer {
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-100);
+  margin: var(--spacing-100);
+  border: 1px solid black;
+  border-radius: var(--border-radius-m);
+  align-items: center;
+  justify-content: center;
+
+  .noBookingsImageBox {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-100);
   }
 }

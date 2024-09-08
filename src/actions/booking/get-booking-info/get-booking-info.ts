@@ -114,6 +114,6 @@ export const getUserBookings = async () => {
 
   return {
     userRequestedBooks: filteredUserRequestedBooks,
-    userBookings: filteredUserBookings,
+    userBookings: filteredUserBookings || [],
   };
 };
