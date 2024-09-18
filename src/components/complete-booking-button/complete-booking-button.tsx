@@ -1,9 +1,10 @@
 "use client";
 
 import { completeBooking } from "@/actions";
-import { Button } from "@/ui-kit";
+import { Button, useDialog } from "@/ui-kit";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { DialogBox } from "../dialog-box";
 
 interface CompleteBookingButtonProps {
   bookingId: number;
@@ -12,9 +13,23 @@ interface CompleteBookingButtonProps {
 export const CompleteBookingButton = ({
   bookingId,
 }: CompleteBookingButtonProps) => {
+  const { openDialog, closeDialog } = useDialog();
   const router = useRouter();
 
+  const openCompleteBookingDialog = () => {
+    openDialog({
+      children: (
+        <DialogBox
+          cta={handleCompleteClick}
+          label="Are you sure you want to complete this booking ?"
+        />
+      ),
+      onClose: () => console.log("fired"),
+    });
+  };
+
   const handleCompleteClick = async () => {
+    closeDialog();
     try {
       await completeBooking(bookingId);
       router.refresh();
@@ -26,5 +41,5 @@ export const CompleteBookingButton = ({
     }
   };
 
-  return <Button onClick={handleCompleteClick}>Complete</Button>;
+  return <Button onClick={openCompleteBookingDialog}>Complete</Button>;
 };
