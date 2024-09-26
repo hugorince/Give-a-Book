@@ -2,9 +2,9 @@ import type { PageProps } from "@/types";
 import { BookPageInfos, RequestBookContainer } from "@/components";
 import { MainLayout } from "@/layout";
 import { getBookById, getConnectedUserId, getUserInfo } from "@/actions";
-import classes from "./book.module.css";
 import { calculateDistance } from "@/utils";
 import { Link } from "@/ui-kit";
+import classes from "./book.module.css";
 
 const BookPage = async ({ params }: PageProps) => {
   const bookId = parseInt(params.id);
