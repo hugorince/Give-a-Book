@@ -1,4 +1,5 @@
-import { act, screen } from "@testing-library/react";
+import type { User } from "@prisma/client";
+import { screen } from "@testing-library/react";
 import { UserInfos } from "./user-infos";
 import { render } from "@/test-utils";
 
@@ -19,10 +20,17 @@ jest.mock("../../actions", () => ({
 }));
 
 describe("UserInfos", () => {
-  it("renders user information correctly", async () => {
-    await act(async () => {
-      render(await UserInfos({ userId: 22 }));
-    });
+  it("renders user information correctly", () => {
+    render(
+      <UserInfos
+        user={
+          {
+            username: "username",
+            createdAt: new Date("2022"),
+          } as User
+        }
+      />,
+    );
 
     expect(screen.getByText("USERNAME")).toBeInTheDocument();
     expect(screen.getByText("member since 2022")).toBeInTheDocument();
