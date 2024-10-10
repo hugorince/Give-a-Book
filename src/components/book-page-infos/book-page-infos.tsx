@@ -17,10 +17,10 @@ export const BookPageInfos = ({
   distance,
   isOwnBook,
 }: BookPageInfosProps) => {
-  const requestTypeLabel = book.exchange ? "Exchange" : "Give";
-  const postedOnLabel = postedOn(book.createdAt);
+  const requestTypeLabel = book?.exchange ? "Exchange" : "Give";
+  const postedOnLabel = postedOn(book?.createdAt);
   const isLiked =
-    connectedUserId && book.likes.includes(connectedUserId) ? true : false;
+    connectedUserId && book?.likes?.includes(connectedUserId) ? true : false;
 
   return (
     <div className={classes.wrapper}>
@@ -45,7 +45,7 @@ export const BookPageInfos = ({
           )}
         </div>
         {!isOwnBook && (
-          <Link href={`/user/${book.userId}`} variant="unstyled">
+          <Link href={`/user/${book?.userId}`} variant="unstyled">
             proposed by {book.username}
           </Link>
         )}
