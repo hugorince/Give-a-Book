@@ -26,7 +26,6 @@ export const RefusePropositionButton = ({
           label="Are you sure you want to cancel this proposition?"
         />
       ),
-      onClose: () => console.log("fired"),
     });
   };
 

@@ -39,7 +39,6 @@ export const ProposeExchangeButton = ({
           connectedUserBooks={connectedUserBooks}
         />
       ),
-      onClose: () => console.log("fired"),
     });
   };
 

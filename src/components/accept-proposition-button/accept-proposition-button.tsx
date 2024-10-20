@@ -31,7 +31,6 @@ export const AcceptPropositionButton = ({
   const openRequestBookDialog = () => {
     openDialog({
       children: <RequestBookDialog proceed={proceed} />,
-      onClose: () => console.log("fired"),
     });
   };
 

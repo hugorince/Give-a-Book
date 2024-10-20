@@ -31,7 +31,6 @@ export const DeleteBook = ({ bookId }: DeleteBookProps) => {
           label="Are you sure you want to permanently delete this book ?"
         />
       ),
-      onClose: () => console.log("fired"),
     });
   };
 

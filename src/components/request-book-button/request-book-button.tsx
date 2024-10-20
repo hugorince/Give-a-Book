@@ -29,7 +29,6 @@ export const RequestBookButton = ({ book }: RequestBookProps) => {
   const openRequestBookDialog = () => {
     openDialog({
       children: <RequestBookDialog proceed={proceed} user={book.username} />,
-      onClose: () => console.log("fired"),
     });
   };
 

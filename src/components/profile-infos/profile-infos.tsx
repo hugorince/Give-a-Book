@@ -37,7 +37,6 @@ export const ProfileInfos = ({ userInfos }: ProfileInfosProps) => {
           label="are you sure you want to permanently delete your account?"
         />
       ),
-      onClose: () => console.log("fired"),
     });
   };
 

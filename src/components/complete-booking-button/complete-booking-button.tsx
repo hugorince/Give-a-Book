@@ -24,7 +24,6 @@ export const CompleteBookingButton = ({
           label="Are you sure you want to complete this booking ?"
         />
       ),
-      onClose: () => console.log("fired"),
     });
   };
 

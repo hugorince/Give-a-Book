@@ -43,7 +43,6 @@ export const LikeButton = ({
             </Link>
           </div>
         ),
-        onClose: () => console.log("Dialog closed"),
       });
     }
   };

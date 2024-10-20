@@ -37,7 +37,6 @@ export const CancelRequestBookButton = ({
           label="Are you sure you want to cancel your request ?"
         />
       ),
-      onClose: () => console.log("fired"),
     });
   };
 
