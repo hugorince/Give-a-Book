@@ -5,6 +5,7 @@ import { RequestBookDialog } from "../request-book-dialog";
 import { completeProposition } from "@/actions";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { TOASTER_GENERIC_ERROR_MESSAGE } from "@/constants";
 
 interface RequestBookProps {
   propositionId: number;
@@ -24,7 +25,7 @@ export const AcceptPropositionButton = ({
       router.refresh();
       toast.success("The proposition has been accepted");
     } catch (err) {
-      toast.error("An error occurred");
+      toast.error(TOASTER_GENERIC_ERROR_MESSAGE);
     }
   };
 

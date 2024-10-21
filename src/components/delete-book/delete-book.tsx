@@ -4,6 +4,7 @@ import { Button, useDialog } from "@/ui-kit";
 import { deleteBook } from "@/actions";
 import { DialogBox } from "../dialog-box";
 import { toast } from "sonner";
+import { TOASTER_GENERIC_ERROR_MESSAGE } from "@/constants";
 
 interface DeleteBookProps {
   bookId: number;
@@ -19,7 +20,7 @@ export const DeleteBook = ({ bookId }: DeleteBookProps) => {
       await deleteBook(bookId);
       toast.success("This book has been deleted");
     } catch (err) {
-      toast.error("An error occurred");
+      toast.error(TOASTER_GENERIC_ERROR_MESSAGE);
     }
   };
 

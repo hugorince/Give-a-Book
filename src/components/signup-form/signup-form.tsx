@@ -9,6 +9,7 @@ import { Button, Checkbox, InputText } from "@/ui-kit";
 import { createUser, verifyPostalCode } from "@/actions";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { TOASTER_GENERIC_ERROR_MESSAGE } from "@/constants";
 
 export const SignUpForm = () => {
   const router = useRouter();
@@ -34,7 +35,7 @@ export const SignUpForm = () => {
         router.push("/login");
         toast.success("Your account has been successfully created");
       } catch (err) {
-        toast.error("An error occurred");
+        toast.error(TOASTER_GENERIC_ERROR_MESSAGE);
       }
     } else {
       setError("postalCode", {

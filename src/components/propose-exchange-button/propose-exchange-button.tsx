@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { ProposeExchangeDialog } from "../propose-exchange-dialog";
 import { proposeExchange } from "@/actions";
 import { toast } from "sonner";
+import { TOASTER_GENERIC_ERROR_MESSAGE } from "@/constants";
 
 interface ProposeExchangeButtonProps {
   book: BookPageData;
@@ -27,7 +28,7 @@ export const ProposeExchangeButton = ({
       router.refresh();
       toast.success("Your proposition has been sent");
     } catch (err) {
-      toast.error("An error occurred");
+      toast.error(TOASTER_GENERIC_ERROR_MESSAGE);
     }
   };
 

@@ -6,6 +6,7 @@ import { RequestBookDialog } from "../request-book-dialog";
 import { requestBook } from "@/actions";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { TOASTER_GENERIC_ERROR_MESSAGE } from "@/constants";
 
 interface RequestBookProps {
   book: BookPageData;
@@ -22,7 +23,7 @@ export const RequestBookButton = ({ book }: RequestBookProps) => {
       router.refresh();
       toast.success("Your booking has been registered");
     } catch (err) {
-      toast.error("An error occurred");
+      toast.error(TOASTER_GENERIC_ERROR_MESSAGE);
     }
   };
 

@@ -31,11 +31,14 @@ export const BookCard = ({ book, connectedUserId }: BookCardProps) => {
       <div className={classes.header}>
         <div className={classes.chipLike}>
           <div className={classes.chips}>
-            <Chip label={exchangeOrGive} exchange={book.exchange} />
-            {isRequested && <Chip label="requested" variant="requested" />}
-            {isCompleted && <Chip label="completed" />}
+            <Chip
+              label={exchangeOrGive}
+              variant={book.exchange ? "info-2" : "info"}
+            />
+            {isRequested && <Chip label="Requested" variant="error" />}
+            {isCompleted && <Chip label="Completed" variant="success" />}
             {isInExchangeProposition && (
-              <Chip label="proposed" variant="requested" />
+              <Chip label="proposed" variant="error" />
             )}
           </div>
           {!isConnectedUserBook && (

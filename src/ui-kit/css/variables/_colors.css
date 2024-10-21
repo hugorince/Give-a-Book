@@ -11,7 +11,9 @@
   --light-grey-bg: rgb(225, 225, 225);
   --color-focus-border: rgb(62, 62, 62);
 
-  --color-chip-exchange: rgb(214, 213, 213);
-  --color-chip-give: rgb(199, 255, 182);
-  --color-chip-requested: rgb(255, 192, 182);
+  --color-chip-pending: rgb(214, 213, 213);
+  --color-chip-success: rgb(199, 255, 182);
+  --color-chip-info: rgb(235, 219, 255);
+  --color-chip-info-2: rgb(201, 225, 255);
+  --color-chip-error: rgb(255, 192, 182);
 }

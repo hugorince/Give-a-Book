@@ -9,15 +9,23 @@
     font-size: small;
   }
 
-  &--exchange {
-    background-color: var(--color-chip-exchange);
+  &--error {
+    background-color: var(--color-chip-error);
   }
 
-  &--give {
-    background-color: var(--color-chip-give);
+  &--error {
+    background-color: var(--color-chip-error);
   }
 
-  &--requested {
-    background-color: var(--color-chip-requested);
+  &--info {
+    background-color: var(--color-chip-info);
+  }
+
+  &--info-2 {
+    background-color: var(--color-chip-info-2);
+  }
+
+  &--success {
+    background-color: var(--color-chip-success);
   }
 }

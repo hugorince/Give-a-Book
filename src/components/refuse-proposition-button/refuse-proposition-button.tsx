@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { deleteProposition } from "@/actions";
 import { DialogBox } from "@/components/dialog-box";
 import { toast } from "sonner";
+import { TOASTER_GENERIC_ERROR_MESSAGE } from "@/constants";
 
 interface RefusePropositionButtonProps {
   propositionId: number;
@@ -36,7 +37,7 @@ export const RefusePropositionButton = ({
       toast.success("The proposition has been canceled");
       router.refresh();
     } catch (err) {
-      toast.error("An error occurred");
+      toast.error(TOASTER_GENERIC_ERROR_MESSAGE);
     }
   };
 
