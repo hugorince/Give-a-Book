@@ -2,35 +2,20 @@ import type { PageProps } from "@/types";
 import { BookPageInfos, RequestBookContainer } from "@/components";
 import { MainLayout } from "@/layout";
 import { getBookById, getConnectedUserId, getUserInfo } from "@/actions";
-import { calculateDistance } from "@/utils";
+import { getDistance } from "@/utils";
 import { Link } from "@/ui-kit";
 import classes from "./book.module.css";
 
 const BookPage = async ({ params }: PageProps) => {
-  const bookId = parseInt(params.id);
+  const bookId = parseInt(params?.id);
   const book = await getBookById(bookId);
-
   const connectedUserId = await getConnectedUserId();
 
-  const connectedUserInfos =
-    connectedUserId && (await getUserInfo(connectedUserId));
-  const ownerInfos = book && (await getUserInfo(book?.userId));
+  const connectedUserInfos = await getUserInfo(connectedUserId);
+  const ownerInfos = await getUserInfo(book?.userId);
 
-  const isOwnBook = Boolean(
-    connectedUserInfos && connectedUserInfos?.id === ownerInfos?.id,
-  );
-
-  const getDistance = async () => {
-    if (!connectedUserId || !connectedUserInfos || !ownerInfos || isOwnBook)
-      return null;
-
-    return await calculateDistance(
-      connectedUserInfos?.gpsCoordinates,
-      ownerInfos?.gpsCoordinates,
-    );
-  };
-
-  const distance = await getDistance();
+  const isOwnBook = Boolean(connectedUserInfos?.id === ownerInfos?.id);
+  const distance = await getDistance(connectedUserInfos, ownerInfos);
 
   return (
     <MainLayout>

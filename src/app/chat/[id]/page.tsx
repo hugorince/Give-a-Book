@@ -9,22 +9,18 @@ const ChatPage = async ({ params }: PageProps) => {
 
   if (!booking?.book || !booking?.chat?.id) return null;
 
-  const book = booking.book;
-  if (!book) return null;
-
-  const messages = booking.messages;
+  const book = booking?.book;
+  const messages = booking?.messages;
 
   return (
     <MainLayout>
       <div className={classes.pageContainer}>
-        {messages && (
-          <Chat
-            messages={messages}
-            title={book.title}
-            userChat={booking.userChat}
-            chatId={booking.chat.id}
-          />
-        )}
+        <Chat
+          messages={messages}
+          title={book.title}
+          userChat={booking.userChat}
+          chatId={booking.chat.id}
+        />
       </div>
     </MainLayout>
   );
