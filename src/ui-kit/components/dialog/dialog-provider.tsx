@@ -6,7 +6,7 @@ import { createPortal } from "react-dom";
 
 type OpenDialogProps = {
   children: ReactNode;
-  onClose: () => void;
+  onClose?: () => void;
 };
 export interface DialogContextType {
   openDialog: (OpenDialogProps: OpenDialogProps) => void;

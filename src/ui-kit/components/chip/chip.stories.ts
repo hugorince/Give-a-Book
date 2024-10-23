@@ -30,7 +30,7 @@ export const Primary: Story = {
 
 export const Secondary: Story = {
   args: {
-    variant: "requested",
+    variant: "error",
     label: "Chip",
   },
 };

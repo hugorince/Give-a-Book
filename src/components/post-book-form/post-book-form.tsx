@@ -1,6 +1,6 @@
 "use client";
 
-import { BOOK_TYPE } from "@/constants";
+import { BOOK_TYPE, TOASTER_GENERIC_ERROR_MESSAGE } from "@/constants";
 import { PostBookFormSchema } from "@/types";
 import { useRouter } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
@@ -38,7 +38,7 @@ export const PostBookForm = () => {
         router.push("/books");
         toast.success("Your book has been proposed");
       } catch (err) {
-        toast.error("An error occurred");
+        toast.error(TOASTER_GENERIC_ERROR_MESSAGE);
       }
     }
   };

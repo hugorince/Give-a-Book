@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { BookPageData, BookedBook } from "@/types";
 import { DialogBox } from "../dialog-box";
 import { toast } from "sonner";
+import { TOASTER_GENERIC_ERROR_MESSAGE } from "@/constants";
 
 interface CancelBookRequestButtonProps {
   book: BookedBook | BookPageData;
@@ -25,7 +26,7 @@ export const CancelRequestBookButton = ({
       router.refresh();
       toast.success("Booking successfully canceled");
     } catch (err) {
-      toast.error("An error occurred");
+      toast.error(TOASTER_GENERIC_ERROR_MESSAGE);
     }
   };
 
@@ -37,7 +38,6 @@ export const CancelRequestBookButton = ({
           label="Are you sure you want to cancel your request ?"
         />
       ),
-      onClose: () => console.log("fired"),
     });
   };
 

@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/ui-kit";
 import { toast } from "sonner";
 import classes from "./update-profile-field.module.css";
+import { TOASTER_GENERIC_ERROR_MESSAGE } from "@/constants";
 
 interface UpdateProfileFieldContainerProps {
   handleInputClose: () => void;
@@ -55,7 +56,7 @@ export const UpdateProfileFieldContainer = ({
         router.refresh();
         toast.success("Your profile has been successfully updated");
       } catch (err) {
-        toast.error("An error occurred");
+        toast.error(TOASTER_GENERIC_ERROR_MESSAGE);
       }
     }
   };

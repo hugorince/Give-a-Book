@@ -5,7 +5,7 @@ import classes from "./page.module.css";
 
 const Profile = async () => {
   const userId = await getConnectedUserId();
-  const userInfos = userId && (await getUserInfo(userId));
+  const userInfos = await getUserInfo(userId);
 
   return (
     <MainLayout>

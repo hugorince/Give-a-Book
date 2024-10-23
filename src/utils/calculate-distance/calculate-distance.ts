@@ -1,3 +1,5 @@
+import { User } from "@prisma/client";
+
 export const calculateDistance = async (
   coordinatesA: number[],
   coordinatesB: number[],
@@ -34,4 +36,16 @@ const getDistanceFromLatLonInKm = (x: number[], y: number[]) => {
 
 const deg2rad = (deg: number) => {
   return deg * (Math.PI / 180);
+};
+
+export const getDistance = (
+  connectedUserInfos: User | null,
+  ownerInfos: User | null,
+) => {
+  if (!connectedUserInfos || !ownerInfos) return null;
+
+  return calculateDistance(
+    connectedUserInfos?.gpsCoordinates,
+    ownerInfos?.gpsCoordinates,
+  );
 };

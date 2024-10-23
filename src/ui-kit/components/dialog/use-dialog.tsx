@@ -2,38 +2,38 @@
 
 import {
   type ReactNode,
+  type SyntheticEvent,
   useState,
   useMemo,
   useCallback,
   useContext,
-  SyntheticEvent,
 } from "react";
 import { DialogContext } from ".";
 
 export interface openDialogProps {
   children: ReactNode;
-  onClose: (e: SyntheticEvent<HTMLDialogElement>) => void;
+  onClose?: (e: SyntheticEvent<HTMLDialogElement>) => void;
 }
 
 export const useDialogHook = () => {
   const [dialog, setDialog] = useState<{
     children: ReactNode;
     open: boolean;
-    onClose: (event: SyntheticEvent<HTMLDialogElement>) => void;
+    onClose: ((event: SyntheticEvent<HTMLDialogElement>) => void) | undefined;
   }>({
     children: "",
     open: false,
-    onClose: () => null,
+    onClose: undefined,
   });
 
   const openDialog = useCallback(
     ({ children, onClose }: openDialogProps) => {
       const handleOnClose = (event: SyntheticEvent<HTMLDialogElement>) => {
-        onClose(event);
+        onClose?.(event);
         setDialog({
           children: "",
           open: false,
-          onClose: () => null,
+          onClose: undefined,
         });
       };
       setDialog({ children: children, open: true, onClose: handleOnClose });
@@ -45,7 +45,7 @@ export const useDialogHook = () => {
     setDialog({
       children: "",
       open: false,
-      onClose: () => null,
+      onClose: undefined,
     });
   }, [setDialog]);
 

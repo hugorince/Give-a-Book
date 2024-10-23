@@ -5,6 +5,7 @@ import { Button, useDialog } from "@/ui-kit";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { DialogBox } from "../dialog-box";
+import { TOASTER_GENERIC_ERROR_MESSAGE } from "@/constants";
 
 interface CompleteBookingButtonProps {
   bookingId: number;
@@ -24,7 +25,6 @@ export const CompleteBookingButton = ({
           label="Are you sure you want to complete this booking ?"
         />
       ),
-      onClose: () => console.log("fired"),
     });
   };
 
@@ -37,7 +37,7 @@ export const CompleteBookingButton = ({
         "The booking has been completed and removed from selection",
       );
     } catch (err) {
-      toast.error("An error occurred");
+      toast.error(TOASTER_GENERIC_ERROR_MESSAGE);
     }
   };
 

@@ -19,3 +19,11 @@ export const PROPOSITION_STATUS_TYPE = {
   ACCEPTED: "ACCEPTED",
   REFUSED: "REFUSED",
 } as const;
+
+export const TOASTER_GENERIC_ERROR_MESSAGE = "An error occurred";
+
+export enum ChipType {
+  REQUESTED = "requested",
+  COMPLETED = "completed",
+  PROPOSED = "proposed",
+}

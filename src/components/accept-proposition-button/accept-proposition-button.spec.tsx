@@ -47,7 +47,6 @@ describe("AcceptPropositionButton", () => {
 
     expect(openDialogMock).toHaveBeenCalledWith({
       children: expect.anything(),
-      onClose: expect.any(Function),
     });
   });
 });

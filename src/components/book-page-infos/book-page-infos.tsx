@@ -33,8 +33,11 @@ export const BookPageInfos = ({
             <p>{Math.floor(distance)} km from you</p>
           )}
           <p>{postedOnLabel}</p>
-          {book.requested && <Chip label="requested" variant="requested" />}
-          <Chip label={requestTypeLabel} exchange={book.exchange} />
+          {book.requested && <Chip label="Requested" variant="error" />}
+          <Chip
+            label={requestTypeLabel}
+            variant={book.exchange ? "info-2" : "info"}
+          />
           {!isOwnBook && (
             <LikeButton
               isLiked={isLiked}

@@ -8,7 +8,7 @@ import classes from "./chat.module.css";
 import { capitalize } from "@/utils";
 
 interface ChatProps {
-  messages: MessageType[];
+  messages?: MessageType[];
   title: string;
   userChat: {
     username: string | null | undefined;
@@ -18,7 +18,7 @@ interface ChatProps {
 }
 
 export const Chat = ({ messages, title, userChat, chatId }: ChatProps) => {
-  const reverseMessages = messages.reverse();
+  const reverseMessages = messages?.reverse();
 
   return (
     <div className={classes.chatContainer}>
@@ -31,9 +31,10 @@ export const Chat = ({ messages, title, userChat, chatId }: ChatProps) => {
         <p className={classes.bookTitle}>{title}</p>
       </div>
       <div className={classes.messagesContainer}>
-        {reverseMessages.map((message, key) => (
-          <Message key={key} message={message} />
-        ))}
+        {reverseMessages &&
+          reverseMessages.map((message, key) => (
+            <Message key={key} message={message} />
+          ))}
       </div>
       <WriteMessage chatId={chatId} />
     </div>
